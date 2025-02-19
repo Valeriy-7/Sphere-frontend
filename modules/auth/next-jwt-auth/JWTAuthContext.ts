@@ -1,15 +1,15 @@
-"use client";
-import { createContext } from "react";
-import { JWTAuthController } from "./JWTAuthController";
-import { AxiosInstance } from "axios";
-import {AuthUserDataDtoType} from "@/kubb-gen";
+'use client';
+import { createContext } from 'react';
+import { JWTAuthController } from './JWTAuthController';
+import { AxiosInstance } from 'axios';
+import { AuthUserDataDtoType } from '@/kubb-gen';
 
 type APIEndpoint = {
   url: string;
-  method: "get" | "post";
+  method: 'get' | 'post';
 };
 
-type AppEndpoint = Pick<APIEndpoint, "url">;
+type AppEndpoint = Pick<APIEndpoint, 'url'>;
 
 type ResponsePropertyDescriptor = {
   property: string;

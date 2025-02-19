@@ -1,12 +1,8 @@
-"use client";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import {
-  AuthUser,
-  JWTAuthConfig,
-  createJWTAuthContext,
-} from "./JWTAuthContext";
-import { JWTAuthController } from "./JWTAuthController";
+'use client';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { AuthUser, JWTAuthConfig, createJWTAuthContext } from './JWTAuthContext';
+import { JWTAuthController } from './JWTAuthController';
 
 type JWTAuthProviderType = {
   children: React.ReactNode;
@@ -16,9 +12,7 @@ type JWTAuthProviderType = {
 export function createJWTAuthProvider<UserProps extends AuthUser = AuthUser>() {
   const JWTAuthContext = createJWTAuthContext<UserProps>();
 
-  const JWTAuthProvider: React.FC<JWTAuthProviderType> = (
-    props: JWTAuthProviderType,
-  ) => {
+  const JWTAuthProvider: React.FC<JWTAuthProviderType> = (props: JWTAuthProviderType) => {
     const router = useRouter();
     const controller = new JWTAuthController(props.config);
 
@@ -26,7 +20,7 @@ export function createJWTAuthProvider<UserProps extends AuthUser = AuthUser>() {
     const [user, setUser] = useState<UserProps | null>(null);
 
     useEffect(() => {
-      console.log('useEffect',user);
+      console.log('useEffect', user);
     }, [user]);
 
     const apiClient = () => controller.getHttpClient();
@@ -41,15 +35,12 @@ export function createJWTAuthProvider<UserProps extends AuthUser = AuthUser>() {
       setLoggedIn(false);
       navigateToLoginPage();
 
-      console.log("Next JWT auth error: ", error);
+      console.log('Next JWT auth error: ', error);
     };
 
-    const loginWithCredentials = async (
-      data: Record<string, any>,
-    ): Promise<UserProps> => {
+    const loginWithCredentials = async (data: Record<string, any>): Promise<UserProps> => {
       try {
-        const user =
-          await controller.loginWithUsernamePassword<UserProps>(data);
+        const user = await controller.loginWithUsernamePassword<UserProps>(data);
         controller.setAuthStateLoading(false);
 
         setUser(user);
@@ -61,9 +52,7 @@ export function createJWTAuthProvider<UserProps extends AuthUser = AuthUser>() {
       }
     };
 
-    const loginWithResponse = async (
-      data: Record<string, any>,
-    ): Promise<boolean> => {
+    const loginWithResponse = async (data: Record<string, any>): Promise<boolean> => {
       try {
         const user = controller.onLoginRequestComplete<UserProps>(data);
         controller.setAuthStateLoading(false);

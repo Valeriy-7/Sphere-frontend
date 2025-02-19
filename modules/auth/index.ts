@@ -1,26 +1,26 @@
-import { AuthUser } from "./next-jwt-auth";
+import { AuthUser } from './next-jwt-auth';
 
-import { JWTAuthConfig, createJWTAuthProvider } from "./next-jwt-auth";
-import { useContext } from "react";
-import { AuthUserDataDtoType } from "@/kubb-gen";
+import { JWTAuthConfig, createJWTAuthProvider } from './next-jwt-auth';
+import { useContext } from 'react';
+import { AuthUserDataDtoType } from '@/kubb-gen';
 
 export interface LoggedInUser extends AuthUser, AuthUserDataDtoType {}
 
 export const authConfig: JWTAuthConfig = {
-  apiBaseUrl: "",
+  apiBaseUrl: '',
   user: {
     /**
      * This is the property name in the response
      * where your user object is located
      */
-    property: "user",
+    property: 'user',
   },
   accessToken: {
     /**
      * This is the property name in the response
      * where your access token string is located
      */
-    property: "token",
+    property: 'token',
     /**
      * Access token Expiry time is optional.
      * If no expiry time found, then access token
@@ -55,8 +55,8 @@ export const authConfig: JWTAuthConfig = {
    * Here are the API endpoints that your custom Auth service exposes
    */
   endpoints: {
-    login: { url: "/auth/verify-code", method: "post" },
-    logout: { url: "/auth/signout", method: "post" },
+    login: { url: '/auth/verify-code', method: 'post' },
+    logout: { url: '/auth/signout', method: 'post' },
     /**
      * (Optional)
      * You can skip 'refresh' property if your backend has no token refreshing mechanism
@@ -66,7 +66,7 @@ export const authConfig: JWTAuthConfig = {
      * (Optional)
      * You can skip 'refresh' property if your backend has no user profile fetch API
      */
-    user: { url: "/users/me", method: "get" },
+    user: { url: '/users/me', method: 'get' },
   },
   /**
    * This is the NextJS route for your login page.
@@ -76,7 +76,7 @@ export const authConfig: JWTAuthConfig = {
    * i.e refresh token is also expired and user needs to login again
    */
   pages: {
-    login: { url: "/login" },
+    login: { url: '/login' },
   },
 
   /**
@@ -109,8 +109,7 @@ export const authConfig: JWTAuthConfig = {
  * Otherwise the library cannot infer the User type
  * (will explain later below)
  */
-export const { JWTAuthContext, JWTAuthProvider } =
-  createJWTAuthProvider<LoggedInUser>();
+export const { JWTAuthContext, JWTAuthProvider } = createJWTAuthProvider<LoggedInUser>();
 
 /**
  * (Optional)
@@ -122,7 +121,7 @@ export const useJWTAuthContext = () => {
   const context = useContext(JWTAuthContext);
 
   if (!context) {
-    throw new Error("JWTAuthContext not found, please check the provider");
+    throw new Error('JWTAuthContext not found, please check the provider');
   }
 
   return context;

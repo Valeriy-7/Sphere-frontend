@@ -1,13 +1,13 @@
-import { NextRequest } from "next/server";
-import { cookiePaths } from "./JWTAuthController";
-import { LoggedInUser } from "@/modules/auth";
+import { NextRequest } from 'next/server';
+import { cookiePaths } from './JWTAuthController';
+import { LoggedInUser } from '@/modules/auth';
 
 export const getPropByKeyPath = <T>(
   object: Record<string, any>,
   keys: string[] | string,
   defaultVal: T | null = null,
 ): T | null => {
-  keys = Array.isArray(keys) ? keys : keys.split(".");
+  keys = Array.isArray(keys) ? keys : keys.split('.');
   object = object[keys[0]];
   if (object && keys.length > 1) {
     return getPropByKeyPath(object, keys.slice(1), defaultVal);

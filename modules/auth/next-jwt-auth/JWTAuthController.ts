@@ -1,19 +1,15 @@
-import axios, {
-  AxiosInstance,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-import { axiosInstance } from "../axios-client";
+import { axiosInstance } from '../axios-client';
 
-import Cookies from "js-cookie";
-import { getPropByKeyPath } from "./Helper";
-import { AuthUser, JWTAuthConfig } from "./JWTAuthContext";
+import Cookies from 'js-cookie';
+import { getPropByKeyPath } from './Helper';
+import { AuthUser, JWTAuthConfig } from './JWTAuthContext';
 
 export const cookiePaths = {
-  AUTH_USER: "auth.user",
-  ACCESS_TOKEN: "auth.access_token",
-  REFRESH_TOKEN: "auth.refresh_token",
+  AUTH_USER: 'auth.user',
+  ACCESS_TOKEN: 'auth.access_token',
+  REFRESH_TOKEN: 'auth.refresh_token',
 } as const;
 
 export type LoginResponse<T extends AuthUser> = {
@@ -36,9 +32,8 @@ export class JWTAuthController {
       },
     });*/
 
-    this.httpClient.interceptors.request.use(
-      this.onRequestProcess.bind(this),
-      (error) => Promise.reject(error),
+    this.httpClient.interceptors.request.use(this.onRequestProcess.bind(this), (error) =>
+      Promise.reject(error),
     );
     this.httpClient.interceptors.response.use(
       (response) => response,
@@ -84,7 +79,7 @@ export class JWTAuthController {
     if (error.response.status === unauthorizedStatusCode) {
       try {
         if (this.config.refreshToken === undefined) {
-          throw new Error("Refresh token mechanism is missing");
+          throw new Error('Refresh token mechanism is missing');
         }
 
         const { accessToken } = await this.refreshAccessToken();
@@ -100,15 +95,13 @@ export class JWTAuthController {
     return Promise.reject(error);
   }
 
-  async loginWithUsernamePassword<T extends AuthUser>(
-    data: Record<string, any>,
-  ): Promise<T> {
+  async loginWithUsernamePassword<T extends AuthUser>(data: Record<string, any>): Promise<T> {
     this.setAuthStateLoading(true);
 
     const url = this.config.endpoints.login.url;
     let response: AxiosResponse<Record<string, any>, any> | null = null;
 
-    if (this.config.endpoints.login.method === "post") {
+    if (this.config.endpoints.login.method === 'post') {
       response = await this.httpClient.post<Record<string, any>>(url, data);
     } else {
       response = await this.httpClient.get<Record<string, any>>(url, {
@@ -117,7 +110,7 @@ export class JWTAuthController {
     }
 
     if (!response) {
-      throw new Error("Request failed with no response");
+      throw new Error('Request failed with no response');
     }
 
     if (response.status !== 201) {
@@ -127,13 +120,11 @@ export class JWTAuthController {
     return this.onLoginRequestComplete<T>(response.data);
   }
 
-  onLoginRequestComplete = <T extends AuthUser>(
-    response: Record<string, any>,
-  ): T => {
+  onLoginRequestComplete = <T extends AuthUser>(response: Record<string, any>): T => {
     const user = getPropByKeyPath<T>(response, this.config.user.property);
 
     if (!user) {
-      throw new Error("Unexpected response from API, please recheck");
+      throw new Error('Unexpected response from API, please recheck');
     }
 
     Cookies.set(cookiePaths.AUTH_USER, JSON.stringify(user));
@@ -144,47 +135,32 @@ export class JWTAuthController {
   };
 
   onTokenPairUpdated(response: Record<string, any>) {
-    const accessToken = getPropByKeyPath<string>(
-      response,
-      this.config.accessToken.property,
-    );
-    const accessTokenExpiresAt: string | null = this.config.accessToken
-      .expireTimeProperty
+    const accessToken = getPropByKeyPath<string>(response, this.config.accessToken.property);
+    const accessTokenExpiresAt: string | null = this.config.accessToken.expireTimeProperty
       ? getPropByKeyPath(response, this.config.accessToken.expireTimeProperty)
       : null;
 
-    const isRefreshTokenConfigAvailable =
-      this.config.refreshToken !== undefined;
+    const isRefreshTokenConfigAvailable = this.config.refreshToken !== undefined;
     let refreshToken: string | null = null;
     let refreshTokenExpiresAt: string | null = null;
     if (this.config.refreshToken !== undefined) {
-      refreshToken = getPropByKeyPath<string>(
-        response,
-        this.config.refreshToken.property,
-      );
+      refreshToken = getPropByKeyPath<string>(response, this.config.refreshToken.property);
       refreshTokenExpiresAt = this.config.refreshToken.expireTimeProperty
-        ? getPropByKeyPath(
-            response,
-            this.config.refreshToken.expireTimeProperty,
-          )
+        ? getPropByKeyPath(response, this.config.refreshToken.expireTimeProperty)
         : null;
     }
 
     if (!accessToken || (isRefreshTokenConfigAvailable && !refreshToken)) {
-      throw new Error("Token not found in response");
+      throw new Error('Token not found in response');
     }
 
     Cookies.set(cookiePaths.ACCESS_TOKEN, accessToken, {
-      expires: accessTokenExpiresAt
-        ? new Date(accessTokenExpiresAt)
-        : undefined,
+      expires: accessTokenExpiresAt ? new Date(accessTokenExpiresAt) : undefined,
     });
 
     if (refreshToken) {
       Cookies.set(cookiePaths.REFRESH_TOKEN, refreshToken, {
-        expires: refreshTokenExpiresAt
-          ? new Date(refreshTokenExpiresAt)
-          : undefined,
+        expires: refreshTokenExpiresAt ? new Date(refreshTokenExpiresAt) : undefined,
       });
     }
 
@@ -198,7 +174,7 @@ export class JWTAuthController {
       const url = this.config.apiBaseUrl + this.config.endpoints.logout.url;
       let response: AxiosResponse<Record<string, any>, any> | null = null;
 
-      if (this.config.endpoints.login.method === "post") {
+      if (this.config.endpoints.login.method === 'post') {
         response = await this.httpClient.post<Record<string, any>>(url, data);
       } else {
         response = await this.httpClient.get<Record<string, any>>(url, {
@@ -207,7 +183,7 @@ export class JWTAuthController {
       }
 
       if (!response) {
-        throw new Error("Request failed with no response");
+        throw new Error('Request failed with no response');
       }
 
       if (response.status !== 200) {
@@ -228,24 +204,19 @@ export class JWTAuthController {
 
   async fetchUserProfile<T extends AuthUser>() {
     if (!this.config.endpoints.user) {
-      throw new Error(
-        "Trying to fetch user profile without API endpoint config",
-      );
+      throw new Error('Trying to fetch user profile without API endpoint config');
     }
 
     this.setAuthStateLoading(true);
 
     const url = this.config.endpoints.user.url;
-    let response: AxiosResponse<
-      Record<string, any>,
-      any
-    > = await this.httpClient({
+    let response: AxiosResponse<Record<string, any>, any> = await this.httpClient({
       url,
       method: this.config.endpoints.user.method,
     });
 
     if (response.status !== 200) {
-      throw new Error("User profile fetch API failed");
+      throw new Error('User profile fetch API failed');
     }
 
     return response.data;
@@ -253,20 +224,20 @@ export class JWTAuthController {
 
   async refreshAccessToken() {
     if (this.config.endpoints.refresh === undefined) {
-      throw new Error("Refresh token not found");
+      throw new Error('Refresh token not found');
     }
 
     this.setAuthStateLoading(true);
 
     const refreshToken = this.getRefreshToken();
     if (!refreshToken) {
-      throw new Error("Refresh token not found");
+      throw new Error('Refresh token not found');
     }
 
     const url = this.config.endpoints.refresh.url;
     let response: AxiosResponse<Record<string, any>, any> | null = null;
 
-    if (this.config.endpoints.refresh.method === "post") {
+    if (this.config.endpoints.refresh.method === 'post') {
       response = await this.httpClient.post<Record<string, any>>(url, {
         refreshToken,
       });
@@ -277,7 +248,7 @@ export class JWTAuthController {
     }
 
     if (!response) {
-      throw new Error("Request failed with no response");
+      throw new Error('Request failed with no response');
     }
 
     if (response.status !== 200) {
