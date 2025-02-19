@@ -44,7 +44,7 @@ const TableFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <tfoot
     ref={ref}
-    className={cn('bg-muted/50 border-t font-medium [&>tr]:last:border-b-0', className)}
+    className={cn('border-t bg-muted/50 font-medium [&>tr]:last:border-b-0', className)}
     {...props}
   />
 ));
@@ -63,7 +63,7 @@ const TableRow = React.forwardRef<
       data-level={level}
       data-total={isTotal}
       ref={ref}
-      className={cn('data-[state=selected]:bg-muted group', className)}
+      className={cn('group data-[state=selected]:bg-muted', className)}
       {...props}
     />
     {rowSpace ? (

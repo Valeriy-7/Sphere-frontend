@@ -63,7 +63,7 @@ export function TeamSwitcher() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-11 items-center justify-center rounded-lg group-data-[collapsible=icon]:size-8">
+              <div className="flex aspect-square size-11 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground group-data-[collapsible=icon]:size-8">
                 <Avatar>
                   <AvatarImage src={cabinetActive.avatarUrl} />
                   <AvatarFallback>{cabinetActive.type}</AvatarFallback>
@@ -81,7 +81,7 @@ export function TeamSwitcher() {
             side={isMobile ? 'bottom' : 'right'}
             sideOffset={4}
           >
-            <DropdownMenuLabel className="text-muted-foreground text-xs">
+            <DropdownMenuLabel className="text-xs text-muted-foreground">
               Личные кабинеты
             </DropdownMenuLabel>
             {cabinets.map(({ id, type, companyName, avatarUrl }) => (
@@ -108,7 +108,7 @@ export function TeamSwitcher() {
               <div className="flex size-6 items-center justify-center">
                 <DoorOpen className="size-4" />
               </div>
-              <div className="text-muted-foreground font-medium">Выйти</div>
+              <div className="font-medium text-muted-foreground">Выйти</div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

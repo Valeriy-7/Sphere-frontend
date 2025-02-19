@@ -16,7 +16,7 @@ export function TableCardImg({
       )}
     >
       <img className={'rounded-sm object-cover'} src={src} alt="" />
-      <div className={'text-min break-all font-medium'}>{children}</div>
+      <div className={'break-all text-min font-medium'}>{children}</div>
     </Card>
   );
 }
