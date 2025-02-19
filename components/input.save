@@ -1,0 +1,84 @@
+import * as React from "react";
+
+import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
+
+import {maskitoNumberOptionsGenerator} from '@maskito/kit';
+import {useMaskito} from '@maskito/react';
+import {RUB} from "@/lib/constants/rub";
+const options =  maskitoNumberOptionsGenerator({
+  decimalZeroPadding: true,
+  precision: 0,
+  decimalSeparator: '.',
+  min: 0,
+  postfix: ` ${RUB}`
+});
+
+export const inputVariants = cva(
+  [
+    "text-center inline-flex w-full rounded-md border  shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-sm",
+    "aria-invalid:border-red-500",
+  ],
+  {
+    variants: {
+      variant: {
+        default: "",
+      },
+      size: {
+        default: "h-9 px-3 py-1 text-base text-left",
+        xs: "h-5 px-1.5 text-xs rounded-sm max-w-[110px]",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+export enum MaskType  {
+    currency = 'currency',
+    count = 'count',
+}
+
+export type InputProps = React.ComponentProps<"input"> &
+  VariantProps<typeof inputVariants> & {mask?:keyof typeof MaskType};
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, variant, size, type,mask, ...props }, ref) => {
+    const maskedInputRef = useMaskito({options});
+    const localRef = mask === MaskType.currency ?  maskedInputRef : ref
+    return (
+      <input
+        type={type}
+        className={cn(inputVariants({ variant, size, className }))}
+        ref={localRef}
+        {...props}
+      />
+    );
+  },
+);
+Input.displayName = "Input";
+
+export { Input };
+
+
+import type {RefCallback} from 'react';
+import type {UseFormRegisterReturn} from 'react-hook-form';
+
+export const withMaskitoRegister = (
+    registerResult: UseFormRegisterReturn,
+    maskitoRef: RefCallback<HTMLElement | null>,
+): UseFormRegisterReturn & {onInput: UseFormRegisterReturn['onChange']} => {
+    const ref: RefCallback<HTMLElement | null> = (node): void => {
+        registerResult.ref(node);
+        maskitoRef(node);
+    };
+
+    return {
+        ...registerResult,
+        ref,
+        onInput: registerResult.onChange,
+        onChange: undefined,
+    };
+};
