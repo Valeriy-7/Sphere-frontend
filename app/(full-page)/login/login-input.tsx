@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { LoginButtonChevron } from "@/app/(full-page)/login/login-button-chevron";
+import { LoginButtonChevron } from '@/app/(full-page)/login/login-button-chevron';
 
 interface InputWithIconButtonProps {
   placeholder?: string;
@@ -12,24 +12,24 @@ interface InputWithIconButtonProps {
 }
 
 export function LoginInput({
-  placeholder = "",
+  placeholder = '',
   onButtonClick,
-  className = "",
+  className = '',
   isloading,
   ...props
-}: InputWithIconButtonProps & React.ComponentProps<"input">) {
+}: InputWithIconButtonProps & React.ComponentProps<'input'>) {
   return (
     <div className={`relative ${className}`}>
       <input
         {...props}
-        className="pr-16 bg-login autofill:shadow-[inset_0_0_0px_1000px_theme(colors.login)] text-primary-foreground flex h-[70px] w-full rounded-md px-3 py-1 text-base placeholder:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        className="flex h-[70px] w-full rounded-md bg-login px-3 py-1 pr-16 text-base text-primary-foreground placeholder:text-primary-foreground autofill:shadow-[inset_0_0_0px_1000px_theme(colors.login)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         type="text"
         placeholder={placeholder}
       />
       <LoginButtonChevron
         disabled={isloading}
         onClick={onButtonClick}
-        className={"absolute right-0 top-0 "}
+        className={'absolute right-0 top-0'}
       />
     </div>
   );

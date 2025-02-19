@@ -1,65 +1,43 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { SettingsAvatar } from "@/app/(main)/settings/settings-avatar";
-import { TypographyH2 } from "@/components/app-typography";
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { SettingsAvatar } from '@/app/(main)/settings/settings-avatar';
+import { TypographyH2 } from '@/components/app-typography';
 import {
   cabinetsUpdateMutationRequestSchema,
   useCabinetsGetActiveSuspense,
   useCabinetsUpdate,
   CabinetType,
   cabinetsGetActiveSuspenseQueryKey,
-} from "@/kubb-gen";
-import { useJWTAuthContext } from "@/modules/auth";
+} from '@/kubb-gen';
+import { useJWTAuthContext } from '@/modules/auth';
 
 const updateCabinetDtoSchema = z.object({
-  inn: z.string().describe("ИНН организации").optional(),
-  ogrn: z.string().describe("ОГРН организации").optional(),
-  legalCompanyName: z
-    .string()
-    .describe("Юридическое название организации")
-    .optional(),
-  legalAddress: z.string().describe("Юридический адрес").optional(),
-  companyName: z
-    .string()
-    .describe("Название организации для отображения")
-    .optional(),
-  companyPhone: z.string().describe("Телефон организации").optional(),
-  companyEmail: z.string().describe("Email организации").optional(),
-  telegramUrl: z.string().describe("Ссылка на Telegram").optional(),
-  whatsappUrl: z.string().describe("Ссылка на WhatsApp").optional(),
-  actualAddress: z.string().describe("Фактический адрес").optional(),
-  managerFullName: z.string().describe("ФИО управляющего").optional(),
-  bankName: z.string().describe("Название банка").optional(),
-  bik: z.string().describe("БИК банка").optional(),
-  checkingAccount: z.string().describe("Расчетный счет").optional(),
-  correspondentAccount: z
-    .string()
-    .describe("Корреспондентский счет")
-    .optional(),
-  registrationUrl: z
-    .string()
-    .describe("Ссылка для регистрации контрагентов")
-    .optional(),
-  avatarUrl: z.string().describe("URL аватарки").optional(),
-  type: z
-    .enum(["wildberries", "fulfillment"])
-    .describe("Тип организации")
-    .nullable()
-    .nullish(),
+  inn: z.string().describe('ИНН организации').optional(),
+  ogrn: z.string().describe('ОГРН организации').optional(),
+  legalCompanyName: z.string().describe('Юридическое название организации').optional(),
+  legalAddress: z.string().describe('Юридический адрес').optional(),
+  companyName: z.string().describe('Название организации для отображения').optional(),
+  companyPhone: z.string().describe('Телефон организации').optional(),
+  companyEmail: z.string().describe('Email организации').optional(),
+  telegramUrl: z.string().describe('Ссылка на Telegram').optional(),
+  whatsappUrl: z.string().describe('Ссылка на WhatsApp').optional(),
+  actualAddress: z.string().describe('Фактический адрес').optional(),
+  managerFullName: z.string().describe('ФИО управляющего').optional(),
+  bankName: z.string().describe('Название банка').optional(),
+  bik: z.string().describe('БИК банка').optional(),
+  checkingAccount: z.string().describe('Расчетный счет').optional(),
+  correspondentAccount: z.string().describe('Корреспондентский счет').optional(),
+  registrationUrl: z.string().describe('Ссылка для регистрации контрагентов').optional(),
+  avatarUrl: z.string().describe('URL аватарки').optional(),
+  type: z.enum(['wildberries', 'fulfillment']).describe('Тип организации').nullable().nullish(),
 });
 
 /*z.setErrorMap((issue, ctx) => {
@@ -68,7 +46,7 @@ const updateCabinetDtoSchema = z.object({
   }
   return { message: ctx.defaultError };
 });*/
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from '@tanstack/react-query';
 export default function SettingsPage() {
   const { user } = useJWTAuthContext();
 
@@ -91,7 +69,7 @@ export default function SettingsPage() {
       { data, id: cabinetActiveId },
       {
         onSuccess: () => {
-          toast.success("Успешно обновлено");
+          toast.success('Успешно обновлено');
           queryClient.invalidateQueries({
             queryKey: [...cabinetsGetActiveSuspenseQueryKey()],
           });
@@ -107,18 +85,15 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className={"max-w-screen-lg"}>
-      <TypographyH2 as={"h1"}>Данные организации</TypographyH2>
+    <div className={'max-w-screen-lg'}>
+      <TypographyH2 as={'h1'}>Данные организации</TypographyH2>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className={"lg:flex gap-10"}>
-            <SettingsAvatar
-              cabinetActiveId={cabinetActiveId}
-              src={restData.avatarUrl}
-            />
+          <div className={'gap-10 lg:flex'}>
+            <SettingsAvatar cabinetActiveId={cabinetActiveId} src={restData.avatarUrl} />
             {/*<SettingsAvatarUpload/>*/}
-            <div className="space-y-4 flex-1">
+            <div className="flex-1 space-y-4">
               <FormField
                 control={form.control}
                 name="companyName"
@@ -131,14 +106,12 @@ export default function SettingsPage() {
                   </FormItem>
                 )}
               />
-              <div
-                className={"sm:grid grid-cols-4 gap-4 space-y-4 sm:space-y-0"}
-              >
+              <div className={'grid-cols-4 gap-4 space-y-4 sm:grid sm:space-y-0'}>
                 <FormField
                   control={form.control}
                   name="companyPhone"
                   render={({ field }) => (
-                    <FormItem className={"col-span-2"}>
+                    <FormItem className={'col-span-2'}>
                       <FormControl>
                         <Input label="Номер телефона организации" {...field} />
                       </FormControl>
@@ -150,7 +123,7 @@ export default function SettingsPage() {
                   control={form.control}
                   name="managerFullName"
                   render={({ field }) => (
-                    <FormItem className={"col-span-2"}>
+                    <FormItem className={'col-span-2'}>
                       <FormControl>
                         <Input label="Имя управляющего" {...field} />
                       </FormControl>
@@ -162,7 +135,7 @@ export default function SettingsPage() {
                   control={form.control}
                   name="telegramUrl"
                   render={({ field }) => (
-                    <FormItem className={"col-span-1"}>
+                    <FormItem className={'col-span-1'}>
                       <FormControl>
                         <Input label="@ Ник в Telegram" {...field} />
                       </FormControl>
@@ -174,7 +147,7 @@ export default function SettingsPage() {
                   control={form.control}
                   name="whatsappUrl"
                   render={({ field }) => (
-                    <FormItem className={"col-span-1"}>
+                    <FormItem className={'col-span-1'}>
                       <FormControl>
                         <Input label="@ Ник в WhatsApp" {...field} />
                       </FormControl>
@@ -186,7 +159,7 @@ export default function SettingsPage() {
                   control={form.control}
                   name="companyEmail"
                   render={({ field }) => (
-                    <FormItem className={"col-span-2"}>
+                    <FormItem className={'col-span-2'}>
                       <FormControl>
                         <Input label="E - mail" {...field} />
                       </FormControl>
@@ -210,8 +183,8 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className={"sm:grid grid-cols-2 gap-10 space-y-4 sm:space-y-0"}>
-            <div className={"space-y-4"}>
+          <div className={'grid-cols-2 gap-10 space-y-4 sm:grid sm:space-y-0'}>
+            <div className={'space-y-4'}>
               <TypographyH2>Юридические данные</TypographyH2>
               <FormField
                 control={form.control}
@@ -231,7 +204,7 @@ export default function SettingsPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input disabled={type==='fulfillment'} label="ИНН" {...field} />
+                      <Input disabled={type === 'fulfillment'} label="ИНН" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -262,7 +235,7 @@ export default function SettingsPage() {
                 )}
               />
             </div>
-            <div className={"space-y-4"}>
+            <div className={'space-y-4'}>
               <TypographyH2>Финансовые данные</TypographyH2>
               <FormField
                 control={form.control}
@@ -314,8 +287,8 @@ export default function SettingsPage() {
               />
             </div>
           </div>
-          {type === "wildberries" && (
-            <div className={"space-y-4 pt-4"}>
+          {type === 'wildberries' && (
+            <div className={'space-y-4 pt-4'}>
               <FormField
                 control={form.control}
                 name="apiKey"
@@ -331,18 +304,14 @@ export default function SettingsPage() {
             </div>
           )}
 
-          <div className={"space-y-4"}>
+          <div className={'space-y-4'}>
             <FormField
               control={form.control}
               name="registrationUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      disabled
-                      label="Ссылка для регистрации контрагентов"
-                      {...field}
-                    />
+                    <Input disabled label="Ссылка для регистрации контрагентов" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

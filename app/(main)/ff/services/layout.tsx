@@ -1,13 +1,11 @@
-"use client";
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
-import { AppTabs, AppTabsWrap } from "@/components/app-tabs";
-import { PortalContext } from "./portal-context";
+'use client';
+import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { AppTabs, AppTabsWrap } from '@/components/app-tabs';
+import { PortalContext } from './portal-context';
 
 export default function ServicesLayout({ children }: PropsWithChildren) {
   const portalTargetRef = useRef<HTMLDivElement>(null);
-  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(
-    null,
-  );
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
   useEffect(() => {
     setPortalContainer(portalTargetRef.current);
   }, []);
@@ -17,9 +15,9 @@ export default function ServicesLayout({ children }: PropsWithChildren) {
       <AppTabsWrap>
         <AppTabs
           list={[
-            { label: "Услуги", href: "/ff/services" },
-            { label: "Логистика", href: "/ff/services/logistics" },
-            { label: "Расходники", href: "/ff/services/supplies" },
+            { label: 'Услуги', href: '/ff/services' },
+            { label: 'Логистика', href: '/ff/services/logistics' },
+            { label: 'Расходники', href: '/ff/services/supplies' },
           ]}
         />
         <div ref={portalTargetRef}></div>

@@ -1,5 +1,5 @@
-import { Table, TableCaption } from "@/components/ui/table";
-import { TypographyH2, TypographyH3 } from "@/components/app-typography";
+import { Table, TableCaption } from '@/components/ui/table';
+import { TypographyH2, TypographyH3 } from '@/components/app-typography';
 
 export default function DevUiTypographyPage() {
   return (

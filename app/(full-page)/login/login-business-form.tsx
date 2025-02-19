@@ -1,34 +1,28 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 
-import { LoginInput } from "@/app/(full-page)/login/login-input";
+import { LoginInput } from '@/app/(full-page)/login/login-input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { userTypeEnum, useAuthCompleteRegistration } from "@/kubb-gen";
-import { AppSpinner } from "@/components/app-spinner";
-import { useJWTAuthContext } from "@/modules/auth";
-import { useState } from "react";
+} from '@/components/ui/select';
+import { userTypeEnum, useAuthCompleteRegistration } from '@/kubb-gen';
+import { AppSpinner } from '@/components/app-spinner';
+import { useJWTAuthContext } from '@/modules/auth';
+import { useState } from 'react';
 
-const FormSchema = z.discriminatedUnion("type", [
+const FormSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal(userTypeEnum.wildberries),
-    apiKey: z.string().min(32, "Должен содержать мимум 32 символа"),
+    apiKey: z.string().min(32, 'Должен содержать мимум 32 символа'),
   }),
   z.object({
     type: z.enum([
@@ -36,23 +30,17 @@ const FormSchema = z.discriminatedUnion("type", [
       /*    Business.Wholesaler,
       Business.Transport,*/
     ]),
-    inn: z
-      .string({ message: "Обязательно для заполнения" })
-      .regex(/^\d{10}$|^\d{12}$/),
+    inn: z.string({ message: 'Обязательно для заполнения' }).regex(/^\d{10}$|^\d{12}$/),
   }),
 ]);
 
-export function LoginBusinessForm({
-  classNameTitle,
-}: {
-  classNameTitle: string;
-}) {
+export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       type: undefined,
       inn: undefined,
-      apiKey: "",
+      apiKey: '',
     },
   });
   const { user } = useJWTAuthContext();
@@ -60,10 +48,10 @@ export function LoginBusinessForm({
   const { mutate, isPending } = useAuthCompleteRegistration();
 
   const [isMutateSuccess, setIsMutateSuccess] = useState(false);
-  const isShowApiKeyField = form.watch("type") === userTypeEnum.wildberries;
-  const isBusinessNotEmpty = form.watch("type") !== undefined;
+  const isShowApiKeyField = form.watch('type') === userTypeEnum.wildberries;
+  const isBusinessNotEmpty = form.watch('type') !== undefined;
 
-  const isHideForm = user?.regStatus === "complete" || isMutateSuccess;
+  const isHideForm = user?.regStatus === 'complete' || isMutateSuccess;
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     mutate(
@@ -71,9 +59,9 @@ export function LoginBusinessForm({
       {
         onError: (e) => {
           if (isShowApiKeyField) {
-            form.setError("apiKey", { message: e?.response?.data.message });
+            form.setError('apiKey', { message: e?.response?.data.message });
           } else {
-            form.setError("inn", { message: e?.response?.data.message });
+            form.setError('inn', { message: e?.response?.data.message });
           }
         },
         onSuccess: () => {
@@ -86,37 +74,27 @@ export function LoginBusinessForm({
   return (
     <Form {...form}>
       {!isHideForm ? (
-        <form
-          className={"w-full mt-6 space-y-5"}
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
+        <form className={'mt-6 w-full space-y-5'} onSubmit={form.handleSubmit(onSubmit)}>
           <div className={classNameTitle}>Вид деятельности</div>
           <FormField
             control={form.control}
             name="type"
             render={({ field }) => (
               <FormItem>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger
                       isIconLogin
                       className={
-                        "bg-login text-primary-foreground flex h-[70px] w-full rounded-md px-3 py-1 text-base placeholder:text-primary-foreground border-transparent"
+                        'flex h-[70px] w-full rounded-md border-transparent bg-login px-3 py-1 text-base text-primary-foreground placeholder:text-primary-foreground'
                       }
                     >
                       <SelectValue placeholder="Вид деятельности" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className={"bg-login text-primary-foreground"}>
-                    <SelectItem value={userTypeEnum.wildberries}>
-                      Продавец WB
-                    </SelectItem>
-                    <SelectItem value={userTypeEnum.fulfillment}>
-                      Фулфилмент
-                    </SelectItem>
+                  <SelectContent className={'bg-login text-primary-foreground'}>
+                    <SelectItem value={userTypeEnum.wildberries}>Продавец WB</SelectItem>
+                    <SelectItem value={userTypeEnum.fulfillment}>Фулфилмент</SelectItem>
                     {/*     <SelectItem value={Business.Wholesaler}>
                     Оптовый продавец
                   </SelectItem>
@@ -125,7 +103,7 @@ export function LoginBusinessForm({
                   </SelectItem>*/}
                   </SelectContent>
                 </Select>
-                <FormMessage className={"text-black"} />
+                <FormMessage className={'text-black'} />
               </FormItem>
             )}
           />
@@ -134,7 +112,7 @@ export function LoginBusinessForm({
             <>
               {isShowApiKeyField ? (
                 <FormField
-                  key={"apiKey"}
+                  key={'apiKey'}
                   control={form.control}
                   name="apiKey"
                   render={({ field }) => (
@@ -147,13 +125,13 @@ export function LoginBusinessForm({
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage className={"text-black"} />
+                      <FormMessage className={'text-black'} />
                     </FormItem>
                   )}
                 />
               ) : (
                 <FormField
-                  key={"inn"}
+                  key={'inn'}
                   control={form.control}
                   name="inn"
                   render={({ field }) => (
@@ -168,7 +146,7 @@ export function LoginBusinessForm({
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage className={"text-black"} />
+                      <FormMessage className={'text-black'} />
                     </FormItem>
                   )}
                 />
@@ -176,18 +154,18 @@ export function LoginBusinessForm({
             </>
           ) : null}
 
-          <AppSpinner show={isPending} className={"text-white"} />
-          <p className={"text-xs"}>
-            Нажимая далее, вы принимаете условия <br />{" "}
-            <a href={"#"} className={"text-[#7727EE]"}>
+          <AppSpinner show={isPending} className={'text-white'} />
+          <p className={'text-xs'}>
+            Нажимая далее, вы принимаете условия <br />{' '}
+            <a href={'#'} className={'text-[#7727EE]'}>
               Пользовательского соглашения
-            </a>{" "}
+            </a>{' '}
           </p>
         </form>
       ) : (
         <>
           <div className={classNameTitle}>Данные отправлены</div>
-          <p className={"text-white"}>Ожидайте верификации кабинета</p>
+          <p className={'text-white'}>Ожидайте верификации кабинета</p>
         </>
       )}
     </Form>

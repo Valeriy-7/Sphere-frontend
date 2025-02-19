@@ -1,6 +1,6 @@
-"use client";
-import Image from "next/image";
-import * as React from "react";
+'use client';
+import Image from 'next/image';
+import * as React from 'react';
 import {
   AudioWaveform,
   Bot,
@@ -10,11 +10,11 @@ import {
   PieChart,
   SquareTerminal,
   Users,
-} from "lucide-react";
+} from 'lucide-react';
 
-import { NavProjects } from "@/components/nav-projects";
-import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
+import { NavProjects } from '@/components/nav-projects';
+import { NavUser } from '@/components/nav-user';
+import { TeamSwitcher } from '@/components/team-switcher';
 import {
   Sidebar,
   SidebarContent,
@@ -22,7 +22,7 @@ import {
   SidebarHeader,
   SidebarRail,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar';
 import {
   IconCalendar,
   IconCooperation,
@@ -38,71 +38,67 @@ import {
   IconDeliveryLeft,
   IconDeliveryRight,
   LogoText,
-} from "@/components/app-icons";
-import { Separator } from "@/components/ui/separator";
-import { ModeToggle } from "@/components/ModeToggle";
-import { NavMain } from "@/components/nav-main";
-import { LKType, LKTypeValue } from "@/lib/types";
+} from '@/components/app-icons';
+import { Separator } from '@/components/ui/separator';
+import { ModeToggle } from '@/components/ModeToggle';
+import { NavMain } from '@/components/nav-main';
+import { LKType, LKTypeValue } from '@/lib/types';
 
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: 'shadcn',
+    email: 'm@example.com',
+    avatar: '/avatars/shadcn.jpg',
   },
   navMain: [
     {
-      title: "ui",
-      url: "#",
+      title: 'ui',
+      url: '#',
       icon: SquareTerminal,
       items: [
         {
-          title: "controls",
-          url: "/ui/controls",
+          title: 'controls',
+          url: '/ui/controls',
         },
         {
-          title: "currency-input",
-          url: "/ui/currency-input",
+          title: 'currency-input',
+          url: '/ui/currency-input',
         },
         {
-          title: "tanstack-pagination",
-          url: "/ui/tanstack/pagination",
+          title: 'tanstack-pagination',
+          url: '/ui/tanstack/pagination',
         },
         {
-          title: "tanstack-filter",
-          url: "/ui/tanstack/filter",
+          title: 'tanstack-filter',
+          url: '/ui/tanstack/filter',
         },
         {
-          title: "tasks",
-          url: "/ui/tasks",
+          title: 'tasks',
+          url: '/ui/tasks',
         },
         {
-          title: "Типографика",
-          url: "/typography",
+          title: 'Типографика',
+          url: '/typography',
         },
         {
-          title: "/login",
-          url: "/login",
+          title: '/login',
+          url: '/login',
         },
         {
-          url: "/all-tables",
-          title: "/all-tables",
+          url: '/all-tables',
+          title: '/all-tables',
         },
         {
-          url: "/payments",
-          title: "/payments",
+          url: '/payments',
+          title: '/payments',
         },
       ],
     },
   ],
 };
 
-import {
-  usePathname,
-  useParams,
-  useSelectedLayoutSegments,
-} from "next/navigation";
+import { usePathname, useParams, useSelectedLayoutSegments } from 'next/navigation';
 
 function getNavMain(type: LKTypeValue) {
   const [lk] = useSelectedLayoutSegments();
@@ -111,68 +107,68 @@ function getNavMain(type: LKTypeValue) {
     admin: [
       {
         name: type,
-        url: "/admin",
+        url: '/admin',
         icon: IconHome,
       },
       {
-        name: "Юзеры",
-        url: "/admin/list",
+        name: 'Юзеры',
+        url: '/admin/list',
         icon: Users,
       },
     ],
     wb: [
       {
         name: type,
-        url: "/wb",
+        url: '/wb',
         icon: IconHome,
       },
       {
-        name: "Склад",
-        url: "/wb/storage",
+        name: 'Склад',
+        url: '/wb/storage',
         icon: IconStorage,
       },
       {
-        name: "Поставки",
-        url: "/wb/delivery",
+        name: 'Поставки',
+        url: '/wb/delivery',
         icon: IconDeliveryRight,
       },
     ],
     ff: [
       {
         name: type,
-        url: "/ff",
+        url: '/ff',
         icon: IconHome,
       },
       {
-        name: "Склад",
-        url: "/ff/storage",
+        name: 'Склад',
+        url: '/ff/storage',
         icon: IconStorage,
       },
       {
-        name: "Поставки",
-        url: "/ff/delivery",
+        name: 'Поставки',
+        url: '/ff/delivery',
         icon: IconDeliveryRight,
       },
       {
-        name: "Подготовка",
-        url: "/ff/prepare",
+        name: 'Подготовка',
+        url: '/ff/prepare',
         icon: IconPreparation,
       },
       {
-        name: "Услуги",
-        url: "/ff/services",
+        name: 'Услуги',
+        url: '/ff/services',
         icon: IconServices,
       },
     ],
     common: [
       {
-        name: "Настройки",
-        url: "/settings",
+        name: 'Настройки',
+        url: '/settings',
         icon: IconSettings,
       },
       {
-        name: "Главная",
-        url: "/",
+        name: 'Главная',
+        url: '/',
         icon: IconHome,
       },
     ],
@@ -184,18 +180,18 @@ function getNavMain(type: LKTypeValue) {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className={"h-[48px]"}>
+      <SidebarHeader className={'h-[48px]'}>
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={getNavMain("admin")} />
-        <NavProjects projects={getNavMain("ff")} />
-        <NavProjects projects={getNavMain("wb")} />
+        <NavProjects projects={getNavMain('admin')} />
+        <NavProjects projects={getNavMain('ff')} />
+        <NavProjects projects={getNavMain('wb')} />
 
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <div className={"flex flex-wrap gap-3 items-center  mb-6"}>
+        <div className={'mb-6 flex flex-wrap items-center gap-3'}>
           {/* <SidebarTrigger />*/}
           <ModeToggle />
         </div>

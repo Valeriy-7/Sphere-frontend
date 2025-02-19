@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef } from '@tanstack/react-table';
 
 import {
   adminGetListSuspenseQueryKey,
@@ -6,62 +6,62 @@ import {
   type ListItemDtoType,
   useAdminBlockUser,
   useAdminVerifyCabinet,
-} from "@/kubb-gen";
-import { Button } from "@/components/ui/button";
-import { formatDate } from "@/lib/utils/formatDate";
-import { Ban, Check } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+} from '@/kubb-gen';
+import { Button } from '@/components/ui/button';
+import { formatDate } from '@/lib/utils/formatDate';
+import { Ban, Check } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
 
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from '@tanstack/react-query';
 
 export const columns: ColumnDef<ListItemDtoType>[] = [
   {
-    accessorKey: "number1",
-    header: "№1",
+    accessorKey: 'number1',
+    header: '№1',
     enableSorting: false,
     meta: {
-      filterVariant: "text",
-      className: "w-[50px]",
+      filterVariant: 'text',
+      className: 'w-[50px]',
     },
   },
   {
     enableSorting: false,
-    accessorKey: "fullName",
-    header: "ФИО",
+    accessorKey: 'fullName',
+    header: 'ФИО',
   },
   {
     enableSorting: false,
-    accessorKey: "phone",
-    header: "Номер телефона",
+    accessorKey: 'phone',
+    header: 'Номер телефона',
   },
   {
     enableSorting: false,
-    accessorKey: "number2",
-    header: "№2",
+    accessorKey: 'number2',
+    header: '№2',
     meta: {
-      filterVariant: "text",
-      className: "w-[50px]",
+      filterVariant: 'text',
+      className: 'w-[50px]',
     },
   },
   {
     enableSorting: false,
-    accessorKey: "type",
-    header: "Тип компании",
+    accessorKey: 'type',
+    header: 'Тип компании',
   },
   {
     enableSorting: false,
-    accessorKey: "inn",
-    header: "ИНН",
+    accessorKey: 'inn',
+    header: 'ИНН',
   },
   {
     enableSorting: false,
-    accessorKey: "companyName",
-    header: "Название организации",
+    accessorKey: 'companyName',
+    header: 'Название организации',
   },
   {
     enableSorting: false,
-    accessorKey: "createAt",
-    header: "Дата",
+    accessorKey: 'createAt',
+    header: 'Дата',
     cell: ({ getValue }) => {
       const value = getValue<Date>();
       return formatDate(value);
@@ -69,13 +69,13 @@ export const columns: ColumnDef<ListItemDtoType>[] = [
   },
   {
     enableSorting: false,
-    accessorKey: "status",
-    header: "Статус",
+    accessorKey: 'status',
+    header: 'Статус',
   },
   {
     enableSorting: false,
-    accessorKey: "verify",
-    header: "Одобрено",
+    accessorKey: 'verify',
+    header: 'Одобрено',
     cell: ({
       row: {
         original: { id, status },
@@ -95,7 +95,7 @@ export const columns: ColumnDef<ListItemDtoType>[] = [
       return (
         <>
           <Switch
-            checked={status === "VERIFIED"}
+            checked={status === 'VERIFIED'}
             onCheckedChange={(val) => {
               mutate({ id, data: { isVerified: val } });
             }}
@@ -106,8 +106,8 @@ export const columns: ColumnDef<ListItemDtoType>[] = [
   },
   {
     enableSorting: false,
-    accessorKey: "block",
-    header: "Блок",
+    accessorKey: 'block',
+    header: 'Блок',
     cell: ({
       row: {
         original: { userId, status },
@@ -126,20 +126,20 @@ export const columns: ColumnDef<ListItemDtoType>[] = [
       return (
         <>
           <Switch
-            checked={status === "BLOCKED"}
+            checked={status === 'BLOCKED'}
             onCheckedChange={(val) => {
               if (val)
                 return mutate({
                   id: userId,
-                  data: { isBlocked: val, reason: "Без причины" },
+                  data: { isBlocked: val, reason: 'Без причины' },
                 });
               else
                 mutate({
                   id: userId,
                   data: {
                     isBlocked: val,
-                    unblockReason: "Без причины",
-                    reason: "",
+                    unblockReason: 'Без причины',
+                    reason: '',
                   },
                 });
             }}

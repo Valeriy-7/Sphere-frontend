@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 export default function AdminListPage() {
-  return redirect("/admin/list/all");
+  return redirect('/admin/list/all');
 }

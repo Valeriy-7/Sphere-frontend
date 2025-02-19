@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /*import type { Metadata, Viewport } from "next";
 
@@ -12,17 +12,17 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };*/
 
-import { Inter } from "next/font/google";
-import "./globals.css";
-import dynamic from "next/dynamic";
-const AppLayout = dynamic(() => import("@/components/app-layout"), {
+import { Inter } from 'next/font/google';
+import './globals.css';
+import dynamic from 'next/dynamic';
+const AppLayout = dynamic(() => import('@/components/app-layout'), {
   ssr: false,
 });
 
 const inter = Inter({
-  subsets: ["cyrillic"],
-  display: "swap",
-  variable: "--font-inter",
+  subsets: ['cyrillic'],
+  display: 'swap',
+  variable: '--font-inter',
 });
 
 export default function RootLayout({

@@ -1,5 +1,5 @@
-"use client";
-import React, { useContext, useState } from "react";
+'use client';
+import React, { useContext, useState } from 'react';
 
 import {
   ColumnDef,
@@ -7,7 +7,7 @@ import {
   getCoreRowModel,
   flexRender,
   RowData,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
 import {
   Table,
@@ -16,15 +16,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { formatCurrency } from "@/lib/formatCurrency";
-import { CurrencyInput } from "@/components/currency-input";
-import { createPortal } from "react-dom";
-import { Button } from "@/components/ui/button";
-import { PortalContext } from "./portal-context";
-import {fa} from "@faker-js/faker";
+} from '@/components/ui/table';
+import { formatCurrency } from '@/lib/formatCurrency';
+import { CurrencyInput } from '@/components/currency-input';
+import { createPortal } from 'react-dom';
+import { Button } from '@/components/ui/button';
+import { PortalContext } from './portal-context';
+import { fa } from '@faker-js/faker';
 
-declare module "@tanstack/react-table" {
+declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     isEdit?: boolean;
     setIsEdit?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -78,19 +78,19 @@ export function ServicesTable<TData, TValue>({
       }, [initialValue]);
 
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
-        if (typeof value === "number") {
+        if (typeof value === 'number') {
           return formatCurrency(value);
         }
         return value;
       }
 
-      if (typeof value === "number") {
+      if (typeof value === 'number') {
         return (
           <CurrencyInput
-            size={"xs"}
-            style={{ fieldSizing: "content" }}
+            size={'xs'}
+            style={{ fieldSizing: 'content' }}
             className={
-              "text-center block w-full rounded-md bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ml-auto mr-auto"
+              'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
             }
             value={value}
             onChange={(val) => {
@@ -104,9 +104,9 @@ export function ServicesTable<TData, TValue>({
 
       return (
         <textarea
-          style={{ fieldSizing: "content" }}
+          style={{ fieldSizing: 'content' }}
           className={
-            "text-center block w-full rounded-md bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            'block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
           }
           value={value as string}
           onChange={(e) => {
@@ -129,11 +129,11 @@ export function ServicesTable<TData, TValue>({
     setIsEdit(true);
     setData((old) => [
       {
-        name: "",
+        name: '',
         number: old.length,
         id: old.length,
         price: 0,
-        description: "",
+        description: '',
         _isNew: true,
       },
       ...old,
@@ -187,19 +187,15 @@ export function ServicesTable<TData, TValue>({
       },
     },
     debugTable: true,
-    state:{
+    state: {
       columnVisibility: {
         imageUrl: false,
       },
-    }
+    },
   });
   return (
     <>
-      {portalContainer &&
-        createPortal(
-          <Button onClick={addRow}>Добавить</Button>,
-          portalContainer,
-        )}
+      {portalContainer && createPortal(<Button onClick={addRow}>Добавить</Button>, portalContainer)}
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -212,12 +208,7 @@ export function ServicesTable<TData, TValue>({
                     className={header.column.columnDef.meta?.className}
                   >
                     {header.isPlaceholder ? null : (
-                      <>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                      </>
+                      <>{flexRender(header.column.columnDef.header, header.getContext())}</>
                     )}
                   </TableHead>
                 );
@@ -232,10 +223,7 @@ export function ServicesTable<TData, TValue>({
                 {row.getVisibleCells().map((cell) => {
                   return (
                     <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   );
                 })}

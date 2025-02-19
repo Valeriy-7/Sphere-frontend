@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Table as TTable,
@@ -14,13 +14,13 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
-import { DataTablePagination } from "@/components/date-table/data-table-pagination";
-import { TableFilter } from "@/app/(main)/ui/tanstack/filter/table-filter";
+import { DataTablePagination } from '@/components/date-table/data-table-pagination';
+import { TableFilter } from '@/app/(main)/ui/tanstack/filter/table-filter';
 
-import { type FormatCurrency } from "@/lib/formatCurrency";
-import { TableHeaderSort } from "@/components/date-table/table-header-sort";
+import { type FormatCurrency } from '@/lib/formatCurrency';
+import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import {
   TableHeader,
   Table,
@@ -29,18 +29,15 @@ import {
   TableBody,
   TableCell,
   TableRowExpand,
-} from "@/components/ui/table";
-import { useState } from "react";
+} from '@/components/ui/table';
+import { useState } from 'react';
 
 interface TableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function AdminListTable<TData, TValue>({
-  columns,
-  data,
-}: TableProps<TData, TValue>) {
+export function AdminListTable<TData, TValue>({ columns, data }: TableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
     data,
@@ -70,9 +67,7 @@ export function AdminListTable<TData, TValue>({
                   colSpan={header.colSpan}
                   className={header.column.columnDef.meta?.className}
                 >
-                  {header.isPlaceholder ? null : (
-                    <TableHeaderSort header={header} />
-                  )}
+                  {header.isPlaceholder ? null : <TableHeaderSort header={header} />}
                 </TableHead>
               );
             })}

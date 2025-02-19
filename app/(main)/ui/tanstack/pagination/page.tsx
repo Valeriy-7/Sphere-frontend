@@ -1,11 +1,11 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 import {
   keepPreviousData,
   QueryClient,
   QueryClientProvider,
   useQuery,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
 import {
   PaginationState,
@@ -13,11 +13,11 @@ import {
   getCoreRowModel,
   ColumnDef,
   flexRender,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
 //
 
-import { fetchData, Person } from "./fetchDate";
+import { fetchData, Person } from './fetchDate';
 
 const queryClient = new QueryClient();
 
@@ -27,17 +27,17 @@ export default function TanstackPage() {
   const columns = React.useMemo<ColumnDef<Person>[]>(
     () => [
       {
-        header: "Name",
+        header: 'Name',
         footer: (props) => props.column.id,
         columns: [
           {
-            accessorKey: "firstName",
+            accessorKey: 'firstName',
             cell: (info) => info.getValue(),
             footer: (props) => props.column.id,
           },
           {
             accessorFn: (row) => row.lastName,
-            id: "lastName",
+            id: 'lastName',
             cell: (info) => info.getValue(),
             header: () => <span>Last Name</span>,
             footer: (props) => props.column.id,
@@ -45,30 +45,30 @@ export default function TanstackPage() {
         ],
       },
       {
-        header: "Info",
+        header: 'Info',
         footer: (props) => props.column.id,
         columns: [
           {
-            accessorKey: "age",
-            header: () => "Age",
+            accessorKey: 'age',
+            header: () => 'Age',
             footer: (props) => props.column.id,
           },
           {
-            header: "More Info",
+            header: 'More Info',
             columns: [
               {
-                accessorKey: "visits",
+                accessorKey: 'visits',
                 header: () => <span>Visits</span>,
                 footer: (props) => props.column.id,
               },
               {
-                accessorKey: "status",
-                header: "Status",
+                accessorKey: 'status',
+                header: 'Status',
                 footer: (props) => props.column.id,
               },
               {
-                accessorKey: "progress",
-                header: "Profile Progress",
+                accessorKey: 'progress',
+                header: 'Profile Progress',
                 footer: (props) => props.column.id,
               },
             ],
@@ -85,7 +85,7 @@ export default function TanstackPage() {
   });
 
   const dataQuery = useQuery({
-    queryKey: ["data", pagination],
+    queryKey: ['data', pagination],
     queryFn: () => fetchData(pagination),
     placeholderData: keepPreviousData, // don't have 0 rows flash while changing pages/loading next page
   });
@@ -117,12 +117,7 @@ export default function TanstackPage() {
                 return (
                   <th key={header.id} colSpan={header.colSpan}>
                     {header.isPlaceholder ? null : (
-                      <div>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                      </div>
+                      <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
                     )}
                   </th>
                 );
@@ -137,10 +132,7 @@ export default function TanstackPage() {
                 {row.getVisibleCells().map((cell) => {
                   return (
                     <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   );
                 })}
@@ -152,38 +144,37 @@ export default function TanstackPage() {
       <div className="h-2" />
       <div className="flex items-center gap-2">
         <button
-          className="border rounded p-1"
+          className="rounded border p-1"
           onClick={() => table.firstPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          {"<<"}
+          {'<<'}
         </button>
         <button
-          className="border rounded p-1"
+          className="rounded border p-1"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          {"<"}
+          {'<'}
         </button>
         <button
-          className="border rounded p-1"
+          className="rounded border p-1"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          {">"}
+          {'>'}
         </button>
         <button
-          className="border rounded p-1"
+          className="rounded border p-1"
           onClick={() => table.lastPage()}
           disabled={!table.getCanNextPage()}
         >
-          {">>"}
+          {'>>'}
         </button>
         <span className="flex items-center gap-1">
           <div>Page</div>
           <strong>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount().toLocaleString()}
+            {table.getState().pagination.pageIndex + 1} of {table.getPageCount().toLocaleString()}
           </strong>
         </span>
         <span className="flex items-center gap-1">
@@ -197,7 +188,7 @@ export default function TanstackPage() {
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
               table.setPageIndex(page);
             }}
-            className="border p-1 rounded w-16"
+            className="w-16 rounded border p-1"
           />
         </span>
         <select
@@ -212,10 +203,10 @@ export default function TanstackPage() {
             </option>
           ))}
         </select>
-        {dataQuery.isFetching ? "Loading..." : null}
+        {dataQuery.isFetching ? 'Loading...' : null}
       </div>
       <div>
-        Showing {table.getRowModel().rows.length.toLocaleString()} of{" "}
+        Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
         {dataQuery.data?.rowCount.toLocaleString()} Rows
       </div>
       <div>

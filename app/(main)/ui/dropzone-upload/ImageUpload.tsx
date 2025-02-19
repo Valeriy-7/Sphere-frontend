@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import type React from "react";
-import { useState, useRef } from "react";
-import {
-  DndContext,
-  useSensor,
-  useSensors,
-  PointerSensor,
-  DragOverlay,
-} from "@dnd-kit/core";
-import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { X, Upload, CheckCircle, AlertCircle } from "lucide-react";
+import type React from 'react';
+import { useState, useRef } from 'react';
+import { DndContext, useSensor, useSensors, PointerSensor, DragOverlay } from '@dnd-kit/core';
+import { restrictToWindowEdges } from '@dnd-kit/modifiers';
+import { X, Upload, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface ImageUploadProps {
   maxSize?: number; // in bytes
@@ -21,13 +15,13 @@ interface ImageUploadProps {
 interface UploadStatus {
   file: File;
   progress: number;
-  status: "uploading" | "success" | "error";
+  status: 'uploading' | 'success' | 'error';
   url?: string;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
   maxSize = 5 * 1024 * 1024, // 5MB default
-  allowedTypes = ["image/jpeg", "image/png", "image/gif"],
+  allowedTypes = ['image/jpeg', 'image/png', 'image/gif'],
   onUploadComplete,
 }) => {
   const [images, setImages] = useState<UploadStatus[]>([]);
@@ -60,14 +54,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const processFiles = (files: File[]) => {
     const validFiles = files.filter((file) => {
       if (file.size > maxSize) {
-        setError(
-          `File ${file.name} is too large. Maximum size is ${maxSize / 1024 / 1024}MB.`,
-        );
+        setError(`File ${file.name} is too large. Maximum size is ${maxSize / 1024 / 1024}MB.`);
         return false;
       }
       if (!allowedTypes.includes(file.type)) {
         setError(
-          `File ${file.name} is not an allowed type. Allowed types are ${allowedTypes.join(", ")}.`,
+          `File ${file.name} is not an allowed type. Allowed types are ${allowedTypes.join(', ')}.`,
         );
         return false;
       }
@@ -77,7 +69,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     const newUploadStatuses = validFiles.map((file) => ({
       file,
       progress: 0,
-      status: "uploading" as const,
+      status: 'uploading' as const,
     }));
 
     setImages((prev) => [...prev, ...newUploadStatuses]);
@@ -89,37 +81,35 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   const uploadFile = async (file: File) => {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append('file', file);
 
     try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
+      const response = await fetch('/api/upload', {
+        method: 'POST',
         body: formData,
       });
 
-      if (!response.ok) throw new Error("Upload failed");
+      if (!response.ok) throw new Error('Upload failed');
 
       const data = await response.json();
-      updateImageStatus(file, 100, "success", data.url);
+      updateImageStatus(file, 100, 'success', data.url);
       if (onUploadComplete) {
         onUploadComplete([data.url]);
       }
     } catch (error) {
-      console.error("Upload error:", error);
-      updateImageStatus(file, 0, "error");
+      console.error('Upload error:', error);
+      updateImageStatus(file, 0, 'error');
     }
   };
 
   const updateImageStatus = (
     file: File,
     progress: number,
-    status: UploadStatus["status"],
+    status: UploadStatus['status'],
     url?: string,
   ) => {
     setImages((prev) =>
-      prev.map((img) =>
-        img.file === file ? { ...img, progress, status, url } : img,
-      ),
+      prev.map((img) => (img.file === file ? { ...img, progress, status, url } : img)),
     );
   };
 
@@ -129,22 +119,22 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   return (
     <DndContext sensors={sensors} modifiers={[restrictToWindowEdges]}>
-      <div className="max-w-md mx-auto mt-8">
+      <div className="mx-auto mt-8 max-w-md">
         <div
           onDragOver={(e) => e.preventDefault()}
           onDragEnter={() => setIsDragging(true)}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`p-8 border-2 border-dashed rounded-lg text-center cursor-pointer transition-colors ${
-            isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"
+          className={`cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
+            isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
           }`}
         >
           <input
             type="file"
             ref={fileInputRef}
             onChange={handleFileInput}
-            accept={allowedTypes.join(",")}
+            accept={allowedTypes.join(',')}
             className="hidden"
             multiple
           />
@@ -160,43 +150,34 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
         <div className="mt-4 space-y-4">
           {images.map((image, index) => (
-            <div
-              key={index}
-              className="relative flex items-center bg-gray-100 p-2 rounded"
-            >
+            <div key={index} className="relative flex items-center rounded bg-gray-100 p-2">
               <img
-                src={
-                  image.url ||
-                  URL.createObjectURL(image.file) ||
-                  "/placeholder.svg"
-                }
+                src={image.url || URL.createObjectURL(image.file) || '/placeholder.svg'}
                 alt={`Uploaded ${index + 1}`}
-                className="w-16 h-16 object-cover rounded mr-4"
+                className="mr-4 h-16 w-16 rounded object-cover"
               />
               <div className="flex-grow">
                 <p className="text-sm font-medium">{image.file.name}</p>
-                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+                <div className="mt-2 h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
                   <div
                     className={`h-2.5 rounded-full ${
-                      image.status === "success"
-                        ? "bg-green-600"
-                        : image.status === "error"
-                          ? "bg-red-600"
-                          : "bg-blue-600"
+                      image.status === 'success'
+                        ? 'bg-green-600'
+                        : image.status === 'error'
+                          ? 'bg-red-600'
+                          : 'bg-blue-600'
                     }`}
                     style={{ width: `${image.progress}%` }}
                   ></div>
                 </div>
               </div>
-              {image.status === "success" && (
-                <CheckCircle className="text-green-500 ml-2" size={20} />
+              {image.status === 'success' && (
+                <CheckCircle className="ml-2 text-green-500" size={20} />
               )}
-              {image.status === "error" && (
-                <AlertCircle className="text-red-500 ml-2" size={20} />
-              )}
+              {image.status === 'error' && <AlertCircle className="ml-2 text-red-500" size={20} />}
               <button
                 onClick={() => removeImage(image.file)}
-                className="ml-2 bg-red-500 text-white rounded-full p-1"
+                className="ml-2 rounded-full bg-red-500 p-1 text-white"
               >
                 <X size={16} />
               </button>
@@ -207,7 +188,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
       <DragOverlay>
         {isDragging && (
-          <div className="bg-blue-100 border-2 border-blue-500 p-4 rounded">
+          <div className="rounded border-2 border-blue-500 bg-blue-100 p-4">
             <Upload className="text-blue-500" size={24} />
           </div>
         )}

@@ -1,5 +1,5 @@
-import { faker } from "@faker-js/faker";
-import { ServicesItem } from "@/app/(main)/ff/services/columns";
+import { faker } from '@faker-js/faker';
+import { ServicesItem } from '@/app/(main)/ff/services/columns';
 
 const range = (len: number) => {
   const arr: number[] = [];

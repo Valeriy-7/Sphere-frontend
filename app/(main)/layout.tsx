@@ -1,34 +1,33 @@
-"use client";
-import { AppSidebar } from "@/app/(main)/app-sidebar";
+'use client';
+import { AppSidebar } from '@/app/(main)/app-sidebar';
 
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import {PropsWithChildren, useEffect} from "react";
+import { Separator } from '@/components/ui/separator';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { PropsWithChildren, useEffect } from 'react';
 
-import ThemeWrap from "@/components/themeWrap";
-import { LKTypeValue } from "@/lib/types";
+import ThemeWrap from '@/components/themeWrap';
+import { LKTypeValue } from '@/lib/types';
 
-import { useSelectedLayoutSegments } from "next/navigation";
-import { useJWTAuthContext } from "@/modules/auth";
-import { AppSpinner } from "@/components/app-spinner";
-import * as React from "react";
+import { useSelectedLayoutSegments } from 'next/navigation';
+import { useJWTAuthContext } from '@/modules/auth';
+import { AppSpinner } from '@/components/app-spinner';
+import * as React from 'react';
 
 export default function MainLayout({ children }: PropsWithChildren) {
   const [lk] = useSelectedLayoutSegments();
   const { user, isLoggedIn } = useJWTAuthContext();
 
-    if (!isLoggedIn) return <div className={"flex justify-center h-screen"}>
-    <AppSpinner size={"large"}/>
-  </div>;
+  if (!isLoggedIn)
+    return (
+      <div className={'flex h-screen justify-center'}>
+        <AppSpinner size={'large'} />
+      </div>
+    );
 
   return (
-      <ThemeWrap name={lk as LKTypeValue}>
-        <SidebarProvider>
-          <AppSidebar />
+    <ThemeWrap name={lk as LKTypeValue}>
+      <SidebarProvider>
+        <AppSidebar />
         <SidebarInset>
           {/*   <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4">

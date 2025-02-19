@@ -1,23 +1,20 @@
-"use client";
+'use client';
 
-import { StorageWBCard } from "./StorageWBCard";
+import { StorageWBCard } from './StorageWBCard';
 
-import * as React from "react";
+import * as React from 'react';
 
-import { StorageWBCity } from "./StorageWBCity";
-import { cn } from "@/lib/utils";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import {
-  type ProductListItemDtoType,
-  useWbGetProductsSuspense,
-} from "@/kubb-gen";
-import { useJWTAuthContext } from "@/modules/auth";
+import { StorageWBCity } from './StorageWBCity';
+import { cn } from '@/lib/utils';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { type ProductListItemDtoType, useWbGetProductsSuspense } from '@/kubb-gen';
+import { useJWTAuthContext } from '@/modules/auth';
 
-export function RowSize({ children, className }: React.ComponentProps<"div">) {
+export function RowSize({ children, className }: React.ComponentProps<'div'>) {
   return (
     <div
       className={cn(
-        "grid-cols-subgrid col-span-5 flex justify-around [&_div]:flex-1 gap-1 items-center",
+        'col-span-5 flex grid-cols-subgrid items-center justify-around gap-1 [&_div]:flex-1',
         className,
       )}
     >
@@ -26,13 +23,13 @@ export function RowSize({ children, className }: React.ComponentProps<"div">) {
   );
 }
 
-const rowSize = ["S / 42", "M / 44", "L / 46", "XL / 48", "XXL / 50"];
+const rowSize = ['S / 42', 'M / 44', 'L / 46', 'XL / 48', 'XXL / 50'];
 
 function NumericSizes({ numericSizes }: { numericSizes: string[] }) {
   const emptyList = new Array(rowSize.length - numericSizes.length).fill(0);
   const list = [...numericSizes, ...emptyList];
   return (
-    <RowSize className={"bg-white rounded-lg dark:bg-transparent border"}>
+    <RowSize className={'rounded-lg border bg-white dark:bg-transparent'}>
       {list.map((i, index) => (
         <div key={index}>{i}</div>
       ))}
@@ -48,11 +45,11 @@ export default function StorageWBPage() {
   } = useWbGetProductsSuspense({ cabinetId });
 
   return (
-    <div className={"text-center text-xs"}>
+    <div className={'text-center text-xs'}>
       <div
         className={cn(
-          "grid grid-cols-[200px_repeat(9,minmax(0,1fr))] gap-1 auto-rows-[minmax(2rem,1fr)] items-center",
-          "bg-primary text-primary-foreground rounded-tl-lg rounded-tr-lg font-semibold py-[2px]",
+          'grid auto-rows-[minmax(2rem,1fr)] grid-cols-[200px_repeat(9,minmax(0,1fr))] items-center gap-1',
+          'rounded-tl-lg rounded-tr-lg bg-primary py-[2px] font-semibold text-primary-foreground',
         )}
       >
         <div>Карточки</div>
@@ -68,9 +65,9 @@ export default function StorageWBPage() {
       </div>
       <div
         className={cn(
-          "grid grid-cols-[200px_repeat(9,minmax(50px,1fr))] gap-1 auto-rows-[minmax(2rem,1fr)] items-center",
-          "mb-1.5",
-          "bg-white dark:bg-transparent rounded-bl-lg rounded-br-lg border",
+          'grid auto-rows-[minmax(2rem,1fr)] grid-cols-[200px_repeat(9,minmax(50px,1fr))] items-center gap-1',
+          'mb-1.5',
+          'rounded-bl-lg rounded-br-lg border bg-white dark:bg-transparent',
         )}
       >
         <div></div>
@@ -90,36 +87,32 @@ export default function StorageWBPage() {
 
 function StorageWBRow(props: ProductListItemDtoType) {
   return (
-    <div
-      className={cn(
-        "grid grid-cols-[200px_repeat(9,minmax(50px,1fr))] gap-1 mt-2.5",
-      )}
-    >
-      <div className={"row-span-2"}>
+    <div className={cn('mt-2.5 grid grid-cols-[200px_repeat(9,minmax(50px,1fr))] gap-1')}>
+      <div className={'row-span-2'}>
         <StorageWBCard {...props}></StorageWBCard>
       </div>
 
       <div
         className={cn(
-          "grid-cols-subgrid col-span-4 grid auto-rows-[minmax(2rem,1fr)] items-center",
-          "bg-white rounded-lg dark:bg-transparent border",
+          'col-span-4 grid auto-rows-[minmax(2rem,1fr)] grid-cols-subgrid items-center',
+          'rounded-lg border bg-white dark:bg-transparent',
         )}
       >
         <div>{props.total}</div>
         <div>{props.inStock}</div>
-        <div className={"text-green-500"}>{props.inTransitToClient}</div>
-        <div className={"text-red-500"}>{props.inTransitFromClient}</div>
+        <div className={'text-green-500'}>{props.inTransitToClient}</div>
+        <div className={'text-red-500'}>{props.inTransitFromClient}</div>
       </div>
       <NumericSizes numericSizes={props.numericSizes}></NumericSizes>
 
       <div
         className={cn(
-          "grid-cols-subgrid col-span-9",
-          "bg-white rounded-lg p-2 dark:bg-transparent border border-b-primary content-center",
+          'col-span-9 grid-cols-subgrid',
+          'content-center rounded-lg border border-b-primary bg-white p-2 dark:bg-transparent',
         )}
       >
-        <ScrollArea className={"whitespace-nowrap"}>
-          <div className={"flex gap-6 items-center"}>
+        <ScrollArea className={'whitespace-nowrap'}>
+          <div className={'flex items-center gap-6'}>
             {props.cities.map((i) => (
               <div>
                 <StorageWBCity {...i} />

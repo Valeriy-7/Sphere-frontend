@@ -1,20 +1,14 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 
-import { LoginInput } from "@/app/(full-page)/login/login-input";
-import { sendCodeDtoSchema, useAuthSendCode } from "@/kubb-gen";
-import { AppSpinner } from "@/components/app-spinner";
+import { LoginInput } from '@/app/(full-page)/login/login-input';
+import { sendCodeDtoSchema, useAuthSendCode } from '@/kubb-gen';
+import { AppSpinner } from '@/components/app-spinner';
 
 /*
 const FormSchema = z.object({
@@ -30,11 +24,8 @@ type LoginPhoneProps = {
 
 z.setErrorMap((issue, ctx) => {
   //console.log(issue.path);
-  if (
-    issue.code === z.ZodIssueCode.invalid_type &&
-    issue.received === "undefined"
-  ) {
-    return { message: "Обязательно для заполнения" };
+  if (issue.code === z.ZodIssueCode.invalid_type && issue.received === 'undefined') {
+    return { message: 'Обязательно для заполнения' };
   }
   return { message: ctx.defaultError };
 });
@@ -62,7 +53,7 @@ export function LoginPhone(props: LoginPhoneProps) {
       { data },
       {
         onError: (e) => {
-          form.setError("phone", { message: e?.response?.data.message });
+          form.setError('phone', { message: e?.response?.data.message });
         },
         onSuccess: () => {
           props.onSubmit(data);
@@ -73,7 +64,7 @@ export function LoginPhone(props: LoginPhoneProps) {
 
   return (
     <Form {...form}>
-      <form className={"w-full mt-6"} onSubmit={form.handleSubmit(onSubmit)}>
+      <form className={'mt-6 w-full'} onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="phone"
@@ -87,8 +78,8 @@ export function LoginPhone(props: LoginPhoneProps) {
                   {...field}
                 />
               </FormControl>
-              <FormMessage className={"text-black"} />
-              <AppSpinner show={isPending} className={"text-white"} />
+              <FormMessage className={'text-black'} />
+              <AppSpinner show={isPending} className={'text-white'} />
             </FormItem>
           )}
         />

@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from '@faker-js/faker';
 
 export type Person = {
   firstName: string;
@@ -6,7 +6,7 @@ export type Person = {
   age: number;
   visits: number;
   progress: number;
-  status: "relationship" | "complicated" | "single";
+  status: 'relationship' | 'complicated' | 'single';
   subRows?: Person[];
 };
 
@@ -25,11 +25,7 @@ const newPerson = (): Person => {
     age: faker.number.int(40),
     visits: faker.number.int(1000),
     progress: faker.number.int(100),
-    status: faker.helpers.shuffle<Person["status"]>([
-      "relationship",
-      "complicated",
-      "single",
-    ])[0]!,
+    status: faker.helpers.shuffle<Person['status']>(['relationship', 'complicated', 'single'])[0]!,
   };
 };
 
@@ -49,10 +45,7 @@ export function makeData(...lens: number[]) {
 
 const data = makeData(10000, 5, 3);
 
-export async function fetchData(options: {
-  pageIndex: number;
-  pageSize: number;
-}) {
+export async function fetchData(options: { pageIndex: number; pageSize: number }) {
   // Simulate some network latency
   await new Promise((r) => setTimeout(r, 500));
 
