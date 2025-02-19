@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
 export default function WBStoragePage() {
-  redirect("/wb/delivery/ff");
+  redirect('/wb/delivery/ff');
 }

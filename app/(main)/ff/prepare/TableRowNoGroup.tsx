@@ -1,10 +1,10 @@
-import { Table as TTable } from "@tanstack/react-table";
-import { Row } from "@tanstack/react-table";
-import { TableCell, TableRow } from "@/components/ui/table";
-import { formatDate } from "@/lib/utils/formatDate";
-import { TableCardImgText } from "@/components/date-table/table-img-text";
-import { TableCellControlsGroup } from "./TableCellControlsGroup";
-import React from "react";
+import { Table as TTable } from '@tanstack/react-table';
+import { Row } from '@tanstack/react-table';
+import { TableCell, TableRow } from '@/components/ui/table';
+import { formatDate } from '@/lib/utils/formatDate';
+import { TableCardImgText } from '@/components/date-table/table-img-text';
+import { TableCellControlsGroup } from './TableCellControlsGroup';
+import React from 'react';
 
 export function TableRowNoGroup<TData>({
   table,

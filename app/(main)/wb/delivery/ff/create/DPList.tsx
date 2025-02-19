@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { RUB } from "@/lib/constants/rub";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { DPBody, DPItem, DPProps, DPTitle } from "./delivery-create-row";
+import { cn } from '@/lib/utils';
+import { RUB } from '@/lib/constants/rub';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { DPBody, DPItem, DPProps, DPTitle } from './delivery-create-row';
 
 type DPSelectItem = {
   label: string;
@@ -19,13 +19,13 @@ type DPSelectProps = DPProps & {
   isSupplier?: boolean;
 };
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormReturn } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, UseFormReturn } from 'react-hook-form';
+import { z } from 'zod';
 
-import { toast } from "@/components/hooks/use-toast";
+import { toast } from '@/components/hooks/use-toast';
 
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -33,14 +33,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
-import { SupplierCreateDialog } from "@/app/(main)/wb/delivery/ff/create/supplier-create-dialog";
-import {
-  CheckboxItem,
-  FormValues,
-} from "@/app/(main)/wb/delivery/ff/create/schema";
-import * as React from "react";
+import { SupplierCreateDialog } from '@/app/(main)/wb/delivery/ff/create/supplier-create-dialog';
+import { CheckboxItem, FormValues } from '@/app/(main)/wb/delivery/ff/create/schema';
+import * as React from 'react';
 
 const FormSchema = z.object({
   items: z.array(z.string().optional()),
@@ -65,16 +62,15 @@ export function DPSelect({
 }: DPProps & DPSelectProps & DPSelectForm) {
   const sum = items.map((i) => i.price).reduce((p, c) => p + c, 0);
 
-  const error =
-    tForm?.form.formState.errors.rows?.[tForm?.index]?.[tForm?.name]?.message;
+  const error = tForm?.form.formState.errors.rows?.[tForm?.index]?.[tForm?.name]?.message;
 
   const selectSum = tForm?.form
-    .watch("rows")
+    .watch('rows')
     [tForm?.index][tForm?.name].map((i) => i.price)
     .reduce((p, c) => p + c, 0);
 
   return (
-    <DPItem className={cn("w-[216px]", className)}>
+    <DPItem className={cn('w-[216px]', className)}>
       <DPTitle>{title}</DPTitle>
       {!isSupplier && (
         <DPBody>
@@ -82,12 +78,12 @@ export function DPSelect({
         </DPBody>
       )}
       {isSupplier && <SupplierCreateDialog />}
-      {error && <div className={"text-red-500"}>{error}</div>}
-      <ScrollArea className={"max-h-[92px]"}>
+      {error && <div className={'text-red-500'}>{error}</div>}
+      <ScrollArea className={'max-h-[92px]'}>
         {isSelect ? (
           <DPSelectForm2 tForm={tForm} isSingle={isSupplier} items={items} />
         ) : (
-          <div className={"space-y-1"}>
+          <div className={'space-y-1'}>
             {items.map((item) => {
               return <DPSelectItem {...item}></DPSelectItem>;
             })}
@@ -117,9 +113,9 @@ export function DPCheckBoxList<TName>({
         .map(i=>i.price)
         .reduce((p, c) => p + c, 0)*/
   return (
-    <DPItem className={cn("w-[216px]", className)}>
+    <DPItem className={cn('w-[216px]', className)}>
       <DPTitle>{title}</DPTitle>
-      <ScrollArea className={"max-h-[92px]"}>
+      <ScrollArea className={'max-h-[92px]'}>
         <FormField
           control={form.control}
           name={name}
@@ -127,28 +123,20 @@ export function DPCheckBoxList<TName>({
             <FormItem>
               <FormMessage />
               <FormControl>
-                <div className={"space-y-1"}>
+                <div className={'space-y-1'}>
                   {items.map((option) => (
-                    <div
-                      key={option.id}
-                      className="flex gap-2 items-center space-y-0 relative"
-                    >
-                      <label
-                        htmlFor={`checkbox-${index}-${option.id}`}
-                        className="block w-full"
-                      >
+                    <div key={option.id} className="relative flex items-center gap-2 space-y-0">
+                      <label htmlFor={`checkbox-${index}-${option.id}`} className="block w-full">
                         <DPSelectItem {...option}></DPSelectItem>
                       </label>
                       <Checkbox
-                        className={"mr-3"}
+                        className={'mr-3'}
                         id={`checkbox-${index}-${option.id}`}
                         checked={field.value.some((i) => i.id === option.id)}
                         onCheckedChange={(checked) => {
                           const updatedValue = checked
                             ? [...field.value, option]
-                            : field.value.filter(
-                                (item: CheckboxItem) => item.id !== option.id,
-                              );
+                            : field.value.filter((item: CheckboxItem) => item.id !== option.id);
                           console.log(updatedValue);
                           field.onChange(updatedValue);
                         }}
@@ -167,7 +155,7 @@ export function DPCheckBoxList<TName>({
 
 export function DPSelectItem({ price, label }: DPSelectItem) {
   return (
-    <DPBody className={"flex justify-between gap-1 w-full"}>
+    <DPBody className={'flex w-full justify-between gap-1'}>
       <span>{label}</span>
       <span>
         {price} {RUB} / ед
@@ -196,7 +184,7 @@ export function DPSelectForm({
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
-      title: "You submitted the following values:",
+      title: 'You submitted the following values:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -212,7 +200,7 @@ export function DPSelectForm({
           control={form.control}
           name="items"
           render={() => (
-            <FormItem className={"space-y-1"}>
+            <FormItem className={'space-y-1'}>
               {items.map((item) => (
                 <FormField
                   key={item.id}
@@ -222,33 +210,24 @@ export function DPSelectForm({
                     return (
                       <FormItem
                         key={item.id}
-                        className={"flex gap-2 items-center space-y-0 relative"}
+                        className={'relative flex items-center gap-2 space-y-0'}
                       >
                         <FormLabel
-                          className={
-                            "absolute left-0 top-0 bottom-0 right-0 cursor-pointer"
-                          }
+                          className={'absolute bottom-0 left-0 right-0 top-0 cursor-pointer'}
                         />
                         <DPSelectItem {...item}></DPSelectItem>
                         <FormControl>
                           <Checkbox
-                            className={"mr-3"}
+                            className={'mr-3'}
                             disabled={
                               isSingle &&
-                              Boolean(
-                                field.value.length &&
-                                  !field.value?.includes(item.id),
-                              )
+                              Boolean(field.value.length && !field.value?.includes(item.id))
                             }
                             checked={field.value?.includes(item.id)}
                             onCheckedChange={(checked) => {
                               checked
                                 ? field.onChange([...field.value, item.id])
-                                : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.id,
-                                    ),
-                                  );
+                                : field.onChange(field.value?.filter((value) => value !== item.id));
 
                               onChange(form.getValues());
                             }}
@@ -283,12 +262,9 @@ export function DPSelectForm2({
       render={({ field }) => (
         <FormItem>
           <FormControl>
-            <div className={"space-y-1"}>
+            <div className={'space-y-1'}>
               {items.map((option) => (
-                <div
-                  key={option.id}
-                  className="flex gap-2 items-center space-y-0 relative"
-                >
+                <div key={option.id} className="relative flex items-center gap-2 space-y-0">
                   <label
                     htmlFor={`${name}-checkbox-${index}-${option.id}`}
                     className="block w-full cursor-pointer"
@@ -297,20 +273,15 @@ export function DPSelectForm2({
                   </label>
                   <Checkbox
                     _disabled={
-                      isSingle &&
-                      Boolean(
-                        field.value.length && !field.value?.includes(option.id),
-                      )
+                      isSingle && Boolean(field.value.length && !field.value?.includes(option.id))
                     }
-                    className={"mr-3"}
+                    className={'mr-3'}
                     id={`${name}-checkbox-${index}-${option.id}`}
                     checked={field.value.some((i) => i.id === option.id)}
                     onCheckedChange={(checked) => {
                       const updatedValue = checked
                         ? [...field.value, option]
-                        : field.value.filter(
-                            (item: CheckboxItem) => item.id !== option.id,
-                          );
+                        : field.value.filter((item: CheckboxItem) => item.id !== option.id);
                       console.log(updatedValue);
                       field.onChange(updatedValue);
                     }}

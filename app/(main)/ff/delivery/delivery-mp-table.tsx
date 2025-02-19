@@ -1,13 +1,7 @@
-"use client";
-import React, { Fragment, useState } from "react";
+'use client';
+import React, { Fragment, useState } from 'react';
 
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 import {
   ColumnFiltersState,
@@ -22,36 +16,21 @@ import {
   RowSelectionState,
   RowData,
   getFacetedUniqueValues,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
-import { TableRowGroupHeader } from "./TableRowGroupHeader";
-import { TableRowNoGroup } from "./TableRowNoGroup";
-import { TableRowExpandLevel } from "./TableRowExpandLevel";
-import { DataTableHeader } from "@/components/date-table/data-table-header";
+import { TableRowGroupHeader } from './TableRowGroupHeader';
+import { TableRowNoGroup } from './TableRowNoGroup';
+import { TableRowExpandLevel } from './TableRowExpandLevel';
+import { DataTableHeader } from '@/components/date-table/data-table-header';
 
-import {
-  defaultColumn,
-  fuzzyFilter,
-  getColSizeList,
-  type TableProps,
-} from "@/lib/TableHelpers";
-import { TableHeaderSort } from "@/components/date-table/table-header-sort";
-import { TableRowTotal } from "./TableRowTotal";
-import { AggregationFn } from "@tanstack/table-core";
+import { defaultColumn, fuzzyFilter, getColSizeList, type TableProps } from '@/lib/TableHelpers';
+import { TableHeaderSort } from '@/components/date-table/table-header-sort';
+import { TableRowTotal } from './TableRowTotal';
+import { AggregationFn } from '@tanstack/table-core';
 
-const { colSizeList } = getColSizeList([
-  "w-[60px]",
-  "",
-  "w-[15%]",
-  "w-[15%]",
-  "",
-  "",
-  "",
-  "",
-  "",
-]);
+const { colSizeList } = getColSizeList(['w-[60px]', '', 'w-[15%]', 'w-[15%]', '', '', '', '', '']);
 
-declare module "@tanstack/react-table" {
+declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     updateProductPlace?: (id: string, value: string) => void;
     productPlace: Record<string, string>;
@@ -67,22 +46,19 @@ export function DeliveryMpTable<TData, TValue>({
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([
     {
-      id: "number", // Must be equal to the accessorKey of the coulmn you want sorted by default
+      id: 'number', // Must be equal to the accessorKey of the coulmn you want sorted by default
       desc: true,
     },
   ]);
 
-  const [grouping, setGrouping] = React.useState<GroupingState>(
-    isAcceptance ? ["groupDate1"] : [],
-  );
+  const [grouping, setGrouping] = React.useState<GroupingState>(isAcceptance ? ['groupDate1'] : []);
 
   const hasGrouping = grouping.length;
   const initRowSelection = {};
   data.forEach((row) => {
     initRowSelection[row.uuid] = true;
   });
-  const [rowSelection, setRowSelection] =
-    React.useState<RowSelectionState>(initRowSelection); //manage your own row selection state
+  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(initRowSelection); //manage your own row selection state
 
   const [productPlace, setProductPlace] = useState<Record<string, string>>({});
 
@@ -112,7 +88,7 @@ export function DeliveryMpTable<TData, TValue>({
     getRowCanExpand: () => true,
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getExpandedRowModel: getExpandedRowModel(),
-    globalFilterFn: "fuzzy", //apply fuzzy filter to the global filter (most common use case for fuzzy filter)
+    globalFilterFn: 'fuzzy', //apply fuzzy filter to the global filter (most common use case for fuzzy filter)
     getCoreRowModel: getCoreRowModel(),
     groupedColumnMode: false,
     getGroupedRowModel: getGroupedRowModel(),
@@ -130,7 +106,7 @@ export function DeliveryMpTable<TData, TValue>({
       <Table colSizeList={colSizeList}>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <Fragment key={headerGroup.id + "Fragment"}>
+            <Fragment key={headerGroup.id + 'Fragment'}>
               <TableRow rowSpace={false} key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
@@ -139,9 +115,7 @@ export function DeliveryMpTable<TData, TValue>({
                       colSpan={header.colSpan}
                       className={header.column.columnDef.meta?.className}
                     >
-                      {header.isPlaceholder ? null : (
-                        <TableHeaderSort header={header} />
-                      )}
+                      {header.isPlaceholder ? null : <TableHeaderSort header={header} />}
                     </TableHead>
                   );
                 })}
@@ -156,7 +130,7 @@ export function DeliveryMpTable<TData, TValue>({
                 return (
                   <Fragment key={row.id}>
                     <TableRowGroupHeader
-                      key={row.id + "RowGroupHeader"}
+                      key={row.id + 'RowGroupHeader'}
                       table={table}
                       row={row}
                       isAcceptance={isAcceptance}
@@ -164,13 +138,13 @@ export function DeliveryMpTable<TData, TValue>({
                     {row.subRows.map((subRow) => (
                       <>
                         <TableRowNoGroup
-                          key={row.id + "RowNoGroup"}
+                          key={row.id + 'RowNoGroup'}
                           isAcceptance={isAcceptance}
                           {...{
                             table: table,
                             row: subRow,
                             onClick: subRow.getToggleExpandedHandler(),
-                            className: "cursor-pointer",
+                            className: 'cursor-pointer',
                           }}
                         />
                         {subRow.getIsExpanded() && (
@@ -189,12 +163,10 @@ export function DeliveryMpTable<TData, TValue>({
                         table: table,
                         row: row,
                         onClick: row.getToggleExpandedHandler(),
-                        className: "cursor-pointer",
+                        className: 'cursor-pointer',
                       }}
                     />
-                    {row.getIsExpanded() && (
-                      <TableRowExpandLevel<TData> row={row} table={table} />
-                    )}
+                    {row.getIsExpanded() && <TableRowExpandLevel<TData> row={row} table={table} />}
                   </Fragment>
                 );
               })}

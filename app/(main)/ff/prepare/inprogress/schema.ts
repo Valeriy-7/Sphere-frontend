@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 const NestedFieldSchema = z.object({
   id: z.string(),
@@ -9,6 +9,6 @@ const NestedFieldSchema = z.object({
 
 export const FormSchema = z.object({
   id: z.string(),
-  rows: z.array(NestedFieldSchema).min(1, "Выберите поставку"),
+  rows: z.array(NestedFieldSchema).min(1, 'Выберите поставку'),
 });
 export type FormValues = z.infer<typeof FormSchema>;

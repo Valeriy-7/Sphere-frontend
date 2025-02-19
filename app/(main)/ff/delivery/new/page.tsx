@@ -1,8 +1,8 @@
-"use client";
-import { DeliveryMpTable } from "../delivery-mp-table";
-import { columns } from "../columns";
-import React from "react";
-import { makeData, DataRow } from "@/lib/makeData";
+'use client';
+import { DeliveryMpTable } from '../delivery-mp-table';
+import { columns } from '../columns';
+import React from 'react';
+import { makeData, DataRow } from '@/lib/makeData';
 const initData = makeData();
 export default function DeliveryNewPage() {
   const [data, setData] = React.useState(initData);

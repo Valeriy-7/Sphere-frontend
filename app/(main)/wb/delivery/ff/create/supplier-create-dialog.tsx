@@ -1,5 +1,5 @@
-"use client";
-import { Button } from "@/components/ui/button";
+'use client';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,23 +7,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { useState } from "react";
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { useState } from 'react';
 
-const textRequired = "Обязательно для заполнения";
+const textRequired = 'Обязательно для заполнения';
 
 const formSchema = z.object({
   name: z.string().min(1, textRequired),
@@ -40,12 +34,12 @@ export function SupplierCreateDialog() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      username: "",
-      phone: "",
-      marketName: "",
-      address: "",
-      place: "",
+      name: '',
+      username: '',
+      phone: '',
+      marketName: '',
+      address: '',
+      place: '',
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -55,7 +49,7 @@ export function SupplierCreateDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className={"max-w-none"} size={"xs"} variant="outline">
+        <Button className={'max-w-none'} size={'xs'} variant="outline">
           Добавить +
         </Button>
       </DialogTrigger>
@@ -64,11 +58,7 @@ export function SupplierCreateDialog() {
           <DialogTitle>Добавить поставщика</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form
-            id="myform"
-            className="space-y-4"
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form id="myform" className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-4">
               <FormField
                 control={form.control}

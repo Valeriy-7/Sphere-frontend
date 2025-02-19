@@ -1,8 +1,8 @@
-"use client";
-import { StorageFfTable } from "./storage-ff-table";
-import { columns } from "./columns";
-import React from "react";
-import { makeData, DataRow } from "@/lib/makeData";
+'use client';
+import { StorageFfTable } from './storage-ff-table';
+import { columns } from './columns';
+import React from 'react';
+import { makeData, DataRow } from '@/lib/makeData';
 const initData = makeData();
 export default function StorageFfPage() {
   const [data, setData] = React.useState(initData);

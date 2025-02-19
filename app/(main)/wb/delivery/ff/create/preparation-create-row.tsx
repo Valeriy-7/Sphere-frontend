@@ -1,8 +1,8 @@
-import { MarketImg } from "./market-img";
-import { PropsWithChildren } from "react";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { DPSelect } from "@/app/(main)/wb/delivery/ff/create/DPList";
+import { MarketImg } from './market-img';
+import { PropsWithChildren } from 'react';
+import { cn } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
+import { DPSelect } from '@/app/(main)/wb/delivery/ff/create/DPList';
 
 export type DPProps = PropsWithChildren & {
   className?: string;
@@ -12,15 +12,15 @@ export function DeliveryCreateRow() {
   return (
     <div
       className={
-        "bg-white border dark:bg-transparent rounded-lg p-2 text-min text-center flex flex-wrap gap-4"
+        'flex flex-wrap gap-4 rounded-lg border bg-white p-2 text-center text-min dark:bg-transparent'
       }
     >
       <MarketImg />
       <DPItem>
         <DPTitle>Данные</DPTitle>
-        <DPBody className={"h-full"}>
-          <ul className={"text-left space-y-0.5"}>
-            <li className={"text-primary"}>Платье чёрное</li>
+        <DPBody className={'h-full'}>
+          <ul className={'space-y-0.5 text-left'}>
+            <li className={'text-primary'}>Платье чёрное</li>
             <li>Арт: 187677</li>
             <li>Цвет: Розовый</li>
             <li>Категория: Платья</li>
@@ -31,17 +31,17 @@ export function DeliveryCreateRow() {
       </DPItem>
       <DPItem>
         <DPTitle>Заказать (ед)</DPTitle>
-        <Input size={"xs"} />
+        <Input size={'xs'} />
         <DPTitle>Цена (₽)</DPTitle>
-        <Input size={"xs"} />
+        <Input size={'xs'} />
       </DPItem>
       <DPItem>
         <DPTitle>План (ед)</DPTitle>
-        <DPBody className={"text-xs font-medium text-primary"}>1 200</DPBody>
+        <DPBody className={'text-xs font-medium text-primary'}>1 200</DPBody>
         <DPTitle>План (ед)</DPTitle>
-        <DPBody className={"text-xs font-medium text-primary"}>1 200</DPBody>
+        <DPBody className={'text-xs font-medium text-primary'}>1 200</DPBody>
         <DPTitle>Брак (ед)</DPTitle>
-        <DPBody className={"text-xs font-medium text-primary"}>1 200</DPBody>
+        <DPBody className={'text-xs font-medium text-primary'}>1 200</DPBody>
       </DPItem>
       <DPItem>
         <DPTitle>Размер / Объём</DPTitle>
@@ -52,57 +52,57 @@ export function DeliveryCreateRow() {
         <DPBody>XL / 42</DPBody>
       </DPItem>
       <DPItem>
-        <DPTitle className={"bg-green-500"}>Факт</DPTitle>
-        <Input className={"text-center"} size={"xs"} />
-        <Input className={"text-center"} size={"xs"} />
-        <Input className={"text-center"} size={"xs"} />
-        <Input className={"text-center"} size={"xs"} />
-        <Input className={"text-center"} size={"xs"} />
+        <DPTitle className={'bg-green-500'}>Факт</DPTitle>
+        <Input className={'text-center'} size={'xs'} />
+        <Input className={'text-center'} size={'xs'} />
+        <Input className={'text-center'} size={'xs'} />
+        <Input className={'text-center'} size={'xs'} />
+        <Input className={'text-center'} size={'xs'} />
       </DPItem>
       <DPItem>
-        <DPTitle className={"bg-red-500"}>Брак</DPTitle>
-        <Input className={"text-center"} size={"xs"} />
-        <Input className={"text-center"} size={"xs"} />
-        <Input className={"text-center"} size={"xs"} />
-        <Input className={"text-center"} size={"xs"} />
-        <Input className={"text-center"} size={"xs"} />
+        <DPTitle className={'bg-red-500'}>Брак</DPTitle>
+        <Input className={'text-center'} size={'xs'} />
+        <Input className={'text-center'} size={'xs'} />
+        <Input className={'text-center'} size={'xs'} />
+        <Input className={'text-center'} size={'xs'} />
+        <Input className={'text-center'} size={'xs'} />
       </DPItem>
       <DPSelect
-        title={"Услуги"}
+        title={'Услуги'}
         items={[
-          { label: "Стирка", price: 10, id: "1" },
-          { label: "Глаженье", price: 10, id: "2" },
-          { label: "Глаженье", price: 10, id: "3" },
-          { label: "Глаженье", price: 10, id: "4" },
-          { label: "Глаженье", price: 10, id: "5" },
-          { label: "Глаженье", price: 10, id: "6" },
+          { label: 'Стирка', price: 10, id: '1' },
+          { label: 'Глаженье', price: 10, id: '2' },
+          { label: 'Глаженье', price: 10, id: '3' },
+          { label: 'Глаженье', price: 10, id: '4' },
+          { label: 'Глаженье', price: 10, id: '5' },
+          { label: 'Глаженье', price: 10, id: '6' },
         ]}
       ></DPSelect>
       <DPSelect
         isSelect
-        selectIds={["1", "2"]}
-        title={"Услуги"}
+        selectIds={['1', '2']}
+        title={'Услуги'}
         items={[
-          { label: "Стирка", price: 10, id: "1" },
-          { label: "Глаженье", price: 10, id: "2" },
-          { label: "Глаженье", price: 10, id: "3" },
-          { label: "Глаженье", price: 10, id: "4" },
-          { label: "Глаженье", price: 10, id: "5" },
-          { label: "Глаженье", price: 10, id: "6" },
+          { label: 'Стирка', price: 10, id: '1' },
+          { label: 'Глаженье', price: 10, id: '2' },
+          { label: 'Глаженье', price: 10, id: '3' },
+          { label: 'Глаженье', price: 10, id: '4' },
+          { label: 'Глаженье', price: 10, id: '5' },
+          { label: 'Глаженье', price: 10, id: '6' },
         ]}
       ></DPSelect>
       <DPSelect
         isSupplier
         isSelect
-        selectIds={["1", "2"]}
-        title={"Поставщик"}
+        selectIds={['1', '2']}
+        title={'Поставщик'}
         items={[
-          { label: "Стирка", id: "1" },
-          { label: "Глаженье", id: "2" },
-          { label: "Глаженье", id: "3" },
-          { label: "Глаженье", id: "4" },
-          { label: "Глаженье", id: "5" },
-          { label: "Глаженье", id: "6" },
+          { label: 'Стирка', id: '1' },
+          { label: 'Глаженье', id: '2' },
+          { label: 'Глаженье', id: '3' },
+          { label: 'Глаженье', id: '4' },
+          { label: 'Глаженье', id: '5' },
+          { label: 'Глаженье', id: '6' },
         ]}
       ></DPSelect>
     </div>
@@ -111,32 +111,20 @@ export function DeliveryCreateRow() {
 
 export function DPTitle({ children, className }: DPProps) {
   return (
-    <div
-      className={cn(
-        "bg-primary text-primary-foreground rounded-sm px-2 py-1",
-        className,
-      )}
-    >
+    <div className={cn('rounded-sm bg-primary px-2 py-1 text-primary-foreground', className)}>
       {children}
     </div>
   );
 }
 
 export function DPItem({ children, className }: DPProps) {
-  return (
-    <div className={cn("space-y-1 w-[100px] flex flex-col", className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn('flex w-[100px] flex-col space-y-1', className)}>{children}</div>;
 }
 
 export function DPBody({ children, className }: DPProps) {
   return (
     <div
-      className={cn(
-        "bg-gray-100 dark:bg-transparent border rounded-sm px-2 py-1 h-5",
-        className,
-      )}
+      className={cn('h-5 rounded-sm border bg-gray-100 px-2 py-1 dark:bg-transparent', className)}
     >
       {children}
     </div>

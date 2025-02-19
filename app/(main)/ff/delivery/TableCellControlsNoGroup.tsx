@@ -1,8 +1,8 @@
-import { Table as TTable } from "@tanstack/react-table";
-import { Row } from "@tanstack/react-table";
-import { TableCell } from "@/components/ui/table";
-import { Checkbox } from "@/components/ui/checkbox";
-import React from "react";
+import { Table as TTable } from '@tanstack/react-table';
+import { Row } from '@tanstack/react-table';
+import { TableCell } from '@/components/ui/table';
+import { Checkbox } from '@/components/ui/checkbox';
+import React from 'react';
 
 export function TableCellControlsNoGroup<TData>({
   table,

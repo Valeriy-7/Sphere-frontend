@@ -7,10 +7,10 @@ import {
   TableHeader,
   TableHeadFilter,
   TableRow,
-} from "@/components/ui/table";
-import * as React from "react";
-import { Card } from "@/components/ui/card";
-import { Pencil, Filter } from "lucide-react";
+} from '@/components/ui/table';
+import * as React from 'react';
+import { Card } from '@/components/ui/card';
+import { Pencil, Filter } from 'lucide-react';
 
 type StorageTableProps = {
   caption: string;
@@ -19,14 +19,10 @@ type StorageTableProps = {
     value: string | number;
   }[];
 } & React.HTMLAttributes<HTMLTableElement>;
-export function StorageTable({
-  caption,
-  data = [],
-  ...props
-}: StorageTableProps) {
+export function StorageTable({ caption, data = [], ...props }: StorageTableProps) {
   return (
     <>
-      <Table className={"text-center w-full"} {...props}>
+      <Table className={'w-full text-center'} {...props}>
         <TableHeader>
           <TableRowHeader />
           <TableRowFilter />
@@ -63,17 +59,14 @@ export function StorageTable({
     </>
   );
 }
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 const TableRowFilter = () => (
   <>
-    <TableRow rowSpace={"0"}>
-      <TableHeadFilter className={"w-1"}></TableHeadFilter>
+    <TableRow rowSpace={'0'}>
+      <TableHeadFilter className={'w-1'}></TableHeadFilter>
       <TableHeadFilter colSpan={6}>
-        <Input
-          className={"px-1 md:text-xs h-auto bg-background"}
-          placeholder={"Поиск"}
-        ></Input>
+        <Input className={'h-auto bg-background px-1 md:text-xs'} placeholder={'Поиск'}></Input>
       </TableHeadFilter>
       <TableHeadFilter>
         <TableFilterRange />
@@ -101,56 +94,50 @@ const TableRowFilter = () => (
 
 const TableFilterRange = () => (
   <>
-    <div className="inline-flex gap-1 w-[150px]">
-      <Input
-        className={"px-1 md:text-xs h-auto bg-background"}
-        placeholder={"От"}
-      />
-      <Input
-        className={"px-1 md:text-xs h-auto bg-background"}
-        placeholder={"До"}
-      />
+    <div className="inline-flex w-[150px] gap-1">
+      <Input className={'h-auto bg-background px-1 md:text-xs'} placeholder={'От'} />
+      <Input className={'h-auto bg-background px-1 md:text-xs'} placeholder={'До'} />
     </div>
   </>
 );
 
 const TableRowTotal = () => (
   <>
-    <TableRow rowSpace={"0"}>
-      <TableHead className={""} isTotal></TableHead>
-      <TableHead className={""} isTotal colSpan={6}>
+    <TableRow rowSpace={'0'}>
+      <TableHead className={''} isTotal></TableHead>
+      <TableHead className={''} isTotal colSpan={6}>
         Всего
       </TableHead>
-      <TableHead className={""} isTotal>
+      <TableHead className={''} isTotal>
         3000
       </TableHead>
-      <TableHead className={""} isTotal>
+      <TableHead className={''} isTotal>
         2000
       </TableHead>
-      <TableHead className={""} isTotal>
+      <TableHead className={''} isTotal>
         3000
       </TableHead>
-      <TableHead className={""} isTotal></TableHead>
-      <TableHead className={""} isTotal>
+      <TableHead className={''} isTotal></TableHead>
+      <TableHead className={''} isTotal>
         500
       </TableHead>
-      <TableHead className={""} isTotal></TableHead>
-      <TableHead className={""} isTotal>
+      <TableHead className={''} isTotal></TableHead>
+      <TableHead className={''} isTotal>
         600
       </TableHead>
-      <TableHead className={""} isTotal></TableHead>
-      <TableHead className={""} isTotal>
+      <TableHead className={''} isTotal></TableHead>
+      <TableHead className={''} isTotal>
         0
       </TableHead>
-      <TableHead className={""} isTotal></TableHead>
+      <TableHead className={''} isTotal></TableHead>
     </TableRow>
   </>
 );
 
 const TableRowHeader = () => (
   <>
-    <TableRow rowSpace={"0"}>
-      <TableHead className={"w-1"}>№</TableHead>
+    <TableRow rowSpace={'0'}>
+      <TableHead className={'w-1'}>№</TableHead>
       <TableHead colSpan={6}>Магазин</TableHead>
       <TableHead>Продукт</TableHead>
       <TableHead></TableHead>
@@ -162,7 +149,7 @@ const TableRowHeader = () => (
       <TableHead></TableHead>
       <TableHead>Возвраты с ПВЗ (ед)</TableHead>
       <TableHead>
-        <Button variant={"ghost"} size={"icon"}>
+        <Button variant={'ghost'} size={'icon'}>
           <Filter />
         </Button>
       </TableHead>
@@ -175,13 +162,13 @@ const TableRowStore = () => (
     <TableRow>
       <TableCell>77</TableCell>
       <TableCell colSpan={5}>
-        <Card className={"p-1 flex items-center gap-2 max-w-[165px]"}>
+        <Card className={'flex max-w-[165px] items-center gap-2 p-1'}>
           <img
-            className={"w-[60px] h-[30px] rounded-lg"}
+            className={'h-[30px] w-[60px] rounded-lg'}
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UE1dYBdrFfV1Dz09dGWXy7R8TasGsOk7zQ&s"
             alt=""
           />
-          <div className={"text-min font-medium"}>
+          <div className={'text-min font-medium'}>
             Logistik Company <br />
             ООО “Логистик”
           </div>
@@ -204,7 +191,7 @@ const TableRowStore = () => (
 
 const TableHeaderProduct = () => (
   <>
-    <TableRow className={"font-medium"}>
+    <TableRow className={'font-medium'}>
       <TableCell level={1}>№</TableCell>
       <TableCell level={1} colSpan={4}>
         Наименование
@@ -227,7 +214,7 @@ const TableHeaderProduct = () => (
 
 const TableRowProduct = () => (
   <>
-    <TableRow rowSpace={"xs"}>
+    <TableRow rowSpace={'xs'}>
       <TableCell level={1}>1</TableCell>
       <TableCell level={1} colSpan={4}>
         Футболка женская длинное название
@@ -244,7 +231,7 @@ const TableRowProduct = () => (
       <TableCell level={1}>-</TableCell>
       <TableCell level={1}>-</TableCell>
       <TableCell level={1}>
-        <Pencil strokeWidth={1} className={"w-4 inline-flex"}></Pencil>
+        <Pencil strokeWidth={1} className={'inline-flex w-4'}></Pencil>
       </TableCell>
     </TableRow>
   </>
@@ -252,7 +239,7 @@ const TableRowProduct = () => (
 
 const TableRowSize = () => (
   <>
-    <TableRow rowSpace={"xs"}>
+    <TableRow rowSpace={'xs'}>
       <TableCell level={1}></TableCell>
       <TableCell level={1} colSpan={4}>
         Размер

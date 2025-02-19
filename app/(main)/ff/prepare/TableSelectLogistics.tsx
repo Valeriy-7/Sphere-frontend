@@ -5,13 +5,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import React from "react";
+} from '@/components/ui/select';
+import React from 'react';
 
 export function TableSelectLogistics(props) {
   return (
     <Select {...props}>
-      <SelectTrigger size={"xs"}>
+      <SelectTrigger size={'xs'}>
         <SelectValue placeholder="Выбрать" />
       </SelectTrigger>
       <SelectContent>

@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef } from '@tanstack/react-table';
 
-import { type DataRow } from "@/lib/makeData";
-import { TableImgText } from "@/components/date-table/table-img-text";
-import { getColumnNumber } from "@/lib/TableHelpers";
+import { type DataRow } from '@/lib/makeData';
+import { TableImgText } from '@/components/date-table/table-img-text';
+import { getColumnNumber } from '@/lib/TableHelpers';
 
 export const columns: ColumnDef<DataRow>[] = [
   getColumnNumber<DataRow>(),
   {
     accessorFn: ({ title, art }) => `${title} ${art}`,
-    id: "title",
-    header: "Карточки",
+    id: 'title',
+    header: 'Карточки',
     meta: {
-      filterVariant: "text",
+      filterVariant: 'text',
     },
     cell: ({ row: { original } }) => {
       return (
@@ -26,23 +26,23 @@ export const columns: ColumnDef<DataRow>[] = [
     },
   },
   {
-    accessorKey: "number4",
-    header: "Продукт (ед)",
+    accessorKey: 'number4',
+    header: 'Продукт (ед)',
   },
   {
-    accessorKey: "number5",
-    header: "Товар (ед)",
+    accessorKey: 'number5',
+    header: 'Товар (ед)',
   },
   {
-    accessorKey: "number6",
-    header: "Брак (ед)",
+    accessorKey: 'number6',
+    header: 'Брак (ед)',
   },
   {
-    accessorKey: "number7",
-    header: "Расходники (ед)",
+    accessorKey: 'number7',
+    header: 'Расходники (ед)',
   },
   {
-    accessorKey: "number8",
-    header: "Возвраты с ПВЗ (ед)",
+    accessorKey: 'number8',
+    header: 'Возвраты с ПВЗ (ед)',
   },
 ];
