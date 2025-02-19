@@ -1,13 +1,12 @@
-import { Header, flexRender } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ChevronsUpDown } from "lucide-react";
+import { Header, flexRender } from '@tanstack/react-table';
+import { ArrowDown, ArrowUp, ChevronsUpDown } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
-import React from "react";
+import { cn } from '@/lib/utils';
+import React from 'react';
 
-type TableHeaderSortProps<TData, TValue> =
-  React.HTMLAttributes<HTMLDivElement> & {
-    header: Header<TData, TValue>;
-  };
+type TableHeaderSortProps<TData, TValue> = React.HTMLAttributes<HTMLDivElement> & {
+  header: Header<TData, TValue>;
+};
 
 export function TableHeaderSort<TData, TValue>({
   header,
@@ -17,7 +16,7 @@ export function TableHeaderSort<TData, TValue>({
   if (!header.column.getCanSort()) {
     return (
       <div className={cn(className)}>
-        {" "}
+        {' '}
         {flexRender(header.column.columnDef.header, header.getContext())}
       </div>
     );
@@ -26,8 +25,8 @@ export function TableHeaderSort<TData, TValue>({
     <div
       {...{
         className: header.column.getCanSort()
-          ? "cursor-pointer select-none inline-flex flex-1 [&_svg]:w-4 items-center"
-          : "",
+          ? 'cursor-pointer select-none inline-flex flex-1 [&_svg]:w-4 items-center'
+          : '',
         onClick: header.column.getToggleSortingHandler(),
       }}
     >

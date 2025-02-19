@@ -1,2 +1,2 @@
-export const RUB = "₽";
-export const SUFFIX_RUB = " ₽";
+export const RUB = '₽';
+export const SUFFIX_RUB = ' ₽';

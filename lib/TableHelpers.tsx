@@ -1,10 +1,10 @@
-import React, { PropsWithChildren } from "react";
-import { ColumnDef, RowData, Table as TTable } from "@tanstack/react-table";
-import { type FormatCurrency, formatCurrency } from "@/lib/formatCurrency";
-import { FilterFn } from "@tanstack/table-core";
-import { RankingInfo, rankItem } from "@tanstack/match-sorter-utils";
+import React, { PropsWithChildren } from 'react';
+import { ColumnDef, RowData, Table as TTable } from '@tanstack/react-table';
+import { type FormatCurrency, formatCurrency } from '@/lib/formatCurrency';
+import { FilterFn } from '@tanstack/table-core';
+import { RankingInfo, rankItem } from '@tanstack/match-sorter-utils';
 
-import type { DataRow } from "@/lib/makeData";
+import type { DataRow } from '@/lib/makeData';
 
 export type ColSizeList = { colSizeList?: Array<string> };
 export function getColSizeList(classList?: Array<string>) {
@@ -13,17 +13,15 @@ export function getColSizeList(classList?: Array<string>) {
 export function getColSizeComponent(classList?: Array<string>) {
   return {
     ColSizeComponent: () => (
-      <colgroup>
-        {classList?.map((className) => <col className={className} />)}
-      </colgroup>
+      <colgroup>{classList?.map((className) => <col className={className} />)}</colgroup>
     ),
   };
 }
 
 export function getColumnNumber<T>(): ColumnDef<T> {
   return {
-    accessorKey: "number",
-    header: "№",
+    accessorKey: 'number',
+    header: '№',
     accessorFn: (originalRow, index) => index,
     cell: ({ getValue }) => {
       return getValue();
@@ -34,17 +32,17 @@ export function getColumnNumber<T>(): ColumnDef<T> {
 export const defaultColumn: Partial<ColumnDef<any>> = {
   cell: ({ getValue, row: { index }, column: { id }, table, column }) => {
     const value = getValue();
-    if (typeof value === "number") {
+    if (typeof value === 'number') {
       return formatCurrency(value);
     }
     return value;
   },
 };
 
-declare module "@tanstack/react-table" {
+declare module '@tanstack/react-table' {
   //allows us to define custom properties for our columns
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: "text" | "range" | "select";
+    filterVariant?: 'text' | 'range' | 'select';
     totalComponent?: (props: PropsWithChildren) => React.ReactNode;
     className?: string;
     editDisabled?: boolean;

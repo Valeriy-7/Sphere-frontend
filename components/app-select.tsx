@@ -1,22 +1,13 @@
-"use client";
+'use client';
 
-import { Check, ChevronDown, ChevronsDown } from "lucide-react";
+import { Check, ChevronDown, ChevronsDown } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { FormControl, FormField, FormItem } from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
+import { FormControl, FormField, FormItem } from '@/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { FieldValues, UseFormReturn } from 'react-hook-form';
 
 type AppSelectProps = {
   options: { label: string; value: string }[];
@@ -32,9 +23,7 @@ export default function AppSelect<FormValues extends FieldValues>({
   name: string;
 }) {
   function getText(value: { label: string; value: string }[]) {
-    return value.length > 0
-      ? `${value.map((i) => i.label).join(", ")}`
-      : "Выбрать";
+    return value.length > 0 ? `${value.map((i) => i.label).join(', ')}` : 'Выбрать';
   }
   return (
     <FormField
@@ -46,17 +35,14 @@ export default function AppSelect<FormValues extends FieldValues>({
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
-                  size={"xs"}
+                  size={'xs'}
                   variant="outline"
                   role="combobox"
-                  className={cn(
-                    "",
-                    !field.value.length && "text-muted-foreground",
-                  )}
+                  className={cn('', !field.value.length && 'text-muted-foreground')}
                 >
-                  <span className={"truncate"}>{getText(field.value)}</span>
+                  <span className={'truncate'}>{getText(field.value)}</span>
 
-                  <ChevronDown className={"ml-auto"} />
+                  <ChevronDown className={'ml-auto'} />
                 </Button>
               </FormControl>
             </PopoverTrigger>
@@ -73,24 +59,18 @@ export default function AppSelect<FormValues extends FieldValues>({
                             form.setValue(name, [option]);
                             return;
                           }
-                          const updatedLanguages = field.value.some(
-                            (i) => i.value === option.value,
-                          )
-                            ? field.value.filter(
-                                (i) => i.value !== option.value,
-                              )
+                          const updatedLanguages = field.value.some((i) => i.value === option.value)
+                            ? field.value.filter((i) => i.value !== option.value)
                             : [...field.value, option];
                           form.setValue(name, updatedLanguages);
                         }}
                       >
                         <Check
                           className={cn(
-                            "mr-2 h-4 w-4",
-                            field.value
-                              .map((i) => i.value)
-                              .includes(option.value)
-                              ? "opacity-100"
-                              : "opacity-15",
+                            'mr-2 h-4 w-4',
+                            field.value.map((i) => i.value).includes(option.value)
+                              ? 'opacity-100'
+                              : 'opacity-15',
                           )}
                         />
                         {option.label}

@@ -1,27 +1,17 @@
-"use client";
+'use client';
 
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import { FieldValues, UseFormReturn } from 'react-hook-form';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
-import { DATE_FORMAT } from "@/lib/constants/date";
+import { DATE_FORMAT } from '@/lib/constants/date';
 
 export function DatePicker<FormValues extends FieldValues>({
   form,
@@ -40,16 +30,12 @@ export function DatePicker<FormValues extends FieldValues>({
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
-                  size={"xs"}
-                  variant={"outline"}
-                  className={cn("", !field.value && "text-muted-foreground")}
+                  size={'xs'}
+                  variant={'outline'}
+                  className={cn('', !field.value && 'text-muted-foreground')}
                 >
-                  {field.value ? (
-                    format(field.value, DATE_FORMAT)
-                  ) : (
-                    <span>Выбрать</span>
-                  )}
-                  <CalendarIcon className={"ml-auto"} />
+                  {field.value ? format(field.value, DATE_FORMAT) : <span>Выбрать</span>}
+                  <CalendarIcon className={'ml-auto'} />
                 </Button>
               </FormControl>
             </PopoverTrigger>
@@ -58,9 +44,7 @@ export function DatePicker<FormValues extends FieldValues>({
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
+                disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
                 initialFocus
               />
             </PopoverContent>

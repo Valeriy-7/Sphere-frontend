@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 import {
   AudioWaveform,
   ChevronsUpDown,
@@ -9,7 +9,7 @@ import {
   Plus,
   DoorOpen,
   Laptop,
-} from "lucide-react";
+} from 'lucide-react';
 
 import {
   DropdownMenu,
@@ -19,32 +19,40 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar";
-import { useJWTAuthContext } from "@/modules/auth";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {cabinetsGetActiveSuspenseQueryKey, useCabinetsSetActive} from "@/kubb-gen";
-import { useQueryClient } from "@tanstack/react-query";
+} from '@/components/ui/sidebar';
+import { useJWTAuthContext } from '@/modules/auth';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { cabinetsGetActiveSuspenseQueryKey, useCabinetsSetActive } from '@/kubb-gen';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar();
 
-  const { user:{ cabinets }, logout, fetchUser } = useJWTAuthContext();
-  const queryClient = useQueryClient()
-  const cabinetActive = cabinets.filter(i=>i.isActive)[0]
+  const {
+    user: { cabinets },
+    logout,
+    fetchUser,
+  } = useJWTAuthContext();
+  const queryClient = useQueryClient();
+  const cabinetActive = cabinets.filter((i) => i.isActive)[0];
   // @TODO на интерфейсе не переключается н аактивный
   // @todo табы переключаются только по тексту
-  const {mutate} = useCabinetsSetActive({mutation:{onSuccess:()=>{
-        fetchUser()
+  const { mutate } = useCabinetsSetActive({
+    mutation: {
+      onSuccess: () => {
+        fetchUser();
         queryClient.invalidateQueries({
           queryKey: [...cabinetsGetActiveSuspenseQueryKey()],
         });
-      }}})
+      },
+    },
+  });
 
   return (
     <SidebarMenu>
@@ -55,7 +63,7 @@ export function TeamSwitcher() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="flex aspect-square size-11 group-data-[collapsible=icon]:size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-11 items-center justify-center rounded-lg group-data-[collapsible=icon]:size-8">
                 <Avatar>
                   <AvatarImage src={cabinetActive.avatarUrl} />
                   <AvatarFallback>{cabinetActive.type}</AvatarFallback>
@@ -70,17 +78,17 @@ export function TeamSwitcher() {
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
             align="start"
-            side={isMobile ? "bottom" : "right"}
+            side={isMobile ? 'bottom' : 'right'}
             sideOffset={4}
           >
-            <DropdownMenuLabel className="text-xs text-muted-foreground">
+            <DropdownMenuLabel className="text-muted-foreground text-xs">
               Личные кабинеты
             </DropdownMenuLabel>
-            {cabinets.map(({id,type,companyName,avatarUrl}) => (
+            {cabinets.map(({ id, type, companyName, avatarUrl }) => (
               <DropdownMenuItem
                 key={id}
-                onClick={() => mutate({id})}
-                className="gap-2 p-2 cursor-pointer"
+                onClick={() => mutate({ id })}
+                className="cursor-pointer gap-2 p-2"
               >
                 <Avatar>
                   <AvatarImage src={avatarUrl} />
@@ -100,7 +108,7 @@ export function TeamSwitcher() {
               <div className="flex size-6 items-center justify-center">
                 <DoorOpen className="size-4" />
               </div>
-              <div className="font-medium text-muted-foreground">Выйти</div>
+              <div className="text-muted-foreground font-medium">Выйти</div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

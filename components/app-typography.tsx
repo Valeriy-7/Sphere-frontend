@@ -1,7 +1,7 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react';
 
 type TypographyProps = PropsWithChildren & {
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div" | "span";
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div' | 'span';
 } & React.HTMLAttributes<HTMLHeadingElement>;
 export function TypographyH1({ as: Component, ...props }: TypographyProps) {
   return (
@@ -10,26 +10,15 @@ export function TypographyH1({ as: Component, ...props }: TypographyProps) {
     </h1>
   );
 }
-export function TypographyH2({
-  as: Component = "h2",
-  children,
-  ...props
-}: TypographyProps) {
+export function TypographyH2({ as: Component = 'h2', children, ...props }: TypographyProps) {
   return (
-    <Component
-      {...props}
-      className="scroll-m-20 pb-2 text-xl font-normal first:mt-0"
-    >
+    <Component {...props} className="scroll-m-20 pb-2 text-xl font-normal first:mt-0">
       {children}
     </Component>
   );
 }
 
-export function TypographyH3({
-  as: Component = "h3",
-  children,
-  ...props
-}: TypographyProps) {
+export function TypographyH3({ as: Component = 'h3', children, ...props }: TypographyProps) {
   return (
     <Component {...props} className="scroll-m-20 text-sm font-medium">
       {children}

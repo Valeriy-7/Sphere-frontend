@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import type React from "react";
-import { useState, useRef } from "react";
-import {
-  DndContext,
-  useSensor,
-  useSensors,
-  PointerSensor,
-  DragOverlay,
-} from "@dnd-kit/core";
-import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { X, Upload } from "lucide-react";
+import type React from 'react';
+import { useState, useRef } from 'react';
+import { DndContext, useSensor, useSensors, PointerSensor, DragOverlay } from '@dnd-kit/core';
+import { restrictToWindowEdges } from '@dnd-kit/modifiers';
+import { X, Upload } from 'lucide-react';
 
 interface ImageUploadProps {
   maxSize?: number; // in bytes
@@ -19,7 +13,7 @@ interface ImageUploadProps {
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
   maxSize = 5 * 1024 * 1024, // 5MB default
-  allowedTypes = ["image/jpeg", "image/png", "image/gif"],
+  allowedTypes = ['image/jpeg', 'image/png', 'image/gif'],
 }) => {
   const [images, setImages] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -51,14 +45,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const processFiles = (files: File[]) => {
     const validFiles = files.filter((file) => {
       if (file.size > maxSize) {
-        setError(
-          `File ${file.name} is too large. Maximum size is ${maxSize / 1024 / 1024}MB.`,
-        );
+        setError(`File ${file.name} is too large. Maximum size is ${maxSize / 1024 / 1024}MB.`);
         return false;
       }
       if (!allowedTypes.includes(file.type)) {
         setError(
-          `File ${file.name} is not an allowed type. Allowed types are ${allowedTypes.join(", ")}.`,
+          `File ${file.name} is not an allowed type. Allowed types are ${allowedTypes.join(', ')}.`,
         );
         return false;
       }
@@ -77,22 +69,22 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   return (
     <DndContext sensors={sensors} modifiers={[restrictToWindowEdges]}>
-      <div className="max-w-md mx-auto mt-8">
+      <div className="mx-auto mt-8 max-w-md">
         <div
           onDragOver={(e) => e.preventDefault()}
           onDragEnter={() => setIsDragging(true)}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`p-8 border-2 border-dashed rounded-lg text-center cursor-pointer transition-colors ${
-            isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"
+          className={`cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
+            isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
           }`}
         >
           <input
             type="file"
             ref={fileInputRef}
             onChange={handleFileInput}
-            accept={allowedTypes.join(",")}
+            accept={allowedTypes.join(',')}
             className="hidden"
             multiple
           />
@@ -110,13 +102,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           {images.map((file, index) => (
             <div key={index} className="relative">
               <img
-                src={URL.createObjectURL(file) || "/placeholder.svg"}
+                src={URL.createObjectURL(file) || '/placeholder.svg'}
                 alt={`Uploaded ${index + 1}`}
-                className="w-full h-24 object-cover rounded"
+                className="h-24 w-full rounded object-cover"
               />
               <button
                 onClick={() => removeImage(index)}
-                className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+                className="absolute right-0 top-0 rounded-full bg-red-500 p-1 text-white"
               >
                 <X size={16} />
               </button>
@@ -127,7 +119,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
       <DragOverlay>
         {isDragging && (
-          <div className="bg-blue-100 border-2 border-blue-500 p-4 rounded">
+          <div className="rounded border-2 border-blue-500 bg-blue-100 p-4">
             <Upload className="text-blue-500" size={24} />
           </div>
         )}

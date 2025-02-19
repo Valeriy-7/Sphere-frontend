@@ -1,11 +1,7 @@
-"use client";
-import Link from "next/link";
-import {
-  usePathname,
-  useSelectedLayoutSegment,
-  useSelectedLayoutSegments,
-} from "next/navigation";
-import { type LucideIcon } from "lucide-react";
+'use client';
+import Link from 'next/link';
+import { usePathname, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation';
+import { type LucideIcon } from 'lucide-react';
 
 import {
   SidebarGroup,
@@ -13,7 +9,7 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar';
 
 export function NavProjects({
   projects,
@@ -40,11 +36,7 @@ export function NavProjects({
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton
-              asChild
-              tooltip={item.name}
-              isActive={getActive(item.url)}
-            >
+            <SidebarMenuButton asChild tooltip={item.name} isActive={getActive(item.url)}>
               <Link className={currentPath} href={item.url}>
                 <item.icon />
                 <span>{item.name}</span>

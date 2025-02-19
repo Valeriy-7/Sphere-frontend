@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from '@faker-js/faker';
 
 export type DataRow = {
   date1: Date;
@@ -47,17 +47,9 @@ const newDataRow = (): DataRow => {
   return {
     date1: faker.date.anytime(),
     date2: faker.date.anytime(),
-    groupDate1: faker.date.between({ from: "2015-01-01", to: "2015-01-05" }),
-    groupStoreName: faker.helpers.shuffle([
-      "Игрушки",
-      "Помидоры",
-      "Меха и шубы",
-    ])[0]!,
-    groupPlace: faker.helpers.shuffle([
-      "Тяк москва",
-      "14-й км МКАД 4",
-      "Ул. Тихорецкий б-р 1",
-    ])[0]!,
+    groupDate1: faker.date.between({ from: '2015-01-01', to: '2015-01-05' }),
+    groupStoreName: faker.helpers.shuffle(['Игрушки', 'Помидоры', 'Меха и шубы'])[0]!,
+    groupPlace: faker.helpers.shuffle(['Тяк москва', '14-й км МКАД 4', 'Ул. Тихорецкий б-р 1'])[0]!,
 
     uuid: faker.string.uuid(),
     number1to3: faker.number.int({ min: 1, max: 3 }),
@@ -74,7 +66,7 @@ const newDataRow = (): DataRow => {
     number8: faker.number.int(100000),
     number9: faker.number.int(100000),
     number10: faker.number.int(10000000),
-    size: faker.string.fromCharacters(["s", "m", "xl", "xs", "xll"]),
+    size: faker.string.fromCharacters(['s', 'm', 'xl', 'xs', 'xll']),
     title: faker.word.words({ count: { min: 1, max: 10 } }),
     art: faker.number.int(10000000),
     image: faker.image.avatar(),
@@ -82,7 +74,7 @@ const newDataRow = (): DataRow => {
     city: faker.location.city(),
     streetAddress: faker.location.streetAddress({ useFullAddress: true }),
     phone: faker.phone.number(),
-    status: faker.helpers.shuffle(["new", "acceptance", "accepted"])[0]!,
+    status: faker.helpers.shuffle(['new', 'acceptance', 'accepted'])[0]!,
   };
 };
 
@@ -104,10 +96,7 @@ export function generateData(...lens: number[]) {
   return makeDataLevel();
 }
 
-export async function fetchData(options: {
-  pageIndex: number;
-  pageSize: number;
-}) {
+export async function fetchData(options: { pageIndex: number; pageSize: number }) {
   // Simulate some network latency
   await new Promise((r) => setTimeout(r, 500));
 

@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import {authConfig, JWTAuthProvider, useJWTAuthContext} from "@/modules/auth";
-import { Toaster } from "@/components/ui/sonner";
-import { ReactQueryClientProvider } from "@/providers/QueryClientProvider";
-import { PropsWithChildren } from "react";
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import { useSelectedLayoutSegments } from "next/navigation";
+import { authConfig, JWTAuthProvider, useJWTAuthContext } from '@/modules/auth';
+import { Toaster } from '@/components/ui/sonner';
+import { ReactQueryClientProvider } from '@/providers/QueryClientProvider';
+import { PropsWithChildren } from 'react';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+import { useSelectedLayoutSegments } from 'next/navigation';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   const [lk] = useSelectedLayoutSegments();
-    console.log('JWTAuthProvider AppLayout');
-    return (
+  console.log('JWTAuthProvider AppLayout');
+  return (
     <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>
       <JWTAuthProvider config={authConfig}>
-        <TestJwt/>
+        <TestJwt />
         <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
         <Toaster />
       </JWTAuthProvider>
@@ -21,9 +21,8 @@ export default function AppLayout({ children }: PropsWithChildren) {
   );
 }
 
-
-function TestJwt(){
+function TestJwt() {
   const { user, isLoggedIn } = useJWTAuthContext();
   console.log(user);
-  return <h1>{isLoggedIn}</h1>
+  return <h1>{isLoggedIn}</h1>;
 }

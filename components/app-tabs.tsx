@@ -1,10 +1,10 @@
-"use client";
-import { usePathname } from "next/navigation";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
+'use client';
+import { usePathname } from 'next/navigation';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
 
-import { PropsWithChildren } from "react";
-import { Button } from "@/components/ui/button";
+import { PropsWithChildren } from 'react';
+import { Button } from '@/components/ui/button';
 
 export function AppTabs({
   list,
@@ -36,9 +36,9 @@ function AppTabsLinkTrigger({
 }>) {
   return (
     <TabsTrigger disabled={disabled} value={href} asChild>
-      <Button asChild variant={"outline"}>
+      <Button asChild variant={'outline'}>
         {disabled ? (
-          <div className={"cursor-not-allowed"}>{children}</div>
+          <div className={'cursor-not-allowed'}>{children}</div>
         ) : (
           <Link href={href}>{children}</Link>
         )}
@@ -48,5 +48,5 @@ function AppTabsLinkTrigger({
 }
 
 export function AppTabsWrap({ children }: PropsWithChildren) {
-  return <div className={"flex items-center justify-between"}>{children}</div>;
+  return <div className={'flex items-center justify-between'}>{children}</div>;
 }

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useCallback } from "react";
-import Image from "next/image";
-import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
+import { useState, useCallback } from 'react';
+import Image from 'next/image';
+import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 //import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/gif"];
+const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
 
 export default function FileUploadDropzone() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -18,10 +18,10 @@ export default function FileUploadDropzone() {
 
   const validateFile = (file: File) => {
     if (file.size > MAX_FILE_SIZE) {
-      return "File size exceeds 5MB limit.";
+      return 'File size exceeds 5MB limit.';
     }
     if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-      return "Only PNG, JPG, and GIF files are allowed.";
+      return 'Only PNG, JPG, and GIF files are allowed.';
     }
     return null;
   };
@@ -48,8 +48,8 @@ export default function FileUploadDropzone() {
 
         setSuccess(true);
       } catch (error) {
-        setError("Error uploading file");
-        console.error("Error uploading file:", error);
+        setError('Error uploading file');
+        console.error('Error uploading file:', error);
       } finally {
         setUploading(false);
       }
@@ -61,7 +61,7 @@ export default function FileUploadDropzone() {
   ); // Added validateFile to dependencies
 
   const handleDragEnd = (event: any) => {
-    if (event.over && event.over.id === "droppable-area") {
+    if (event.over && event.over.id === 'droppable-area') {
       const file = event.active.data.current?.files[0];
       if (file) {
         handleFileDrop(file);
@@ -78,20 +78,11 @@ export default function FileUploadDropzone() {
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <div className="w-full max-w-md mx-auto mt-8">
-        <DropArea
-          selectedImage={selectedImage}
-          handleFileSelect={handleFileSelect}
-        />
-        {uploading && (
-          <p className="mt-2 text-sm text-blue-500">Uploading...</p>
-        )}
+      <div className="mx-auto mt-8 w-full max-w-md">
+        <DropArea selectedImage={selectedImage} handleFileSelect={handleFileSelect} />
+        {uploading && <p className="mt-2 text-sm text-blue-500">Uploading...</p>}
         {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
-        {success && (
-          <p className="mt-2 text-sm text-green-500">
-            File uploaded successfully!
-          </p>
-        )}
+        {success && <p className="mt-2 text-sm text-green-500">File uploaded successfully!</p>}
       </div>
     </DndContext>
   );
@@ -105,16 +96,14 @@ function DropArea({
   handleFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const { active, setNodeRef } = useDraggable({
-    id: "droppable-area",
+    id: 'droppable-area',
   });
 
   return (
     <div
       ref={setNodeRef}
-      className={`p-6 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
-        active
-          ? "border-blue-400 bg-blue-50"
-          : "border-gray-300 hover:border-gray-400"
+      className={`cursor-pointer rounded-lg border-2 border-dashed p-6 transition-colors ${
+        active ? 'border-blue-400 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
       }`}
     >
       <input
@@ -128,7 +117,7 @@ function DropArea({
         {selectedImage ? (
           <div className="relative w-full pt-[100%]">
             <Image
-              src={selectedImage || "/placeholder.svg"}
+              src={selectedImage || '/placeholder.svg'}
               alt="Uploaded image preview"
               layout="fill"
               objectFit="cover"
@@ -152,13 +141,9 @@ function DropArea({
               />
             </svg>
             <p className="mt-1 text-sm text-gray-600">
-              {active
-                ? "Drop the image here"
-                : "Drag 'n' drop an image here, or click to select"}
+              {active ? 'Drop the image here' : "Drag 'n' drop an image here, or click to select"}
             </p>
-            <p className="mt-1 text-xs text-gray-500">
-              PNG, JPG, GIF up to 5MB
-            </p>
+            <p className="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
           </div>
         )}
       </label>
@@ -168,9 +153,9 @@ function DropArea({
 
 function DraggableImage({ src }: { src: string }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: "draggable-image",
+    id: 'draggable-image',
     data: {
-      type: "image",
+      type: 'image',
       src,
     },
   });
@@ -184,11 +169,11 @@ function DraggableImage({ src }: { src: string }) {
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
       <Image
-        src={src || "/placeholder.svg"}
+        src={src || '/placeholder.svg'}
         alt="Draggable image"
         width={100}
         height={100}
-        className="rounded-lg cursor-move"
+        className="cursor-move rounded-lg"
       />
     </div>
   );

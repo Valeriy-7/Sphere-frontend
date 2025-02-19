@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useRef } from "react";
-import Image from "next/image";
+import { useState, useRef } from 'react';
+import Image from 'next/image';
 
 export default function ImageUpload() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -22,7 +22,7 @@ export default function ImageUpload() {
   return (
     <div
       onClick={handleDivClick}
-      className="w-full max-w-md mx-auto mt-8 p-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors"
+      className="mx-auto mt-8 w-full max-w-md cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-6 transition-colors hover:border-gray-400"
     >
       <input
         type="file"
@@ -35,7 +35,7 @@ export default function ImageUpload() {
       {selectedImage ? (
         <div className="relative w-full pt-[100%]">
           <Image
-            src={selectedImage || "/placeholder.svg"}
+            src={selectedImage || '/placeholder.svg'}
             alt="Uploaded image preview"
             layout="fill"
             objectFit="cover"
