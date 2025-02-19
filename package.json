@@ -7,30 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
-    "prettier": "prettier --write ."
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.ts": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.jsx": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.tsx": [
-      "eslint --fix",
-      "prettier --write"
-    ]
+    "prettier": "prettier --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "15.1.7",
