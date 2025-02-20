@@ -13,11 +13,18 @@ import type { ServiceType } from '@/kubb-gen';
 
 export const columns: ColumnDef<ServiceType>[] = [
   {
+    id: 'image',
+  },
+  {
     accessorKey: 'imageUrl',
   },
   {
-    accessorKey: 'number',
+    accessorKey: 'createdAt',
     header: '№',
+    cell: ({ row }) => {
+      return row.index+1;
+    },
+    sortingFn: 'datetime',
     meta: {
       className: 'w-[50px]',
       editDisabled: true,
@@ -26,6 +33,7 @@ export const columns: ColumnDef<ServiceType>[] = [
   {
     accessorKey: 'name',
     header: 'Услуги',
+    enableSorting: false,
     meta: {
       className: 'w-[20%]',
     },
@@ -45,17 +53,19 @@ export const columns: ColumnDef<ServiceType>[] = [
       }, [initialValue]);
 
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
-        return <TableCardImgText image={{ src: original.image }} title={value} />;
+        return <TableCardImgText image={{ src: original.imageUrl }} title={value} />;
       }
-
+      console.log('original',original);
       return (
         <TableCardImgText
           slotImage={
-            <ImageUpload
-              onFile={(file) => {
-                table.options.meta?.updateData(index, 'imageUrl', file);
+            <ImageUpload key={index}
+              onFile={(file,imageUrl) => {
+                console.log('onFile');
+                table.options.meta?.updateData(index, 'image', file);
+                table.options.meta?.updateData(index, 'imageUrl', imageUrl);
               }}
-              src={original.image}
+              src={original.imageUrl}
             />
           }
         >
@@ -77,6 +87,7 @@ export const columns: ColumnDef<ServiceType>[] = [
   },
   {
     accessorKey: 'price',
+    enableSorting: false,
     header: `Цена за единицу ${RUB}`,
     meta: {
       className: 'w-[15%]',
@@ -86,10 +97,12 @@ export const columns: ColumnDef<ServiceType>[] = [
     },*/
   },
   {
+    enableSorting: false,
     accessorKey: 'description',
     header: 'Описание',
   },
   {
+    enableSorting: false,
     accessorKey: 'edit',
     meta: {
       className: 'w-[70px] text-right',

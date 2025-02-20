@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {
   ColumnDef,
@@ -7,6 +7,7 @@ import {
   getCoreRowModel,
   flexRender,
   RowData,
+  SortingState, getSortedRowModel,
 } from '@tanstack/react-table';
 
 import {
@@ -23,6 +24,7 @@ import { createPortal } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { PortalContext } from './portal-context';
 import { fa } from '@faker-js/faker';
+import {TableHeaderSort} from "@/components/date-table/table-header-sort";
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -57,7 +59,19 @@ export function ServicesTable<TData, TValue>({
   onSubmit,
   //portalContainer,
 }: TableProps<TData, TValue>) {
-  const [data, setData] = React.useState<TData[]>(initialData);
+
+  const [data, setData] = React.useState<TData[]>([]);
+  console.log(data);
+  const [sorting, setSorting] = React.useState<SortingState>([
+    {
+      id: 'createdAt', // Must be equal to the accessorKey of the coulmn you want sorted by default
+      desc: false,
+    },
+  ]);
+
+  useEffect(() => {
+    setData(initialData)
+  }, [initialData]);
 
   const portalContainer = useContext(PortalContext);
 
@@ -130,10 +144,11 @@ export function ServicesTable<TData, TValue>({
     setData((old) => [
       {
         name: '',
-        number: old.length,
+        number: old.length+1,
         id: old.length,
         price: 0,
         description: '',
+        createdAt:new Date().toISOString(),
         _isNew: true,
       },
       ...old,
@@ -145,6 +160,8 @@ export function ServicesTable<TData, TValue>({
     columns,
     defaultColumn,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
     // Provide our updateData function to our table meta
     meta: {
       resetData,
@@ -152,15 +169,15 @@ export function ServicesTable<TData, TValue>({
       setIsEdit,
       onSubmit: () =>
         onSubmit({
-          newRows: data.filter((i) => i._isNew),
-          updateRows: data.filter((i) => i._isUpdate && !i._isNew),
+          newRows: data.filter((i) => i._isNew).map(({number,...i})=>({...i})),
+          updateRows: data.filter((i) => i._isUpdate && !i._isNew).map(({number,...i})=>({...i})),
           removeIds: idsRemoveRow,
           rows: data,
         }),
       deleteRow: (rowIndex) => {
         setData((old) =>
           old.filter((row, index) => {
-            if (index == rowIndex) {
+            if (index == rowIndex && !row._isNew) {
               setIdsRemoveRow([row.id, ...idsRemoveRow]);
             }
 
@@ -189,8 +206,13 @@ export function ServicesTable<TData, TValue>({
     debugTable: true,
     state: {
       columnVisibility: {
-        imageUrl: false,
+        image: false,
       },
+      sorting
+   /*   sorting:[{
+        id: 'number', // Must be equal to the accessorKey of the coulmn you want sorted by default
+        desc: true,
+      },]*/
     },
   });
   return (
@@ -207,9 +229,7 @@ export function ServicesTable<TData, TValue>({
                     colSpan={header.colSpan}
                     className={header.column.columnDef.meta?.className}
                   >
-                    {header.isPlaceholder ? null : (
-                      <>{flexRender(header.column.columnDef.header, header.getContext())}</>
-                    )}
+                    {header.isPlaceholder ? null : <TableHeaderSort header={header} />}
                   </TableHead>
                 );
               })}

@@ -9,7 +9,7 @@ import { useSelectedLayoutSegments } from 'next/navigation';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   const [lk] = useSelectedLayoutSegments();
-  console.log('JWTAuthProvider AppLayout');
+
   return (
     <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>
       <JWTAuthProvider config={authConfig}>
@@ -23,6 +23,6 @@ export default function AppLayout({ children }: PropsWithChildren) {
 
 function TestJwt() {
   const { user, isLoggedIn } = useJWTAuthContext();
-  console.log(user);
+
   return <h1>{isLoggedIn}</h1>;
 }

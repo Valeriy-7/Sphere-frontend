@@ -23,13 +23,16 @@ export default function ServicesPage() {
   return (
     <ServicesTable
       onSubmit={({ newRows, removeIds, updateRows }) => {
+        console.log(newRows,removeIds, updateRows);
         const promises = [
-          ...removeIds.map((id) => mutateDelete({ data: { id } })),
-          ...newRows.map((data) => mutateCreate({ data })),
-          ...updateRows.map((data) => mutateUpdate({ data })),
+          ...removeIds.map((id) => mutateDelete({ id  })),
+          ...newRows.map((data, index) => {
+              console.log(data);
+              return mutateCreate({ data:{...data, price:String(data.price)} })
+          }),
+          ...updateRows.map((data) => mutateUpdate({id:data.id, data:{...data, price:String(data.price)} }))
         ];
         Promise.allSettled(promises).then((results) => {
-          results.forEach((result) => console.log(result.status));
           queryClient.invalidateQueries({
             queryKey: [...servicesGetServicesSuspenseQueryKey()],
           });

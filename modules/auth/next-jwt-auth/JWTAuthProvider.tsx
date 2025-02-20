@@ -19,10 +19,6 @@ export function createJWTAuthProvider<UserProps extends AuthUser = AuthUser>() {
     const [isLoggedIn, setLoggedIn] = useState<boolean | null>(null);
     const [user, setUser] = useState<UserProps | null>(null);
 
-    useEffect(() => {
-      console.log('useEffect', user);
-    }, [user]);
-
     const apiClient = () => controller.getHttpClient();
 
     const navigateToLoginPage = () => router.push(props.config.pages.login.url);

@@ -13,11 +13,12 @@ const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 type ImageProps = {
   src: string | null;
   cabinetActiveId: string;
-  onFile: (file: File) => void;
+  onFile: (file: File, imageUrl:string) => void;
 };
 
 export default function ImageUpload({ src = null, cabinetActiveId, onFile }: ImageProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(src);
+  console.log('selectedImage', selectedImage);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -50,8 +51,8 @@ export default function ImageUpload({ src = null, cabinetActiveId, onFile }: Ima
       setSelectedImage(imageUrl);
       setError(null);
       setSuccess(false);
-
-      return onFile(file);
+      onFile(file,imageUrl);
+      return
 
       try {
         setUploading(true);

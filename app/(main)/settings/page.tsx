@@ -11,34 +11,13 @@ import { Input } from '@/components/ui/input';
 import { SettingsAvatar } from '@/app/(main)/settings/settings-avatar';
 import { TypographyH2 } from '@/components/app-typography';
 import {
-  cabinetsUpdateMutationRequestSchema,
-  useCabinetsGetActiveSuspense,
-  useCabinetsUpdate,
-  CabinetType,
-  cabinetsGetActiveSuspenseQueryKey,
+    cabinetsUpdateMutationRequestSchema,
+    useCabinetsGetActiveSuspense,
+    useCabinetsUpdate,
+    CabinetType,
+    cabinetsGetActiveSuspenseQueryKey, useAvatarUploadAvatar,
 } from '@/kubb-gen';
 import { useJWTAuthContext } from '@/modules/auth';
-
-const updateCabinetDtoSchema = z.object({
-  inn: z.string().describe('ИНН организации').optional(),
-  ogrn: z.string().describe('ОГРН организации').optional(),
-  legalCompanyName: z.string().describe('Юридическое название организации').optional(),
-  legalAddress: z.string().describe('Юридический адрес').optional(),
-  companyName: z.string().describe('Название организации для отображения').optional(),
-  companyPhone: z.string().describe('Телефон организации').optional(),
-  companyEmail: z.string().describe('Email организации').optional(),
-  telegramUrl: z.string().describe('Ссылка на Telegram').optional(),
-  whatsappUrl: z.string().describe('Ссылка на WhatsApp').optional(),
-  actualAddress: z.string().describe('Фактический адрес').optional(),
-  managerFullName: z.string().describe('ФИО управляющего').optional(),
-  bankName: z.string().describe('Название банка').optional(),
-  bik: z.string().describe('БИК банка').optional(),
-  checkingAccount: z.string().describe('Расчетный счет').optional(),
-  correspondentAccount: z.string().describe('Корреспондентский счет').optional(),
-  registrationUrl: z.string().describe('Ссылка для регистрации контрагентов').optional(),
-  avatarUrl: z.string().describe('URL аватарки').optional(),
-  type: z.enum(['wildberries', 'fulfillment']).describe('Тип организации').nullable().nullish(),
-});
 
 /*z.setErrorMap((issue, ctx) => {
   if (issue.received === "null") {
@@ -47,24 +26,28 @@ const updateCabinetDtoSchema = z.object({
   return { message: ctx.defaultError };
 });*/
 import { useQueryClient } from '@tanstack/react-query';
+import ImageUpload from "@/components/image-upload-validator";
 export default function SettingsPage() {
   const { user } = useJWTAuthContext();
 
   const { data } = useCabinetsGetActiveSuspense();
-
+  const {mutateAsync: mutateAvatar} = useAvatarUploadAvatar({mutation:{
+          onError: (error) => {
+              toast.error(error?.response?.data?.message)
+          },
+      }})
   const queryClient = useQueryClient();
 
   const { id: cabinetActiveId, type, ...restData } = data as CabinetType;
 
   const { mutate, isPending } = useCabinetsUpdate();
-  console.log(restData);
+
   const form = useForm<z.infer<typeof cabinetsUpdateMutationRequestSchema>>({
     resolver: zodResolver(cabinetsUpdateMutationRequestSchema),
     defaultValues: { ...restData },
   });
 
   function onSubmit(data: z.infer<typeof cabinetsUpdateMutationRequestSchema>) {
-    console.log(data);
     mutate(
       { data, id: cabinetActiveId },
       {
@@ -75,10 +58,23 @@ export default function SettingsPage() {
           });
         },
         onError: (error) => {
-          console.log(error?.response?.data.message);
-          error?.response?.data.message?.forEach((i: string) => {
-            toast.error(i);
-          });
+            console.log(error?.response?.data.errors);
+            console.log(error?.response?.data.message);
+
+          error?.response?.data.errors?.forEach(
+            ({
+              field,
+              type,
+              message,
+            }: {
+              field: string;
+              message: string;
+              name: string;
+              type: string;
+            }) => {
+              form.setError(field, { type, message });
+            },
+          );
         },
       },
     );
@@ -91,7 +87,11 @@ export default function SettingsPage() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className={'gap-10 lg:flex'}>
-            <SettingsAvatar cabinetActiveId={cabinetActiveId} src={restData.avatarUrl} />
+            <SettingsAvatar>
+                <ImageUpload onFile={file=>{
+                    mutateAvatar({cabinetId:cabinetActiveId,data:{file}})
+                }} src={restData.avatarUrl}></ImageUpload>
+            </SettingsAvatar>
             {/*<SettingsAvatarUpload/>*/}
             <div className="flex-1 space-y-4">
               <FormField
