@@ -11,11 +11,12 @@ import { Input } from '@/components/ui/input';
 import { SettingsAvatar } from '@/app/(main)/settings/settings-avatar';
 import { TypographyH2 } from '@/components/app-typography';
 import {
-    cabinetsUpdateMutationRequestSchema,
-    useCabinetsGetActiveSuspense,
-    useCabinetsUpdate,
-    CabinetType,
-    cabinetsGetActiveSuspenseQueryKey, useAvatarUploadAvatar,
+  cabinetsUpdateMutationRequestSchema,
+  useCabinetsGetActiveSuspense,
+  useCabinetsUpdate,
+  CabinetType,
+  cabinetsGetActiveSuspenseQueryKey,
+  useAvatarUploadAvatar,
 } from '@/kubb-gen';
 import { useJWTAuthContext } from '@/modules/auth';
 
@@ -26,16 +27,24 @@ import { useJWTAuthContext } from '@/modules/auth';
   return { message: ctx.defaultError };
 });*/
 import { useQueryClient } from '@tanstack/react-query';
-import ImageUpload from "@/components/image-upload-validator";
+import ImageUpload from '@/components/image-upload-validator';
 export default function SettingsPage() {
-  const { user } = useJWTAuthContext();
+  const { user, fetchUser } = useJWTAuthContext();
 
   const { data } = useCabinetsGetActiveSuspense();
-  const {mutateAsync: mutateAvatar} = useAvatarUploadAvatar({mutation:{
-          onError: (error) => {
-              toast.error(error?.response?.data?.message)
-          },
-      }})
+  const { mutateAsync: mutateAvatar } = useAvatarUploadAvatar({
+    mutation: {
+      onError: (error) => {
+        toast.error(error?.response?.data?.message);
+      },
+        onSuccess:({avatarUrl})=>{
+
+            queryClient.setQueriesData(cabinetsGetActiveSuspenseQueryKey(),(old)=>({...old,avatarUrl}))
+            fetchUser()
+
+        }
+    },
+  });
   const queryClient = useQueryClient();
 
   const { id: cabinetActiveId, type, ...restData } = data as CabinetType;
@@ -56,10 +65,11 @@ export default function SettingsPage() {
           queryClient.invalidateQueries({
             queryKey: [...cabinetsGetActiveSuspenseQueryKey()],
           });
+            fetchUser()
         },
         onError: (error) => {
-            console.log(error?.response?.data.errors);
-            console.log(error?.response?.data.message);
+          console.log(error?.response?.data.errors);
+          console.log(error?.response?.data.message);
 
           error?.response?.data.errors?.forEach(
             ({
@@ -88,9 +98,12 @@ export default function SettingsPage() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className={'gap-10 lg:flex'}>
             <SettingsAvatar>
-                <ImageUpload onFile={file=>{
-                    mutateAvatar({cabinetId:cabinetActiveId,data:{file}})
-                }} src={restData.avatarUrl}></ImageUpload>
+              <ImageUpload
+                onFile={(file,imageUrl) => {
+                  mutateAvatar({ cabinetId: cabinetActiveId, data: { file } });
+                }}
+                src={restData.avatarUrl}
+              ></ImageUpload>
             </SettingsAvatar>
             {/*<SettingsAvatarUpload/>*/}
             <div className="flex-1 space-y-4">
@@ -100,7 +113,7 @@ export default function SettingsPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input label="Название организации" {...field} />
+                      <Input placeholder="Название организации" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -113,7 +126,7 @@ export default function SettingsPage() {
                   render={({ field }) => (
                     <FormItem className={'col-span-2'}>
                       <FormControl>
-                        <Input label="Номер телефона организации" {...field} />
+                        <Input placeholder="Номер телефона организации" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -125,56 +138,58 @@ export default function SettingsPage() {
                   render={({ field }) => (
                     <FormItem className={'col-span-2'}>
                       <FormControl>
-                        <Input label="Имя управляющего" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="telegramUrl"
-                  render={({ field }) => (
-                    <FormItem className={'col-span-1'}>
-                      <FormControl>
-                        <Input label="@ Ник в Telegram" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="whatsappUrl"
-                  render={({ field }) => (
-                    <FormItem className={'col-span-1'}>
-                      <FormControl>
-                        <Input label="@ Ник в WhatsApp" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="companyEmail"
-                  render={({ field }) => (
-                    <FormItem className={'col-span-2'}>
-                      <FormControl>
-                        <Input label="E - mail" {...field} />
+                        <Input placeholder="Имя управляющего" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
+                <div className={'grid-cols-12 gap-4 space-y-4 sm:grid sm:space-y-0'}>
+                    <FormField
+                        control={form.control}
+                        name="telegramUrl"
+                        render={({ field }) => (
+                            <FormItem className={'col-span-4'}>
+                                <FormControl>
+                                    <Input placeholder="@ Ник в Telegram" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="whatsappUrl"
+                        render={({ field }) => (
+                            <FormItem className={'col-span-4'}>
+                                <FormControl>
+                                    <Input placeholder="@ Ник в WhatsApp" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="companyEmail"
+                        render={({ field }) => (
+                            <FormItem className={'col-span-4'}>
+                                <FormControl>
+                                    <Input placeholder="E - mail" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
               <FormField
                 control={form.control}
                 name="actualAddress"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input label="Адрес" {...field} />
+                      <Input placeholder="Адрес" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

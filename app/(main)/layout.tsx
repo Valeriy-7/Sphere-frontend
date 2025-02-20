@@ -17,12 +17,10 @@ export default function MainLayout({ children }: PropsWithChildren) {
   const [lk] = useSelectedLayoutSegments();
   const { user, isLoggedIn } = useJWTAuthContext();
 
-  if (!isLoggedIn)
-    return (
-      <div className={'flex h-screen justify-center'}>
-        <AppSpinner size={'large'} />
-      </div>
-    );
+  if (!isLoggedIn) {
+    return null
+  }
+
 
   return (
     <ThemeWrap name={lk as LKTypeValue}>

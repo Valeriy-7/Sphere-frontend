@@ -39,24 +39,27 @@ export function TableCardImgText({
   slotImage?: ReactNode;
 }) {
   return (
-    <Card
-      className={cn(
-        'inline-flex max-w-full flex-1 items-center justify-center gap-2 p-1 text-left',
-        className,
-      )}
-    >
-      <div className={'relative h-[30px] w-[60px]'}>
-        {!slotImage && (
-          <img className={'h-full w-full rounded-sm object-cover'} src={image?.src} alt={title} />
-        )}
-        {slotImage}
-      </div>
+    <div className={'text-left'}>
+      <Card
+          className={cn(
+              'inline-flex max-w-full flex-1 items-center justify-center gap-2 p-1 text-left',
+              className,
+          )}
+      >
+        <div className={'relative h-[30px] w-[60px]'}>
+          {!slotImage && (
+              <img className={'h-full w-full rounded-sm object-cover'} src={image?.src} alt={title} />
+          )}
+          {slotImage}
+        </div>
 
-      <div className={'overflow-hidden'}>
-        <div className={'w-full truncate'}>{title}</div>
-        <div className={'w-full truncate'}>{text}</div>
-        {children}
-      </div>
-    </Card>
+        <div className={'overflow-hidden min-w-[50px]'}>
+          <div className={'w-full truncate'}>{title}</div>
+          <div className={'w-full truncate'}>{text}</div>
+          {children}
+        </div>
+      </Card>
+    </div>
+
   );
 }

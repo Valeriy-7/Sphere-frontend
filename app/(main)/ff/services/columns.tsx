@@ -17,14 +17,23 @@ export const columns: ColumnDef<ServiceType>[] = [
   },
   {
     accessorKey: 'imageUrl',
+    cell:({getValue,row})=>{
+      return getValue()
+    }
   },
+/*    {
+        accessorKey: 'createdAt',
+        cell: ({ getValue }) => {
+            const date = getValue()
+            return new Date(date).getTime()
+        },
+    },*/
   {
-    accessorKey: 'createdAt',
+    accessorKey: 'number',
     header: '№',
-    cell: ({ row }) => {
-      return row.index+1;
-    },
-    sortingFn: 'datetime',
+ /*   cell: ({ row }) => {
+      return row.index;
+    },*/
     meta: {
       className: 'w-[50px]',
       editDisabled: true,
@@ -37,35 +46,40 @@ export const columns: ColumnDef<ServiceType>[] = [
     meta: {
       className: 'w-[20%]',
     },
-    cell: ({ getValue, row: { index, original }, column: { id }, table, column }) => {
-      const initialValue = getValue();
-      // We need to keep and update the state of the cell normally
-      const [value, setValue] = React.useState(initialValue);
+    cell: ({ getValue, row, column: { id }, table, column }) => {
 
-      // When the input is blurred, we'll call our table meta's updateData function
-      const onBlur = () => {
-        table.options.meta?.updateData(index, id, value);
-      };
+      const imageUrl= row.getValue('imageUrl')
 
-      // If the initialValue is changed external, sync it up with our state
-      React.useEffect(() => {
-        setValue(initialValue);
-      }, [initialValue]);
+      const {index } =  row
+
+       const initialValue = getValue();
+
+       const [value, setValue] = React.useState(initialValue);
+
+
+       const onBlur = () => {
+         table.options.meta?.updateData(index, id, value);
+       };
+
+
+       React.useEffect(() => {
+         setValue(initialValue);
+       }, [initialValue]);
 
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
-        return <TableCardImgText image={{ src: original.imageUrl }} title={value} />;
+        return <TableCardImgText image={{ src: imageUrl }} title={value} />;
       }
-      console.log('original',original);
+
       return (
         <TableCardImgText
           slotImage={
-            <ImageUpload key={index}
-              onFile={(file,imageUrl) => {
+            <ImageUpload
+              onFile={(file, imageUrl) => {
                 console.log('onFile');
                 table.options.meta?.updateData(index, 'image', file);
                 table.options.meta?.updateData(index, 'imageUrl', imageUrl);
               }}
-              src={original.imageUrl}
+              src={imageUrl}
             />
           }
         >

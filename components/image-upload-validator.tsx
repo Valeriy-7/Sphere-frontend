@@ -1,7 +1,7 @@
 'use client';
 import { ImageUp } from 'lucide-react';
 
-import { useState, useRef } from 'react';
+import {useState, useRef, useEffect} from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useAvatarUploadAvatar } from '@/kubb-gen';
@@ -13,11 +13,16 @@ const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 type ImageProps = {
   src: string | null;
   cabinetActiveId: string;
-  onFile: (file: File, imageUrl:string) => void;
+  onFile: (file: File, imageUrl: string) => void;
 };
 
 export default function ImageUpload({ src = null, cabinetActiveId, onFile }: ImageProps) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(src);
+  const [selectedImage, setSelectedImage] = useState<string | null>();
+
+  useEffect(() => {
+    setSelectedImage(src)
+  }, [src]);
+
   console.log('selectedImage', selectedImage);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -48,11 +53,11 @@ export default function ImageUpload({ src = null, cabinetActiveId, onFile }: Ima
       }
 
       const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
+      //setSelectedImage(imageUrl);
       setError(null);
       setSuccess(false);
-      onFile(file,imageUrl);
-      return
+      onFile(file, imageUrl);
+      return;
 
       try {
         setUploading(true);
