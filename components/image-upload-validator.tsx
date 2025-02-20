@@ -1,7 +1,7 @@
 'use client';
 import { ImageUp } from 'lucide-react';
 
-import {useState, useRef, useEffect} from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useAvatarUploadAvatar } from '@/kubb-gen';
@@ -20,7 +20,7 @@ export default function ImageUpload({ src = null, cabinetActiveId, onFile }: Ima
   const [selectedImage, setSelectedImage] = useState<string | null>();
 
   useEffect(() => {
-    setSelectedImage(src)
+    setSelectedImage(src);
   }, [src]);
 
   console.log('selectedImage', selectedImage);

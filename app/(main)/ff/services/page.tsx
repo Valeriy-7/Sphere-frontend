@@ -35,11 +35,11 @@ export default function ServicesPage() {
           ),
         ];
         Promise.allSettled(promises).then((results) => {
-            results.forEach(({status})=>{
-                console.log(status);
-            })
-            console.log('invalidateQueries');
-            queryClient.invalidateQueries({
+          results.forEach(({ status }) => {
+            console.log(status);
+          });
+          console.log('invalidateQueries');
+          queryClient.invalidateQueries({
             queryKey: [...servicesGetServicesSuspenseQueryKey()],
           });
         });

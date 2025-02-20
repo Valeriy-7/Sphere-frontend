@@ -37,12 +37,13 @@ export default function SettingsPage() {
       onError: (error) => {
         toast.error(error?.response?.data?.message);
       },
-        onSuccess:({avatarUrl})=>{
-
-            queryClient.setQueriesData(cabinetsGetActiveSuspenseQueryKey(),(old)=>({...old,avatarUrl}))
-            fetchUser()
-
-        }
+      onSuccess: ({ avatarUrl }) => {
+        queryClient.setQueriesData(cabinetsGetActiveSuspenseQueryKey(), (old) => ({
+          ...old,
+          avatarUrl,
+        }));
+        fetchUser();
+      },
     },
   });
   const queryClient = useQueryClient();
@@ -65,7 +66,7 @@ export default function SettingsPage() {
           queryClient.invalidateQueries({
             queryKey: [...cabinetsGetActiveSuspenseQueryKey()],
           });
-            fetchUser()
+          fetchUser();
         },
         onError: (error) => {
           console.log(error?.response?.data.errors);
@@ -99,7 +100,7 @@ export default function SettingsPage() {
           <div className={'gap-10 lg:flex'}>
             <SettingsAvatar>
               <ImageUpload
-                onFile={(file,imageUrl) => {
+                onFile={(file, imageUrl) => {
                   mutateAvatar({ cabinetId: cabinetActiveId, data: { file } });
                 }}
                 src={restData.avatarUrl}
@@ -145,44 +146,44 @@ export default function SettingsPage() {
                   )}
                 />
               </div>
-                <div className={'grid-cols-12 gap-4 space-y-4 sm:grid sm:space-y-0'}>
-                    <FormField
-                        control={form.control}
-                        name="telegramUrl"
-                        render={({ field }) => (
-                            <FormItem className={'col-span-4'}>
-                                <FormControl>
-                                    <Input placeholder="@ Ник в Telegram" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="whatsappUrl"
-                        render={({ field }) => (
-                            <FormItem className={'col-span-4'}>
-                                <FormControl>
-                                    <Input placeholder="@ Ник в WhatsApp" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="companyEmail"
-                        render={({ field }) => (
-                            <FormItem className={'col-span-4'}>
-                                <FormControl>
-                                    <Input placeholder="E - mail" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </div>
+              <div className={'grid-cols-12 gap-4 space-y-4 sm:grid sm:space-y-0'}>
+                <FormField
+                  control={form.control}
+                  name="telegramUrl"
+                  render={({ field }) => (
+                    <FormItem className={'col-span-4'}>
+                      <FormControl>
+                        <Input placeholder="@ Ник в Telegram" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="whatsappUrl"
+                  render={({ field }) => (
+                    <FormItem className={'col-span-4'}>
+                      <FormControl>
+                        <Input placeholder="@ Ник в WhatsApp" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="companyEmail"
+                  render={({ field }) => (
+                    <FormItem className={'col-span-4'}>
+                      <FormControl>
+                        <Input placeholder="E - mail" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormField
                 control={form.control}
                 name="actualAddress"

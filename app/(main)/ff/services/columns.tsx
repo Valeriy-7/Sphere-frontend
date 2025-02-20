@@ -17,11 +17,11 @@ export const columns: ColumnDef<ServiceType>[] = [
   },
   {
     accessorKey: 'imageUrl',
-    cell:({getValue,row})=>{
-      return getValue()
-    }
+    cell: ({ getValue, row }) => {
+      return getValue();
+    },
   },
-/*    {
+  /*    {
         accessorKey: 'createdAt',
         cell: ({ getValue }) => {
             const date = getValue()
@@ -31,7 +31,7 @@ export const columns: ColumnDef<ServiceType>[] = [
   {
     accessorKey: 'number',
     header: '№',
- /*   cell: ({ row }) => {
+    /*   cell: ({ row }) => {
       return row.index;
     },*/
     meta: {
@@ -47,24 +47,21 @@ export const columns: ColumnDef<ServiceType>[] = [
       className: 'w-[20%]',
     },
     cell: ({ getValue, row, column: { id }, table, column }) => {
+      const imageUrl = row.getValue('imageUrl');
 
-      const imageUrl= row.getValue('imageUrl')
+      const { index } = row;
 
-      const {index } =  row
+      const initialValue = getValue();
 
-       const initialValue = getValue();
+      const [value, setValue] = React.useState(initialValue);
 
-       const [value, setValue] = React.useState(initialValue);
+      const onBlur = () => {
+        table.options.meta?.updateData(index, id, value);
+      };
 
-
-       const onBlur = () => {
-         table.options.meta?.updateData(index, id, value);
-       };
-
-
-       React.useEffect(() => {
-         setValue(initialValue);
-       }, [initialValue]);
+      React.useEffect(() => {
+        setValue(initialValue);
+      }, [initialValue]);
 
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
         return <TableCardImgText image={{ src: imageUrl }} title={value} />;

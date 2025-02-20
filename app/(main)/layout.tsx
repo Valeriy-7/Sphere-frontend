@@ -18,9 +18,8 @@ export default function MainLayout({ children }: PropsWithChildren) {
   const { user, isLoggedIn } = useJWTAuthContext();
 
   if (!isLoggedIn) {
-    return null
+    return null;
   }
-
 
   return (
     <ThemeWrap name={lk as LKTypeValue}>
