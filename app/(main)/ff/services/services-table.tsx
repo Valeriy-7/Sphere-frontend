@@ -109,20 +109,51 @@ export function ServicesTable<TData, TValue>({
       if (typeof value === 'number') {
         return (
           <>
-            <CurrencyInput
-              size={'xs'}
-              style={{ fieldSizing: 'content' }}
-              className={
-                'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-              }
-              value={value}
-              onChange={(val) => {
-                setValue(val);
-                form?.setValue(`rows.${index}.${id}`, val);
-              }}
-              onBlur={onBlur}
-            />
-            {}
+            {<FormField
+                control={form.control}
+                name={`rows.${index}.${id}`}
+                render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <CurrencyInput
+                            size={'xs'}
+                            style={{ fieldSizing: 'content' }}
+                            className={
+                              'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+                            }
+                            value={value}
+                            onChange={(val) => {
+                              setValue(val);
+                              field.onChange(val)
+                            }}
+                            onBlur={()=>{
+                              onBlur()
+                              field.onBlur()
+                            }}
+
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                )}
+            />}
+         {/*   <FormField
+                control={form.control}
+                name={`rows.${index}.${id}`}
+                render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                            type={"number"}
+                            {...field}
+                            onChange={(e) => field.onChange(+e.target.value)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                )}
+            />*/}
+
           </>
         );
       }

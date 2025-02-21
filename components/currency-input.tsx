@@ -36,7 +36,7 @@ export function CurrencyInput({
 
     if (!_value) {
       setLocalClassName('');
-      onChange?.();
+      onChange?.(0);
       return;
     }
 
