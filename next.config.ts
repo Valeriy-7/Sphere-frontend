@@ -1,8 +1,10 @@
-import type { NextConfig } from 'next';
+import { type NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  output: 'export', // npx serve@latest out
+const config: NextConfig = {
+  output: "standalone",
+  env: {
+    PORT: "3001",
+  },
 };
 
-export default nextConfig;
+export default config;
