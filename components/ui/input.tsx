@@ -52,6 +52,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={cn(inputVariants({ variant, size, className }))}
         ref={ref}
+        id={id}
         {...props}
       />
     );

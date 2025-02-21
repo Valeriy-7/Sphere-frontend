@@ -26,6 +26,10 @@ import { Button } from '@/components/ui/button';
 import { PortalContext } from './portal-context';
 import { fa } from '@faker-js/faker';
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
+import {UseFormReturn} from "react-hook-form";
+import {FormValues} from "./schema";
+import {FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -35,6 +39,7 @@ declare module '@tanstack/react-table' {
     deleteRow?: (rowIndex: number) => void;
     onSubmit: (props: OnSubmitProps) => void;
     resetData?: () => void;
+    form: UseFormReturn<FormValues>;
   }
 }
 
@@ -45,6 +50,7 @@ interface TableProps<TData, TValue> {
   initialData: TData[];
   onSubmit: (props: OnSubmitProps) => void;
   //portalContainer:HTMLElement | null
+  form: UseFormReturn<FormValues>;
 }
 
 type OnSubmitProps = {
@@ -55,13 +61,13 @@ type OnSubmitProps = {
 };
 
 export function ServicesTable<TData, TValue>({
+  form,
   columns,
   initialData,
   onSubmit,
   //portalContainer,
 }: TableProps<TData, TValue>) {
   const [data, setData] = React.useState<TData[]>([]);
-  console.table(data);
   const [sorting, setSorting] = React.useState<SortingState>([
     {
       id: 'number', // Must be equal to the accessorKey of the coulmn you want sorted by default
@@ -77,6 +83,9 @@ export function ServicesTable<TData, TValue>({
 
   const defaultColumn: Partial<ColumnDef<TData>> = {
     cell: ({ getValue, row: { index }, column: { id }, table, column }) => {
+      const form = table.options.meta?.form
+
+
       const initialValue = getValue();
       // We need to keep and update the state of the cell normally
       const [value, setValue] = React.useState(initialValue);
@@ -99,35 +108,55 @@ export function ServicesTable<TData, TValue>({
       }
 
       if (typeof value === 'number') {
-        return (
-          <CurrencyInput
-            size={'xs'}
-            style={{ fieldSizing: 'content' }}
-            className={
-              'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-            }
-            value={value}
-            onChange={(val) => {
-              if (val) return setValue(val);
-              setValue(0);
-            }}
-            onBlur={onBlur}
-          />
+
+        return (<>
+              <CurrencyInput
+                  size={'xs'}
+                  style={{ fieldSizing: 'content' }}
+                  className={
+                    'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+                  }
+                  value={value}
+                  onChange={(val) => {
+                    setValue(val);
+                    form?.setValue(`rows.${index}.${id}`,val)
+                  }}
+                  onBlur={onBlur}
+              />
+              {}
+        </>
+
         );
       }
-
+      console.log(form?.formState.errors);
       return (
-        <textarea
-          style={{ fieldSizing: 'content' }}
-          className={
-            'block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-          }
-          value={value as string}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-          onBlur={onBlur}
-        />
+          <>
+            <FormField
+                control={form.control}
+                name={`rows.${index}.${id}`}
+                render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <textarea
+                            {...field}
+                            style={{fieldSizing: 'content'}}
+                            className={
+                              'block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+                            }
+                            value={value as string}
+                            onChange={(e) => {
+                              setValue(e.target.value);
+                              form?.setValue(`rows.${index}.${id}`, e.target.value)
+                            }}
+                            onBlur={onBlur}
+                        />
+                      </FormControl>
+                      <FormMessage/>
+                    </FormItem>
+                )}
+            />
+          </>
+
       );
     },
   };
@@ -164,18 +193,25 @@ export function ServicesTable<TData, TValue>({
     onSortingChange: setSorting,
     // Provide our updateData function to our table meta
     meta: {
+      form,
       resetData,
       isEdit,
       setIsEdit,
-      onSubmit: () =>
-        onSubmit({
-          newRows: data.filter((i) => i._isNew).map(({ number, ...i }) => ({ ...i })),
-          updateRows: data
-            .filter((i) => i._isUpdate && !i._isNew)
-            .map(({ number, ...i }) => ({ ...i })),
-          removeIds: idsRemoveRow,
-          rows: data,
-        }),
+      onSubmit: () =>{
+        form.handleSubmit(()=>{
+          setIsEdit(false)
+          console.log('handleSubmit');
+          onSubmit({
+            newRows: data.filter((i) => i._isNew).map(({ number, ...i }) => ({ ...i })),
+            updateRows: data
+                .filter((i) => i._isUpdate && !i._isNew)
+                .map(({ number, ...i }) => ({ ...i })),
+            removeIds: idsRemoveRow,
+            rows: data,
+          })
+        })()
+
+      },
       deleteRow: (rowIndex) => {
         setData((old) =>
           old.filter((row, index) => {
@@ -220,6 +256,10 @@ export function ServicesTable<TData, TValue>({
   });
   return (
     <>
+      <Button onClick={(e)=>{
+        console.log(e);
+        form.handleSubmit(e)
+      }}>onSubmit</Button>
       {portalContainer && createPortal(<Button onClick={addRow}>Добавить</Button>, portalContainer)}
       <Table>
         <TableHeader>

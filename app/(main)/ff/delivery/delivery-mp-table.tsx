@@ -62,7 +62,7 @@ export function DeliveryMpTable<TData, TValue>({
 
   const [productPlace, setProductPlace] = useState<Record<string, string>>({});
 
-  function updateProductPlace(id: String, value: string) {
+  function updateProductPlace(id: string, value: string) {
     setProductPlace((old) => {
       old[id as string] = value;
       return old;

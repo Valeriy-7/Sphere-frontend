@@ -148,7 +148,6 @@ export const columns: ColumnDef<ServiceType>[] = [
         <>
           <button
             onClick={() => {
-              meta?.setIsEdit(false);
               meta?.onSubmit();
             }}
             className={'rounded-lg p-1 transition-colors hover:bg-white/20'}
