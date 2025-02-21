@@ -23,7 +23,6 @@ export default function ImageUpload({ src = null, cabinetActiveId, onFile }: Ima
     setSelectedImage(src);
   }, [src]);
 
-
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
