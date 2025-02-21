@@ -109,35 +109,36 @@ export function ServicesTable<TData, TValue>({
       if (typeof value === 'number') {
         return (
           <>
-            {<FormField
+            {
+              <FormField
                 control={form.control}
                 name={`rows.${index}.${id}`}
                 render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <CurrencyInput
-                            size={'xs'}
-                            style={{ fieldSizing: 'content' }}
-                            className={
-                              'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-                            }
-                            value={value}
-                            onChange={(val) => {
-                              setValue(val);
-                              field.onChange(val)
-                            }}
-                            onBlur={()=>{
-                              onBlur()
-                              field.onBlur()
-                            }}
-
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                  <FormItem>
+                    <FormControl>
+                      <CurrencyInput
+                        size={'xs'}
+                        style={{ fieldSizing: 'content' }}
+                        className={
+                          'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+                        }
+                        value={value}
+                        onChange={(val) => {
+                          setValue(val);
+                          field.onChange(val);
+                        }}
+                        onBlur={() => {
+                          onBlur();
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-            />}
-         {/*   <FormField
+              />
+            }
+            {/*   <FormField
                 control={form.control}
                 name={`rows.${index}.${id}`}
                 render={({ field }) => (
@@ -153,7 +154,6 @@ export function ServicesTable<TData, TValue>({
                     </FormItem>
                 )}
             />*/}
-
           </>
         );
       }
