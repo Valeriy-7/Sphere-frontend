@@ -46,7 +46,7 @@ declare module '@tanstack/react-table' {
     totalComponent?: (props: PropsWithChildren) => React.ReactNode;
     className?: string;
     editDisabled?: boolean;
-    editType?: 'text' | 'number' | 'image'
+    editType?: 'text' | 'number' | 'image';
     formatCurrency?: FormatCurrency;
   }
 

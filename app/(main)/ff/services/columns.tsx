@@ -6,14 +6,14 @@ import { Check, Pencil, X } from 'lucide-react';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { RUB } from '@/lib/constants/rub';
 import ImageUpload from '@/components/image-upload-validator';
-import type {ConsumableType, LogisticsType, ServiceType} from '@/kubb-gen';
+import type { ConsumableType, LogisticsType, ServiceType } from '@/kubb-gen';
 import { FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import {CurrencyInput} from "@/components/currency-input";
-import {useEffect, useState} from "react";
-import {formatCurrency} from "@/lib/formatCurrency";
+import { CurrencyInput } from '@/components/currency-input';
+import { useEffect, useState } from 'react';
+import { formatCurrency } from '@/lib/formatCurrency';
 
-export type ServicesItemType = ServiceType | ConsumableType | LogisticsType
+export type ServicesItemType = ServiceType | ConsumableType | LogisticsType;
 
 export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
   {
@@ -49,20 +49,18 @@ export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
 
       const initialValue = getValue();
       const [value, setValue] = useState(initialValue);
-        useEffect(() => {
-            setValue(initialValue);
-        }, [initialValue]);
+      useEffect(() => {
+        setValue(initialValue);
+      }, [initialValue]);
 
       const onBlur = () => {
         table?.options?.meta?.updateData(index, id, value);
       };
 
-
-
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
         return <TableCardImgText image={{ src: imageUrl }} title={value} />;
       }
-      form?.setValue(`rows.${index}.image`, new File([""], "filename")); // Если услуга уже есть и катринка подгрузилась с сервера, то обманываем валидатор
+      form?.setValue(`rows.${index}.image`, new File([''], 'filename')); // Если услуга уже есть и катринка подгрузилась с сервера, то обманываем валидатор
       return (
         <>
           <TableCardImgText
@@ -118,7 +116,7 @@ export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
 
     meta: {
       className: 'w-[15%]',
-      editType:'number',
+      editType: 'number',
     },
     /*  cell: ({ getValue }) => {
       return formatCurrency(getValue())
@@ -186,132 +184,132 @@ export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
 ];
 
 export const columnsConsumable = [
-    columnsService[0],
-    columnsService[1],
+  columnsService[0],
+  columnsService[1],
 
-    columnsService[2],
+  columnsService[2],
 
-    columnsService[3],
+  columnsService[3],
 
-    columnsService[4],
-    {
-        accessorKey: 'count',
-        enableSorting: false,
-        header: `Количество`,
-        meta: {
-            className: 'w-[15%]',
-            editDisabled: true,
-            editType:'number',
-        },
+  columnsService[4],
+  {
+    accessorKey: 'count',
+    enableSorting: false,
+    header: `Количество`,
+    meta: {
+      className: 'w-[15%]',
+      editDisabled: true,
+      editType: 'number',
     },
-    columnsService[5],
-    columnsService[6],
-]
+  },
+  columnsService[5],
+  columnsService[6],
+];
 
 export const columnsLogistics: ColumnDef<LogisticsType>[] = [
-    {
-        accessorKey: 'number',
-        enableSorting: true,
-        header: '№',
-        meta: {
-            className: 'w-[50px]',
-            editDisabled: true,
-        },
+  {
+    accessorKey: 'number',
+    enableSorting: true,
+    header: '№',
+    meta: {
+      className: 'w-[50px]',
+      editDisabled: true,
     },
-    {
-        accessorKey: 'fromLocation',
-        header: 'Откуда',
-        enableSorting: false,
-
+  },
+  {
+    accessorKey: 'fromLocation',
+    header: 'Откуда',
+    enableSorting: false,
+  },
+  {
+    accessorKey: 'toLocation',
+    enableSorting: false,
+    header: `Куда`,
+  },
+  {
+    accessorKey: 'priceUpTo1m3',
+    enableSorting: false,
+    header: `Цена за V до 1 м3 ${RUB}`,
+    meta: {
+      editType: 'number',
     },
-    {
-        accessorKey: 'toLocation',
-        enableSorting: false,
-        header: `Куда`,
+  },
+  {
+    accessorKey: 'pricePer1m3',
+    enableSorting: false,
+    header: `Цена за 1 м3 ${RUB}`,
+    meta: {
+      editType: 'number',
     },
-    {
-        accessorKey: 'priceUpTo1m3',
-        enableSorting: false,
-        header: `Цена за V до 1 м3 ${RUB}`,
-        meta:{
-            editType:'number',
-        }
+  },
+  {
+    enableSorting: false,
+    accessorKey: 'comment',
+    header: 'Описание',
+    meta: {
+      className: 'w-[35%]',
     },
-    {
-        accessorKey: 'pricePer1m3',
-        enableSorting: false,
-        header: `Цена за 1 м3 ${RUB}`,
-        meta:{
-            editType:'number',
-        }
-    },
-    {
-        enableSorting: false,
-        accessorKey: 'comment',
-        header: 'Описание',
-        meta: {
-            className: 'w-[35%]',
-        },
-    },
-    columnsService[6],
+  },
+  columnsService[6],
 ];
 
 export const defaultColumn: Partial<ColumnDef<ServicesItemType>> = {
-    cell: ({ getValue, row: { index }, column: { id }, table, column }) => {
+  cell: ({ getValue, row: { index }, column: { id }, table, column }) => {
+    const { editType } = column.columnDef.meta || { editType: 'text' };
 
+    const initialValue = getValue();
+    const [value, setValue] = useState(initialValue);
+    useEffect(() => {
+      setValue(initialValue);
+    }, [initialValue]);
 
-        const { editType } = column.columnDef.meta || { editType:'text' }
+    const isNumber = editType === 'number';
 
-        const initialValue = getValue();
-        const [value, setValue] = useState(initialValue);
-        useEffect(() => {
-            setValue(initialValue);
-        }, [initialValue]);
+    if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
+      if (isNumber) {
+        return formatCurrency(initialValue as number);
+      }
+      return initialValue;
+    }
 
-        const isNumber = editType === 'number';
+    const onBlur = () => {
+      table.options.meta?.updateData(index, id, value);
+    };
 
-        if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
-            if (isNumber) {
-                return formatCurrency(initialValue as number);
-            }
-            return initialValue;
-        }
+    const form = table.options.meta?.form;
 
-        const onBlur = () => {
-            table.options.meta?.updateData(index, id, value);
-        };
-
-        const form = table.options.meta?.form;
-
-        return (
-            <FormField
-                control={form.control}
-                name={`rows.${index}.${id}`}
-                render={({ field }) => {
-                    const props = {
-                        size:'xs',
-                        style:{ fieldSizing: 'content' },
-                    value,
-                    onChange:(val?:number) => {
-                        console.log(val);
-                        setValue(val);
-                        field.onChange(val);
-                    },
-                    onBlur:() => {
-                        onBlur();
-                        field.onBlur();
-                    }
-                    }
-                    return (
-                        <FormItem>
-                            <FormControl>
-                                {isNumber? (<CurrencyInput {...props}/>):(<Textarea className={'block h-auto w-full max-w-none'} {...props} />)}
-                            </FormControl>
-                        </FormItem>
-                    )
-                }}
-            />
-        );
-
-    },
+    return (
+      <FormField
+        control={form.control}
+        name={`rows.${index}.${id}`}
+        render={({ field }) => {
+          const props = {
+            size: 'xs',
+            style: { fieldSizing: 'content' },
+            value,
+            onChange: (val?: number) => {
+              console.log(val);
+              setValue(val);
+              field.onChange(val);
+            },
+            onBlur: () => {
+              onBlur();
+              field.onBlur();
+            },
+          };
+          return (
+            <FormItem>
+              <FormControl>
+                {isNumber ? (
+                  <CurrencyInput {...props} />
+                ) : (
+                  <Textarea className={'block h-auto w-full max-w-none'} {...props} />
+                )}
+              </FormControl>
+            </FormItem>
+          );
+        }}
+      />
+    );
+  },
 };

@@ -3,11 +3,12 @@ import { ServicesTable } from '../services-table';
 import { columnsService } from '../columns';
 import { FormSchema, FormValues } from './schema';
 import {
-    useServicesGetServicesSuspense,
-    useServicesCreateService,
-    useServicesUpdateService,
-    useServicesDeleteService,
-    servicesGetServicesSuspenseQueryKey, type ServiceType,
+  useServicesGetServicesSuspense,
+  useServicesCreateService,
+  useServicesUpdateService,
+  useServicesDeleteService,
+  servicesGetServicesSuspenseQueryKey,
+  type ServiceType,
 } from '@/kubb-gen';
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -27,9 +28,9 @@ export default function ServicePage() {
   const { mutateAsync: mutateUpdate } = useServicesUpdateService();
   const { mutateAsync: mutateDelete } = useServicesDeleteService();
 
-    console.log(form.formState.errors.rows);
+  console.log(form.formState.errors.rows);
 
-    return (
+  return (
     <Form {...form}>
       <ServicesTable<ServiceType, unknown>
         form={form}

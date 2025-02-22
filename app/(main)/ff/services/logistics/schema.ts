@@ -9,7 +9,7 @@ export const createLogisticsDtoSchema = z.object({
   pricePer1m3: z.number().min(1).describe('Цена за 1м3'),
   comment: z.string().min(1).describe('Комментарий').optional(),
   number: z.number().describe('Порядковый номер').optional(),
-})
+});
 
 export const FormSchema = z.object({
   rows: z.array(createLogisticsDtoSchema),

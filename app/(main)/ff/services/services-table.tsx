@@ -28,8 +28,7 @@ import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import { useFieldArray, UseFormReturn } from 'react-hook-form';
 import { FormValues } from './schema';
 
-import {defaultColumn, ServicesItemType} from "./columns";
-
+import { defaultColumn, ServicesItemType } from './columns';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -57,20 +56,19 @@ type OnSubmitProps<TData> = {
   rows: TData[];
 };
 type LocalOperation = {
-  _isNew?:boolean
-  _isUpdate?: true,
-}
+  _isNew?: boolean;
+  _isUpdate?: true;
+};
 type ServicesItem = {
-  _isNew?:boolean
-  _isUpdate?: boolean,
-} & ServicesItemType
+  _isNew?: boolean;
+  _isUpdate?: boolean;
+} & ServicesItemType;
 export function ServicesTable<TData extends ServicesItem, TValue>({
   form,
   columns,
   initialData,
   onSubmit,
 }: TableProps<TData, TValue>) {
-
   const [data, setData] = React.useState<TData[]>([]);
 
   const [sorting, setSorting] = React.useState<SortingState>([
@@ -96,12 +94,11 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
   const [listRemoveRow, setIdsRemoveRow] = useState<TData[]>([]);
 
   const resetData = () => {
-    setIsEdit(false)
+    setIsEdit(false);
     setData(initialData);
   };
 
   const addRow = () => {
-
     const row = {
       name: '',
       number: data.length + 1,
@@ -122,17 +119,17 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
   const deleteRow = (rowIndex) => {
     console.log(rowIndex);
     setData((old) =>
-        old.filter((row, index) => {
-          if (index == rowIndex) {
-            setIdsRemoveRow([row, ...listRemoveRow]);
-          }
-          return index !== rowIndex;
-        })
-    )
+      old.filter((row, index) => {
+        if (index == rowIndex) {
+          setIdsRemoveRow([row, ...listRemoveRow]);
+        }
+        return index !== rowIndex;
+      }),
+    );
     formRemove(rowIndex);
-  }
+  };
 
-  const updateData =(rowIndex, columnId, value) => {
+  const updateData = (rowIndex, columnId, value) => {
     setData((old) => {
       const newData = old.map((row, index) => {
         if (index === rowIndex) {
@@ -148,7 +145,7 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
 
       return newData;
     });
-  }
+  };
 
   const table = useReactTable({
     data,

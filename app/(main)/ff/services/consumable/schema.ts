@@ -6,7 +6,7 @@ export const createConsumableDtoSchema = z.object({
   description: z.string().min(1).describe('Описание расходника'),
   number: z.number().describe('Порядковый номер').optional(),
   image: z.instanceof(File).describe('Изображение расходника'),
-})
+});
 
 export const FormSchema = z.object({
   rows: z.array(createConsumableDtoSchema),

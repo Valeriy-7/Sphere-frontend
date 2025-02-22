@@ -156,7 +156,7 @@ function getNavMain(type: LKTypeValue) {
       },
       {
         name: 'Услуги',
-        url: '/ff/services',
+        url: '/ff/services/service',
         icon: IconServices,
       },
     ],
