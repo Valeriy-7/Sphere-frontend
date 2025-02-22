@@ -22,13 +22,11 @@ export default function ServicePage() {
   const { data } = useServicesGetServicesSuspense();
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      rows: data,
-    },
+      defaultValues:{ rows: data }
   });
 
-  console.log(form.formState.errors);
-  console.log(form.watch('rows'));
+
+  const initialData = data
 
   const { mutateAsync: mutateCreate } = useServicesCreateService();
   const { mutateAsync: mutateUpdate } = useServicesUpdateService();
@@ -39,14 +37,14 @@ export default function ServicePage() {
       <ServicesTable
         form={form}
         onSubmit={({ newRows, removeIds, updateRows, rows }) => {
-          console.log(newRows, removeIds, updateRows);
+
           const promises = [
             ...removeIds.map((id) => mutateDelete({ id })),
-            ...newRows.map((data, index) => {
-              return mutateCreate({ data: { ...data, price: String(data.price) } });
+            ...newRows.map(({number,price, ...data}, index) => {
+              return mutateCreate({ data: { ...data, price: String(price) } });
             }),
-            ...updateRows.map((data) =>
-              mutateUpdate({ id: data.id, data: { ...data, price: String(data.price) } }),
+            ...updateRows.map(({id, number, price,...data}) =>
+              mutateUpdate({ id, data: { ...data, price: String(price) } }),
             ),
           ];
           queryClient.setQueryData(servicesGetServicesSuspenseQueryKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
@@ -56,7 +54,7 @@ export default function ServicePage() {
             });
           });
         }}
-        initialData={data}
+        initialData={initialData}
         columns={columns}
       />
     </Form>

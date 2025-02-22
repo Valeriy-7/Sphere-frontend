@@ -33,7 +33,6 @@ export function CurrencyInput({
   const handleOnValueChange: CurrencyInputProps['onValueChange'] = (_value, name, _values) => {
     // _values is only for demo purposes in this example
     setValues(_values);
-
     if (!_value) {
       setLocalClassName('');
       onChange?.(0);

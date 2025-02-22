@@ -1,15 +1,17 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import {inputVariants} from "@/components/ui/input";
+import type {VariantProps} from "class-variance-authority";
+type TeaxtareaProps = {
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<'textarea'>>(
-  ({ className, ...props }, ref) => {
+} & React.ComponentProps<'textarea'> &
+    VariantProps<typeof inputVariants>
+const Textarea = React.forwardRef<HTMLTextAreaElement, TeaxtareaProps>(
+  ({ className,variant, size, ...props }, ref) => {
     return (
       <textarea
-        className={cn(
-          'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-          className,
-        )}
+          className={cn(inputVariants({ variant, size, className }))}
         ref={ref}
         {...props}
       />

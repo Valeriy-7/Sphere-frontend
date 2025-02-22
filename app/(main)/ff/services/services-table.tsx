@@ -26,10 +26,11 @@ import { Button } from '@/components/ui/button';
 import { PortalContext } from './portal-context';
 import { fa } from '@faker-js/faker';
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
-import { UseFormReturn } from 'react-hook-form';
+import {useFieldArray, UseFormReturn} from 'react-hook-form';
 import { FormValues } from './schema';
 import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {Textarea} from "@/components/ui/textarea";
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -79,16 +80,23 @@ export function ServicesTable<TData, TValue>({
     setData(initialData);
   }, [initialData]);
 
+  const { append:formAppend, remove:formRemove } = useFieldArray({
+    control: form.control,
+    name: "rows",
+  })
+
   const portalContainer = useContext(PortalContext);
 
   const defaultColumn: Partial<ColumnDef<TData>> = {
     cell: ({ getValue, row: { index }, column: { id }, table, column }) => {
       const form = table.options.meta?.form;
 
+      const isNumber = typeof getValue() === "number"
+
       const initialValue = getValue();
       // We need to keep and update the state of the cell normally
       const [value, setValue] = React.useState(initialValue);
-
+      //form?.setValue(`rows.${index}.${id}`, value)
       // When the input is blurred, we'll call our table meta's updateData function
       const onBlur = () => {
         table.options.meta?.updateData(index, id, value);
@@ -100,43 +108,54 @@ export function ServicesTable<TData, TValue>({
       }, [initialValue]);
 
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
-        if (typeof value === 'number') {
+        if (isNumber) {
           return formatCurrency(value);
         }
         return value;
       }
-
-      if (typeof value === 'number') {
+      if (isNumber) {
         return (
           <>
+            <FormField
+                control={form.control}
+                name={`rows.${index}.${id}`}
+                render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <CurrencyInput
+                            size={'xs'}
+                            style={{ fieldSizing: 'content' }}
+                            //className={'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'}
+                            value={value}
+                            onChange={(val) => {
+                              console.log(val);
+                              setValue(val);
+
+                              field.onChange(val);
+                            }}
+                            onBlur={() => {
+                              onBlur();
+                              field.onBlur();
+                            }}
+                        />
+                      </FormControl>
+                    </FormItem>
+                )}
+            />
+
             {
-              <FormField
+              /*<FormField
                 control={form.control}
                 name={`rows.${index}.${id}`}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <CurrencyInput
-                        size={'xs'}
-                        style={{ fieldSizing: 'content' }}
-                        className={
-                          'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-                        }
-                        value={value}
-                        onChange={(val) => {
-                          setValue(val);
-                          field.onChange(val);
-                        }}
-                        onBlur={() => {
-                          onBlur();
-                          field.onBlur();
-                        }}
-                      />
+
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              />*/
             }
             {/*   <FormField
                 control={form.control}
@@ -166,21 +185,25 @@ export function ServicesTable<TData, TValue>({
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <textarea
+                  <Textarea
                     {...field}
                     style={{ fieldSizing: 'content' }}
-                    className={
-                      'block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-                    }
-                    value={value as string}
-                    onChange={(e) => {
-                      setValue(e.target.value);
-                      form?.setValue(`rows.${index}.${id}`, e.target.value);
+                    size={'xs'}
+                    //className={'min-h-0 pt-0 pb-0 block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'}
+                    className={'w-full max-w-none block h-auto'}
+                    value={value}
+                    onChange={(event) => {
+                      console.log(event.target.value);
+                      setValue(event.target.value);
+
+                      field.onChange(event.target.value);
                     }}
-                    onBlur={onBlur}
+                    onBlur={() => {
+                      onBlur();
+                      field.onBlur();
+                    }}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -194,18 +217,21 @@ export function ServicesTable<TData, TValue>({
   const resetData = () => {
     setData(initialData);
   };
-  const [idsRemoveRow, setIdsRemoveRow] = useState<number[]>([]);
+  const [listRemoveRow, setIdsRemoveRow] = useState<TData[]>([]);
 
   const addRow = () => {
     setIsEdit(true);
+    const row = {
+      name: '',
+     number: data.length + 1,
+      price: 0,
+      description: '',
+    }
+    formAppend(row)
     setData((old) => [
       ...old,
       {
-        name: '',
-        number: old.length + 1,
-        id: old.length,
-        price: 0,
-        description: '',
+        ...row,
         createdAt: new Date(),
         _isNew: true,
       },
@@ -234,21 +260,23 @@ export function ServicesTable<TData, TValue>({
             updateRows: data
               .filter((i) => i._isUpdate && !i._isNew)
               .map(({ number, ...i }) => ({ ...i })),
-            removeIds: idsRemoveRow,
+            removeIds: listRemoveRow.filter((i) => !i._isNew).map(i=>i.id),
             rows: data,
           });
         })();
       },
       deleteRow: (rowIndex) => {
+        console.log(rowIndex);
         setData((old) =>
           old.filter((row, index) => {
-            if (index == rowIndex && !row._isNew) {
-              setIdsRemoveRow([row.id, ...idsRemoveRow]);
+            if (index == rowIndex) {
+              setIdsRemoveRow([row, ...listRemoveRow]);
             }
 
             return index !== rowIndex;
           }),
         );
+        formRemove(rowIndex)
       },
       updateData: (rowIndex, columnId, value) => {
         setData((old) => {
@@ -283,14 +311,6 @@ export function ServicesTable<TData, TValue>({
   });
   return (
     <>
-      <Button
-        onClick={(e) => {
-          console.log(e);
-          form.handleSubmit(e);
-        }}
-      >
-        onSubmit
-      </Button>
       {portalContainer && createPortal(<Button onClick={addRow}>Добавить</Button>, portalContainer)}
       <Table>
         <TableHeader>

@@ -10,6 +10,8 @@ import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { RUB } from '@/lib/constants/rub';
 import ImageUpload from '@/components/image-upload-validator';
 import type { ServiceType } from '@/kubb-gen';
+import {FormControl, FormField, FormItem} from "@/components/ui/form";
+import {Textarea} from "@/components/ui/textarea";
 
 export const columns: ColumnDef<ServiceType>[] = [
   {
@@ -31,9 +33,6 @@ export const columns: ColumnDef<ServiceType>[] = [
   {
     accessorKey: 'number',
     header: '№',
-    /*   cell: ({ row }) => {
-      return row.index;
-    },*/
     meta: {
       className: 'w-[50px]',
       editDisabled: true,
@@ -48,7 +47,7 @@ export const columns: ColumnDef<ServiceType>[] = [
     },
     cell: ({ getValue, row, column: { id }, table, column }) => {
       const imageUrl = row.getValue('imageUrl');
-
+      const form = table.options.meta?.form;
       const { index } = row;
 
       const initialValue = getValue();
@@ -66,34 +65,54 @@ export const columns: ColumnDef<ServiceType>[] = [
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
         return <TableCardImgText image={{ src: imageUrl }} title={value} />;
       }
+      console.log(form.formState.errors?.rows?.[index]?.image);
+      return (<>
 
-      return (
         <TableCardImgText
           slotImage={
             <ImageUpload
+                isFormError={Boolean(form?.formState.errors?.rows?.[index]?.image)}
               onFile={(file, imageUrl) => {
                 console.log('onFile');
                 table.options.meta?.updateData(index, 'image', file);
                 table.options.meta?.updateData(index, 'imageUrl', imageUrl);
+                form?.setValue(`rows.${index}.imageUrl`,imageUrl)
               }}
               src={imageUrl}
             />
           }
         >
-          <textarea
-            style={{
-              fieldSizing: 'content',
-              minInlineSize: '5ch',
-            }}
-            className={
-              'block w-full min-w-3 break-all rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
-            }
-            value={value as string}
-            onChange={(e) => setValue(e.target.value)}
-            onBlur={onBlur}
+
+          <FormField
+              control={form.control}
+              name={`rows.${index}.${id}`}
+              render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                          {...field}
+                          style={{ fieldSizing: 'content', minInlineSize: '5ch', }}
+                          size={'xs'}
+                          //className={'min-h-0 pt-0 pb-0 block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'}
+                          className={'min-w-3 w-full max-w-none block h-auto'}
+                          value={value}
+                          onChange={(event) => {
+                            console.log(event.target.value);
+                            setValue(event.target.value);
+
+                            field.onChange(event.target.value);
+                          }}
+                          onBlur={() => {
+                            onBlur();
+                            field.onBlur();
+                          }}
+                      />
+                    </FormControl>
+                  </FormItem>
+              )}
           />
         </TableCardImgText>
-      );
+      </>);
     },
   },
   {
