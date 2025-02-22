@@ -14,10 +14,15 @@ type ImageProps = {
   src: string | null;
   cabinetActiveId: string;
   onFile: (file: File, imageUrl: string) => void;
-  isFormError?:boolean
+  isFormError?: boolean;
 };
 
-export default function ImageUpload({ src = null, cabinetActiveId, onFile, isFormError }: ImageProps) {
+export default function ImageUpload({
+  src = null,
+  cabinetActiveId,
+  onFile,
+  isFormError,
+}: ImageProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>();
 
   useEffect(() => {

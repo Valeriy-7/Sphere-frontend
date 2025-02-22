@@ -26,11 +26,11 @@ import { Button } from '@/components/ui/button';
 import { PortalContext } from './portal-context';
 import { fa } from '@faker-js/faker';
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
-import {useFieldArray, UseFormReturn} from 'react-hook-form';
+import { useFieldArray, UseFormReturn } from 'react-hook-form';
 import { FormValues } from './schema';
 import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {Textarea} from "@/components/ui/textarea";
+import { Textarea } from '@/components/ui/textarea';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -80,10 +80,10 @@ export function ServicesTable<TData, TValue>({
     setData(initialData);
   }, [initialData]);
 
-  const { append:formAppend, remove:formRemove } = useFieldArray({
+  const { append: formAppend, remove: formRemove } = useFieldArray({
     control: form.control,
-    name: "rows",
-  })
+    name: 'rows',
+  });
 
   const portalContainer = useContext(PortalContext);
 
@@ -91,7 +91,7 @@ export function ServicesTable<TData, TValue>({
     cell: ({ getValue, row: { index }, column: { id }, table, column }) => {
       const form = table.options.meta?.form;
 
-      const isNumber = typeof getValue() === "number"
+      const isNumber = typeof getValue() === 'number';
 
       const initialValue = getValue();
       // We need to keep and update the state of the cell normally
@@ -117,34 +117,33 @@ export function ServicesTable<TData, TValue>({
         return (
           <>
             <FormField
-                control={form.control}
-                name={`rows.${index}.${id}`}
-                render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <CurrencyInput
-                            size={'xs'}
-                            style={{ fieldSizing: 'content' }}
-                            //className={'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'}
-                            value={value}
-                            onChange={(val) => {
-                              console.log(val);
-                              setValue(val);
+              control={form.control}
+              name={`rows.${index}.${id}`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <CurrencyInput
+                      size={'xs'}
+                      style={{ fieldSizing: 'content' }}
+                      //className={'ml-auto mr-auto block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'}
+                      value={value}
+                      onChange={(val) => {
+                        console.log(val);
+                        setValue(val);
 
-                              field.onChange(val);
-                            }}
-                            onBlur={() => {
-                              onBlur();
-                              field.onBlur();
-                            }}
-                        />
-                      </FormControl>
-                    </FormItem>
-                )}
+                        field.onChange(val);
+                      }}
+                      onBlur={() => {
+                        onBlur();
+                        field.onBlur();
+                      }}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
             />
 
-            {
-              /*<FormField
+            {/*<FormField
                 control={form.control}
                 name={`rows.${index}.${id}`}
                 render={({ field }) => (
@@ -155,8 +154,7 @@ export function ServicesTable<TData, TValue>({
                     <FormMessage />
                   </FormItem>
                 )}
-              />*/
-            }
+              />*/}
             {/*   <FormField
                 control={form.control}
                 name={`rows.${index}.${id}`}
@@ -190,7 +188,7 @@ export function ServicesTable<TData, TValue>({
                     style={{ fieldSizing: 'content' }}
                     size={'xs'}
                     //className={'min-h-0 pt-0 pb-0 block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'}
-                    className={'w-full max-w-none block h-auto'}
+                    className={'block h-auto w-full max-w-none'}
                     value={value}
                     onChange={(event) => {
                       console.log(event.target.value);
@@ -223,11 +221,11 @@ export function ServicesTable<TData, TValue>({
     setIsEdit(true);
     const row = {
       name: '',
-     number: data.length + 1,
+      number: data.length + 1,
       price: 0,
       description: '',
-    }
-    formAppend(row)
+    };
+    formAppend(row);
     setData((old) => [
       ...old,
       {
@@ -260,7 +258,7 @@ export function ServicesTable<TData, TValue>({
             updateRows: data
               .filter((i) => i._isUpdate && !i._isNew)
               .map(({ number, ...i }) => ({ ...i })),
-            removeIds: listRemoveRow.filter((i) => !i._isNew).map(i=>i.id),
+            removeIds: listRemoveRow.filter((i) => !i._isNew).map((i) => i.id),
             rows: data,
           });
         })();
@@ -276,7 +274,7 @@ export function ServicesTable<TData, TValue>({
             return index !== rowIndex;
           }),
         );
-        formRemove(rowIndex)
+        formRemove(rowIndex);
       },
       updateData: (rowIndex, columnId, value) => {
         setData((old) => {

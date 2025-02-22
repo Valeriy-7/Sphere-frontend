@@ -22,11 +22,10 @@ export default function ServicePage() {
   const { data } = useServicesGetServicesSuspense();
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
-      defaultValues:{ rows: data }
+    defaultValues: { rows: data },
   });
 
-
-  const initialData = data
+  const initialData = data;
 
   const { mutateAsync: mutateCreate } = useServicesCreateService();
   const { mutateAsync: mutateUpdate } = useServicesUpdateService();
@@ -37,13 +36,12 @@ export default function ServicePage() {
       <ServicesTable
         form={form}
         onSubmit={({ newRows, removeIds, updateRows, rows }) => {
-
           const promises = [
             ...removeIds.map((id) => mutateDelete({ id })),
-            ...newRows.map(({number,price, ...data}, index) => {
+            ...newRows.map(({ number, price, ...data }, index) => {
               return mutateCreate({ data: { ...data, price: String(price) } });
             }),
-            ...updateRows.map(({id, number, price,...data}) =>
+            ...updateRows.map(({ id, number, price, ...data }) =>
               mutateUpdate({ id, data: { ...data, price: String(price) } }),
             ),
           ];
