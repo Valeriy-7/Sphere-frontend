@@ -15,9 +15,9 @@ export default function ServicesLayout({ children }: PropsWithChildren) {
       <AppTabsWrap>
         <AppTabs
           list={[
-            { label: 'Услуги', href: '/ff/services' },
+            { label: 'Услуги', href: '/ff/services/service' },
             { label: 'Логистика', href: '/ff/services/logistics' },
-            { label: 'Расходники', href: '/ff/services/supplies' },
+            { label: 'Расходники', href: '/ff/services/consumable' },
           ]}
         />
         <div ref={portalTargetRef}></div>

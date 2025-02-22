@@ -2,18 +2,20 @@
 
 import { ColumnDef, Cell } from '@tanstack/react-table';
 import { Check, Pencil, X } from 'lucide-react';
-import React from 'react';
-import { Card } from '@/components/ui/card';
-import { TableCardImg } from '@/components/date-table/table-card-img';
-import { formatCurrency } from '@/lib/formatCurrency';
+
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { RUB } from '@/lib/constants/rub';
 import ImageUpload from '@/components/image-upload-validator';
-import type { ServiceType } from '@/kubb-gen';
+import type {ConsumableType, LogisticsType, ServiceType} from '@/kubb-gen';
 import { FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import {CurrencyInput} from "@/components/currency-input";
+import {useEffect, useState} from "react";
+import {formatCurrency} from "@/lib/formatCurrency";
 
-export const columns: ColumnDef<ServiceType>[] = [
+export type ServicesItemType = ServiceType | ConsumableType | LogisticsType
+
+export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
   {
     id: 'image',
   },
@@ -23,15 +25,9 @@ export const columns: ColumnDef<ServiceType>[] = [
       return getValue();
     },
   },
-  /*    {
-        accessorKey: 'createdAt',
-        cell: ({ getValue }) => {
-            const date = getValue()
-            return new Date(date).getTime()
-        },
-    },*/
   {
     accessorKey: 'number',
+    enableSorting: true,
     header: '№',
     meta: {
       className: 'w-[50px]',
@@ -47,25 +43,26 @@ export const columns: ColumnDef<ServiceType>[] = [
     },
     cell: ({ getValue, row, column: { id }, table, column }) => {
       const imageUrl = row.getValue('imageUrl');
+
       const form = table.options.meta?.form;
       const { index } = row;
 
       const initialValue = getValue();
-
-      const [value, setValue] = React.useState(initialValue);
+      const [value, setValue] = useState(initialValue);
+        useEffect(() => {
+            setValue(initialValue);
+        }, [initialValue]);
 
       const onBlur = () => {
-        table.options.meta?.updateData(index, id, value);
+        table?.options?.meta?.updateData(index, id, value);
       };
 
-      React.useEffect(() => {
-        setValue(initialValue);
-      }, [initialValue]);
+
 
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
         return <TableCardImgText image={{ src: imageUrl }} title={value} />;
       }
-      console.log(form.formState.errors?.rows?.[index]?.image);
+      form?.setValue(`rows.${index}.image`, new File([""], "filename")); // Если услуга уже есть и катринка подгрузилась с сервера, то обманываем валидатор
       return (
         <>
           <TableCardImgText
@@ -76,7 +73,7 @@ export const columns: ColumnDef<ServiceType>[] = [
                   console.log('onFile');
                   table.options.meta?.updateData(index, 'image', file);
                   table.options.meta?.updateData(index, 'imageUrl', imageUrl);
-                  form?.setValue(`rows.${index}.imageUrl`, imageUrl);
+                  form?.setValue(`rows.${index}.image`, file);
                 }}
                 src={imageUrl}
               />
@@ -95,11 +92,10 @@ export const columns: ColumnDef<ServiceType>[] = [
                       //className={'min-h-0 pt-0 pb-0 block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'}
                       className={'block h-auto w-full min-w-3 max-w-none'}
                       value={value}
-                      onChange={(event) => {
-                        console.log(event.target.value);
-                        setValue(event.target.value);
-
-                        field.onChange(event.target.value);
+                      onChange={(val) => {
+                        console.log(val);
+                        setValue(val);
+                        field.onChange(val);
                       }}
                       onBlur={() => {
                         onBlur();
@@ -119,8 +115,10 @@ export const columns: ColumnDef<ServiceType>[] = [
     accessorKey: 'price',
     enableSorting: false,
     header: `Цена за единицу ${RUB}`,
+
     meta: {
       className: 'w-[15%]',
+      editType:'number',
     },
     /*  cell: ({ getValue }) => {
       return formatCurrency(getValue())
@@ -176,7 +174,6 @@ export const columns: ColumnDef<ServiceType>[] = [
           <button
             onClick={() => {
               meta?.resetData();
-              meta?.setIsEdit(false);
             }}
             className={'rounded-lg p-1 transition-colors hover:bg-white/20'}
           >
@@ -187,3 +184,134 @@ export const columns: ColumnDef<ServiceType>[] = [
     },
   },
 ];
+
+export const columnsConsumable = [
+    columnsService[0],
+    columnsService[1],
+
+    columnsService[2],
+
+    columnsService[3],
+
+    columnsService[4],
+    {
+        accessorKey: 'count',
+        enableSorting: false,
+        header: `Количество`,
+        meta: {
+            className: 'w-[15%]',
+            editDisabled: true,
+            editType:'number',
+        },
+    },
+    columnsService[5],
+    columnsService[6],
+]
+
+export const columnsLogistics: ColumnDef<LogisticsType>[] = [
+    {
+        accessorKey: 'number',
+        enableSorting: true,
+        header: '№',
+        meta: {
+            className: 'w-[50px]',
+            editDisabled: true,
+        },
+    },
+    {
+        accessorKey: 'fromLocation',
+        header: 'Откуда',
+        enableSorting: false,
+
+    },
+    {
+        accessorKey: 'toLocation',
+        enableSorting: false,
+        header: `Куда`,
+    },
+    {
+        accessorKey: 'priceUpTo1m3',
+        enableSorting: false,
+        header: `Цена за V до 1 м3 ${RUB}`,
+        meta:{
+            editType:'number',
+        }
+    },
+    {
+        accessorKey: 'pricePer1m3',
+        enableSorting: false,
+        header: `Цена за 1 м3 ${RUB}`,
+        meta:{
+            editType:'number',
+        }
+    },
+    {
+        enableSorting: false,
+        accessorKey: 'comment',
+        header: 'Описание',
+        meta: {
+            className: 'w-[35%]',
+        },
+    },
+    columnsService[6],
+];
+
+export const defaultColumn: Partial<ColumnDef<ServicesItemType>> = {
+    cell: ({ getValue, row: { index }, column: { id }, table, column }) => {
+
+
+        const { editType } = column.columnDef.meta || { editType:'text' }
+
+        const initialValue = getValue();
+        const [value, setValue] = useState(initialValue);
+        useEffect(() => {
+            setValue(initialValue);
+        }, [initialValue]);
+
+        const isNumber = editType === 'number';
+
+        if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
+            if (isNumber) {
+                return formatCurrency(initialValue as number);
+            }
+            return initialValue;
+        }
+
+        const onBlur = () => {
+            table.options.meta?.updateData(index, id, value);
+        };
+
+        const form = table.options.meta?.form;
+
+        return (
+            <FormField
+                control={form.control}
+                name={`rows.${index}.${id}`}
+                render={({ field }) => {
+                    const props = {
+                        size:'xs',
+                        style:{ fieldSizing: 'content' },
+                    value,
+                    onChange:(val?:number) => {
+                        console.log(val);
+                        setValue(val);
+                        field.onChange(val);
+                    },
+                    onBlur:() => {
+                        onBlur();
+                        field.onBlur();
+                    }
+                    }
+                    return (
+                        <FormItem>
+                            <FormControl>
+                                {isNumber? (<CurrencyInput {...props}/>):(<Textarea className={'block h-auto w-full max-w-none'} {...props} />)}
+                            </FormControl>
+                        </FormItem>
+                    )
+                }}
+            />
+        );
+
+    },
+};
