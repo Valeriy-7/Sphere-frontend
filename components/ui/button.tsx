@@ -59,20 +59,21 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         data-icon-size-not-default={iconSizeNotDefault}
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, className }),{'animate-bounce':loading})}
         ref={ref}
         {...props}
       >
-        <span className={''}>
+        {children}
+      {/*  <span className={''}>
           <span
             data-loading={loading}
             className={'w-full text-center data-[loading=true]:opacity-0 [&_a]:block [&_a]:w-full'}
           >
-            {children}
+
           </span>
 
           {loading && <BtnSpinner />}
-        </span>
+        </span>*/}
       </Comp>
     );
   },

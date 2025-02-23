@@ -27,6 +27,11 @@ export type PartnerCabinetDtoType = {
    */
   companyName: string
   /**
+   * @description Юридическое название компании
+   * @type string
+   */
+  legalCompanyName: string
+  /**
    * @description URL аватарки
    * @type string
    */
@@ -51,4 +56,44 @@ export type PartnerCabinetDtoType = {
    * @type string, date-time
    */
   createdAt: string
+  /**
+   * @description Общий доход
+   * @type number
+   */
+  income: number
+  /**
+   * @description Количество поставок на ФФ
+   * @type number
+   */
+  ffDeliveries: number
+  /**
+   * @description Количество товара
+   * @type number
+   */
+  productsCount: number
+  /**
+   * @description Количество брака
+   * @type number
+   */
+  defectsCount: number
+  /**
+   * @description Сумма расходников
+   * @type number
+   */
+  consumablesAmount: number
+  /**
+   * @description Количество возвратов с ПВЗ
+   * @type number
+   */
+  pvzReturnsCount: number
+  /**
+   * @description Количество поставок на ВБ
+   * @type number
+   */
+  wbDeliveries: number
+  /**
+   * @description Сумма продукта
+   * @type number
+   */
+  productAmount: number
 }

@@ -57,8 +57,8 @@ export type CabinetsGetPartnersQueryParamsType = {
    */
   page?: number
   /**
-   * @description Количество элементов на странице
-   * @minLength 1
+   * @description Количество элементов на странице. Используйте -1 для получения всех записей.
+   * @minLength -1
    * @maxLength 100
    * @default 10
    * @type number | undefined

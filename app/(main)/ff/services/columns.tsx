@@ -60,7 +60,10 @@ export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
         return <TableCardImgText image={{ src: imageUrl }} title={value} />;
       }
-      form?.setValue(`rows.${index}.image`, new File([''], 'filename')); // Если услуга уже есть и катринка подгрузилась с сервера, то обманываем валидатор
+      if(imageUrl) {
+        form?.setValue(`rows.${index}.image`, new File([''], 'filename')); // Если услуга уже есть и катринка подгрузилась с сервера, то обманываем валидатор
+      }
+
       return (
         <>
           <TableCardImgText
@@ -193,12 +196,11 @@ export const columnsConsumable = [
 
   columnsService[4],
   {
-    accessorKey: 'count',
+    accessorKey: 'quantity',
     enableSorting: false,
     header: `Количество`,
     meta: {
       className: 'w-[15%]',
-      editDisabled: true,
       editType: 'number',
     },
   },

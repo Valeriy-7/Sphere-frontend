@@ -1,77 +1,62 @@
 'use client';
-import { RussianRuble } from 'lucide-react';
-
 import { ColumnDef } from '@tanstack/react-table';
 
-import { type DataRow } from '@/lib/makeData';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
-import { formatDate } from '@/lib/utils/formatDate';
 
-export const columns: ColumnDef<DataRow>[] = [
-  getColumnNumber<DataRow>(),
+import type {PartnerCabinetDtoType} from "@/kubb-gen";
+
+export const columns: ColumnDef<PartnerCabinetDtoType>[] = [
   {
-    accessorKey: 'date1',
-    header: 'Дата поставки',
-    cell: ({ getValue }) => {
-      const value = getValue<Date>();
-      return formatDate(value);
-    },
-    sortingFn: 'datetime',
+    accessorKey: 'number1',
+    header: '№',
   },
   {
-    accessorFn: ({ streetAddress, city }) => `${city} ${streetAddress}`,
-    id: 'city',
-    header: 'Оптовик',
+    accessorFn: ({ companyName }) => `${companyName}`,
+    id: 'companyName',
+    header: 'Магазин',
     cell: ({ row: { original } }) => {
       return (
         <div className={'text-left'}>
           <TableCardImgText
-            image={{ src: original.image }}
-            title={original.city}
-            text={original.streetAddress}
+            image={{ src: original.avatarUrl }}
+            title={original.companyName}
+            text={original.companyName}
           />
         </div>
       );
     },
   },
   {
-    accessorKey: 'number4',
-    header: 'Грузовые места (ед) ',
+    accessorKey: 'income',
+    header: 'Доход',
   },
   {
-    accessorKey: 'number5',
-    header: 'План',
+    accessorKey: 'ffDeliveries',
+    header: 'Поставки на ФФ',
   },
   {
-    accessorKey: 'number6',
-    header: 'Факт',
+    accessorKey: 'productsCount',
+    header: 'Товар',
   },
   {
-    accessorKey: 'number7',
+    accessorKey: 'defectsCount',
     header: 'Брак',
   },
   {
-    accessorKey: 'number8',
-    header: 'Цена товаров (₽)',
+    accessorKey: 'consumablesAmount',
+    header: 'Расходники',
   },
   {
-    accessorKey: 'number9',
-    header: 'Цена услуг ФФ (₽)',
+    accessorKey: 'pvzReturnsCount',
+    header: 'Возвраты с ПВЗ',
   },
   {
-    accessorKey: 'number2',
-    header: () => (
-      <>
-        Цена логистики
-        <br />
-        до ФФ (₽)
-      </>
-    ),
+    accessorKey: 'wbDeliveries',
+    header: 'Поставки на ВБ',
   },
   {
-    accessorKey: 'status',
-    header: 'Статус',
-    sortingFn: 'text',
+    accessorKey: 'productAmount',
+    header: 'Продукт ',
   },
 ];

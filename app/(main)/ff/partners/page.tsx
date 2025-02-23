@@ -1,18 +1,11 @@
 'use client';
-import { DeliveryFfTable } from './delivery-ff-table';
+import { PartnersTable } from './partners-table';
 import { columns } from './columns';
-import React from 'react';
-import { makeData, DataRow } from '@/lib/makeData';
+import {type PartnerCabinetDtoType, useCabinetsGetPartnersSuspense} from "@/kubb-gen";
 
-const initData = makeData();
-export default function StorageFfPage() {
-  const [data, setData] = React.useState(initData);
+export default function FFPartnersPage() {
+   const {data:{items}} = useCabinetsGetPartnersSuspense()
   return (
-    <>
-      <div>
-        <h1>Магазины</h1>
-        <DeliveryFfTable<DataRow, unknown> data={data} columns={columns} />
-      </div>
-    </>
+      <PartnersTable<PartnerCabinetDtoType, unknown> data={items} columns={columns} />
   );
 }

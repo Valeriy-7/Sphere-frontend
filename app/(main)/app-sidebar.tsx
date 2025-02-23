@@ -107,12 +107,12 @@ function getNavMain(type: LKTypeValue) {
     admin: [
       {
         name: type,
-        url: '/admin',
+        url: '#',
         icon: IconHome,
       },
       {
         name: 'Юзеры',
-        url: '/admin/list',
+        url: '/admin/list/all',
         icon: Users,
       },
     ],
@@ -153,6 +153,11 @@ function getNavMain(type: LKTypeValue) {
         name: 'Подготовка',
         url: '/ff/prepare',
         icon: IconPreparation,
+      },
+      {
+        name: 'Магазины',
+        url: '/ff/partners',
+        icon: IconMarkets,
       },
       {
         name: 'Услуги',

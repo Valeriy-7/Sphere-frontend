@@ -2,19 +2,16 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import {
   adminGetListSuspenseQueryKey,
-  adminVerifyCabinetMutationKey,
   type ListItemDtoType,
   useAdminBlockUser,
   useAdminVerifyCabinet,
 } from '@/kubb-gen';
-import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/utils/formatDate';
-import { Ban, Check } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-export const columns: ColumnDef<ListItemDtoType>[] = [
+export const columns: ColumnDef<ListItemDtoType, unknown>[] = [
   {
     accessorKey: 'number1',
     header: '№1',
@@ -86,7 +83,7 @@ export const columns: ColumnDef<ListItemDtoType>[] = [
         mutation: {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [...adminGetListSuspenseQueryKey()],
+              queryKey: adminGetListSuspenseQueryKey(),
             });
           },
         },
@@ -118,7 +115,7 @@ export const columns: ColumnDef<ListItemDtoType>[] = [
         mutation: {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [...adminGetListSuspenseQueryKey()],
+              queryKey: adminGetListSuspenseQueryKey(),
             });
           },
         },

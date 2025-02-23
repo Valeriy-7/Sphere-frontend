@@ -39,11 +39,11 @@ export default function ServiceConsumablePage() {
         onSubmit={({ newRows, removeIds, updateRows, rows }) => {
           const promises = [
             ...removeIds.map((id) => mutateDelete({ id })),
-            ...newRows.map(({ price, ...data }, index) => {
-              return mutateCreate({ data: { ...data, price: String(price) as unknown as number } });
+            ...newRows.map(({ price,quantity, ...data }, index) => {
+              return mutateCreate({ data: { ...data,quantity: String(quantity) as unknown as number, price: String(price) as unknown as number } });
             }),
-            ...updateRows.map(({ id, price, ...data }) =>
-              mutateUpdate({ id, data: { ...data, price: String(price) as unknown as number } }),
+            ...updateRows.map(({ id, price,quantity, ...data }) =>
+              mutateUpdate({ id, data: { ...data,quantity: String(quantity) as unknown as number, price: String(price) as unknown as number } }),
             ),
           ];
           queryClient.setQueryData(servicesCreateConsumableMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента

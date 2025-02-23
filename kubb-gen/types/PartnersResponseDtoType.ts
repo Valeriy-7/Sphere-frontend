@@ -1,6 +1,11 @@
 import type { PartnerCabinetDtoType } from './PartnerCabinetDtoType'
+import type { PartnerStatsDtoType } from './PartnerStatsDtoType'
 
 export type PartnersResponseDtoType = {
+  /**
+   * @description Общая статистика
+   */
+  stats: PartnerStatsDtoType
   /**
    * @description Список партнерских кабинетов
    * @type array

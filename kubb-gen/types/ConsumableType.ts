@@ -30,6 +30,11 @@ export type ConsumableType = {
    */
   price: number
   /**
+   * @description Количество в наличии
+   * @type number
+   */
+  quantity: number
+  /**
    * @description Описание расходника
    * @type string
    */

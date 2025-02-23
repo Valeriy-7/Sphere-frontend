@@ -100,10 +100,10 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
 
   const addRow = () => {
     const row = {
-      name: '',
+      //name: '',
       number: data.length + 1,
-      price: 0,
-      description: '',
+      //price: 0,
+      //description: '',
     };
     formAppend(row);
     setData((old) => [

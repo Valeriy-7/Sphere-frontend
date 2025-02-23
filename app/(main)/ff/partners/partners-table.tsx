@@ -8,7 +8,6 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  TableRowExpand,
 } from '@/components/ui/table';
 
 import {
@@ -25,8 +24,6 @@ import {
 
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 
-import type { DataRow } from '@/lib/makeData';
-
 import {
   defaultColumn,
   fuzzyFilter,
@@ -34,9 +31,10 @@ import {
   getTotalColumn,
   type TableProps,
 } from '@/lib/TableHelpers';
-import { TableImgText } from '@/components/date-table/table-img-text';
 
-export function DeliveryFfTable<TData, TValue>({ columns, data }: TableProps<TData, TValue>) {
+import type {PartnerCabinetDtoType} from "@/kubb-gen";
+
+export function PartnersTable<TData extends PartnerCabinetDtoType, TValue>({ columns, data }: TableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
   const [globalFilter, setGlobalFilter] = React.useState('');
@@ -74,19 +72,7 @@ export function DeliveryFfTable<TData, TValue>({ columns, data }: TableProps<TDa
     debugColumns: false,
   });
 
-  const { colSizeList } = getColSizeList([
-    'w-[60px]',
-    '',
-    'w-[20%]',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ]);
+  const { colSizeList } = getColSizeList([]);
 
   return (
     <Table colSizeList={colSizeList}>
@@ -114,12 +100,7 @@ export function DeliveryFfTable<TData, TValue>({ columns, data }: TableProps<TDa
         {table.getRowModel().rows.map((row) => {
           return (
             <Fragment key={row.id}>
-              <TableRow
-                {...{
-                  onClick: row.getToggleExpandedHandler(),
-                  className: 'cursor-pointer',
-                }}
-              >
+              <TableRow>
                 {row.getVisibleCells().map((cell) => {
                   return (
                     <TableCell key={cell.id}>
@@ -128,38 +109,6 @@ export function DeliveryFfTable<TData, TValue>({ columns, data }: TableProps<TDa
                   );
                 })}
               </TableRow>
-              {row.getIsExpanded() && (
-                <TableRowExpand colSpan={row.getVisibleCells().length}>
-                  <Table colSizeList={colSizeList}>
-                    <TableBody>
-                      <TableRow rowSpace={false}>
-                        <TableCell
-                          className={'border-none'}
-                          colSpan={2}
-                          rowSpan={row.original.subRows.length + 2}
-                        >
-                          <ul>
-                            <li>Кристина</li>
-                            <li>+7 (922) 333-08-32</li>
-                            <li>Ул. Тихорецкий б-р 1</li>
-                            <li>Секция А 2Д-08</li>
-                            <li>Время с 08:00 до 18:00</li>
-                            <li>ИП Смирнов С. Д.</li>
-                          </ul>
-                        </TableCell>
-                      </TableRow>
-                      {row.original.subRows.map((subRow, index) => (
-                        <TableRowSize
-                          index={index}
-                          length={row.original.subRows.length}
-                          key={subRow.uuid}
-                          row={subRow}
-                        />
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableRowExpand>
-              )}
             </Fragment>
           );
         })}
@@ -189,32 +138,7 @@ function TableRowTotal<TData>({ table }: { table: TTable<TData> }) {
         <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
         <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
         <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
-      </TableRow>
-    </>
-  );
-}
 
-function TableRowSize({ row, length, index }: { row: DataRow; length: number; index: number }) {
-  return (
-    <>
-      <TableRow rowSpace={false}>
-        {/*   {index===0 &&  (
-              <TableCell rowSpan={length} level={1}>
-                  1 2 3
-              </TableCell>
-          )}*/}
-        <TableCell className={''} level={1}>
-          <TableImgText image={{ src: row.image }} title={row.title} text={`Aрт: ${row.art}`} />
-        </TableCell>
-        <TableCell level={1}>{row.number1}</TableCell>
-        <TableCell level={1}>{row.number2}</TableCell>
-        <TableCell level={1}>{row.number3}</TableCell>
-        <TableCell level={1}>{row.number4}</TableCell>
-        <TableCell level={1}>{row.number6}</TableCell>
-        <TableCell level={1}>{row.number6}</TableCell>
-        <TableCell level={1}>{row.number6}</TableCell>
-        <TableCell level={1}>{row.number6}</TableCell>
       </TableRow>
     </>
   );

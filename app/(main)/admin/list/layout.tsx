@@ -1,5 +1,5 @@
 'use client';
-import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { AppTabs, AppTabsWrap } from '@/components/app-tabs';
 
 export default function AdminListLayout({ children }: PropsWithChildren) {
