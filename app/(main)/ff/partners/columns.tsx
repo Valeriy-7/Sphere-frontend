@@ -4,7 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
 
-import type {PartnerCabinetDtoType} from "@/kubb-gen";
+import type { PartnerCabinetDtoType } from '@/kubb-gen';
 
 export const columns: ColumnDef<PartnerCabinetDtoType>[] = [
   {

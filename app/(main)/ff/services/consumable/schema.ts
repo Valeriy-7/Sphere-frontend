@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createConsumableDtoSchema } from "@/kubb-gen";
+import { createConsumableDtoSchema } from '@/kubb-gen';
 
 export const FormSchema = z.object({
   rows: z.array(createConsumableDtoSchema),

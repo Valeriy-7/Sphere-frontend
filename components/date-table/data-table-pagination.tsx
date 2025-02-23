@@ -9,18 +9,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {useTransition} from "react";
+import { useTransition } from 'react';
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
 }
 
 export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
-  const [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition();
   return (
     <div className="flex items-center justify-between px-2">
       <div className="flex-1 text-sm text-muted-foreground">
-     {/*   {table.getFilteredSelectedRowModel().rows.length} of{' '}
+        {/*   {table.getFilteredSelectedRowModel().rows.length} of{' '}
         {table.getFilteredRowModel().rows.length} row(s) selected.*/}
       </div>
       <div className="flex items-center">
@@ -31,8 +31,7 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
             onValueChange={(value) => {
               startTransition(() => {
                 table.setPageSize(Number(value));
-              })
-
+              });
             }}
           >
             <SelectTrigger className="h-8 w-[70px]">
@@ -56,11 +55,9 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
             className="hidden h-8 w-8 p-0 lg:flex"
             onClick={() => {
               startTransition(() => {
-                table.setPageIndex(0)
-              })
-
-            }
-          }
+                table.setPageIndex(0);
+              });
+            }}
             disabled={!table.getCanPreviousPage() || isPending}
           >
             <span className="sr-only">Go to first page</span>
@@ -70,10 +67,9 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
             variant="outline"
             className="h-8 w-8 p-0"
             onClick={() => {
-
               startTransition(() => {
-                table.previousPage()
-              })
+                table.previousPage();
+              });
             }}
             disabled={!table.getCanPreviousPage() || isPending}
           >
@@ -84,10 +80,9 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
             variant="outline"
             className="h-8 w-8 p-0"
             onClick={() => {
-
               startTransition(() => {
-                table.nextPage()
-              })
+                table.nextPage();
+              });
             }}
             disabled={!table.getCanNextPage() || isPending}
           >
@@ -99,9 +94,8 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
             className="hidden h-8 w-8 p-0 lg:flex"
             onClick={() => {
               startTransition(() => {
-                table.setPageIndex(table.getPageCount() - 1)
-              })
-
+                table.setPageIndex(table.getPageCount() - 1);
+              });
             }}
             disabled={!table.getCanNextPage() || isPending}
           >

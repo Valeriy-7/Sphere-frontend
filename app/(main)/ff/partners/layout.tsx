@@ -6,12 +6,12 @@ export default function WBPartnersLayout({ children }: PropsWithChildren) {
   return (
     <>
       <AppTabsWrap>
-          <AppTabs
-              list={[
-                  { label: 'Магазины', href: '/ff/partners' },
-                  { label: 'ТК', href: '#',disabled:true },
-              ]}
-          />
+        <AppTabs
+          list={[
+            { label: 'Магазины', href: '/ff/partners' },
+            { label: 'ТК', href: '#', disabled: true },
+          ]}
+        />
       </AppTabsWrap>
       {children}
     </>

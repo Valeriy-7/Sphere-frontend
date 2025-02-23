@@ -60,7 +60,7 @@ export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
       if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
         return <TableCardImgText image={{ src: imageUrl }} title={value} />;
       }
-      if(imageUrl) {
+      if (imageUrl) {
         form?.setValue(`rows.${index}.image`, new File([''], 'filename')); // Если услуга уже есть и катринка подгрузилась с сервера, то обманываем валидатор
       }
 

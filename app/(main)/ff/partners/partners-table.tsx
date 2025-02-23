@@ -32,9 +32,12 @@ import {
   type TableProps,
 } from '@/lib/TableHelpers';
 
-import type {PartnerCabinetDtoType} from "@/kubb-gen";
+import type { PartnerCabinetDtoType } from '@/kubb-gen';
 
-export function PartnersTable<TData extends PartnerCabinetDtoType, TValue>({ columns, data }: TableProps<TData, TValue>) {
+export function PartnersTable<TData extends PartnerCabinetDtoType, TValue>({
+  columns,
+  data,
+}: TableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
   const [globalFilter, setGlobalFilter] = React.useState('');
@@ -138,7 +141,6 @@ function TableRowTotal<TData>({ table }: { table: TTable<TData> }) {
         <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
         <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
         <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
-
       </TableRow>
     </>
   );

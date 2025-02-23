@@ -59,12 +59,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         data-icon-size-not-default={iconSizeNotDefault}
-        className={cn(buttonVariants({ variant, size, className }),{'animate-bounce':loading})}
+        className={cn(buttonVariants({ variant, size, className }), { 'animate-bounce': loading })}
         ref={ref}
         {...props}
       >
         {children}
-      {/*  <span className={''}>
+        {/*  <span className={''}>
           <span
             data-loading={loading}
             className={'w-full text-center data-[loading=true]:opacity-0 [&_a]:block [&_a]:w-full'}
