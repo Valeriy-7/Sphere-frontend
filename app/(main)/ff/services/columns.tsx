@@ -222,9 +222,19 @@ export const columnsLogistics: ColumnDef<LogisticsType>[] = [
     enableSorting: false,
   },
   {
+    accessorKey: 'fromAddress',
+    header: 'Адрес',
+    enableSorting: false,
+  },
+  {
     accessorKey: 'toLocation',
     enableSorting: false,
     header: `Куда`,
+  },
+  {
+    accessorKey: 'toAddress',
+    enableSorting: false,
+    header: `Адрес`,
   },
   {
     accessorKey: 'priceUpTo1m3',

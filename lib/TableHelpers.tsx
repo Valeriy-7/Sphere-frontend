@@ -13,7 +13,7 @@ export function getColSizeList(classList?: Array<string>) {
 export function getColSizeComponent(classList?: Array<string>) {
   return {
     ColSizeComponent: () => (
-      <colgroup>{classList?.map((className) => <col className={className} />)}</colgroup>
+      <colgroup>{classList?.map((className, index) => <col key={index} className={className} />)}</colgroup>
     ),
   };
 }
@@ -80,7 +80,7 @@ export function getTotalColumn<TData>({
     return row.original[key] ?? 0;
   });
 
-  return list.reduce((accumulator, currentValue) => accumulator + currentValue);
+  return list?.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 }
 
 export type TableProps<TData, TValue> = {
