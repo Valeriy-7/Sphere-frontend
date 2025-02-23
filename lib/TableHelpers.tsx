@@ -13,7 +13,9 @@ export function getColSizeList(classList?: Array<string>) {
 export function getColSizeComponent(classList?: Array<string>) {
   return {
     ColSizeComponent: () => (
-      <colgroup>{classList?.map((className, index) => <col key={index} className={className} />)}</colgroup>
+      <colgroup>
+        {classList?.map((className, index) => <col key={index} className={className} />)}
+      </colgroup>
     ),
   };
 }
