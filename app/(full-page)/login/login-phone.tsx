@@ -53,7 +53,7 @@ export function LoginPhone(props: LoginPhoneProps) {
       { data },
       {
         onError: (e) => {
-          form.setError('phone', { message: e?.response?.data.message });
+          form.setError('phone', { message: e?.response?.data.errors[0].message });
         },
         onSuccess: () => {
           props.onSubmit(data);

@@ -5,23 +5,23 @@ export type CreateServiceDtoType = {
    */
   name: string
   /**
-   * @description Цена за единицу
-   * @type number
-   */
-  price: number
-  /**
    * @description Описание услуги
    * @type string
    */
   description: string
   /**
-   * @description Порядковый номер
-   * @type number | undefined
+   * @description Цена услуги
+   * @type number
    */
-  number?: number
+  price: number
+  /**
+   * @description Активна ли услуга
+   * @type boolean | undefined
+   */
+  isActive?: boolean
   /**
    * @description Изображение услуги
-   * @type string, binary
+   * @type string | undefined, binary
    */
-  image: Blob
+  image?: Blob
 }

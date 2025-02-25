@@ -1,3 +1,19 @@
+export const logisticsFromPointTypeEnum = {
+  WILDBERRIES: 'WILDBERRIES',
+  FULFILLMENT: 'FULFILLMENT',
+  MARKETPLACE: 'MARKETPLACE',
+} as const
+
+export type LogisticsFromPointTypeEnumType = (typeof logisticsFromPointTypeEnum)[keyof typeof logisticsFromPointTypeEnum]
+
+export const logisticsToPointTypeEnum = {
+  WILDBERRIES: 'WILDBERRIES',
+  FULFILLMENT: 'FULFILLMENT',
+  MARKETPLACE: 'MARKETPLACE',
+} as const
+
+export type LogisticsToPointTypeEnumType = (typeof logisticsToPointTypeEnum)[keyof typeof logisticsToPointTypeEnum]
+
 export type LogisticsType = {
   /**
    * @description ID записи логистики
@@ -5,35 +21,35 @@ export type LogisticsType = {
    */
   id: string
   /**
+   * @description Номер записи логистики
+   * @type number
+   */
+  number: number
+  /**
    * @description ID кабинета
    * @type string
    */
   cabinetId: string
   /**
-   * @description Порядковый номер
-   * @type number
-   */
-  number: number
-  /**
-   * @description Пункт отправления
+   * @description ID точки отправления
    * @type string
    */
-  fromLocation: string
+  fromPointId: string
   /**
-   * @description Адрес отправления
+   * @description ID точки назначения
    * @type string
    */
-  fromAddress: string
+  toPointId: string
   /**
-   * @description Пункт назначения
+   * @description Тип точки отправления
    * @type string
    */
-  toLocation: string
+  fromPointType: LogisticsFromPointTypeEnumType
   /**
-   * @description Адрес назначения
+   * @description Тип точки назначения
    * @type string
    */
-  toAddress: string
+  toPointType: LogisticsToPointTypeEnumType
   /**
    * @description Цена за объем до 1 м³
    * @type number
@@ -45,8 +61,18 @@ export type LogisticsType = {
    */
   pricePer1m3: number
   /**
-   * @description Комментарий
+   * @description Описание маршрута
    * @type string
    */
-  comment: string
+  description: string
+  /**
+   * @description Дата создания
+   * @type string, date-time
+   */
+  createdAt: string
+  /**
+   * @description Дата обновления
+   * @type string, date-time
+   */
+  updatedAt: string
 }

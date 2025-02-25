@@ -3,12 +3,12 @@ import { ServicesTable } from '../services-table';
 import { columnsService } from '../columns';
 import { FormSchema, FormValues } from './schema';
 import {
-  useServicesGetServicesSuspense,
-  useServicesCreateService,
-  useServicesUpdateService,
-  useServicesDeleteService,
-  servicesGetServicesSuspenseQueryKey,
+  useLogisticsGetServicesSuspense,
+  useLogisticsCreateService,
+  useLogisticsUpdateService,
+  useLogisticsDeleteService,
   type ServiceType,
+  logisticsGetServicesSuspenseQueryKey,
 } from '@/kubb-gen';
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -18,15 +18,15 @@ import { Form } from '@/components/ui/form';
 
 export default function ServicePage() {
   const queryClient = useQueryClient();
-  const { data } = useServicesGetServicesSuspense();
+  const { data } = useLogisticsGetServicesSuspense();
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: { rows: data },
   });
 
-  const { mutateAsync: mutateCreate } = useServicesCreateService();
-  const { mutateAsync: mutateUpdate } = useServicesUpdateService();
-  const { mutateAsync: mutateDelete } = useServicesDeleteService();
+  const { mutateAsync: mutateCreate } = useLogisticsCreateService();
+  const { mutateAsync: mutateUpdate } = useLogisticsUpdateService();
+  const { mutateAsync: mutateDelete } = useLogisticsDeleteService();
 
   console.log(form.formState.errors.rows);
 
@@ -44,10 +44,10 @@ export default function ServicePage() {
               mutateUpdate({ id, data: { ...data, price: String(price) as unknown as number } }),
             ),
           ];
-          queryClient.setQueryData(servicesGetServicesSuspenseQueryKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
+          queryClient.setQueryData(logisticsGetServicesSuspenseQueryKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
           Promise.allSettled(promises).then(() => {
             queryClient.invalidateQueries({
-              queryKey: [...servicesGetServicesSuspenseQueryKey()],
+              queryKey: logisticsGetServicesSuspenseQueryKey(),
             });
           });
         }}

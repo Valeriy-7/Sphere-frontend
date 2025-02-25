@@ -23,6 +23,7 @@ const FormSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal(userTypeEnum.wildberries),
     apiKey: z.string().min(32, 'Должен содержать мимум 32 символа'),
+    token: z.string().optional().nullable(),
   }),
   z.object({
     type: z.enum([
@@ -31,6 +32,7 @@ const FormSchema = z.discriminatedUnion('type', [
       Business.Transport,*/
     ]),
     inn: z.string({ message: 'Обязательно для заполнения' }).regex(/^\d{10}$|^\d{12}$/),
+    token: z.string().optional().nullable(),
   }),
 ]);
 
@@ -41,6 +43,7 @@ export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }
       type: undefined,
       inn: undefined,
       apiKey: '',
+      token: localStorage.getItem('registrationUrl'),
     },
   });
   const { user } = useJWTAuthContext();
@@ -65,6 +68,9 @@ export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }
           }
         },
         onSuccess: () => {
+          if (data.token) {
+            localStorage.removeItem('registrationUrl');
+          }
           setIsMutateSuccess(true);
         },
       },

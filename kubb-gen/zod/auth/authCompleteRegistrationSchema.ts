@@ -5,12 +5,19 @@ import { z } from 'zod'
 /**
  * @description Регистрация успешно завершена
  */
-export const authCompleteRegistration201Schema = z.lazy(() => cabinetSchema)
+export const authCompleteRegistration201Schema = z.object({
+  cabinet: z.lazy(() => cabinetSchema).optional(),
+  token: z.string().describe('Токен для регистрации контрагентов').optional(),
+})
 
 /**
  * @description Некорректные данные для регистрации
  */
-export const authCompleteRegistration400Schema = z.any()
+export const authCompleteRegistration400Schema = z.object({
+  message: z.string().optional(),
+  error: z.string().optional(),
+  statusCode: z.number().optional(),
+})
 
 /**
  * @description Пользователь не авторизован

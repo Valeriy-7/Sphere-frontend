@@ -20,7 +20,7 @@ export type CreateConsumableDtoType = {
    */
   description: string
   /**
-   * @description Порядковый номер
+   * @description Порядковый номер (генерируется автоматически)
    * @type number | undefined
    */
   number?: number

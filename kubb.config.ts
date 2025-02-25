@@ -35,7 +35,10 @@ export default defineConfig({
   hooks: {},
   plugins: [
     pluginOas({
-      generators: [],
+      group: {
+        type: 'path',
+      },
+      //generators: [],
     }),
     pluginTs({
       transformers: {

@@ -7,7 +7,9 @@ import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const buttonVariants = cva(
+import { buttonVariants } from '@/components/ui/button';
+
+/*const buttonVariants = cva(
   'text-left flex w-full items-center justify-between rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
   {
     variants: {
@@ -24,7 +26,7 @@ const buttonVariants = cva(
       size: 'default',
     },
   },
-);
+);*/
 
 export interface SelectTriggerProps
   extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>,
@@ -41,10 +43,10 @@ const SelectValue = SelectPrimitive.Value;
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerProps
->(({ className, children, size, variant, isIconLogin, ...props }, ref) => (
+>(({ className, children, size, variant = 'outline', isIconLogin, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={cn(buttonVariants({ variant, size, className }))}
+    className={cn(buttonVariants({ variant, size, className }), '[&>span]:line-clamp-1')}
     {...props}
   >
     {children}

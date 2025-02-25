@@ -57,6 +57,8 @@ export default function SettingsPage() {
     defaultValues: { ...restData },
   });
 
+  const registrationUrl = `${window.location.origin}/login?registrationUrl=${restData.registrationUrl}`;
+
   function onSubmit(data: z.infer<typeof cabinetsUpdateMutationRequestSchema>) {
     mutate(
       { data, id: cabinetActiveId },
@@ -319,21 +321,12 @@ export default function SettingsPage() {
               />
             </div>
           )}
+          {type !== 'fulfillment' && (
+            <div className={'space-y-4'}>
+              <Input disabled label="Ссылка для регистрации контрагентов" value={registrationUrl} />
+            </div>
+          )}
 
-          <div className={'space-y-4'}>
-            <FormField
-              control={form.control}
-              name="registrationUrl"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input disabled label="Ссылка для регистрации контрагентов" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
           <Button loading={isPending} type="submit">
             Сохранить
           </Button>

@@ -4,12 +4,12 @@ import { columnsConsumable } from '../columns';
 import { FormSchema, FormValues } from './schema';
 
 import {
-  useServicesGetConsumablesSuspense,
-  useServicesCreateConsumable,
-  useServicesUpdateConsumable,
-  useServicesDeleteConsumable,
-  servicesCreateConsumableMutationKey,
+  useLogisticsGetConsumablesSuspense,
+  useLogisticsCreateConsumable,
+  useLogisticsUpdateConsumable,
+  useLogisticsDeleteConsumable,
   ConsumableType,
+  logisticsCreateConsumableMutationKey,
 } from '@/kubb-gen';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -20,15 +20,15 @@ import { Form } from '@/components/ui/form';
 
 export default function ServiceConsumablePage() {
   const queryClient = useQueryClient();
-  const { data } = useServicesGetConsumablesSuspense();
+  const { data } = useLogisticsGetConsumablesSuspense();
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: { rows: data },
   });
 
-  const { mutateAsync: mutateCreate } = useServicesCreateConsumable();
-  const { mutateAsync: mutateUpdate } = useServicesUpdateConsumable();
-  const { mutateAsync: mutateDelete } = useServicesDeleteConsumable();
+  const { mutateAsync: mutateCreate } = useLogisticsCreateConsumable();
+  const { mutateAsync: mutateUpdate } = useLogisticsUpdateConsumable();
+  const { mutateAsync: mutateDelete } = useLogisticsDeleteConsumable();
 
   console.log(form.formState.errors.rows);
 
@@ -59,10 +59,10 @@ export default function ServiceConsumablePage() {
               }),
             ),
           ];
-          queryClient.setQueryData(servicesCreateConsumableMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
+          queryClient.setQueryData(logisticsCreateConsumableMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
           Promise.allSettled(promises).then(() => {
             queryClient.invalidateQueries({
-              queryKey: servicesCreateConsumableMutationKey(),
+              queryKey: logisticsCreateConsumableMutationKey(),
             });
           });
         }}

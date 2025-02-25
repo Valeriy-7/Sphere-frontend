@@ -49,12 +49,12 @@ export function AdminListTable<TData extends ListItemDtoType, TValue extends unk
 }: TableProps<TData, TValue>) {
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0, // Todo на бэке сделать такой же контракт?
-    pageSize: 1,
+    pageSize: 10,
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const {
     data: { pages, items },
-  } = useAdminGetListSuspense({ mode, limit: pagination.pageSize, page: pagination.pageIndex });
+  } = useAdminGetListSuspense({ mode, limit: pagination.pageSize, page: pagination.pageIndex + 1 });
 
   const [isPending, startTransition] = useTransition();
 

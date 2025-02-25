@@ -6,12 +6,26 @@ import { Check, Pencil, X } from 'lucide-react';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { RUB } from '@/lib/constants/rub';
 import ImageUpload from '@/components/image-upload-validator';
-import type { ConsumableType, LogisticsType, ServiceType } from '@/kubb-gen';
-import { FormControl, FormField, FormItem } from '@/components/ui/form';
+import {
+  ConsumableType,
+  LogisticsType,
+  ServiceType,
+  useDeliveryPointsGetAllDeliveryPoints,
+  useDeliveryPointsGetAllDeliveryPointsSuspense,
+  userTypeEnum,
+} from '@/kubb-gen';
+import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { CurrencyInput } from '@/components/currency-input';
 import { useEffect, useState } from 'react';
 import { formatCurrency } from '@/lib/formatCurrency';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export type ServicesItemType = ServiceType | ConsumableType | LogisticsType;
 
@@ -219,24 +233,124 @@ export const columnsLogistics: ColumnDef<LogisticsType>[] = [
     },
   },
   {
-    accessorKey: 'fromLocation',
+    accessorKey: 'fromPointId',
     header: 'Откуда',
     enableSorting: false,
+    cell: ({ getValue, row: { index, original }, column: { id }, table, column }) => {
+      const initialValue = getValue();
+      const [value, setValue] = useState(initialValue);
+      useEffect(() => {
+        setValue(initialValue);
+      }, [initialValue]);
+
+      const { data, isPending } = useDeliveryPointsGetAllDeliveryPoints();
+      if (isPending) return <>...</>;
+
+      if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
+        return data?.find((i) => i.id === original.fromPointId)?.name;
+      }
+
+      const form = table.options.meta?.form;
+      const { toPointId } = original;
+      return (
+        <FormField
+          control={form?.control}
+          name={`rows.${index}.${id}`}
+          render={({ field }) => (
+            <FormItem>
+              <Select
+                disabled={isPending}
+                onValueChange={(val) => {
+                  setValue(val);
+                  field.onChange(val);
+                  const { type } = data?.find((i) => i.id === val) || {};
+                  form?.setValue(`rows.${index}.fromPointType`, type);
+                  table.options?.meta?.updateData(index, id, val);
+                  table.options?.meta?.updateData(index, 'fromPointType', type);
+                }}
+                defaultValue={value as string}
+              >
+                <FormControl>
+                  <SelectTrigger size={'xs'}>
+                    <SelectValue placeholder="Откуда" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {data
+                    ?.filter((i) => i.id !== toPointId)
+                    .map((i) => (
+                      <SelectItem key={i.id} value={i.id}>
+                        {i.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
+      );
+    },
   },
   {
-    accessorKey: 'fromAddress',
-    header: 'Адрес',
-    enableSorting: false,
-  },
-  {
-    accessorKey: 'toLocation',
+    accessorKey: 'toPointId',
     enableSorting: false,
     header: `Куда`,
-  },
-  {
-    accessorKey: 'toAddress',
-    enableSorting: false,
-    header: `Адрес`,
+    cell: ({ getValue, row: { index, original }, column: { id }, table, column }) => {
+      const initialValue = getValue();
+      const [value, setValue] = useState(initialValue);
+      useEffect(() => {
+        setValue(initialValue);
+      }, [initialValue]);
+
+      const { data, isPending } = useDeliveryPointsGetAllDeliveryPoints();
+      if (isPending) return <>...</>;
+
+      if (!table.options.meta?.isEdit || column.columnDef.meta?.editDisabled) {
+        return data?.find((i) => i.id === original.toPointId)?.name;
+      }
+
+      const form = table.options.meta?.form;
+      const { fromPointId } = form?.getValues('rows')?.[index];
+
+      return (
+        <FormField
+          control={form?.control}
+          name={`rows.${index}.${id}`}
+          render={({ field }) => (
+            <FormItem>
+              <Select
+                disabled={isPending}
+                onValueChange={(val) => {
+                  setValue(val);
+                  field.onChange(val);
+                  const { type } = data?.find((i) => i.id === val) || {};
+                  form?.setValue(`rows.${index}.toPointType`, type);
+
+                  table.options?.meta?.updateData(index, id, val);
+                  table.options?.meta?.updateData(index, 'toPointType', type);
+                }}
+                defaultValue={value as string}
+              >
+                <FormControl>
+                  <SelectTrigger size={'xs'}>
+                    <SelectValue placeholder="Куда" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {data
+                    ?.filter((i) => i.id !== fromPointId)
+                    .map((i) => (
+                      <SelectItem key={i.id} value={i.id}>
+                        {i.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
+      );
+    },
   },
   {
     accessorKey: 'priceUpTo1m3',
@@ -256,7 +370,7 @@ export const columnsLogistics: ColumnDef<LogisticsType>[] = [
   },
   {
     enableSorting: false,
-    accessorKey: 'comment',
+    accessorKey: 'description',
     header: 'Описание',
     meta: {
       className: 'w-[35%]',

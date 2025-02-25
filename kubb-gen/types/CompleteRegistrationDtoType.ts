@@ -12,9 +12,14 @@ export type CompleteRegistrationDtoType = {
    */
   apiKey?: string
   /**
-   * @description ИНН компании (обязательное поле для фулфилмента)
+   * @description ИНН компании (обязательное поле)
    * @pattern ^\d{10}$|^\d{12}$
+   * @type string
+   */
+  inn: string
+  /**
+   * @description Токен для связи с партнерским аккаунтом
    * @type string | undefined
    */
-  inn?: string
+  token?: string
 }

@@ -4,12 +4,12 @@ import { columnsLogistics } from '../columns';
 import { FormSchema, FormValues } from './schema';
 
 import {
-  useServicesGetLogisticsSuspense,
-  useServicesCreateLogistics,
-  useServicesUpdateLogistics,
-  useServicesDeleteLogistics,
-  servicesCreateLogisticsMutationKey,
+  useLogisticsGetLogisticsSuspense,
+  useLogisticsCreateLogistics,
+  useLogisticsUpdateLogistics,
+  useLogisticsDeleteLogistics,
   LogisticsType,
+  logisticsCreateServiceMutationKey,
 } from '@/kubb-gen';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -20,15 +20,15 @@ import { Form } from '@/components/ui/form';
 
 export default function ServiceLogisticsPage() {
   const queryClient = useQueryClient();
-  const { data } = useServicesGetLogisticsSuspense();
+  const { data } = useLogisticsGetLogisticsSuspense();
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: { rows: data },
   });
 
-  const { mutateAsync: mutateCreate } = useServicesCreateLogistics();
-  const { mutateAsync: mutateUpdate } = useServicesUpdateLogistics();
-  const { mutateAsync: mutateDelete } = useServicesDeleteLogistics();
+  const { mutateAsync: mutateCreate } = useLogisticsCreateLogistics();
+  const { mutateAsync: mutateUpdate } = useLogisticsUpdateLogistics();
+  const { mutateAsync: mutateDelete } = useLogisticsDeleteLogistics();
 
   console.log(form.formState.errors.rows);
 
@@ -44,10 +44,10 @@ export default function ServiceLogisticsPage() {
             }),
             ...updateRows.map(({ id, ...data }) => mutateUpdate({ id, data })),
           ];
-          queryClient.setQueryData(servicesCreateLogisticsMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
+          queryClient.setQueryData(logisticsCreateServiceMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
           Promise.allSettled(promises).then(() => {
             queryClient.invalidateQueries({
-              queryKey: servicesCreateLogisticsMutationKey(),
+              queryKey: logisticsCreateServiceMutationKey(),
             });
           });
         }}

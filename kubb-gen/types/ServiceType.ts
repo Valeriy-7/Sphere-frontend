@@ -1,11 +1,3 @@
-export const serviceTypeEnum = {
-  service: 'service',
-  logistics: 'logistics',
-  consumable: 'consumable',
-} as const
-
-export type ServiceTypeEnumType = (typeof serviceTypeEnum)[keyof typeof serviceTypeEnum]
-
 export type ServiceType = {
   /**
    * @description ID услуги
@@ -13,38 +5,43 @@ export type ServiceType = {
    */
   id: string
   /**
+   * @description Порядковый номер услуги
+   * @type number
+   */
+  number: number
+  /**
    * @description ID кабинета
    * @type string
    */
   cabinetId: string
-  /**
-   * @description Порядковый номер
-   * @type number
-   */
-  number: number
   /**
    * @description Название услуги
    * @type string
    */
   name: string
   /**
-   * @description URL изображения
-   * @type string
-   */
-  imageUrl: string
-  /**
-   * @description Цена за единицу
-   * @type number
-   */
-  price: number
-  /**
    * @description Описание услуги
    * @type string
    */
   description: string
   /**
-   * @description Тип услуги (услуга/логистика/расходник)
-   * @type string
+   * @description URL изображения услуги
+   * @type string | undefined
    */
-  type: ServiceTypeEnumType
+  imageUrl?: string
+  /**
+   * @description Цена услуги
+   * @type number
+   */
+  price: number
+  /**
+   * @description Дата создания
+   * @type string, date-time
+   */
+  createdAt: string
+  /**
+   * @description Дата обновления
+   * @type string, date-time
+   */
+  updatedAt: string
 }

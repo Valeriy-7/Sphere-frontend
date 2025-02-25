@@ -1,8 +1,15 @@
+'use client';
 import { LoginForm } from './login-form';
 import Image from 'next/image';
 import bgForm from '@/app/(full-page)/login/login-bg.svg';
 
+import { useSearchParams } from 'next/navigation';
 const LoginPage = () => {
+  const searchParams = useSearchParams();
+  const registrationUrl = searchParams.get('registrationUrl');
+  if (registrationUrl) {
+    localStorage.setItem('registrationUrl', registrationUrl);
+  }
   return (
     <div
       className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10"
