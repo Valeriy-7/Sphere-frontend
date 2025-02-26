@@ -48,7 +48,7 @@ export default function SettingsPage() {
   });
   const queryClient = useQueryClient();
 
-  const { id: cabinetActiveId, type, ...restData } = data as CabinetType;
+  const { id: cabinetActiveId, type, registrationUrl: token, ...restData } = data as CabinetType;
 
   const { mutate, isPending } = useCabinetsUpdate();
 
@@ -57,7 +57,7 @@ export default function SettingsPage() {
     defaultValues: { ...restData },
   });
 
-  const registrationUrl = `${window.location.origin}/login?registrationUrl=${restData.registrationUrl}`;
+  const registrationUrl = `${window.location.origin}/login?registrationUrl=${token}`;
 
   function onSubmit(data: z.infer<typeof cabinetsUpdateMutationRequestSchema>) {
     mutate(
@@ -321,7 +321,7 @@ export default function SettingsPage() {
               />
             </div>
           )}
-          {type !== 'fulfillment' && (
+          {type === 'fulfillment' && (
             <div className={'space-y-4'}>
               <Input disabled label="Ссылка для регистрации контрагентов" value={registrationUrl} />
             </div>
