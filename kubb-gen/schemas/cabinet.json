@@ -167,21 +167,10 @@
       "example": "https://example.com/register/abc123",
       "nullable": true
     },
-    "partnerCabinets": {
+    "partners": {
       "description": "Связанные кабинеты (где этот кабинет является партнером)",
       "type": "array",
       "items": { "$ref": "#/components/schemas/Cabinet" }
-    },
-    "partners": {
-      "description": "Партнеры кабинета",
-      "type": "array",
-      "items": { "$ref": "#/components/schemas/Cabinet" }
-    },
-    "partnerId": {
-      "type": "string",
-      "description": "ID кабинета-партнера",
-      "example": "123e4567-e89b-12d3-a456-426614174000",
-      "nullable": true
     },
     "verificationComment": {
       "type": "string",
@@ -224,9 +213,7 @@
     "checkingAccount",
     "correspondentAccount",
     "registrationUrl",
-    "partnerCabinets",
     "partners",
-    "partnerId",
     "blockedAt"
   ],
   "x-readme-ref-name": "Cabinet"

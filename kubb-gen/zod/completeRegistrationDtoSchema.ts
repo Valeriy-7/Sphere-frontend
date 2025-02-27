@@ -11,6 +11,7 @@ export const completeRegistrationDtoSchema = z.object({
   inn: z
     .string()
     .regex(/^\d{10}$|^\d{12}$/)
-    .describe('ИНН компании (обязательное поле)'),
+    .describe('ИНН компании (обязательное поле для фулфилмент кабинетов)')
+    .optional(),
   token: z.string().describe('Токен для связи с партнерским аккаунтом').optional(),
 });

@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "example": "123e4567-e89b-12d3-a456-426614174000" },
+    "name": { "type": "string", "example": "Стирка" },
+    "price": { "type": "number", "example": 100 },
+    "description": { "type": "string", "example": "Стирка изделий перед отправкой" }
+  },
+  "required": ["id", "name", "price", "description"],
+  "x-readme-ref-name": "ServiceResponseExample"
+}

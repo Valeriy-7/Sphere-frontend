@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Название поставщика",
+      "example": "ООО \"Ромашка\""
+    },
+    "contactName": {
+      "type": "string",
+      "description": "Имя контактного лица",
+      "example": "Иванов Иван"
+    },
+    "phone": { "type": "string", "description": "Номер телефона", "example": "+79991234567" },
+    "marketplaceName": { "type": "string", "description": "Название рынка", "example": "Садовод" },
+    "address": {
+      "type": "string",
+      "description": "Адрес",
+      "example": "Москва, МКАД, 14-й километр, 30с1"
+    },
+    "location": {
+      "type": "string",
+      "description": "Место (павильон, линия и т.д.)",
+      "example": "Линия 1, павильон 45"
+    },
+    "telegram": { "type": "string", "description": "Telegram аккаунт", "example": "@ivanov_shop" }
+  },
+  "required": ["name", "contactName", "phone", "marketplaceName", "address", "location"],
+  "x-readme-ref-name": "CreateSupplierDto"
+}

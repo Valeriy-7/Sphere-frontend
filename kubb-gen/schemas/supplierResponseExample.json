@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "example": "123e4567-e89b-12d3-a456-426614174000" },
+    "name": { "type": "string", "example": "ООО \"Ромашка\"" },
+    "contactName": { "type": "string", "example": "Иванов Иван" },
+    "phone": { "type": "string", "example": "+79991234567" },
+    "marketplaceName": { "type": "string", "example": "Садовод" },
+    "address": { "type": "string", "example": "Москва, МКАД, 14-й километр, 30с1" },
+    "location": { "type": "string", "example": "Линия 1, павильон 45" },
+    "telegram": { "type": "string", "example": "@ivanov_shop" },
+    "cabinetId": { "type": "string", "example": "123e4567-e89b-12d3-a456-426614174000" }
+  },
+  "required": [
+    "id",
+    "name",
+    "contactName",
+    "phone",
+    "marketplaceName",
+    "address",
+    "location",
+    "cabinetId"
+  ],
+  "x-readme-ref-name": "SupplierResponseExample"
+}

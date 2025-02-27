@@ -150,17 +150,7 @@ export type CabinetType = {
    * @description Связанные кабинеты (где этот кабинет является партнером)
    * @type array
    */
-  partnerCabinets: CabinetType[];
-  /**
-   * @description Партнеры кабинета
-   * @type array
-   */
   partners: CabinetType[];
-  /**
-   * @description ID кабинета-партнера
-   * @type string
-   */
-  partnerId: string | null;
   /**
    * @description Комментарий администратора при верификации
    * @type string

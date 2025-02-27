@@ -5,7 +5,12 @@ export type CreateConsumableDtoType = {
    */
   name: string;
   /**
-   * @description Цена за единицу
+   * @description Описание расходника
+   * @type string
+   */
+  description: string;
+  /**
+   * @description Цена расходника
    * @type number
    */
   price: number;
@@ -14,11 +19,6 @@ export type CreateConsumableDtoType = {
    * @type number
    */
   quantity: number;
-  /**
-   * @description Описание расходника
-   * @type string
-   */
-  description: string;
   /**
    * @description Порядковый номер (генерируется автоматически)
    * @type number | undefined

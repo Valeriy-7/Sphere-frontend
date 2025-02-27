@@ -1,14 +1,18 @@
 {
   "type": "object",
   "properties": {
-    "name": { "type": "string", "description": "Название расходника", "example": "Коробка 60x60" },
-    "price": { "type": "number", "description": "Цена за единицу", "example": 100.5 },
-    "quantity": { "type": "number", "description": "Количество в наличии", "example": 100 },
+    "name": {
+      "type": "string",
+      "description": "Название расходника",
+      "example": "Скотч упаковочный"
+    },
     "description": {
       "type": "string",
       "description": "Описание расходника",
-      "example": "Коробка для упаковки товаров"
+      "example": "Прозрачный скотч для упаковки товаров"
     },
+    "price": { "type": "number", "description": "Цена расходника", "example": 100 },
+    "quantity": { "type": "number", "description": "Количество в наличии", "example": 100 },
     "number": {
       "type": "number",
       "description": "Порядковый номер (генерируется автоматически)",
@@ -16,6 +20,6 @@
     },
     "image": { "type": "string", "description": "Изображение расходника", "format": "binary" }
   },
-  "required": ["name", "price", "quantity", "description", "image"],
+  "required": ["name", "description", "price", "quantity", "image"],
   "x-readme-ref-name": "CreateConsumableDto"
 }

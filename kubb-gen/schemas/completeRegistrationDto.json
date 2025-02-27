@@ -20,7 +20,7 @@
     },
     "inn": {
       "type": "string",
-      "description": "ИНН компании (обязательное поле)",
+      "description": "ИНН компании (обязательное поле для фулфилмент кабинетов)",
       "example": "7731347089",
       "pattern": "^\\d{10}$|^\\d{12}$"
     },
@@ -30,6 +30,6 @@
       "example": "a1b2c3d4e5f6..."
     }
   },
-  "required": ["type", "inn"],
+  "required": ["type"],
   "x-readme-ref-name": "CompleteRegistrationDto"
 }

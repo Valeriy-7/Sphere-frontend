@@ -29,11 +29,9 @@ export const cabinetSchema = z.object({
   checkingAccount: z.string().describe('Расчетный счет').nullable(),
   correspondentAccount: z.string().describe('Корреспондентский счет').nullable(),
   registrationUrl: z.string().describe('Ссылка для регистрации партнеров').nullable(),
-  partnerCabinets: z
+  partners: z
     .array(z.lazy(() => cabinetSchema))
     .describe('Связанные кабинеты (где этот кабинет является партнером)'),
-  partners: z.array(z.lazy(() => cabinetSchema)).describe('Партнеры кабинета'),
-  partnerId: z.string().describe('ID кабинета-партнера').nullable(),
   verificationComment: z
     .string()
     .describe('Комментарий администратора при верификации')

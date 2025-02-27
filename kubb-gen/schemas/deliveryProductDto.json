@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "properties": {
+    "wbProductId": {
+      "type": "string",
+      "description": "ID товара в Wildberries",
+      "example": "WB123456"
+    },
+    "quantity": { "type": "number", "description": "Количество единиц товара", "example": 100 },
+    "price": { "type": "number", "description": "Цена за единицу товара", "example": 50 },
+    "selectedServices": {
+      "description": "Выбранные услуги для товара",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID услуги",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "name": { "type": "string", "description": "Название услуги", "example": "Стирка" },
+          "price": { "type": "number", "description": "Цена услуги", "example": 10 }
+        },
+        "required": ["id", "name", "price"],
+        "x-readme-ref-name": "SelectedServiceDto"
+      }
+    },
+    "selectedConsumables": {
+      "description": "Выбранные расходники для товара",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID расходника",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "name": {
+            "type": "string",
+            "description": "Название расходника",
+            "example": "Зип-пакет"
+          },
+          "price": { "type": "number", "description": "Цена расходника", "example": 5 }
+        },
+        "required": ["id", "name", "price"],
+        "x-readme-ref-name": "SelectedConsumableDto"
+      }
+    },
+    "supplierId": {
+      "type": "string",
+      "description": "ID поставщика товара",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    }
+  },
+  "required": ["wbProductId", "quantity", "price", "selectedServices", "selectedConsumables"],
+  "x-readme-ref-name": "DeliveryProductDto"
+}

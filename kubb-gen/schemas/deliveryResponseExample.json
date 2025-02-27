@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "example": "123e4567-e89b-12d3-a456-426614174000" },
+    "deliveryDate": { "format": "date-time", "type": "string", "example": "2024-02-26T12:00:00Z" },
+    "cargoPlaces": { "type": "number", "example": 10 },
+    "totalProductsPrice": { "type": "number", "example": 5000 },
+    "logisticsToFFPrice": { "type": "number", "example": 500 },
+    "ffServicesPrice": { "type": "number", "example": 1000 },
+    "totalAmount": { "type": "number", "example": 6500 },
+    "cabinetId": { "type": "string", "example": "123e4567-e89b-12d3-a456-426614174000" },
+    "products": {
+      "example": [
+        {
+          "id": "123e4567-e89b-12d3-a456-426614174001",
+          "wbProductId": "WB123456",
+          "quantity": 100,
+          "price": 50,
+          "productData": {
+            "name": "Платье розовое",
+            "color": "Розовый",
+            "category": "Платья",
+            "sizes": ["S", "M", "L"]
+          },
+          "selectedServices": [
+            { "id": "123e4567-e89b-12d3-a456-426614174002", "name": "Стирка", "price": 10 }
+          ],
+          "selectedConsumables": [
+            { "id": "123e4567-e89b-12d3-a456-426614174003", "name": "Зип-пакет", "price": 5 }
+          ],
+          "supplierId": "123e4567-e89b-12d3-a456-426614174004"
+        }
+      ],
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "id",
+    "deliveryDate",
+    "cargoPlaces",
+    "totalProductsPrice",
+    "logisticsToFFPrice",
+    "ffServicesPrice",
+    "totalAmount",
+    "cabinetId",
+    "products"
+  ],
+  "x-readme-ref-name": "DeliveryResponseExample"
+}
