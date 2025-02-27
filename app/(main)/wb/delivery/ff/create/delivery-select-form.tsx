@@ -18,10 +18,17 @@ import { DPSelect } from '@/app/(main)/wb/delivery/ff/create/DPList';
 import { DatePicker } from '@/components/date-picker';
 import { CurrencyInput } from '@/components/currency-input';
 import { formatCurrency } from '@/lib/formatCurrency';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
 export default function NestedDynamicForm() {
+  const router = useRouter();
+  const [showDialog, setShowDialog] = useState(false);
+  const [pendingUrl, setPendingUrl] = useState<string>('');
+  const pathname = usePathname();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -72,195 +79,197 @@ export default function NestedDynamicForm() {
   ];
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={'flex flex-col gap-3'}>
-        <div className={'grid-cols-0 grid gap-4 sm:grid-cols-6 xl:grid-cols-12'}>
-          <div className={'col-span-2'}>
-            <DataTableTotal
-              data={[
-                {
-                  title: 'Дата поставки',
-                  value: <DatePicker<FormValues> form={form} name={'date'} />,
-                },
-              ]}
-            />
-          </div>
-          <div className={'col-span-2'}>
-            <DataTableTotal
-              data={[
-                {
-                  title: 'Грузовые места',
-                  value: (
-                    <FormField
-                      control={form.control}
-                      name="place"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <Input size={'xs'} {...field} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  ),
-                },
-              ]}
-            />
-          </div>
-          <div className={'col-span-8'}>
-            <DataTableTotal data={tableTotal} />
-          </div>
-        </div>
-        <div>
-          <ScrollArea className={'rounded-lg border bg-white p-2 dark:bg-transparent'}>
-            <div className={'flex items-center gap-4'}>
-              {Array(20)
-                .fill({})
-                .map((val, i) => (
-                  <button
-                    key={i}
-                    className={'flex-none cursor-pointer'}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      append({
-                        id: String(i),
-                        count: 0,
-                        price: 0,
-                        checkboxList: [],
-                        supplierList: [],
-                      });
-                    }}
-                  >
-                    <MarketImg />
-                  </button>
-                ))}
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className={'flex flex-col gap-3'}>
+          <div className={'grid-cols-0 grid gap-4 sm:grid-cols-6 xl:grid-cols-12'}>
+            <div className={'col-span-2'}>
+              <DataTableTotal
+                data={[
+                  {
+                    title: 'Дата поставки',
+                    value: <DatePicker<FormValues> form={form} name={'date'} />,
+                  },
+                ]}
+              />
             </div>
-
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-          {form.formState.errors.rows?.message}
-        </div>
-
-        {fields.map((field, index) => (
-          <div
-            className={
-              'relative flex flex-wrap gap-4 rounded-lg border bg-white p-2 pr-[40px] text-center text-min dark:bg-transparent'
-            }
-            key={field.id}
-          >
-            <MarketImg />
-            <DPItem>
-              <DPTitle>Данные</DPTitle>
-              <DPBody className={'h-full'}>
-                <ul className={'space-y-0.5 text-left'}>
-                  <li className={'text-primary'}>Платье чёрное</li>
-                  <li>Арт: 187677</li>
-                  <li>Цвет: Розовый</li>
-                  <li>Категория: Платья</li>
-                  <li>Размеры:</li>
-                  <li>S / M / L / XL</li>
-                </ul>
-              </DPBody>
-            </DPItem>
-            <DPItem>
-              <DPTitle>Заказать (ед)</DPTitle>
-              <FormField
-                control={form.control}
-                name={`rows.${index}.count`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <CurrencyInput {...field} size={'xs'} />
-                    </FormControl>
-                  </FormItem>
-                )}
+            <div className={'col-span-2'}>
+              <DataTableTotal
+                data={[
+                  {
+                    title: 'Грузовые места',
+                    value: (
+                      <FormField
+                        control={form.control}
+                        name="place"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input size={'xs'} {...field} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    ),
+                  },
+                ]}
               />
-              <DPTitle>Цена (₽)</DPTitle>
-              <FormField
-                control={form.control}
-                name={`rows.${index}.price`}
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormControl>
-                      <CurrencyInput {...field} size={'xs'} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </DPItem>
-
-            <DPSelect
-              isSelect
-              title={'Услуги'}
-              items={[
-                { label: 'Стирка', price: 10, id: '1' },
-                { label: 'Глаженье', price: 10, id: '2' },
-                { label: 'Глаженье', price: 10, id: '3' },
-                { label: 'Глаженье', price: 10, id: '4' },
-                { label: 'Глаженье', price: 10, id: '5' },
-                { label: 'Глаженье', price: 10, id: '6' },
-              ]}
-              tForm={{ form, index, name: `checkboxList` }}
-            />
-
-            <DPSelect
-              isSelect
-              title={'Расходники ФФ'}
-              items={[
-                { label: 'Стирка', price: 10, id: '1' },
-                { label: 'Глаженье', price: 10, id: '2' },
-                { label: 'Глаженье', price: 10, id: '3' },
-                { label: 'Глаженье', price: 10, id: '4' },
-                { label: 'Глаженье', price: 10, id: '5' },
-                { label: 'Глаженье', price: 10, id: '6' },
-              ]}
-              tForm={{ form, index, name: `checkboxList` }}
-            />
-
-            <DPSelect
-              isSelect
-              title={'Расходники Магазина'}
-              items={[
-                { label: 'Стирка', price: 10, id: '1' },
-                { label: 'Глаженье', price: 10, id: '2' },
-                { label: 'Глаженье', price: 10, id: '3' },
-                { label: 'Глаженье', price: 10, id: '4' },
-                { label: 'Глаженье', price: 10, id: '5' },
-                { label: 'Глаженье', price: 10, id: '6' },
-              ]}
-              tForm={{ form, index, name: `checkboxList` }}
-            />
-
-            <DPSelect
-              isSupplier
-              isSelect
-              title={'Поставщик'}
-              items={[
-                { label: 'Пушкин А.С', id: '1' },
-                { label: 'Пушкин А.С', id: '2' },
-                { label: 'Пушкин А.С', id: '3' },
-                { label: 'Пушкин А.С', id: '4' },
-                { label: 'Пушкин А.С', id: '5' },
-                { label: 'Пушкин А.С', id: '6' },
-              ]}
-              tForm={{ form, index, name: `supplierList` }}
-            />
-            <Button
-              className={'absolute right-0 top-0'}
-              type="button"
-              variant="ghost"
-              size="icon"
-              onClick={() => remove(index)}
-            >
-              <X />
-            </Button>
+            </div>
+            <div className={'col-span-8'}>
+              <DataTableTotal data={tableTotal} />
+            </div>
           </div>
-        ))}
+          <div>
+            <ScrollArea className={'rounded-lg border bg-white p-2 dark:bg-transparent'}>
+              <div className={'flex items-center gap-4'}>
+                {Array(20)
+                  .fill({})
+                  .map((val, i) => (
+                    <button
+                      key={i}
+                      className={'flex-none cursor-pointer'}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        append({
+                          id: String(i),
+                          count: 0,
+                          price: 0,
+                          checkboxList: [],
+                          supplierList: [],
+                        });
+                      }}
+                    >
+                      <MarketImg />
+                    </button>
+                  ))}
+              </div>
 
-        <div className={'text-right'}>
-          <Button type="submit">Создать поставку</Button>
-        </div>
-      </form>
-    </Form>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+            {form.formState.errors.rows?.message}
+          </div>
+
+          {fields.map((field, index) => (
+            <div
+              className={
+                'relative flex flex-wrap gap-4 rounded-lg border bg-white p-2 pr-[40px] text-center text-min dark:bg-transparent'
+              }
+              key={field.id}
+            >
+              <MarketImg />
+              <DPItem>
+                <DPTitle>Данные</DPTitle>
+                <DPBody className={'h-full'}>
+                  <ul className={'space-y-0.5 text-left'}>
+                    <li className={'text-primary'}>Платье чёрное</li>
+                    <li>Арт: 187677</li>
+                    <li>Цвет: Розовый</li>
+                    <li>Категория: Платья</li>
+                    <li>Размеры:</li>
+                    <li>S / M / L / XL</li>
+                  </ul>
+                </DPBody>
+              </DPItem>
+              <DPItem>
+                <DPTitle>Заказать (ед)</DPTitle>
+                <FormField
+                  control={form.control}
+                  name={`rows.${index}.count`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <CurrencyInput {...field} size={'xs'} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <DPTitle>Цена (₽)</DPTitle>
+                <FormField
+                  control={form.control}
+                  name={`rows.${index}.price`}
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormControl>
+                        <CurrencyInput {...field} size={'xs'} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </DPItem>
+
+              <DPSelect
+                isSelect
+                title={'Услуги'}
+                items={[
+                  { label: 'Стирка', price: 10, id: '1' },
+                  { label: 'Глаженье', price: 10, id: '2' },
+                  { label: 'Глаженье', price: 10, id: '3' },
+                  { label: 'Глаженье', price: 10, id: '4' },
+                  { label: 'Глаженье', price: 10, id: '5' },
+                  { label: 'Глаженье', price: 10, id: '6' },
+                ]}
+                tForm={{ form, index, name: `checkboxList` }}
+              />
+
+              <DPSelect
+                isSelect
+                title={'Расходники ФФ'}
+                items={[
+                  { label: 'Стирка', price: 10, id: '1' },
+                  { label: 'Глаженье', price: 10, id: '2' },
+                  { label: 'Глаженье', price: 10, id: '3' },
+                  { label: 'Глаженье', price: 10, id: '4' },
+                  { label: 'Глаженье', price: 10, id: '5' },
+                  { label: 'Глаженье', price: 10, id: '6' },
+                ]}
+                tForm={{ form, index, name: `checkboxList` }}
+              />
+
+              <DPSelect
+                isSelect
+                title={'Расходники Магазина'}
+                items={[
+                  { label: 'Стирка', price: 10, id: '1' },
+                  { label: 'Глаженье', price: 10, id: '2' },
+                  { label: 'Глаженье', price: 10, id: '3' },
+                  { label: 'Глаженье', price: 10, id: '4' },
+                  { label: 'Глаженье', price: 10, id: '5' },
+                  { label: 'Глаженье', price: 10, id: '6' },
+                ]}
+                tForm={{ form, index, name: `checkboxList` }}
+              />
+
+              <DPSelect
+                isSupplier
+                isSelect
+                title={'Поставщик'}
+                items={[
+                  { label: 'Пушкин А.С', id: '1' },
+                  { label: 'Пушкин А.С', id: '2' },
+                  { label: 'Пушкин А.С', id: '3' },
+                  { label: 'Пушкин А.С', id: '4' },
+                  { label: 'Пушкин А.С', id: '5' },
+                  { label: 'Пушкин А.С', id: '6' },
+                ]}
+                tForm={{ form, index, name: `supplierList` }}
+              />
+              <Button
+                className={'absolute right-0 top-0'}
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => remove(index)}
+              >
+                <X />
+              </Button>
+            </div>
+          ))}
+
+          <div className={'text-right'}>
+            <Button type="submit">Создать поставку</Button>
+          </div>
+        </form>
+      </Form>
+    </>
   );
 }

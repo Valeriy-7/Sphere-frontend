@@ -124,12 +124,12 @@ function getNavMain(type: LKTypeValue) {
       },
       {
         name: 'Склад',
-        url: '/wb/storage',
+        url: '/wb/storage/ff',
         icon: IconStorage,
       },
       {
         name: 'Поставки',
-        url: '/wb/delivery',
+        url: '/wb/delivery/ff',
         icon: IconDeliveryRight,
       },
     ],
@@ -141,12 +141,12 @@ function getNavMain(type: LKTypeValue) {
       },
       {
         name: 'Склад',
-        url: '/ff/storage',
+        url: '/ff/storage/ff',
         icon: IconStorage,
       },
       {
         name: 'Поставки',
-        url: '/ff/delivery',
+        url: '/ff/delivery/ff',
         icon: IconDeliveryRight,
       },
       {
@@ -165,21 +165,22 @@ function getNavMain(type: LKTypeValue) {
         icon: IconServices,
       },
     ],
-    common: [
-      {
-        name: 'Настройки',
-        url: '/settings',
-        icon: IconSettings,
-      },
-      {
-        name: 'Главная',
-        url: '/',
-        icon: IconHome,
-      },
-    ],
   };
 
-  return [...navMain[type], ...navMain.common];
+  const common = [
+    {
+      name: 'Настройки',
+      url: '/settings',
+      icon: IconSettings,
+    },
+    {
+      name: 'Главная',
+      url: '/',
+      icon: IconHome,
+    },
+  ];
+
+  return [...navMain[type], ...common];
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
