@@ -1,5 +1,5 @@
-import { cityStockDtoSchema } from './cityStockDtoSchema'
-import { z } from 'zod'
+import { cityStockDtoSchema } from './cityStockDtoSchema';
+import { z } from 'zod';
 
 export const productDetailsDtoSchema = z.object({
   id: z.string().describe('ID продукта'),
@@ -12,4 +12,4 @@ export const productDetailsDtoSchema = z.object({
   inTransitFromClient: z.number().describe('В пути от клиента'),
   sizes: z.array(z.string()).describe('Размеры'),
   cities: z.array(z.lazy(() => cityStockDtoSchema)).describe('Распределение по городам'),
-})
+});

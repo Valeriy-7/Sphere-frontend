@@ -1,31 +1,32 @@
-import type { DeliveryPointDtoType } from '../DeliveryPointDtoType'
+import type { DeliveryPointDtoType } from '../DeliveryPointDtoType';
 
 export const deliveryPointsControllerGetDeliveryPointsQueryParamsTypeEnum = {
   WILDBERRIES: 'WILDBERRIES',
   FULFILLMENT: 'FULFILLMENT',
   MARKETPLACE: 'MARKETPLACE',
-} as const
+} as const;
 
 export type DeliveryPointsGetDeliveryPointsQueryParamsTypeEnumType =
-  (typeof deliveryPointsControllerGetDeliveryPointsQueryParamsTypeEnum)[keyof typeof deliveryPointsControllerGetDeliveryPointsQueryParamsTypeEnum]
+  (typeof deliveryPointsControllerGetDeliveryPointsQueryParamsTypeEnum)[keyof typeof deliveryPointsControllerGetDeliveryPointsQueryParamsTypeEnum];
 
 export type DeliveryPointsGetDeliveryPointsQueryParamsType = {
   /**
    * @description Тип точки доставки
    * @type string | undefined
    */
-  type?: DeliveryPointsGetDeliveryPointsQueryParamsTypeEnumType
-}
+  type?: DeliveryPointsGetDeliveryPointsQueryParamsTypeEnumType;
+};
 
 /**
  * @description Список точек доставки
  */
-export type DeliveryPointsGetDeliveryPoints200Type = DeliveryPointDtoType[]
+export type DeliveryPointsGetDeliveryPoints200Type = DeliveryPointDtoType[];
 
-export type DeliveryPointsGetDeliveryPointsQueryResponseType = DeliveryPointsGetDeliveryPoints200Type
+export type DeliveryPointsGetDeliveryPointsQueryResponseType =
+  DeliveryPointsGetDeliveryPoints200Type;
 
 export type DeliveryPointsGetDeliveryPointsTypeQuery = {
-  Response: DeliveryPointsGetDeliveryPoints200Type
-  QueryParams: DeliveryPointsGetDeliveryPointsQueryParamsType
-  Errors: any
-}
+  Response: DeliveryPointsGetDeliveryPoints200Type;
+  QueryParams: DeliveryPointsGetDeliveryPointsQueryParamsType;
+  Errors: any;
+};

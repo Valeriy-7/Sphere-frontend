@@ -5,5 +5,5 @@ export type UpdateProfileDtoType = {
    * @maxLength 100
    * @type string
    */
-  fullName: string
-}
+  fullName: string;
+};

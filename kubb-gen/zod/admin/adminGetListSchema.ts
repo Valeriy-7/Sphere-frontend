@@ -1,5 +1,5 @@
-import { listResponseDtoSchema } from '../listResponseDtoSchema'
-import { z } from 'zod'
+import { listResponseDtoSchema } from '../listResponseDtoSchema';
+import { z } from 'zod';
 
 export const adminGetListQueryParamsSchema = z
   .object({
@@ -9,15 +9,21 @@ export const adminGetListQueryParamsSchema = z
     dateFrom: z.string().describe('Дата начала периода').optional(),
     dateTo: z.string().describe('Дата конца периода').optional(),
     page: z.number().describe('Номер страницы').optional(),
-    limit: z.number().describe('Количество элементов на странице. Значение -1 вернет все элементы без пагинации.').optional(),
-    sortField: z.enum(['createdAt', 'type', 'companyName', 'isVerified']).describe('Поле для сортировки').optional(),
+    limit: z
+      .number()
+      .describe('Количество элементов на странице. Значение -1 вернет все элементы без пагинации.')
+      .optional(),
+    sortField: z
+      .enum(['createdAt', 'type', 'companyName', 'isVerified'])
+      .describe('Поле для сортировки')
+      .optional(),
     sortDesc: z.boolean().describe('Направление сортировки (по убыванию)').optional(),
   })
-  .optional()
+  .optional();
 
 /**
  * @description Список успешно получен
  */
-export const adminGetList200Schema = z.lazy(() => listResponseDtoSchema)
+export const adminGetList200Schema = z.lazy(() => listResponseDtoSchema);
 
-export const adminGetListQueryResponseSchema = z.lazy(() => adminGetList200Schema)
+export const adminGetListQueryResponseSchema = z.lazy(() => adminGetList200Schema);

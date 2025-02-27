@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const serviceSchema = z.object({
   id: z.string().describe('ID услуги'),
@@ -10,4 +10,4 @@ export const serviceSchema = z.object({
   price: z.number().describe('Цена услуги'),
   createdAt: z.string().datetime().describe('Дата создания'),
   updatedAt: z.string().datetime().describe('Дата обновления'),
-})
+});

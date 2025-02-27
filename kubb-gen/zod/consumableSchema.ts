@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const consumableSchema = z.object({
   id: z.string().describe('ID расходника'),
@@ -9,4 +9,4 @@ export const consumableSchema = z.object({
   price: z.number().describe('Цена за единицу'),
   quantity: z.number().describe('Количество в наличии'),
   description: z.string().describe('Описание расходника'),
-})
+});

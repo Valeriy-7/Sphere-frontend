@@ -3,40 +3,40 @@ export type ConsumableType = {
    * @description ID расходника
    * @type string
    */
-  id: string
+  id: string;
   /**
    * @description ID кабинета
    * @type string
    */
-  cabinetId: string
+  cabinetId: string;
   /**
    * @description Порядковый номер
    * @type number
    */
-  number: number
+  number: number;
   /**
    * @description Название расходника
    * @type string
    */
-  name: string
+  name: string;
   /**
    * @description URL изображения
    * @type string
    */
-  imageUrl: string
+  imageUrl: string;
   /**
    * @description Цена за единицу
    * @type number
    */
-  price: number
+  price: number;
   /**
    * @description Количество в наличии
    * @type number
    */
-  quantity: number
+  quantity: number;
   /**
    * @description Описание расходника
    * @type string
    */
-  description: string
-}
+  description: string;
+};

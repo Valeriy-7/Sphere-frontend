@@ -1,1 +1,52 @@
-{"type":"object","properties":{"totalIncome":{"type":"number","description":"Общий доход","example":897450},"totalFfDeliveries":{"type":"number","description":"Общее количество поставок на ФФ","example":38},"totalProductsCount":{"type":"number","description":"Общее количество товара","example":46000},"totalDefectsCount":{"type":"number","description":"Общее количество брака","example":1700},"totalConsumablesAmount":{"type":"number","description":"Общая сумма расходников","example":20000},"totalPvzReturnsCount":{"type":"number","description":"Общее количество возвратов с ПВЗ","example":688},"totalWbDeliveries":{"type":"number","description":"Общее количество поставок на ВБ","example":38},"totalProductAmount":{"type":"number","description":"Общая сумма продукта","example":43000}},"required":["totalIncome","totalFfDeliveries","totalProductsCount","totalDefectsCount","totalConsumablesAmount","totalPvzReturnsCount","totalWbDeliveries","totalProductAmount"],"x-readme-ref-name":"PartnerStatsDto"}
+{
+  "type": "object",
+  "properties": {
+    "totalIncome": { "type": "number", "description": "Общий доход", "example": 897450 },
+    "totalFfDeliveries": {
+      "type": "number",
+      "description": "Общее количество поставок на ФФ",
+      "example": 38
+    },
+    "totalProductsCount": {
+      "type": "number",
+      "description": "Общее количество товара",
+      "example": 46000
+    },
+    "totalDefectsCount": {
+      "type": "number",
+      "description": "Общее количество брака",
+      "example": 1700
+    },
+    "totalConsumablesAmount": {
+      "type": "number",
+      "description": "Общая сумма расходников",
+      "example": 20000
+    },
+    "totalPvzReturnsCount": {
+      "type": "number",
+      "description": "Общее количество возвратов с ПВЗ",
+      "example": 688
+    },
+    "totalWbDeliveries": {
+      "type": "number",
+      "description": "Общее количество поставок на ВБ",
+      "example": 38
+    },
+    "totalProductAmount": {
+      "type": "number",
+      "description": "Общая сумма продукта",
+      "example": 43000
+    }
+  },
+  "required": [
+    "totalIncome",
+    "totalFfDeliveries",
+    "totalProductsCount",
+    "totalDefectsCount",
+    "totalConsumablesAmount",
+    "totalPvzReturnsCount",
+    "totalWbDeliveries",
+    "totalProductAmount"
+  ],
+  "x-readme-ref-name": "PartnerStatsDto"
+}

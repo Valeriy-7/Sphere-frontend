@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const partnerCabinetDtoSchema = z.object({
   id: z.string().describe('ID кабинета'),
@@ -19,4 +19,4 @@ export const partnerCabinetDtoSchema = z.object({
   pvzReturnsCount: z.number().describe('Количество возвратов с ПВЗ'),
   wbDeliveries: z.number().describe('Количество поставок на ВБ'),
   productAmount: z.number().describe('Сумма продукта'),
-})
+});

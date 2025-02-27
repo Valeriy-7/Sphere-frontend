@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const cabinetSchema = z.object({
   id: z.string().describe('ID кабинета').nullable(),
@@ -29,9 +29,15 @@ export const cabinetSchema = z.object({
   checkingAccount: z.string().describe('Расчетный счет').nullable(),
   correspondentAccount: z.string().describe('Корреспондентский счет').nullable(),
   registrationUrl: z.string().describe('Ссылка для регистрации партнеров').nullable(),
-  partnerCabinets: z.array(z.lazy(() => cabinetSchema)).describe('Связанные кабинеты (где этот кабинет является партнером)'),
+  partnerCabinets: z
+    .array(z.lazy(() => cabinetSchema))
+    .describe('Связанные кабинеты (где этот кабинет является партнером)'),
   partners: z.array(z.lazy(() => cabinetSchema)).describe('Партнеры кабинета'),
   partnerId: z.string().describe('ID кабинета-партнера').nullable(),
-  verificationComment: z.string().describe('Комментарий администратора при верификации').nullable().nullish(),
+  verificationComment: z
+    .string()
+    .describe('Комментарий администратора при верификации')
+    .nullable()
+    .nullish(),
   blockedAt: z.string().datetime().describe('Дата блокировки').nullable(),
-})
+});

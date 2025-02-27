@@ -1,54 +1,54 @@
-import type { CityStockDtoType } from './CityStockDtoType'
+import type { CityStockDtoType } from './CityStockDtoType';
 
 export type ProductDetailsDtoType = {
   /**
    * @description ID продукта
    * @type string
    */
-  id: string
+  id: string;
   /**
    * @description Артикул WB
    * @type string
    */
-  article: string
+  article: string;
   /**
    * @description Цвет
    * @type string
    */
-  color: string
+  color: string;
   /**
    * @description Категория
    * @type string
    */
-  category: string
+  category: string;
   /**
    * @description Общее количество
    * @type number
    */
-  total: number
+  total: number;
   /**
    * @description Количество на складах
    * @type number
    */
-  inStock: number
+  inStock: number;
   /**
    * @description В пути к клиенту
    * @type number
    */
-  inTransitToClient: number
+  inTransitToClient: number;
   /**
    * @description В пути от клиента
    * @type number
    */
-  inTransitFromClient: number
+  inTransitFromClient: number;
   /**
    * @description Размеры
    * @type array
    */
-  sizes: string[]
+  sizes: string[];
   /**
    * @description Распределение по городам
    * @type array
    */
-  cities: CityStockDtoType[]
-}
+  cities: CityStockDtoType[];
+};

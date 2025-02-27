@@ -1,1 +1,14 @@
-{"type":"object","properties":{"fullName":{"type":"string","description":"ФИО пользователя","example":"Иванов Иван Иванович","minLength":2,"maxLength":100}},"required":["fullName"],"x-readme-ref-name":"UpdateProfileDto"}
+{
+  "type": "object",
+  "properties": {
+    "fullName": {
+      "type": "string",
+      "description": "ФИО пользователя",
+      "example": "Иванов Иван Иванович",
+      "minLength": 2,
+      "maxLength": 100
+    }
+  },
+  "required": ["fullName"],
+  "x-readme-ref-name": "UpdateProfileDto"
+}

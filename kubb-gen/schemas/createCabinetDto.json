@@ -1,1 +1,60 @@
-{"type":"object","properties":{"type":{"type":"string","description":"Тип организации","enum":["wildberries","fulfillment"],"nullable":true},"inn":{"type":"string","description":"ИНН компании","example":"7731347089"},"apiKey":{"type":"string","description":"API ключ (обязателен для Wildberries)","example":"your-wb-api-key"},"isManualFilling":{"type":"boolean","description":"Флаг ручного заполнения данных","example":false},"companyName":{"type":"string","description":"Название компании для отображения","example":"ООО Компания"},"ogrn":{"type":"string","description":"ОГРН компании","example":"1157746068687"},"legalAddress":{"type":"string","description":"Юридический адрес","example":"г. Москва, ул. Ленина, д. 1"},"actualAddress":{"type":"string","description":"Фактический адрес","example":"г. Москва, ул. Пушкина, д. 10"},"managerFullName":{"type":"string","description":"ФИО управляющего","example":"Иванов Иван Иванович"},"companyPhone":{"type":"string","description":"Телефон компании","example":"+79991234567"},"companyEmail":{"type":"string","description":"Email компании","example":"company@example.com"},"partnerToken":{"type":"string","description":"Токен партнера (из ссылки регистрации)","example":"abc123"}},"required":["inn"],"x-readme-ref-name":"CreateCabinetDto"}
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Тип организации",
+      "enum": ["wildberries", "fulfillment"],
+      "nullable": true
+    },
+    "inn": { "type": "string", "description": "ИНН компании", "example": "7731347089" },
+    "apiKey": {
+      "type": "string",
+      "description": "API ключ (обязателен для Wildberries)",
+      "example": "your-wb-api-key"
+    },
+    "isManualFilling": {
+      "type": "boolean",
+      "description": "Флаг ручного заполнения данных",
+      "example": false
+    },
+    "companyName": {
+      "type": "string",
+      "description": "Название компании для отображения",
+      "example": "ООО Компания"
+    },
+    "ogrn": { "type": "string", "description": "ОГРН компании", "example": "1157746068687" },
+    "legalAddress": {
+      "type": "string",
+      "description": "Юридический адрес",
+      "example": "г. Москва, ул. Ленина, д. 1"
+    },
+    "actualAddress": {
+      "type": "string",
+      "description": "Фактический адрес",
+      "example": "г. Москва, ул. Пушкина, д. 10"
+    },
+    "managerFullName": {
+      "type": "string",
+      "description": "ФИО управляющего",
+      "example": "Иванов Иван Иванович"
+    },
+    "companyPhone": {
+      "type": "string",
+      "description": "Телефон компании",
+      "example": "+79991234567"
+    },
+    "companyEmail": {
+      "type": "string",
+      "description": "Email компании",
+      "example": "company@example.com"
+    },
+    "partnerToken": {
+      "type": "string",
+      "description": "Токен партнера (из ссылки регистрации)",
+      "example": "abc123"
+    }
+  },
+  "required": ["inn"],
+  "x-readme-ref-name": "CreateCabinetDto"
+}

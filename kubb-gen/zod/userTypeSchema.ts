@@ -1,3 +1,3 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-export const userTypeSchema = z.enum(['wildberries', 'fulfillment'])
+export const userTypeSchema = z.enum(['wildberries', 'fulfillment']);

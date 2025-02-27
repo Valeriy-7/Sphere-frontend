@@ -1,15 +1,22 @@
-import { deliveryPointDtoSchema } from '../deliveryPointDtoSchema'
-import { z } from 'zod'
+import { deliveryPointDtoSchema } from '../deliveryPointDtoSchema';
+import { z } from 'zod';
 
 export const deliveryPointsGetDeliveryPointsQueryParamsSchema = z
   .object({
-    type: z.enum(['WILDBERRIES', 'FULFILLMENT', 'MARKETPLACE']).describe('Тип точки доставки').optional(),
+    type: z
+      .enum(['WILDBERRIES', 'FULFILLMENT', 'MARKETPLACE'])
+      .describe('Тип точки доставки')
+      .optional(),
   })
-  .optional()
+  .optional();
 
 /**
  * @description Список точек доставки
  */
-export const deliveryPointsGetDeliveryPoints200Schema = z.array(z.lazy(() => deliveryPointDtoSchema))
+export const deliveryPointsGetDeliveryPoints200Schema = z.array(
+  z.lazy(() => deliveryPointDtoSchema),
+);
 
-export const deliveryPointsGetDeliveryPointsQueryResponseSchema = z.lazy(() => deliveryPointsGetDeliveryPoints200Schema)
+export const deliveryPointsGetDeliveryPointsQueryResponseSchema = z.lazy(
+  () => deliveryPointsGetDeliveryPoints200Schema,
+);

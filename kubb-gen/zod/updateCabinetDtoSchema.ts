@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const updateCabinetDtoSchema = z.object({
   apiKey: z.string().describe('API ключ (только для Wildberries)').nullable().nullish(),
@@ -20,4 +20,4 @@ export const updateCabinetDtoSchema = z.object({
   registrationUrl: z.string().describe('Ссылка для регистрации контрагентов').nullable().nullish(),
   avatarUrl: z.string().describe('URL аватарки').nullable().nullish(),
   type: z.enum(['wildberries', 'fulfillment']).describe('Тип организации').nullable().nullish(),
-})
+});

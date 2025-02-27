@@ -1,25 +1,25 @@
-import type { UserTypeType } from './UserTypeType'
+import type { UserTypeType } from './UserTypeType';
 
 export type CompleteRegistrationDtoType = {
   /**
    * @description Тип кабинета (продавец Wildberries или фулфилмент)
    */
-  type: UserTypeType
+  type: UserTypeType;
   /**
    * @description API ключ Wildberries (обязательное поле для продавцов Wildberries)
    * @minLength 32
    * @type string | undefined
    */
-  apiKey?: string
+  apiKey?: string;
   /**
    * @description ИНН компании (обязательное поле)
    * @pattern ^\d{10}$|^\d{12}$
    * @type string
    */
-  inn: string
+  inn: string;
   /**
    * @description Токен для связи с партнерским аккаунтом
    * @type string | undefined
    */
-  token?: string
-}
+  token?: string;
+};

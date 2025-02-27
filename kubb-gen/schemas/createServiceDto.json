@@ -1,1 +1,16 @@
-{"type":"object","properties":{"name":{"type":"string","description":"Название услуги","example":"Доставка до двери"},"description":{"type":"string","description":"Описание услуги","example":"Доставка товаров до двери клиента"},"price":{"type":"number","description":"Цена услуги","example":1000},"isActive":{"type":"boolean","description":"Активна ли услуга","example":true},"image":{"type":"string","description":"Изображение услуги","format":"binary"}},"required":["name","description","price"],"x-readme-ref-name":"CreateServiceDto"}
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "description": "Название услуги", "example": "Доставка до двери" },
+    "description": {
+      "type": "string",
+      "description": "Описание услуги",
+      "example": "Доставка товаров до двери клиента"
+    },
+    "price": { "type": "number", "description": "Цена услуги", "example": 1000 },
+    "isActive": { "type": "boolean", "description": "Активна ли услуга", "example": true },
+    "image": { "type": "string", "description": "Изображение услуги", "format": "binary" }
+  },
+  "required": ["name", "description", "price"],
+  "x-readme-ref-name": "CreateServiceDto"
+}

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const verifyCodeDtoSchema = z.object({
   phone: z
@@ -13,4 +13,4 @@ export const verifyCodeDtoSchema = z.object({
     .min(4)
     .max(4)
     .describe('Код подтверждения из SMS (4 цифры)'),
-})
+});

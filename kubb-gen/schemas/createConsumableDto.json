@@ -1,1 +1,21 @@
-{"type":"object","properties":{"name":{"type":"string","description":"Название расходника","example":"Коробка 60x60"},"price":{"type":"number","description":"Цена за единицу","example":100.5},"quantity":{"type":"number","description":"Количество в наличии","example":100},"description":{"type":"string","description":"Описание расходника","example":"Коробка для упаковки товаров"},"number":{"type":"number","description":"Порядковый номер (генерируется автоматически)","example":1},"image":{"type":"string","description":"Изображение расходника","format":"binary"}},"required":["name","price","quantity","description","image"],"x-readme-ref-name":"CreateConsumableDto"}
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "description": "Название расходника", "example": "Коробка 60x60" },
+    "price": { "type": "number", "description": "Цена за единицу", "example": 100.5 },
+    "quantity": { "type": "number", "description": "Количество в наличии", "example": 100 },
+    "description": {
+      "type": "string",
+      "description": "Описание расходника",
+      "example": "Коробка для упаковки товаров"
+    },
+    "number": {
+      "type": "number",
+      "description": "Порядковый номер (генерируется автоматически)",
+      "example": 1
+    },
+    "image": { "type": "string", "description": "Изображение расходника", "format": "binary" }
+  },
+  "required": ["name", "price", "quantity", "description", "image"],
+  "x-readme-ref-name": "CreateConsumableDto"
+}

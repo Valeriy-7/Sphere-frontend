@@ -1,8 +1,8 @@
 export const userTypeEnum = {
   wildberries: 'wildberries',
   fulfillment: 'fulfillment',
-} as const
+} as const;
 
-export type UserTypeEnumType = (typeof userTypeEnum)[keyof typeof userTypeEnum]
+export type UserTypeEnumType = (typeof userTypeEnum)[keyof typeof userTypeEnum];
 
-export type UserTypeType = UserTypeEnumType
+export type UserTypeType = UserTypeEnumType;

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const createCabinetDtoSchema = z.object({
   type: z.enum(['wildberries', 'fulfillment']).describe('Тип организации').nullable().nullish(),
@@ -13,4 +13,4 @@ export const createCabinetDtoSchema = z.object({
   companyPhone: z.string().describe('Телефон компании').optional(),
   companyEmail: z.string().describe('Email компании').optional(),
   partnerToken: z.string().describe('Токен партнера (из ссылки регистрации)').optional(),
-})
+});

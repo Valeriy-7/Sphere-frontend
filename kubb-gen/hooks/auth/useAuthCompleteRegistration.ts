@@ -1,17 +1,19 @@
-import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
+import client from '@/modules/auth/axios-client';
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
+import type { UseMutationOptions } from '@tanstack/react-query';
 import type {
   AuthCompleteRegistrationMutationRequestType,
   AuthCompleteRegistrationMutationResponseType,
   AuthCompleteRegistration400Type,
   AuthCompleteRegistration401Type,
-} from '../../types/auth/AuthCompleteRegistrationType'
-import { useMutation } from '@tanstack/react-query'
+} from '../../types/auth/AuthCompleteRegistrationType';
+import { useMutation } from '@tanstack/react-query';
 
-export const authCompleteRegistrationMutationKey = () => [{ url: '/auth/complete' }] as const
+export const authCompleteRegistrationMutationKey = () => [{ url: '/auth/complete' }] as const;
 
-export type AuthCompleteRegistrationMutationKey = ReturnType<typeof authCompleteRegistrationMutationKey>
+export type AuthCompleteRegistrationMutationKey = ReturnType<
+  typeof authCompleteRegistrationMutationKey
+>;
 
 /**
  * @description     Завершает регистрацию пользователя, создавая его первый кабинет.    ### Процесс:    1. Проверяется тип кабинета и необходимые данные    2. Для продавцов WB:       - Проверяется валидность API ключа       - Создается кабинет с типом WILDBERRIES    3. Для фулфилмента:       - Проверяется валидность ИНН через DaData       - Создается кабинет с типом FULFILLMENT    ### Требования к параметрам:    - type: обязательное поле, допустимые значения "wildberries" или "fulfillment"    - apiKey: обязательное поле для type="wildberries"    - inn: обязательное поле для обоих типов кабинетов
@@ -20,16 +22,18 @@ export type AuthCompleteRegistrationMutationKey = ReturnType<typeof authComplete
  */
 export async function authCompleteRegistration(
   data: AuthCompleteRegistrationMutationRequestType,
-  config: Partial<RequestConfig<AuthCompleteRegistrationMutationRequestType>> & { client?: typeof client } = {},
+  config: Partial<RequestConfig<AuthCompleteRegistrationMutationRequestType>> & {
+    client?: typeof client;
+  } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config
+  const { client: request = client, ...requestConfig } = config;
 
   const res = await request<
     AuthCompleteRegistrationMutationResponseType,
     ResponseErrorConfig<AuthCompleteRegistration400Type | AuthCompleteRegistration401Type>,
     AuthCompleteRegistrationMutationRequestType
-  >({ method: 'POST', url: `/auth/complete`, data, ...requestConfig })
-  return res.data
+  >({ method: 'POST', url: `/auth/complete`, data, ...requestConfig });
+  return res.data;
 }
 
 /**
@@ -43,12 +47,14 @@ export function useAuthCompleteRegistration(
       AuthCompleteRegistrationMutationResponseType,
       ResponseErrorConfig<AuthCompleteRegistration400Type | AuthCompleteRegistration401Type>,
       { data: AuthCompleteRegistrationMutationRequestType }
-    >
-    client?: Partial<RequestConfig<AuthCompleteRegistrationMutationRequestType>> & { client?: typeof client }
+    >;
+    client?: Partial<RequestConfig<AuthCompleteRegistrationMutationRequestType>> & {
+      client?: typeof client;
+    };
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {}
-  const mutationKey = mutationOptions?.mutationKey ?? authCompleteRegistrationMutationKey()
+  const { mutation: mutationOptions, client: config = {} } = options ?? {};
+  const mutationKey = mutationOptions?.mutationKey ?? authCompleteRegistrationMutationKey();
 
   return useMutation<
     AuthCompleteRegistrationMutationResponseType,
@@ -56,9 +62,9 @@ export function useAuthCompleteRegistration(
     { data: AuthCompleteRegistrationMutationRequestType }
   >({
     mutationFn: async ({ data }) => {
-      return authCompleteRegistration(data, config)
+      return authCompleteRegistration(data, config);
     },
     mutationKey,
     ...mutationOptions,
-  })
+  });
 }

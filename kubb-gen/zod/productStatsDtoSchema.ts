@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const productStatsDtoSchema = z.object({
   totalProducts: z.number().describe('Общее количество товаров'),
@@ -11,4 +11,4 @@ export const productStatsDtoSchema = z.object({
   totalOrders: z.number().describe('Общее количество заказов'),
   totalCancellations: z.number().describe('Общее количество отмен'),
   totalReturns: z.number().describe('Общее количество возвратов'),
-})
+});

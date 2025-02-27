@@ -1,1 +1,49 @@
-{"type":"object","properties":{"id":{"type":"string","description":"ID продукта","example":"123e4567-e89b-12d3-a456-426614174000"},"article":{"type":"string","description":"Артикул WB","example":"WB-107785"},"color":{"type":"string","description":"Цвет","example":"Розовый"},"category":{"type":"string","description":"Категория","example":"Платья"},"total":{"type":"number","description":"Общее количество","example":1237},"inStock":{"type":"number","description":"Количество на складах","example":1099},"inTransitToClient":{"type":"number","description":"В пути к клиенту","example":122},"inTransitFromClient":{"type":"number","description":"В пути от клиента","example":16},"sizes":{"description":"Размеры","example":["S","M","L","XL"],"type":"array","items":{"type":"string"}},"cities":{"description":"Распределение по городам","type":"array","items":{"type":"object","properties":{"city":{"type":"string","description":"Город","example":"Тула"},"quantity":{"type":"number","description":"Количество на складе","example":133}},"required":["city","quantity"],"x-readme-ref-name":"CityStockDto"}}},"required":["id","article","color","category","total","inStock","inTransitToClient","inTransitFromClient","sizes","cities"],"x-readme-ref-name":"ProductDetailsDto"}
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID продукта",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "article": { "type": "string", "description": "Артикул WB", "example": "WB-107785" },
+    "color": { "type": "string", "description": "Цвет", "example": "Розовый" },
+    "category": { "type": "string", "description": "Категория", "example": "Платья" },
+    "total": { "type": "number", "description": "Общее количество", "example": 1237 },
+    "inStock": { "type": "number", "description": "Количество на складах", "example": 1099 },
+    "inTransitToClient": { "type": "number", "description": "В пути к клиенту", "example": 122 },
+    "inTransitFromClient": { "type": "number", "description": "В пути от клиента", "example": 16 },
+    "sizes": {
+      "description": "Размеры",
+      "example": ["S", "M", "L", "XL"],
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "cities": {
+      "description": "Распределение по городам",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "city": { "type": "string", "description": "Город", "example": "Тула" },
+          "quantity": { "type": "number", "description": "Количество на складе", "example": 133 }
+        },
+        "required": ["city", "quantity"],
+        "x-readme-ref-name": "CityStockDto"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "article",
+    "color",
+    "category",
+    "total",
+    "inStock",
+    "inTransitToClient",
+    "inTransitFromClient",
+    "sizes",
+    "cities"
+  ],
+  "x-readme-ref-name": "ProductDetailsDto"
+}

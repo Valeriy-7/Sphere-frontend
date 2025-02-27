@@ -1,1 +1,61 @@
-{"type":"object","properties":{"id":{"type":"string","description":"ID пользователя","example":"123e4567-e89b-12d3-a456-426614174000"},"fullName":{"type":"string","description":"ФИО пользователя","example":"Иванов Иван Иванович"},"phone":{"type":"string","description":"Номер телефона","example":"+7 999 123-45-67"},"createdAt":{"format":"date-time","type":"string","description":"Дата создания","example":"2024-01-24T15:48:00Z"},"updatedAt":{"format":"date-time","type":"string","description":"Дата обновления","example":"2024-01-24T15:48:00Z"},"blockedAt":{"format":"date-time","type":"string","description":"Дата блокировки","example":"2024-01-24T15:48:00Z"},"role":{"type":"string","description":"Роль пользователя","enum":["user","admin"],"example":"user"},"isBlocked":{"type":"boolean","description":"Статус блокировки пользователя","example":false},"blockReason":{"type":"string","description":"Причина блокировки","example":"Нарушение правил использования сервиса"}},"required":["id","fullName","phone","createdAt","updatedAt","blockedAt","role","isBlocked"],"x-readme-ref-name":"User"}
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID пользователя",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "fullName": {
+      "type": "string",
+      "description": "ФИО пользователя",
+      "example": "Иванов Иван Иванович"
+    },
+    "phone": { "type": "string", "description": "Номер телефона", "example": "+7 999 123-45-67" },
+    "createdAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Дата создания",
+      "example": "2024-01-24T15:48:00Z"
+    },
+    "updatedAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Дата обновления",
+      "example": "2024-01-24T15:48:00Z"
+    },
+    "blockedAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Дата блокировки",
+      "example": "2024-01-24T15:48:00Z"
+    },
+    "role": {
+      "type": "string",
+      "description": "Роль пользователя",
+      "enum": ["user", "admin"],
+      "example": "user"
+    },
+    "isBlocked": {
+      "type": "boolean",
+      "description": "Статус блокировки пользователя",
+      "example": false
+    },
+    "blockReason": {
+      "type": "string",
+      "description": "Причина блокировки",
+      "example": "Нарушение правил использования сервиса"
+    }
+  },
+  "required": [
+    "id",
+    "fullName",
+    "phone",
+    "createdAt",
+    "updatedAt",
+    "blockedAt",
+    "role",
+    "isBlocked"
+  ],
+  "x-readme-ref-name": "User"
+}
