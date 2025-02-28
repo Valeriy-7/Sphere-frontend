@@ -6,9 +6,10 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { DPBody, DPItem, DPProps, DPTitle } from './delivery-create-row';
 
 type DPSelectItem = {
-  label: string;
+  name: string;
   price?: number;
   id: string;
+  isSupplier?:boolean
 };
 type DPSelectProps = DPProps & {
   title: string;
@@ -62,11 +63,11 @@ export function DPSelect({
 }: DPProps & DPSelectProps & DPSelectForm) {
   const sum = items.map((i) => i.price).reduce((p, c) => p + c, 0);
 
-  const error = tForm?.form.formState.errors.rows?.[tForm?.index]?.[tForm?.name]?.message;
+const error = tForm?.form.formState.errors.products?.[tForm?.index]?.[tForm?.name]?.message;
 
-  const selectSum = tForm?.form
-    .watch('rows')
-    [tForm?.index][tForm?.name].map((i) => i.price)
+  const selectSum = !isSupplier && tForm?.form
+    .watch('products')
+    [tForm?.index][tForm?.name]?.map((i) => i.price)
     .reduce((p, c) => p + c, 0);
 
   return (
@@ -81,7 +82,7 @@ export function DPSelect({
       {error && <div className={'text-red-500'}>{error}</div>}
       <ScrollArea className={'max-h-[92px]'}>
         {isSelect ? (
-          <DPSelectForm2 tForm={tForm} isSingle={isSupplier} items={items} />
+          <DPSelectForm2 isSupplier={isSupplier} tForm={tForm} isSingle={isSupplier} items={items} />
         ) : (
           <div className={'space-y-1'}>
             {items.map((item) => {
@@ -153,13 +154,14 @@ export function DPCheckBoxList<TName>({
   );
 }
 
-export function DPSelectItem({ price, label }: DPSelectItem) {
+export function DPSelectItem({ price, name, isSupplier }: DPSelectItem) {
   return (
     <DPBody className={'flex w-full justify-between gap-1'}>
-      <span>{label}</span>
-      <span>
+      <span>{name}</span>
+        {!isSupplier && <span>
         {price} {RUB} / ед
-      </span>
+      </span>}
+
     </DPBody>
   );
 }
@@ -250,15 +252,17 @@ export function DPSelectForm({
 export function DPSelectForm2({
   items,
   isSingle,
+                                  isSupplier,
   tForm: { form, name, index },
 }: {
   items: DPSelectItem[];
   isSingle?: boolean;
+  isSupplier?: boolean;
 } & DPSelectForm) {
   return (
     <FormField
       control={form.control}
-      name={`rows.${index}.${name}`}
+      name={`products.${index}.${name}`}
       render={({ field }) => (
         <FormItem>
           <FormControl>
@@ -269,12 +273,23 @@ export function DPSelectForm2({
                     htmlFor={`${name}-checkbox-${index}-${option.id}`}
                     className="block w-full cursor-pointer"
                   >
-                    <DPSelectItem {...option}></DPSelectItem>
+                    <DPSelectItem isSupplier={isSupplier} {...option}></DPSelectItem>
                   </label>
+                    {isSupplier?<Checkbox
+                            /* _disabled={
+                               isSingle && Boolean(field.value.length && !field.value?.includes(option.id))
+                             }*/
+                            className={'mr-3'}
+                            id={`${name}-checkbox-${index}-${option.id}`}
+                            checked={field.value===option.id}
+                            onCheckedChange={() => {
+                                field.onChange(field.value === option.id ? "" : option.id)
+                            }}
+                        />:
                   <Checkbox
-                    _disabled={
+                   /* _disabled={
                       isSingle && Boolean(field.value.length && !field.value?.includes(option.id))
-                    }
+                    }*/
                     className={'mr-3'}
                     id={`${name}-checkbox-${index}-${option.id}`}
                     checked={field.value.some((i) => i.id === option.id)}
@@ -285,7 +300,7 @@ export function DPSelectForm2({
                       console.log(updatedValue);
                       field.onChange(updatedValue);
                     }}
-                  />
+                  />}
                 </div>
               ))}
             </div>

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import {deliveryProductDtoSchema} from "@/kubb-gen";
 
 const CheckboxItemSchema = z.object({
   id: z.string(),
@@ -17,6 +18,15 @@ const NestedFieldSchema = z.object({
     .max(1, 'Нужен один поставщик'),
 });
 
+const createDeliveryDtoSchema = z.object({
+  deliveryDate: z.date({
+    required_error: 'Date is required',
+    invalid_type_error: "That's not a date!",
+  }),
+  cargoPlaces: z.number().describe('Количество грузовых мест'),
+  products: z.array(z.lazy(() => deliveryProductDtoSchema)).describe('Список товаров в поставке'),
+});
+/*
 export const FormSchema = z.object({
   date: z.date({
     required_error: 'Date is required',
@@ -24,6 +34,8 @@ export const FormSchema = z.object({
   }),
   place: z.string().optional(),
   rows: z.array(NestedFieldSchema).min(1, 'Выберите поставку'),
-});
+});*/
+
+export const FormSchema = createDeliveryDtoSchema
 export type FormValues = z.infer<typeof FormSchema>;
 export type CheckboxItem = z.infer<typeof CheckboxItemSchema>;

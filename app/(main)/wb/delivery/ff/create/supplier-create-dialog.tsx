@@ -16,40 +16,38 @@ import { z } from 'zod';
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { useState } from 'react';
+import {
+    createSupplierDtoSchema,
+    deliveriesGetSuppliersQueryKey,
+    useDeliveriesCreateSupplier
+} from "@/kubb-gen";
+import {useQueryClient} from "@tanstack/react-query";
 
 const textRequired = 'Обязательно для заполнения';
 
-const formSchema = z.object({
-  name: z.string().min(1, textRequired),
-  username: z.string().min(1, textRequired),
-  phone: z.string().min(1, textRequired),
-  marketName: z.string().min(1, textRequired),
-  address: z.string().min(1, textRequired),
-  place: z.string().min(1, textRequired),
-});
+const formSchema = createSupplierDtoSchema
 
 export function SupplierCreateDialog() {
   const [open, setOpen] = useState(false);
 
+  const {mutate} = useDeliveriesCreateSupplier({mutation:{onSuccess:()=>{
+              queryClient.invalidateQueries({
+                  queryKey: deliveriesGetSuppliersQueryKey(),
+              });
+          }}})
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      username: '',
-      phone: '',
-      marketName: '',
-      address: '',
-      place: '',
-    },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(data: z.infer<typeof formSchema>) {
     setOpen(false);
+    mutate({data})
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className={'max-w-none'} size={'xs'} variant="outline">
+        <Button className={'max-w-none w-full'} size={'xs'} variant="outline">
           Добавить +
         </Button>
       </DialogTrigger>
@@ -74,7 +72,7 @@ export function SupplierCreateDialog() {
               />
               <FormField
                 control={form.control}
-                name="username"
+                name="contactName"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -98,7 +96,7 @@ export function SupplierCreateDialog() {
               />
               <FormField
                 control={form.control}
-                name="marketName"
+                name="marketplaceName"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -122,7 +120,7 @@ export function SupplierCreateDialog() {
               />
               <FormField
                 control={form.control}
-                name="place"
+                name="location"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
