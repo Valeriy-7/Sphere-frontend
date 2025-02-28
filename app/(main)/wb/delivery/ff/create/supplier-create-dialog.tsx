@@ -17,37 +17,41 @@ import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { useState } from 'react';
 import {
-    createSupplierDtoSchema,
-    deliveriesGetSuppliersQueryKey,
-    useDeliveriesCreateSupplier
-} from "@/kubb-gen";
-import {useQueryClient} from "@tanstack/react-query";
+  createSupplierDtoSchema,
+  deliveriesGetSuppliersQueryKey,
+  useDeliveriesCreateSupplier,
+} from '@/kubb-gen';
+import { useQueryClient } from '@tanstack/react-query';
 
 const textRequired = 'Обязательно для заполнения';
 
-const formSchema = createSupplierDtoSchema
+const formSchema = createSupplierDtoSchema;
 
 export function SupplierCreateDialog() {
   const [open, setOpen] = useState(false);
 
-  const {mutate} = useDeliveriesCreateSupplier({mutation:{onSuccess:()=>{
-              queryClient.invalidateQueries({
-                  queryKey: deliveriesGetSuppliersQueryKey(),
-              });
-          }}})
+  const { mutate } = useDeliveriesCreateSupplier({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: deliveriesGetSuppliersQueryKey(),
+        });
+      },
+    },
+  });
   const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
   function onSubmit(data: z.infer<typeof formSchema>) {
     setOpen(false);
-    mutate({data})
+    mutate({ data });
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className={'max-w-none w-full'} size={'xs'} variant="outline">
+        <Button className={'w-full max-w-none'} size={'xs'} variant="outline">
           Добавить +
         </Button>
       </DialogTrigger>

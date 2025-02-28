@@ -19,52 +19,50 @@ import { DatePicker } from '@/components/date-picker';
 import { CurrencyInput } from '@/components/currency-input';
 import { formatCurrency } from '@/lib/formatCurrency';
 
-import {useJWTAuthContext} from "@/modules/auth";
+import { useJWTAuthContext } from '@/modules/auth';
 import {
   useDeliveriesCreateDelivery,
   useDeliveriesGetDeliveries,
   useDeliveriesGetDeliveriesSuspense,
   useDeliveriesGetFulfillmentConsumables,
   useDeliveriesGetFulfillmentConsumablesSuspense,
-  useDeliveriesGetFulfillmentServices, useDeliveriesGetSuppliers,
+  useDeliveriesGetFulfillmentServices,
+  useDeliveriesGetSuppliers,
   useWbGetProducts,
-  useWbGetProductsSuspense
-} from "@/kubb-gen";
-import {useFormDraft, useFormDraftV} from "@/app/(main)/wb/delivery/ff/create/use-form-draft";
-import {useEffect} from "react";
+  useWbGetProductsSuspense,
+} from '@/kubb-gen';
+import { useFormDraft, useFormDraftV } from '@/app/(main)/wb/delivery/ff/create/use-form-draft';
+import { useEffect } from 'react';
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
 export default function NestedDynamicForm() {
-  const { user } = useJWTAuthContext()
-  const cabinetActiveId = user?.cabinets?.find(i=>i.isActive)?.id
+  const { user } = useJWTAuthContext();
+  const cabinetActiveId = user?.cabinets?.find((i) => i.isActive)?.id;
 
-  const {data:{items}={items:[]}} = useWbGetProducts({cabinetId:cabinetActiveId})
-  const {data:servicesData=[]} = useDeliveriesGetFulfillmentServices()
-  const {data:consumablesData=[]} = useDeliveriesGetFulfillmentConsumables()
-  const {data:suppliersData=[]} = useDeliveriesGetSuppliers()
-  const {mutate} = useDeliveriesCreateDelivery()
+  const { data: { items } = { items: [] } } = useWbGetProducts({ cabinetId: cabinetActiveId });
+  const { data: servicesData = [] } = useDeliveriesGetFulfillmentServices();
+  const { data: consumablesData = [] } = useDeliveriesGetFulfillmentConsumables();
+  const { data: suppliersData = [] } = useDeliveriesGetSuppliers();
+  const { mutate } = useDeliveriesCreateDelivery();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      products: []
+      products: [],
     },
   });
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'products',
   });
-/*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
+  /*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
 
-
-  useFormDraftV(form, 'form-draft')
-
-
+  useFormDraftV(form, 'form-draft');
 
   function onSubmit(data: FormValues) {
     console.log(data);
-    mutate({data})
+    mutate({ data });
   }
 
   //console.log(form.formState.errors);
@@ -75,7 +73,9 @@ export default function NestedDynamicForm() {
     getAmountReduce(form.getValues().products.map((i) => i.price ?? 0)),
     0,
     getAmountReduce(
-      form.getValues().products.map((row) => getAmountReduce(row.selectedServices.map((i) => i.price))),
+      form
+        .getValues()
+        .products.map((row) => getAmountReduce(row.selectedServices.map((i) => i.price))),
     ),
   ];
 
@@ -146,24 +146,24 @@ export default function NestedDynamicForm() {
           <div>
             <ScrollArea className={'rounded-lg border bg-white p-2 dark:bg-transparent'}>
               <div className={'flex items-center gap-4'}>
-                {items.map(({id},index) => (
-                    <button
-                      key={id}
-                      className={'flex-none cursor-pointer'}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        append({
-                          wbProductId: id,
-                          quantity: 0,
-                          price: 0,
-                          selectedServices: [],
-                          selectedConsumables: [],
-                        });
-                      }}
-                    >
-                      <MarketImg src={items[index].imageUrl} alt={items[index].name} />
-                    </button>
-                  ))}
+                {items.map(({ id }, index) => (
+                  <button
+                    key={id}
+                    className={'flex-none cursor-pointer'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      append({
+                        wbProductId: id,
+                        quantity: 0,
+                        price: 0,
+                        selectedServices: [],
+                        selectedConsumables: [],
+                      });
+                    }}
+                  >
+                    <MarketImg src={items[index].imageUrl} alt={items[index].name} />
+                  </button>
+                ))}
               </div>
 
               <ScrollBar orientation="horizontal" />
@@ -171,97 +171,97 @@ export default function NestedDynamicForm() {
             {form.formState.errors.products?.message}
           </div>
 
-          {fields.map((field, index) =>  {
-
-            const product = items?.[index] || {}
+          {fields.map((field, index) => {
+            const product = items?.[index] || {};
 
             return (
-            <div
-              className={
-                'relative flex flex-wrap gap-4 rounded-lg border bg-white p-2 pr-[40px] text-center text-min dark:bg-transparent'
-              }
-              key={field.id}
-            >
-              <MarketImg src={product.imageUrl} alt={product.name}  />
-              <DPItem>
-                <DPTitle>Данные</DPTitle>
-                <DPBody className={'h-full'}>
-                  <ul className={'space-y-0.5 text-left'}>
-                    <li className={'text-primary'}>{product.name}</li>
-                    <li>Арт: {product.article}</li>
-                    <li>Цвет: {product.color}</li>
-                    <li>Категория: {product.category}</li>
-                    <li>Размеры:</li>
-                    <li>{product.sizes?.map(i=>i + ' /')}</li>
-                  </ul>
-                </DPBody>
-              </DPItem>
-              <DPItem>
-                <DPTitle>Заказать (ед)</DPTitle>
-                <FormField
-                  control={form.control}
-                  name={`products.${index}.quantity`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <CurrencyInput {...field} size={'xs'} />
-                      </FormControl>
-                    </FormItem>
-                  )}
+              <div
+                className={
+                  'relative flex flex-wrap gap-4 rounded-lg border bg-white p-2 pr-[40px] text-center text-min dark:bg-transparent'
+                }
+                key={field.id}
+              >
+                <MarketImg src={product.imageUrl} alt={product.name} />
+                <DPItem>
+                  <DPTitle>Данные</DPTitle>
+                  <DPBody className={'h-full'}>
+                    <ul className={'space-y-0.5 text-left'}>
+                      <li className={'text-primary'}>{product.name}</li>
+                      <li>Арт: {product.article}</li>
+                      <li>Цвет: {product.color}</li>
+                      <li>Категория: {product.category}</li>
+                      <li>Размеры:</li>
+                      <li>{product.sizes?.map((i) => i + ' /')}</li>
+                    </ul>
+                  </DPBody>
+                </DPItem>
+                <DPItem>
+                  <DPTitle>Заказать (ед)</DPTitle>
+                  <FormField
+                    control={form.control}
+                    name={`products.${index}.quantity`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <CurrencyInput {...field} size={'xs'} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <DPTitle>Цена (₽)</DPTitle>
+                  <FormField
+                    control={form.control}
+                    name={`products.${index}.price`}
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormControl>
+                          <CurrencyInput {...field} size={'xs'} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </DPItem>
+
+                <DPSelect
+                  isSelect
+                  title={'Услуги'}
+                  items={servicesData}
+                  tForm={{ form, index, name: `selectedServices` }}
                 />
-                <DPTitle>Цена (₽)</DPTitle>
-                <FormField
-                  control={form.control}
-                  name={`products.${index}.price`}
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormControl>
-                        <CurrencyInput {...field} size={'xs'} />
-                      </FormControl>
-                    </FormItem>
-                  )}
+
+                <DPSelect
+                  isSelect
+                  title={'Расходники ФФ'}
+                  items={consumablesData}
+                  tForm={{ form, index, name: `selectedConsumables` }}
                 />
-              </DPItem>
 
-              <DPSelect
-                isSelect
-                title={'Услуги'}
-                items={servicesData}
-                tForm={{ form, index, name: `selectedServices` }}
-              />
-
-              <DPSelect
-                isSelect
-                title={'Расходники ФФ'}
-                items={consumablesData}
-                tForm={{ form, index, name: `selectedConsumables` }}
-              />
-
-           {/*   <DPSelect
+                {/*   <DPSelect
                 isSelect
                 title={'Расходники Магазина'}
                 items={[]}
                 tForm={{ form, index, name: `selectedServices` }}
               />*/}
 
-              <DPSelect
-                isSupplier
-                isSelect
-                title={'Поставщик'}
-                items={suppliersData}
-                tForm={{ form, index, name: `supplierId` }}
-              />
-              <Button
-                className={'absolute right-0 top-0'}
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={() => remove(index)}
-              >
-                <X />
-              </Button>
-            </div>
-          )})}
+                <DPSelect
+                  isSupplier
+                  isSelect
+                  title={'Поставщик'}
+                  items={suppliersData}
+                  tForm={{ form, index, name: `supplierId` }}
+                />
+                <Button
+                  className={'absolute right-0 top-0'}
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => remove(index)}
+                >
+                  <X />
+                </Button>
+              </div>
+            );
+          })}
 
           <div className={'text-right'}>
             <Button type="submit">Создать поставку</Button>

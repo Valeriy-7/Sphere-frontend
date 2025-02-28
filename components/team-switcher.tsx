@@ -105,10 +105,13 @@ export function TeamSwitcher() {
               </div>
               <div className="font-medium text-muted-foreground">Создать кабинет</div>
             </DropdownMenuItem>*/}
-            <DropdownMenuItem className="gap-2 p-2" onClick={()=>{
-              queryClient.clear()
-              logout()
-            }}>
+            <DropdownMenuItem
+              className="gap-2 p-2"
+              onClick={() => {
+                queryClient.clear();
+                logout();
+              }}
+            >
               <div className="flex size-6 items-center justify-center">
                 <DoorOpen className="size-4" />
               </div>

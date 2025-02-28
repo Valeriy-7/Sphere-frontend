@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import {deliveryProductDtoSchema} from "@/kubb-gen";
+import { deliveryProductDtoSchema } from '@/kubb-gen';
 
 const CheckboxItemSchema = z.object({
   id: z.string(),
@@ -36,6 +36,6 @@ export const FormSchema = z.object({
   rows: z.array(NestedFieldSchema).min(1, 'Выберите поставку'),
 });*/
 
-export const FormSchema = createDeliveryDtoSchema
+export const FormSchema = createDeliveryDtoSchema;
 export type FormValues = z.infer<typeof FormSchema>;
 export type CheckboxItem = z.infer<typeof CheckboxItemSchema>;

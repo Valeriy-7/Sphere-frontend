@@ -9,7 +9,7 @@ type DPSelectItem = {
   name: string;
   price?: number;
   id: string;
-  isSupplier?:boolean
+  isSupplier?: boolean;
 };
 type DPSelectProps = DPProps & {
   title: string;
@@ -63,12 +63,14 @@ export function DPSelect({
 }: DPProps & DPSelectProps & DPSelectForm) {
   const sum = items.map((i) => i.price).reduce((p, c) => p + c, 0);
 
-const error = tForm?.form.formState.errors.products?.[tForm?.index]?.[tForm?.name]?.message;
+  const error = tForm?.form.formState.errors.products?.[tForm?.index]?.[tForm?.name]?.message;
 
-  const selectSum = !isSupplier && tForm?.form
-    .watch('products')
-    [tForm?.index][tForm?.name]?.map((i) => i.price)
-    .reduce((p, c) => p + c, 0);
+  const selectSum =
+    !isSupplier &&
+    tForm?.form
+      .watch('products')
+      [tForm?.index][tForm?.name]?.map((i) => i.price)
+      .reduce((p, c) => p + c, 0);
 
   return (
     <DPItem className={cn('w-[216px]', className)}>
@@ -82,7 +84,12 @@ const error = tForm?.form.formState.errors.products?.[tForm?.index]?.[tForm?.nam
       {error && <div className={'text-red-500'}>{error}</div>}
       <ScrollArea className={'max-h-[92px]'}>
         {isSelect ? (
-          <DPSelectForm2 isSupplier={isSupplier} tForm={tForm} isSingle={isSupplier} items={items} />
+          <DPSelectForm2
+            isSupplier={isSupplier}
+            tForm={tForm}
+            isSingle={isSupplier}
+            items={items}
+          />
         ) : (
           <div className={'space-y-1'}>
             {items.map((item) => {
@@ -158,10 +165,11 @@ export function DPSelectItem({ price, name, isSupplier }: DPSelectItem) {
   return (
     <DPBody className={'flex w-full justify-between gap-1'}>
       <span>{name}</span>
-        {!isSupplier && <span>
-        {price} {RUB} / ед
-      </span>}
-
+      {!isSupplier && (
+        <span>
+          {price} {RUB} / ед
+        </span>
+      )}
     </DPBody>
   );
 }
@@ -252,7 +260,7 @@ export function DPSelectForm({
 export function DPSelectForm2({
   items,
   isSingle,
-                                  isSupplier,
+  isSupplier,
   tForm: { form, name, index },
 }: {
   items: DPSelectItem[];
@@ -275,32 +283,35 @@ export function DPSelectForm2({
                   >
                     <DPSelectItem isSupplier={isSupplier} {...option}></DPSelectItem>
                   </label>
-                    {isSupplier?<Checkbox
-                            /* _disabled={
+                  {isSupplier ? (
+                    <Checkbox
+                      /* _disabled={
                                isSingle && Boolean(field.value.length && !field.value?.includes(option.id))
                              }*/
-                            className={'mr-3'}
-                            id={`${name}-checkbox-${index}-${option.id}`}
-                            checked={field.value===option.id}
-                            onCheckedChange={() => {
-                                field.onChange(field.value === option.id ? "" : option.id)
-                            }}
-                        />:
-                  <Checkbox
-                   /* _disabled={
+                      className={'mr-3'}
+                      id={`${name}-checkbox-${index}-${option.id}`}
+                      checked={field.value === option.id}
+                      onCheckedChange={() => {
+                        field.onChange(field.value === option.id ? '' : option.id);
+                      }}
+                    />
+                  ) : (
+                    <Checkbox
+                      /* _disabled={
                       isSingle && Boolean(field.value.length && !field.value?.includes(option.id))
                     }*/
-                    className={'mr-3'}
-                    id={`${name}-checkbox-${index}-${option.id}`}
-                    checked={field.value.some((i) => i.id === option.id)}
-                    onCheckedChange={(checked) => {
-                      const updatedValue = checked
-                        ? [...field.value, option]
-                        : field.value.filter((item: CheckboxItem) => item.id !== option.id);
-                      console.log(updatedValue);
-                      field.onChange(updatedValue);
-                    }}
-                  />}
+                      className={'mr-3'}
+                      id={`${name}-checkbox-${index}-${option.id}`}
+                      checked={field.value.some((i) => i.id === option.id)}
+                      onCheckedChange={(checked) => {
+                        const updatedValue = checked
+                          ? [...field.value, option]
+                          : field.value.filter((item: CheckboxItem) => item.id !== option.id);
+                        console.log(updatedValue);
+                        field.onChange(updatedValue);
+                      }}
+                    />
+                  )}
                 </div>
               ))}
             </div>
