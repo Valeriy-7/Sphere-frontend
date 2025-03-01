@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { deliveryProductDtoSchema } from '@/kubb-gen';
+import { productDtoSchema } from '@/kubb-gen';
 
 const CheckboxItemSchema = z.object({
   id: z.string(),
@@ -19,12 +19,13 @@ const NestedFieldSchema = z.object({
 });
 
 const createDeliveryDtoSchema = z.object({
+  cabinetId: z.string().describe('ID кабинета'),
   deliveryDate: z.date({
     required_error: 'Date is required',
     invalid_type_error: "That's not a date!",
   }),
-  cargoPlaces: z.number().describe('Количество грузовых мест'),
-  products: z.array(z.lazy(() => deliveryProductDtoSchema)).describe('Список товаров в поставке'),
+  cargoPlaces: z.number().describe('Количество грузовых мест').optional(),
+  products: z.array(z.lazy(() => productDtoSchema)).describe('Товары в поставке'),
 });
 /*
 export const FormSchema = z.object({

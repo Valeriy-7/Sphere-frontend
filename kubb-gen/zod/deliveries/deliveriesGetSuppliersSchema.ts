@@ -1,10 +1,10 @@
-import { supplierResponseExampleSchema } from '../supplierResponseExampleSchema';
+import { supplierSchema } from '../supplierSchema';
 import { z } from 'zod';
 
 /**
  * @description Список поставщиков успешно получен
  */
-export const deliveriesGetSuppliers200Schema = z.array(z.lazy(() => supplierResponseExampleSchema));
+export const deliveriesGetSuppliers200Schema = z.array(z.lazy(() => supplierSchema));
 
 /**
  * @description Не авторизован

@@ -1,5 +1,10 @@
 export type CreateSupplierDtoType = {
   /**
+   * @description ID кабинета
+   * @type string
+   */
+  cabinetId: string;
+  /**
    * @description Название поставщика
    * @type string
    */

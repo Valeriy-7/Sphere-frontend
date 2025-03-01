@@ -1,10 +1,10 @@
 import type { CreateSupplierDtoType } from '../CreateSupplierDtoType';
-import type { SupplierResponseExampleType } from '../SupplierResponseExampleType';
+import type { SupplierType } from '../SupplierType';
 
 /**
  * @description Поставщик успешно создан
  */
-export type DeliveriesCreateSupplier201Type = SupplierResponseExampleType;
+export type DeliveriesCreateSupplier201Type = SupplierType;
 
 /**
  * @description Некорректные данные запроса

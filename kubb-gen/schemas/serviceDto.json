@@ -10,5 +10,5 @@
     "price": { "type": "number", "description": "Цена услуги", "example": 10 }
   },
   "required": ["id", "name", "price"],
-  "x-readme-ref-name": "SelectedServiceDto"
+  "x-readme-ref-name": "ServiceDto"
 }

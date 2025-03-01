@@ -17,7 +17,7 @@ export type DeliveriesCreateSupplierMutationKey = ReturnType<
 >;
 
 /**
- * @description Создает нового поставщика для текущего кабинета
+ * @description Создает нового поставщика для указанного кабинета
  * @summary Создание поставщика
  * {@link /deliveries/suppliers}
  */
@@ -38,7 +38,7 @@ export async function deliveriesCreateSupplier(
 }
 
 /**
- * @description Создает нового поставщика для текущего кабинета
+ * @description Создает нового поставщика для указанного кабинета
  * @summary Создание поставщика
  * {@link /deliveries/suppliers}
  */

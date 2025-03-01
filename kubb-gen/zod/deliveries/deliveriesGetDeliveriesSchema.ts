@@ -1,17 +1,13 @@
-import { deliveryResponseExampleSchema } from '../deliveryResponseExampleSchema';
 import { z } from 'zod';
 
-/**
- * @description Список поставок успешно получен
- */
-export const deliveriesGetDeliveries200Schema = z.array(
-  z.lazy(() => deliveryResponseExampleSchema),
-);
+export const deliveriesGetDeliveriesQueryParamsSchema = z
+  .object({
+    startDate: z.string().describe('Дата начала периода').optional(),
+    endDate: z.string().describe('Дата окончания периода').optional(),
+  })
+  .optional();
 
-/**
- * @description Не авторизован
- */
-export const deliveriesGetDeliveries401Schema = z.any();
+export const deliveriesGetDeliveries200Schema = z.any();
 
 export const deliveriesGetDeliveriesQueryResponseSchema = z.lazy(
   () => deliveriesGetDeliveries200Schema,

@@ -1,9 +1,9 @@
-import type { SupplierResponseExampleType } from '../SupplierResponseExampleType';
+import type { SupplierType } from '../SupplierType';
 
 /**
  * @description Список поставщиков успешно получен
  */
-export type DeliveriesGetSuppliers200Type = SupplierResponseExampleType[];
+export type DeliveriesGetSuppliers200Type = SupplierType[];
 
 /**
  * @description Не авторизован

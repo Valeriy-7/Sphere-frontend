@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const createSupplierDtoSchema = z.object({
+  cabinetId: z.string().describe('ID кабинета'),
   name: z.string().describe('Название поставщика'),
   contactName: z.string().describe('Имя контактного лица'),
   phone: z.string().describe('Номер телефона'),

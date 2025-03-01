@@ -5,24 +5,19 @@ import type {
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
 } from '@tanstack/react-query';
-import type {
-  DeliveriesGetFulfillmentServicesQueryResponseType,
-  DeliveriesGetFulfillmentServices401Type,
-  DeliveriesGetFulfillmentServices404Type,
-} from '../../types/deliveries/DeliveriesGetFulfillmentServicesType';
+import type { DeliveriesGetFulfillmentServicesQueryResponseType } from '../../types/deliveries/DeliveriesGetFulfillmentServicesType';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 export const deliveriesGetFulfillmentServicesSuspenseQueryKey = () =>
-  [{ url: '/deliveries/ff-services' }] as const;
+  [{ url: '/deliveries/services' }] as const;
 
 export type DeliveriesGetFulfillmentServicesSuspenseQueryKey = ReturnType<
   typeof deliveriesGetFulfillmentServicesSuspenseQueryKey
 >;
 
 /**
- * @description Возвращает список всех доступных услуг от привязанного фулфилмент кабинета
  * @summary Получение списка услуг фулфилмента
- * {@link /deliveries/ff-services}
+ * {@link /deliveries/services}
  */
 export async function deliveriesGetFulfillmentServicesSuspense(
   config: Partial<RequestConfig> & { client?: typeof client } = {},
@@ -31,11 +26,13 @@ export async function deliveriesGetFulfillmentServicesSuspense(
 
   const res = await request<
     DeliveriesGetFulfillmentServicesQueryResponseType,
-    ResponseErrorConfig<
-      DeliveriesGetFulfillmentServices401Type | DeliveriesGetFulfillmentServices404Type
-    >,
+    ResponseErrorConfig<Error>,
     unknown
-  >({ method: 'GET', url: `/deliveries/ff-services`, ...requestConfig });
+  >({
+    method: 'GET',
+    url: `/deliveries/services`,
+    ...requestConfig,
+  });
   return res.data;
 }
 
@@ -45,9 +42,7 @@ export function deliveriesGetFulfillmentServicesSuspenseQueryOptions(
   const queryKey = deliveriesGetFulfillmentServicesSuspenseQueryKey();
   return queryOptions<
     DeliveriesGetFulfillmentServicesQueryResponseType,
-    ResponseErrorConfig<
-      DeliveriesGetFulfillmentServices401Type | DeliveriesGetFulfillmentServices404Type
-    >,
+    ResponseErrorConfig<Error>,
     DeliveriesGetFulfillmentServicesQueryResponseType,
     typeof queryKey
   >({
@@ -60,9 +55,8 @@ export function deliveriesGetFulfillmentServicesSuspenseQueryOptions(
 }
 
 /**
- * @description Возвращает список всех доступных услуг от привязанного фулфилмент кабинета
  * @summary Получение списка услуг фулфилмента
- * {@link /deliveries/ff-services}
+ * {@link /deliveries/services}
  */
 export function useDeliveriesGetFulfillmentServicesSuspense<
   TData = DeliveriesGetFulfillmentServicesQueryResponseType,
@@ -73,9 +67,7 @@ export function useDeliveriesGetFulfillmentServicesSuspense<
     query?: Partial<
       UseSuspenseQueryOptions<
         DeliveriesGetFulfillmentServicesQueryResponseType,
-        ResponseErrorConfig<
-          DeliveriesGetFulfillmentServices401Type | DeliveriesGetFulfillmentServices404Type
-        >,
+        ResponseErrorConfig<Error>,
         TData,
         TQueryKey
       >
@@ -92,14 +84,7 @@ export function useDeliveriesGetFulfillmentServicesSuspense<
     ) as unknown as UseSuspenseQueryOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<
-    TData,
-    ResponseErrorConfig<
-      DeliveriesGetFulfillmentServices401Type | DeliveriesGetFulfillmentServices404Type
-    >
-  > & {
-    queryKey: TQueryKey;
-  };
+  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };
 
   query.queryKey = queryKey as TQueryKey;
 

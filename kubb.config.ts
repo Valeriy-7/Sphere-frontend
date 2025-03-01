@@ -4,6 +4,7 @@ import { createReactGenerator, pluginOas } from '@kubb/plugin-oas';
 import { pluginReactQuery } from '@kubb/plugin-react-query';
 import { pluginTs } from '@kubb/plugin-ts';
 import { pluginZod } from '@kubb/plugin-zod';
+import { pluginRedoc } from '@kubb/plugin-redoc';
 
 import { useOperationManager } from '@kubb/plugin-oas/hooks';
 const clientOperationGenerator = createReactGenerator({
@@ -79,6 +80,11 @@ export default defineConfig({
       },
       group: {
         type: 'path',
+      },
+    }),
+    pluginRedoc({
+      output: {
+        path: './docs/index.html',
       },
     }),
   ],

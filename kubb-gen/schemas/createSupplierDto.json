@@ -1,6 +1,11 @@
 {
   "type": "object",
   "properties": {
+    "cabinetId": {
+      "type": "string",
+      "description": "ID кабинета",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
     "name": {
       "type": "string",
       "description": "Название поставщика",
@@ -25,6 +30,14 @@
     },
     "telegram": { "type": "string", "description": "Telegram аккаунт", "example": "@ivanov_shop" }
   },
-  "required": ["name", "contactName", "phone", "marketplaceName", "address", "location"],
+  "required": [
+    "cabinetId",
+    "name",
+    "contactName",
+    "phone",
+    "marketplaceName",
+    "address",
+    "location"
+  ],
   "x-readme-ref-name": "CreateSupplierDto"
 }

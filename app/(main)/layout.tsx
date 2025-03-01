@@ -15,7 +15,7 @@ import * as React from 'react';
 
 export default function MainLayout({ children }: PropsWithChildren) {
   const [lk] = useSelectedLayoutSegments();
-  const { user, isLoggedIn } = useJWTAuthContext();
+  const { isLoggedIn } = useJWTAuthContext();
 
   if (!isLoggedIn) {
     return null;

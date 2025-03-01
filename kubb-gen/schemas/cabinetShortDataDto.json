@@ -21,6 +21,12 @@
       "description": "Название организации",
       "example": "ООО Компания"
     },
+    "legalCompanyName": {
+      "type": "string",
+      "description": "Юридическое название организации",
+      "example": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"КОМПАНИЯ\"",
+      "nullable": true
+    },
     "avatarUrl": {
       "type": "string",
       "description": "URL аватарки кабинета",

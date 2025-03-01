@@ -45,71 +45,21 @@ import { NavMain } from '@/components/nav-main';
 import { LKType, LKTypeValue } from '@/lib/types';
 
 // This is sample data.
-const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
-  navMain: [
-    {
-      title: 'ui',
-      url: '#',
-      icon: SquareTerminal,
-      items: [
-        {
-          title: 'controls',
-          url: '/ui/controls',
-        },
-        {
-          title: 'currency-input',
-          url: '/ui/currency-input',
-        },
-        {
-          title: 'tanstack-pagination',
-          url: '/ui/tanstack/pagination',
-        },
-        {
-          title: 'tanstack-filter',
-          url: '/ui/tanstack/filter',
-        },
-        {
-          title: 'tasks',
-          url: '/ui/tasks',
-        },
-        {
-          title: 'Типографика',
-          url: '/typography',
-        },
-        {
-          title: '/login',
-          url: '/login',
-        },
-        {
-          url: '/all-tables',
-          title: '/all-tables',
-        },
-        {
-          url: '/payments',
-          title: '/payments',
-        },
-      ],
-    },
-  ],
-};
 
 import { usePathname, useParams, useSelectedLayoutSegments } from 'next/navigation';
+import { useJWTAuthUser } from '@/modules/auth';
 
 function getNavMain(type: LKTypeValue) {
-  const [lk] = useSelectedLayoutSegments();
+  const common = [
+    {
+      name: 'Настройки',
+      url: '/settings',
+      icon: IconSettings,
+    },
+  ];
 
   const navMain = {
     admin: [
-      {
-        name: type,
-        url: '#',
-        icon: IconHome,
-      },
       {
         name: 'Юзеры',
         url: '/admin/list/all',
@@ -117,11 +67,6 @@ function getNavMain(type: LKTypeValue) {
       },
     ],
     wb: [
-      {
-        name: type,
-        url: '/wb',
-        icon: IconHome,
-      },
       {
         name: 'Склад',
         url: '/wb/storage/ff',
@@ -132,13 +77,9 @@ function getNavMain(type: LKTypeValue) {
         url: '/wb/delivery/ff',
         icon: IconDeliveryRight,
       },
+      ...common,
     ],
     ff: [
-      {
-        name: type,
-        url: '/ff',
-        icon: IconHome,
-      },
       {
         name: 'Склад',
         url: '/ff/storage/ff',
@@ -164,37 +105,105 @@ function getNavMain(type: LKTypeValue) {
         url: '/ff/services/service',
         icon: IconServices,
       },
+      ...common,
     ],
   };
 
-  const common = [
-    {
-      name: 'Настройки',
-      url: '/settings',
-      icon: IconSettings,
-    },
-    {
-      name: 'Главная',
-      url: '/',
-      icon: IconHome,
-    },
-  ];
-
-  return [...navMain[type], ...common];
+  return navMain[type];
 }
 
+const navMainDev = [
+  {
+    name: 'ui',
+    url: '#',
+    icon: SquareTerminal,
+    items: [
+      {
+        name: 'controls',
+        url: '/ui/controls',
+      },
+      {
+        name: 'currency-input',
+        url: '/ui/currency-input',
+      },
+      {
+        name: 'tanstack-pagination',
+        url: '/ui/tanstack/pagination',
+      },
+      {
+        name: 'tanstack-filter',
+        url: '/ui/tanstack/filter',
+      },
+      {
+        name: 'tasks',
+        url: '/ui/tasks',
+      },
+      {
+        name: 'Типографика',
+        url: '/typography',
+      },
+      {
+        name: '/login',
+        url: '/login',
+      },
+      {
+        url: '/all-tables',
+        name: '/all-tables',
+      },
+      {
+        url: '/payments',
+        name: '/payments',
+      },
+    ],
+  },
+];
+const pagesDev = [
+  {
+    name: 'pages',
+    url: '#',
+    icon: SquareTerminal,
+    items: [
+      {
+        name: 'admin',
+        url: '/admin',
+        icon: IconHome,
+      },
+      ...getNavMain('admin'),
+      {
+        name: 'wb',
+        url: '/wb',
+        icon: IconHome,
+      },
+      ...getNavMain('wb'),
+      {
+        name: 'ff',
+        url: '/ff',
+        icon: IconHome,
+      },
+      ...getNavMain('ff'),
+    ],
+  },
+];
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { role, cabinetActive } = useJWTAuthUser();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className={'h-[48px]'}>
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={getNavMain('admin')} />
-        <NavProjects projects={getNavMain('ff')} />
-        <NavProjects projects={getNavMain('wb')} />
+        {role === 'admin' && <NavProjects projects={getNavMain('admin')} />}
+        {cabinetActive.type === 'wildberries' && <NavProjects projects={getNavMain('wb')} />}
+        {cabinetActive.type === 'fulfillment' && <NavProjects projects={getNavMain('ff')} />}
 
-        <NavMain items={data.navMain} />
+        {process.env.NODE_ENV === 'development' && (
+          <>
+            <NavMain items={pagesDev} />
+            <NavMain items={navMainDev} />
+          </>
+        )}
       </SidebarContent>
       <SidebarFooter>
         <div className={'mb-6 flex flex-wrap items-center gap-3'}>

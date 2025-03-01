@@ -4,8 +4,6 @@ import type { UseMutationOptions } from '@tanstack/react-query';
 import type {
   DeliveriesCreateDeliveryMutationRequestType,
   DeliveriesCreateDeliveryMutationResponseType,
-  DeliveriesCreateDelivery400Type,
-  DeliveriesCreateDelivery401Type,
 } from '../../types/deliveries/DeliveriesCreateDeliveryType';
 import { useMutation } from '@tanstack/react-query';
 
@@ -16,8 +14,7 @@ export type DeliveriesCreateDeliveryMutationKey = ReturnType<
 >;
 
 /**
- * @description Создает новую поставку с выбранными товарами, услугами и расходниками
- * @summary Создание поставки
+ * @summary Создание новой поставки
  * {@link /deliveries}
  */
 export async function deliveriesCreateDelivery(
@@ -30,22 +27,26 @@ export async function deliveriesCreateDelivery(
 
   const res = await request<
     DeliveriesCreateDeliveryMutationResponseType,
-    ResponseErrorConfig<DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery401Type>,
+    ResponseErrorConfig<Error>,
     DeliveriesCreateDeliveryMutationRequestType
-  >({ method: 'POST', url: `/deliveries`, data, ...requestConfig });
+  >({
+    method: 'POST',
+    url: `/deliveries`,
+    data,
+    ...requestConfig,
+  });
   return res.data;
 }
 
 /**
- * @description Создает новую поставку с выбранными товарами, услугами и расходниками
- * @summary Создание поставки
+ * @summary Создание новой поставки
  * {@link /deliveries}
  */
 export function useDeliveriesCreateDelivery(
   options: {
     mutation?: UseMutationOptions<
       DeliveriesCreateDeliveryMutationResponseType,
-      ResponseErrorConfig<DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery401Type>,
+      ResponseErrorConfig<Error>,
       { data: DeliveriesCreateDeliveryMutationRequestType }
     >;
     client?: Partial<RequestConfig<DeliveriesCreateDeliveryMutationRequestType>> & {
@@ -58,7 +59,7 @@ export function useDeliveriesCreateDelivery(
 
   return useMutation<
     DeliveriesCreateDeliveryMutationResponseType,
-    ResponseErrorConfig<DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery401Type>,
+    ResponseErrorConfig<Error>,
     { data: DeliveriesCreateDeliveryMutationRequestType }
   >({
     mutationFn: async ({ data }) => {

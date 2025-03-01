@@ -7,58 +7,61 @@ import type {
 } from '@tanstack/react-query';
 import type {
   DeliveriesGetDeliveriesQueryResponseType,
-  DeliveriesGetDeliveries401Type,
+  DeliveriesGetDeliveriesQueryParamsType,
 } from '../../types/deliveries/DeliveriesGetDeliveriesType';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
-export const deliveriesGetDeliveriesSuspenseQueryKey = () => [{ url: '/deliveries' }] as const;
+export const deliveriesGetDeliveriesSuspenseQueryKey = (
+  params?: DeliveriesGetDeliveriesQueryParamsType,
+) => [{ url: '/deliveries' }, ...(params ? [params] : [])] as const;
 
 export type DeliveriesGetDeliveriesSuspenseQueryKey = ReturnType<
   typeof deliveriesGetDeliveriesSuspenseQueryKey
 >;
 
 /**
- * @description Возвращает список всех поставок текущего кабинета
  * @summary Получение списка поставок
  * {@link /deliveries}
  */
 export async function deliveriesGetDeliveriesSuspense(
+  params?: DeliveriesGetDeliveriesQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
   const { client: request = client, ...requestConfig } = config;
 
   const res = await request<
     DeliveriesGetDeliveriesQueryResponseType,
-    ResponseErrorConfig<DeliveriesGetDeliveries401Type>,
+    ResponseErrorConfig<Error>,
     unknown
   >({
     method: 'GET',
     url: `/deliveries`,
+    params,
     ...requestConfig,
   });
   return res.data;
 }
 
 export function deliveriesGetDeliveriesSuspenseQueryOptions(
+  params?: DeliveriesGetDeliveriesQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const queryKey = deliveriesGetDeliveriesSuspenseQueryKey();
+  const queryKey = deliveriesGetDeliveriesSuspenseQueryKey(params);
   return queryOptions<
     DeliveriesGetDeliveriesQueryResponseType,
-    ResponseErrorConfig<DeliveriesGetDeliveries401Type>,
+    ResponseErrorConfig<Error>,
     DeliveriesGetDeliveriesQueryResponseType,
     typeof queryKey
   >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return deliveriesGetDeliveriesSuspense(config);
+      return deliveriesGetDeliveriesSuspense(params, config);
     },
   });
 }
 
 /**
- * @description Возвращает список всех поставок текущего кабинета
  * @summary Получение списка поставок
  * {@link /deliveries}
  */
@@ -67,11 +70,12 @@ export function useDeliveriesGetDeliveriesSuspense<
   TQueryData = DeliveriesGetDeliveriesQueryResponseType,
   TQueryKey extends QueryKey = DeliveriesGetDeliveriesSuspenseQueryKey,
 >(
+  params?: DeliveriesGetDeliveriesQueryParamsType,
   options: {
     query?: Partial<
       UseSuspenseQueryOptions<
         DeliveriesGetDeliveriesQueryResponseType,
-        ResponseErrorConfig<DeliveriesGetDeliveries401Type>,
+        ResponseErrorConfig<Error>,
         TData,
         TQueryKey
       >
@@ -80,15 +84,16 @@ export function useDeliveriesGetDeliveriesSuspense<
   } = {},
 ) {
   const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey = queryOptions?.queryKey ?? deliveriesGetDeliveriesSuspenseQueryKey();
+  const queryKey = queryOptions?.queryKey ?? deliveriesGetDeliveriesSuspenseQueryKey(params);
 
   const query = useSuspenseQuery({
-    ...(deliveriesGetDeliveriesSuspenseQueryOptions(config) as unknown as UseSuspenseQueryOptions),
+    ...(deliveriesGetDeliveriesSuspenseQueryOptions(
+      params,
+      config,
+    ) as unknown as UseSuspenseQueryOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<DeliveriesGetDeliveries401Type>> & {
-    queryKey: TQueryKey;
-  };
+  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };
 
   query.queryKey = queryKey as TQueryKey;
 

@@ -1,4 +1,4 @@
-export type SelectedConsumableDtoType = {
+export type ConsumableDtoType = {
   /**
    * @description ID расходника
    * @type string

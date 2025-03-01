@@ -1,18 +1,22 @@
-import type { DeliveryResponseExampleType } from '../DeliveryResponseExampleType';
+export type DeliveriesGetDeliveriesQueryParamsType = {
+  /**
+   * @description Дата начала периода
+   * @type string | undefined
+   */
+  startDate?: string;
+  /**
+   * @description Дата окончания периода
+   * @type string | undefined
+   */
+  endDate?: string;
+};
 
-/**
- * @description Список поставок успешно получен
- */
-export type DeliveriesGetDeliveries200Type = DeliveryResponseExampleType[];
-
-/**
- * @description Не авторизован
- */
-export type DeliveriesGetDeliveries401Type = any;
+export type DeliveriesGetDeliveries200Type = any;
 
 export type DeliveriesGetDeliveriesQueryResponseType = DeliveriesGetDeliveries200Type;
 
 export type DeliveriesGetDeliveriesTypeQuery = {
   Response: DeliveriesGetDeliveries200Type;
-  Errors: DeliveriesGetDeliveries401Type;
+  QueryParams: DeliveriesGetDeliveriesQueryParamsType;
+  Errors: any;
 };

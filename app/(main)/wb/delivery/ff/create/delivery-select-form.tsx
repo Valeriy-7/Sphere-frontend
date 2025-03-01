@@ -49,6 +49,7 @@ export default function NestedDynamicForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      cabinetId: cabinetActiveId,
       products: [],
     },
   });
@@ -65,7 +66,7 @@ export default function NestedDynamicForm() {
     mutate({ data });
   }
 
-  //console.log(form.formState.errors);
+  console.log(form.formState.errors);
   console.log(fields);
 
   const totalColumnValue = [

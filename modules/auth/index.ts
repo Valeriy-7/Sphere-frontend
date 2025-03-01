@@ -2,7 +2,7 @@ import { AuthUser } from './next-jwt-auth';
 
 import { JWTAuthConfig, createJWTAuthProvider } from './next-jwt-auth';
 import { useContext } from 'react';
-import { AuthUserDataDtoType } from '@/kubb-gen';
+import { AuthUserDataDtoType, CabinetShortDataDtoType } from '@/kubb-gen';
 
 export interface LoggedInUser extends AuthUser, AuthUserDataDtoType {}
 
@@ -125,4 +125,16 @@ export const useJWTAuthContext = () => {
   }
 
   return context;
+};
+
+export const useJWTAuthUser = (): LoggedInUser & { cabinetActive: CabinetShortDataDtoType } => {
+  const { user } = useJWTAuthContext();
+
+  if (!user) {
+    throw new Error('JWTAuthUser not found, please check the provider');
+  }
+
+  const cabinetActive = user?.cabinets?.find((i) => i.isActive) ?? ({} as CabinetShortDataDtoType);
+
+  return { ...user, cabinetActive };
 };

@@ -1,4 +1,4 @@
-export type SelectedServiceDtoType = {
+export type ServiceDtoType = {
   /**
    * @description ID услуги
    * @type string

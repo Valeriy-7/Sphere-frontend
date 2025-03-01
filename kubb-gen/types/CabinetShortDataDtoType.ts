@@ -20,6 +20,11 @@ export type CabinetShortDataDtoType = {
    */
   companyName: string;
   /**
+   * @description Юридическое название организации
+   * @type string
+   */
+  legalCompanyName?: string | null;
+  /**
    * @description URL аватарки кабинета
    * @type string
    */

@@ -11,6 +11,7 @@ const config: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  reactStrictMode: false, // @todo не забыть  отключить
 };
 
 export default config;

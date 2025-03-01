@@ -1,24 +1,19 @@
 import client from '@/modules/auth/axios-client';
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query';
-import type {
-  DeliveriesGetFulfillmentConsumablesQueryResponseType,
-  DeliveriesGetFulfillmentConsumables401Type,
-  DeliveriesGetFulfillmentConsumables404Type,
-} from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType';
+import type { DeliveriesGetFulfillmentConsumablesQueryResponseType } from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType';
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
 export const deliveriesGetFulfillmentConsumablesQueryKey = () =>
-  [{ url: '/deliveries/ff-consumables' }] as const;
+  [{ url: '/deliveries/consumables' }] as const;
 
 export type DeliveriesGetFulfillmentConsumablesQueryKey = ReturnType<
   typeof deliveriesGetFulfillmentConsumablesQueryKey
 >;
 
 /**
- * @description Возвращает список всех доступных расходников от привязанного фулфилмент кабинета
- * @summary Получение списка расходников фулфилмента
- * {@link /deliveries/ff-consumables}
+ * @summary Получение списка расходных материалов
+ * {@link /deliveries/consumables}
  */
 export async function deliveriesGetFulfillmentConsumables(
   config: Partial<RequestConfig> & { client?: typeof client } = {},
@@ -27,11 +22,13 @@ export async function deliveriesGetFulfillmentConsumables(
 
   const res = await request<
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
-    ResponseErrorConfig<
-      DeliveriesGetFulfillmentConsumables401Type | DeliveriesGetFulfillmentConsumables404Type
-    >,
+    ResponseErrorConfig<Error>,
     unknown
-  >({ method: 'GET', url: `/deliveries/ff-consumables`, ...requestConfig });
+  >({
+    method: 'GET',
+    url: `/deliveries/consumables`,
+    ...requestConfig,
+  });
   return res.data;
 }
 
@@ -41,9 +38,7 @@ export function deliveriesGetFulfillmentConsumablesQueryOptions(
   const queryKey = deliveriesGetFulfillmentConsumablesQueryKey();
   return queryOptions<
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
-    ResponseErrorConfig<
-      DeliveriesGetFulfillmentConsumables401Type | DeliveriesGetFulfillmentConsumables404Type
-    >,
+    ResponseErrorConfig<Error>,
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
     typeof queryKey
   >({
@@ -56,9 +51,8 @@ export function deliveriesGetFulfillmentConsumablesQueryOptions(
 }
 
 /**
- * @description Возвращает список всех доступных расходников от привязанного фулфилмент кабинета
- * @summary Получение списка расходников фулфилмента
- * {@link /deliveries/ff-consumables}
+ * @summary Получение списка расходных материалов
+ * {@link /deliveries/consumables}
  */
 export function useDeliveriesGetFulfillmentConsumables<
   TData = DeliveriesGetFulfillmentConsumablesQueryResponseType,
@@ -69,9 +63,7 @@ export function useDeliveriesGetFulfillmentConsumables<
     query?: Partial<
       QueryObserverOptions<
         DeliveriesGetFulfillmentConsumablesQueryResponseType,
-        ResponseErrorConfig<
-          DeliveriesGetFulfillmentConsumables401Type | DeliveriesGetFulfillmentConsumables404Type
-        >,
+        ResponseErrorConfig<Error>,
         TData,
         TQueryData,
         TQueryKey
@@ -87,14 +79,7 @@ export function useDeliveriesGetFulfillmentConsumables<
     ...(deliveriesGetFulfillmentConsumablesQueryOptions(config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<
-    TData,
-    ResponseErrorConfig<
-      DeliveriesGetFulfillmentConsumables401Type | DeliveriesGetFulfillmentConsumables404Type
-    >
-  > & {
-    queryKey: TQueryKey;
-  };
+  }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };
 
   query.queryKey = queryKey as TQueryKey;
 

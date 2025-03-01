@@ -1,11 +1,11 @@
 import { createSupplierDtoSchema } from '../createSupplierDtoSchema';
-import { supplierResponseExampleSchema } from '../supplierResponseExampleSchema';
+import { supplierSchema } from '../supplierSchema';
 import { z } from 'zod';
 
 /**
  * @description Поставщик успешно создан
  */
-export const deliveriesCreateSupplier201Schema = z.lazy(() => supplierResponseExampleSchema);
+export const deliveriesCreateSupplier201Schema = z.lazy(() => supplierSchema);
 
 /**
  * @description Некорректные данные запроса

@@ -1,8 +1,9 @@
-import { deliveryProductDtoSchema } from './deliveryProductDtoSchema';
+import { productDtoSchema } from './productDtoSchema';
 import { z } from 'zod';
 
 export const createDeliveryDtoSchema = z.object({
-  deliveryDate: z.string().datetime().describe('Дата поставки'),
-  cargoPlaces: z.number().describe('Количество грузовых мест'),
-  products: z.array(z.lazy(() => deliveryProductDtoSchema)).describe('Список товаров в поставке'),
+  cabinetId: z.string().describe('ID кабинета'),
+  deliveryDate: z.string().describe('Дата поставки'),
+  cargoPlaces: z.number().describe('Количество грузовых мест').optional(),
+  products: z.array(z.lazy(() => productDtoSchema)).describe('Товары в поставке'),
 });
