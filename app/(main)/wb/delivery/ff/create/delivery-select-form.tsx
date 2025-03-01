@@ -19,7 +19,7 @@ import { DatePicker } from '@/components/date-picker';
 import { CurrencyInput } from '@/components/currency-input';
 import { formatCurrency } from '@/lib/formatCurrency';
 
-import { useJWTAuthContext } from '@/modules/auth';
+import { useJWTAuthContext, useJWTAuthUser } from '@/modules/auth';
 import {
   useDeliveriesCreateDelivery,
   useDeliveriesGetDeliveries,
@@ -31,43 +31,51 @@ import {
   useWbGetProducts,
   useWbGetProductsSuspense,
 } from '@/kubb-gen';
-import { useFormDraft, useFormDraftV } from '@/app/(main)/wb/delivery/ff/create/use-form-draft';
-import { useEffect } from 'react';
+import { useFormDraftV } from '@/app/(main)/wb/delivery/ff/create/use-form-draft';
+
+import { toast } from 'sonner';
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
 export default function NestedDynamicForm() {
-  const { user } = useJWTAuthContext();
-  const cabinetActiveId = user?.cabinets?.find((i) => i.isActive)?.id;
+  const { cabinetId } = useJWTAuthUser();
 
-  const { data: { items } = { items: [] } } = useWbGetProducts({ cabinetId: cabinetActiveId });
+  const { data: { items } = { items: [] } } = useWbGetProductsSuspense({ cabinetId });
   const { data: servicesData = [] } = useDeliveriesGetFulfillmentServices();
   const { data: consumablesData = [] } = useDeliveriesGetFulfillmentConsumables();
   const { data: suppliersData = [] } = useDeliveriesGetSuppliers();
+
   const { mutate } = useDeliveriesCreateDelivery();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      cabinetId: cabinetActiveId,
+      cabinetId,
       products: [],
     },
   });
+  const { clearDraft } = useFormDraftV(form, 'form-draft');
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'products',
   });
   /*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
 
-  useFormDraftV(form, 'form-draft');
-
   function onSubmit(data: FormValues) {
     console.log(data);
-    mutate({ data });
+    mutate(
+      { data },
+      {
+        onSuccess: () => {
+          clearDraft();
+          toast.success('Успешно');
+        },
+      },
+    );
   }
 
   console.log(form.formState.errors);
-  console.log(fields);
+  console.log(form.getValues());
 
   const totalColumnValue = [
     getAmountReduce(form.getValues().products.map((i) => i.quantity ?? 0)),

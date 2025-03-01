@@ -20,7 +20,7 @@ const NestedFieldSchema = z.object({
 
 const createDeliveryDtoSchema = z.object({
   cabinetId: z.string().describe('ID кабинета'),
-  deliveryDate: z.date({
+  deliveryDate: z.coerce.date({
     required_error: 'Date is required',
     invalid_type_error: "That's not a date!",
   }),

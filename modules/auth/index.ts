@@ -127,7 +127,10 @@ export const useJWTAuthContext = () => {
   return context;
 };
 
-export const useJWTAuthUser = (): LoggedInUser & { cabinetActive: CabinetShortDataDtoType } => {
+export const useJWTAuthUser = (): LoggedInUser & {
+  cabinetActive: CabinetShortDataDtoType;
+  cabinetId: string;
+} => {
   const { user } = useJWTAuthContext();
 
   if (!user) {
@@ -136,5 +139,5 @@ export const useJWTAuthUser = (): LoggedInUser & { cabinetActive: CabinetShortDa
 
   const cabinetActive = user?.cabinets?.find((i) => i.isActive) ?? ({} as CabinetShortDataDtoType);
 
-  return { ...user, cabinetActive };
+  return { ...user, cabinetActive, cabinetId: cabinetActive.id };
 };

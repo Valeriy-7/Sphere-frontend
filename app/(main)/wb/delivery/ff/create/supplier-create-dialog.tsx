@@ -19,9 +19,21 @@ import { useState } from 'react';
 import {
   createSupplierDtoSchema,
   deliveriesGetSuppliersQueryKey,
+  DeliveryPointDtoType,
+  deliveryPointsGetAllDeliveryPoints,
+  deliveryPointsGetDeliveryPoints,
   useDeliveriesCreateSupplier,
+  useDeliveryPointsGetDeliveryPoints,
 } from '@/kubb-gen';
 import { useQueryClient } from '@tanstack/react-query';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useJWTAuthUser } from '@/modules/auth';
 
 const textRequired = 'Обязательно для заполнения';
 
@@ -30,24 +42,32 @@ const formSchema = createSupplierDtoSchema;
 export function SupplierCreateDialog() {
   const [open, setOpen] = useState(false);
 
+  const { data = [], isPending } = useDeliveryPointsGetDeliveryPoints({ type: 'WILDBERRIES' });
+  const { cabinetActive } = useJWTAuthUser();
+
   const { mutate } = useDeliveriesCreateSupplier({
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: deliveriesGetSuppliersQueryKey(),
         });
+        setOpen(false);
       },
     },
   });
   const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      cabinetId: cabinetActive.id,
+    },
   });
   function onSubmit(data: z.infer<typeof formSchema>) {
-    setOpen(false);
     mutate({ data });
   }
 
+  console.log(form.formState.errors);
+  console.log(form.getValues());
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -103,10 +123,31 @@ export function SupplierCreateDialog() {
                 name="marketplaceName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormControl>
-                      <Input placeholder="Название рынка" {...field} />
-                    </FormControl>
-                    <FormMessage />
+                    <Select
+                      disabled={isPending}
+                      onValueChange={(value) => {
+                        // Find the selected fruit object by id
+                        const find = data.find((i) => i.id === value) as DeliveryPointDtoType;
+                        // Set just the fruit name as the field value
+                        field.onChange(find.name);
+                        form.setValue('address', find.name);
+                      }}
+                      // Display the selected fruit id
+                      value={data.find((i) => i.name === field.value)?.id || ''}
+                    >
+                      <FormControl>
+                        <SelectTrigger className={'w-full'}>
+                          <SelectValue placeholder="Название рынка" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {data.map((i) => (
+                          <SelectItem key={i.id} value={i.id}>
+                            {i.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </FormItem>
                 )}
               />
@@ -116,7 +157,7 @@ export function SupplierCreateDialog() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Адрес" {...field} />
+                      <Input disabled placeholder="Адрес" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
