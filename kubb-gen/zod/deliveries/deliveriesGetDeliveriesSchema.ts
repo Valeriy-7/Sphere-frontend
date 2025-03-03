@@ -1,3 +1,4 @@
+import { deliverySchema } from '../deliverySchema';
 import { z } from 'zod';
 
 export const deliveriesGetDeliveriesQueryParamsSchema = z
@@ -7,7 +8,10 @@ export const deliveriesGetDeliveriesQueryParamsSchema = z
   })
   .optional();
 
-export const deliveriesGetDeliveries200Schema = z.any();
+/**
+ * @description Список поставок успешно получен
+ */
+export const deliveriesGetDeliveries200Schema = z.array(z.lazy(() => deliverySchema));
 
 export const deliveriesGetDeliveriesQueryResponseSchema = z.lazy(
   () => deliveriesGetDeliveries200Schema,

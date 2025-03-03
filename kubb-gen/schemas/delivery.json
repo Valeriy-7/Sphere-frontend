@@ -1,0 +1,62 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Уникальный идентификатор поставки",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "cabinetId": {
+      "type": "string",
+      "description": "ID кабинета",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "deliveryDate": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Дата поставки",
+      "example": "2024-02-26T12:00:00Z"
+    },
+    "cargoPlaces": { "type": "number", "description": "Количество грузовых мест", "example": 10 },
+    "totalProductsPrice": {
+      "type": "number",
+      "description": "Общая стоимость товаров",
+      "example": 1000
+    },
+    "logisticsToFFPrice": {
+      "type": "number",
+      "description": "Стоимость логистики до фулфилмента",
+      "example": 100
+    },
+    "ffServicesPrice": {
+      "type": "number",
+      "description": "Стоимость услуг фулфилмента",
+      "example": 200
+    },
+    "totalAmount": { "type": "number", "description": "Итоговая сумма", "example": 1300 },
+    "createdAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Дата создания записи",
+      "example": "2024-02-26T12:00:00Z"
+    },
+    "updatedAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Дата последнего обновления записи",
+      "example": "2024-02-26T12:00:00Z"
+    }
+  },
+  "required": [
+    "id",
+    "cabinetId",
+    "deliveryDate",
+    "totalProductsPrice",
+    "logisticsToFFPrice",
+    "ffServicesPrice",
+    "totalAmount",
+    "createdAt",
+    "updatedAt"
+  ],
+  "x-readme-ref-name": "Delivery"
+}

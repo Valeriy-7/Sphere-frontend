@@ -4,6 +4,8 @@ import type { UseMutationOptions } from '@tanstack/react-query';
 import type {
   DeliveriesCreateDeliveryMutationRequestType,
   DeliveriesCreateDeliveryMutationResponseType,
+  DeliveriesCreateDelivery400Type,
+  DeliveriesCreateDelivery404Type,
 } from '../../types/deliveries/DeliveriesCreateDeliveryType';
 import { useMutation } from '@tanstack/react-query';
 
@@ -14,6 +16,7 @@ export type DeliveriesCreateDeliveryMutationKey = ReturnType<
 >;
 
 /**
+ * @description     Создает новую поставку с указанными товарами и услугами.    ### Важные моменты:    - Поставка должна содержать хотя бы один товар    - Для каждого товара:      - Количество должно быть больше нуля      - Цена должна быть больше нуля      - Можно выбрать дополнительные услуги и расходники    ### Процесс создания:    1. Проверяется существование кабинета    2. Создается запись поставки    3. Для каждого товара:       - Создается связь с поставкой       - Рассчитывается общая стоимость с учетом услуг и расходников    4. Рассчитываются итоговые суммы поставки
  * @summary Создание новой поставки
  * {@link /deliveries}
  */
@@ -27,18 +30,14 @@ export async function deliveriesCreateDelivery(
 
   const res = await request<
     DeliveriesCreateDeliveryMutationResponseType,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery404Type>,
     DeliveriesCreateDeliveryMutationRequestType
-  >({
-    method: 'POST',
-    url: `/deliveries`,
-    data,
-    ...requestConfig,
-  });
+  >({ method: 'POST', url: `/deliveries`, data, ...requestConfig });
   return res.data;
 }
 
 /**
+ * @description     Создает новую поставку с указанными товарами и услугами.    ### Важные моменты:    - Поставка должна содержать хотя бы один товар    - Для каждого товара:      - Количество должно быть больше нуля      - Цена должна быть больше нуля      - Можно выбрать дополнительные услуги и расходники    ### Процесс создания:    1. Проверяется существование кабинета    2. Создается запись поставки    3. Для каждого товара:       - Создается связь с поставкой       - Рассчитывается общая стоимость с учетом услуг и расходников    4. Рассчитываются итоговые суммы поставки
  * @summary Создание новой поставки
  * {@link /deliveries}
  */
@@ -46,7 +45,7 @@ export function useDeliveriesCreateDelivery(
   options: {
     mutation?: UseMutationOptions<
       DeliveriesCreateDeliveryMutationResponseType,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery404Type>,
       { data: DeliveriesCreateDeliveryMutationRequestType }
     >;
     client?: Partial<RequestConfig<DeliveriesCreateDeliveryMutationRequestType>> & {
@@ -59,7 +58,7 @@ export function useDeliveriesCreateDelivery(
 
   return useMutation<
     DeliveriesCreateDeliveryMutationResponseType,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery404Type>,
     { data: DeliveriesCreateDeliveryMutationRequestType }
   >({
     mutationFn: async ({ data }) => {

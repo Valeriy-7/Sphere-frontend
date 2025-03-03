@@ -13,6 +13,7 @@ export const deliveriesGetDeliveriesQueryKey = (params?: DeliveriesGetDeliveries
 export type DeliveriesGetDeliveriesQueryKey = ReturnType<typeof deliveriesGetDeliveriesQueryKey>;
 
 /**
+ * @description     Возвращает список поставок для текущего кабинета.    ### Возможности фильтрации:    - По статусу поставки    - По дате создания    - По дате поставки    ### Включенные данные:    - Основная информация о поставке    - Список товаров    - Информация о поставщиках    - Выбранные услуги и расходники
  * @summary Получение списка поставок
  * {@link /deliveries}
  */
@@ -55,6 +56,7 @@ export function deliveriesGetDeliveriesQueryOptions(
 }
 
 /**
+ * @description     Возвращает список поставок для текущего кабинета.    ### Возможности фильтрации:    - По статусу поставки    - По дате создания    - По дате поставки    ### Включенные данные:    - Основная информация о поставке    - Список товаров    - Информация о поставщиках    - Выбранные услуги и расходники
  * @summary Получение списка поставок
  * {@link /deliveries}
  */

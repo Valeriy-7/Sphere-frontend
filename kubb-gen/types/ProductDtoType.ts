@@ -9,11 +9,13 @@ export type ProductDtoType = {
   wbProductId: string;
   /**
    * @description Количество товара
+   * @minLength 1
    * @type number
    */
   quantity: number;
   /**
    * @description Цена товара
+   * @minLength 0.01
    * @type number
    */
   price: number;

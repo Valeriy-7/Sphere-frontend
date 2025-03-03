@@ -7,7 +7,7 @@
       "example": "123e4567-e89b-12d3-a456-426614174000"
     },
     "name": { "type": "string", "description": "Название услуги", "example": "Стирка" },
-    "price": { "type": "number", "description": "Цена услуги", "example": 10 }
+    "price": { "type": "number", "description": "Цена услуги", "example": 10, "minimum": 0.01 }
   },
   "required": ["id", "name", "price"],
   "x-readme-ref-name": "ServiceDto"

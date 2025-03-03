@@ -1,6 +1,20 @@
 import type { CreateDeliveryDtoType } from '../CreateDeliveryDtoType';
+import type { DeliveryType } from '../DeliveryType';
 
-export type DeliveriesCreateDelivery201Type = any;
+/**
+ * @description Поставка успешно создана
+ */
+export type DeliveriesCreateDelivery201Type = DeliveryType;
+
+/**
+ * @description Некорректные данные в запросе
+ */
+export type DeliveriesCreateDelivery400Type = any;
+
+/**
+ * @description Кабинет не найден
+ */
+export type DeliveriesCreateDelivery404Type = any;
 
 export type DeliveriesCreateDeliveryMutationRequestType = CreateDeliveryDtoType;
 
@@ -9,5 +23,5 @@ export type DeliveriesCreateDeliveryMutationResponseType = DeliveriesCreateDeliv
 export type DeliveriesCreateDeliveryTypeMutation = {
   Response: DeliveriesCreateDelivery201Type;
   Request: DeliveriesCreateDeliveryMutationRequestType;
-  Errors: any;
+  Errors: DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery404Type;
 };

@@ -3,17 +3,22 @@
   "properties": {
     "cabinetId": {
       "type": "string",
-      "description": "ID кабинета",
+      "description": "ID кабинета, для которого создается поставка.\n    Используется для привязки поставки к конкретному кабинету и проверки прав доступа.",
       "example": "123e4567-e89b-12d3-a456-426614174000"
     },
     "deliveryDate": {
       "type": "string",
-      "description": "Дата поставки",
+      "description": "Дата поставки.\n    Указывается в формате ISO 8601.\n    Используется для планирования и отслеживания поставок.",
       "example": "2024-02-26T12:00:00Z"
     },
-    "cargoPlaces": { "type": "number", "description": "Количество грузовых мест", "example": 10 },
+    "cargoPlaces": {
+      "type": "number",
+      "description": "Количество грузовых мест.\n    Необязательное поле.\n    Используется для планирования логистики.",
+      "example": 10
+    },
     "products": {
-      "description": "Товары в поставке",
+      "description": "Массив товаров в поставке.\n    Должен содержать хотя бы один товар.\n    Каждый товар должен иметь:\n    - ID товара в WB\n    - Количество (больше нуля)\n    - Цену (больше нуля)\n    - Выбранные услуги (опционально)\n    - Выбранные расходники (опционально)\n    - ID поставщика",
+      "minItems": 1,
       "type": "array",
       "items": {
         "type": "object",
@@ -23,8 +28,18 @@
             "description": "ID товара в WB",
             "example": "WB123456"
           },
-          "quantity": { "type": "number", "description": "Количество товара", "example": 100 },
-          "price": { "type": "number", "description": "Цена товара", "example": 50 },
+          "quantity": {
+            "type": "number",
+            "description": "Количество товара",
+            "example": 100,
+            "minimum": 1
+          },
+          "price": {
+            "type": "number",
+            "description": "Цена товара",
+            "example": 50,
+            "minimum": 0.01
+          },
           "selectedServices": {
             "description": "Выбранные услуги",
             "type": "array",
@@ -37,7 +52,12 @@
                   "example": "123e4567-e89b-12d3-a456-426614174000"
                 },
                 "name": { "type": "string", "description": "Название услуги", "example": "Стирка" },
-                "price": { "type": "number", "description": "Цена услуги", "example": 10 }
+                "price": {
+                  "type": "number",
+                  "description": "Цена услуги",
+                  "example": 10,
+                  "minimum": 0.01
+                }
               },
               "required": ["id", "name", "price"],
               "x-readme-ref-name": "ServiceDto"
@@ -59,7 +79,12 @@
                   "description": "Название расходника",
                   "example": "Зип-пакет"
                 },
-                "price": { "type": "number", "description": "Цена расходника", "example": 5 }
+                "price": {
+                  "type": "number",
+                  "description": "Цена расходника",
+                  "example": 5,
+                  "minimum": 0.01
+                }
               },
               "required": ["id", "name", "price"],
               "x-readme-ref-name": "ConsumableDto"

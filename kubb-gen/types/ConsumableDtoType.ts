@@ -11,6 +11,7 @@ export type ConsumableDtoType = {
   name: string;
   /**
    * @description Цена расходника
+   * @minLength 0.01
    * @type number
    */
   price: number;

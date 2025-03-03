@@ -11,6 +11,7 @@ export type ServiceDtoType = {
   name: string;
   /**
    * @description Цена услуги
+   * @minLength 0.01
    * @type number
    */
   price: number;

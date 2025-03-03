@@ -2887,6 +2887,20 @@
                       ></label
                     >
                   </li>
+                  <li
+                    tabindex="0"
+                    depth="2"
+                    data-item-id="tag/Postavki/operation/DeliveriesController_getDeliveryById"
+                    role="menuitem"
+                    class="sc-UBoew khtnrT"
+                  >
+                    <label class="sc-edctFj hPofAt -depth2"
+                      ><span type="get" class="sc-ilTbHY dITHqF operation-type get">get</span
+                      ><span tabindex="0" width="calc(100% - 38px)" class="sc-fJVbdy dRfQPL"
+                        >Получение информации о поставке</span
+                      ></label
+                    >
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -17733,6 +17747,47 @@
                   ></a
                   >Создание новой поставки<!-- -->
                 </h2>
+                <div class="sc-bACthX gzhca">
+                  <div
+                    html='&lt;pre&gt;&lt;code&gt;Создает новую поставку с указанными товарами и услугами&lt;span class="token punctuation"&gt;.&lt;/span&gt;
+
+### Важные моменты&lt;span class="token punctuation"&gt;:&lt;/span&gt;
+&lt;span class="token operator"&gt;-&lt;/span&gt; Поставка должна содержать хотя бы один товар
+&lt;span class="token operator"&gt;-&lt;/span&gt; Для каждого товара&lt;span class="token punctuation"&gt;:&lt;/span&gt;
+  &lt;span class="token operator"&gt;-&lt;/span&gt; Количество должно быть больше нуля
+  &lt;span class="token operator"&gt;-&lt;/span&gt; Цена должна быть больше нуля
+  &lt;span class="token operator"&gt;-&lt;/span&gt; Можно выбрать дополнительные услуги и расходники
+
+### Процесс создания&lt;span class="token punctuation"&gt;:&lt;/span&gt;
+&lt;span class="token number"&gt;1.&lt;/span&gt; Проверяется существование кабинета
+&lt;span class="token number"&gt;2.&lt;/span&gt; Создается запись поставки
+&lt;span class="token number"&gt;3.&lt;/span&gt; Для каждого товара&lt;span class="token punctuation"&gt;:&lt;/span&gt;
+   &lt;span class="token operator"&gt;-&lt;/span&gt; Создается связь с поставкой
+   &lt;span class="token operator"&gt;-&lt;/span&gt; Рассчитывается общая стоимость с учетом услуг и расходников
+&lt;span class="token number"&gt;4.&lt;/span&gt; Рассчитываются итоговые суммы поставки
+&lt;/code&gt;&lt;/pre&gt;
+'
+                    class="sc-dJkDXt sc-eXfTSZ eOvdyU iFgJCs"
+                  >
+                    <pre><code>Создает новую поставку с указанными товарами и услугами<span class="token punctuation">.</span>
+
+### Важные моменты<span class="token punctuation">:</span>
+<span class="token operator">-</span> Поставка должна содержать хотя бы один товар
+<span class="token operator">-</span> Для каждого товара<span class="token punctuation">:</span>
+  <span class="token operator">-</span> Количество должно быть больше нуля
+  <span class="token operator">-</span> Цена должна быть больше нуля
+  <span class="token operator">-</span> Можно выбрать дополнительные услуги и расходники
+
+### Процесс создания<span class="token punctuation">:</span>
+<span class="token number">1.</span> Проверяется существование кабинета
+<span class="token number">2.</span> Создается запись поставки
+<span class="token number">3.</span> Для каждого товара<span class="token punctuation">:</span>
+   <span class="token operator">-</span> Создается связь с поставкой
+   <span class="token operator">-</span> Рассчитывается общая стоимость с учетом услуг и расходников
+<span class="token number">4.</span> Рассчитываются итоговые суммы поставки
+</code></pre>
+                  </div>
+                </div>
                 <div class="sc-jwqMsZ fJiNeh">
                   <div class="sc-irzYNq eCGDAN">
                     <h5 class="sc-deSjom sc-hRwOVo dunSEZ buXmnV">Authorizations:</h5>
@@ -17777,11 +17832,15 @@
                           </div>
                           <div>
                             <div
-                              html="&lt;p&gt;ID кабинета&lt;/p&gt;
+                              html="&lt;p&gt;ID кабинета, для которого создается поставка.
+    Используется для привязки поставки к конкретному кабинету и проверки прав доступа.&lt;/p&gt;
 "
                               class="sc-dJkDXt sc-eXfTSZ eOvdyU fHLtmm"
                             >
-                              <p>ID кабинета</p>
+                              <p>
+                                ID кабинета, для которого создается поставка. Используется для
+                                привязки поставки к конкретному кабинету и проверки прав доступа.
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -17805,11 +17864,16 @@
                           </div>
                           <div>
                             <div
-                              html="&lt;p&gt;Дата поставки&lt;/p&gt;
+                              html="&lt;p&gt;Дата поставки.
+    Указывается в формате ISO 8601.
+    Используется для планирования и отслеживания поставок.&lt;/p&gt;
 "
                               class="sc-dJkDXt sc-eXfTSZ eOvdyU fHLtmm"
                             >
-                              <p>Дата поставки</p>
+                              <p>
+                                Дата поставки. Указывается в формате ISO 8601. Используется для
+                                планирования и отслеживания поставок.
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -17832,11 +17896,16 @@
                           </div>
                           <div>
                             <div
-                              html="&lt;p&gt;Количество грузовых мест&lt;/p&gt;
+                              html="&lt;p&gt;Количество грузовых мест.
+    Необязательное поле.
+    Используется для планирования логистики.&lt;/p&gt;
 "
                               class="sc-dJkDXt sc-eXfTSZ eOvdyU fHLtmm"
                             >
-                              <p>Количество грузовых мест</p>
+                              <p>
+                                Количество грузовых мест. Необязательное поле. Используется для
+                                планирования логистики.
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -17871,15 +17940,33 @@
                         <div>
                           <div>
                             <span class="sc-sediK sc-cAQujh jBpAbV hELCbj">Array of </span
-                            ><span class="sc-sediK sc-haUlXw jBpAbV bCDwpq">objects</span>
+                            ><span class="sc-sediK sc-haUlXw jBpAbV bCDwpq">objects</span
+                            ><span>
+                              <span class="sc-sediK sc-fcddXt jBpAbV gzplQl">
+                                <!-- -->non-empty<!-- -->
+                              </span></span
+                            >
                           </div>
                           <div>
                             <div
-                              html="&lt;p&gt;Товары в поставке&lt;/p&gt;
+                              html="&lt;p&gt;Массив товаров в поставке.
+    Должен содержать хотя бы один товар.
+    Каждый товар должен иметь:
+    - ID товара в WB
+    - Количество (больше нуля)
+    - Цену (больше нуля)
+    - Выбранные услуги (опционально)
+    - Выбранные расходники (опционально)
+    - ID поставщика&lt;/p&gt;
 "
                               class="sc-dJkDXt sc-eXfTSZ eOvdyU fHLtmm"
                             >
-                              <p>Товары в поставке</p>
+                              <p>
+                                Массив товаров в поставке. Должен содержать хотя бы один товар.
+                                Каждый товар должен иметь: - ID товара в WB - Количество (больше
+                                нуля) - Цену (больше нуля) - Выбранные услуги (опционально) -
+                                Выбранные расходники (опционально) - ID поставщика
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -17890,9 +17977,51 @@
                 <div>
                   <h3 class="sc-frtHmg eXjWTp">Responses</h3>
                   <div>
-                    <button class="sc-kdWPFt igjdiI" disabled="">
-                      <strong class="sc-dxpuJR bniiic">201<!-- --> </strong>
-                      <div html="" class="sc-dJkDXt sc-eXfTSZ sc-dXYVqG eOvdyU jcthWC iWCNbi"></div>
+                    <button class="sc-kdWPFt gpjYYu">
+                      <svg
+                        class="sc-cSaEAk gGbHCS"
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                        x="0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        y="0"
+                        aria-hidden="true"
+                      >
+                        <polygon
+                          points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                        ></polygon></svg
+                      ><strong class="sc-dxpuJR bniiic">201<!-- --> </strong>
+                      <div
+                        html="&lt;p&gt;Поставка успешно создана&lt;/p&gt;
+"
+                        class="sc-dJkDXt sc-eXfTSZ sc-dXYVqG eOvdyU jcthWC iWCNbi"
+                      >
+                        <p>Поставка успешно создана</p>
+                      </div>
+                    </button>
+                  </div>
+                  <div>
+                    <button class="sc-kdWPFt gkyJaa" disabled="">
+                      <strong class="sc-dxpuJR bniiic">400<!-- --> </strong>
+                      <div
+                        html="&lt;p&gt;Некорректные данные в запросе&lt;/p&gt;
+"
+                        class="sc-dJkDXt sc-eXfTSZ sc-dXYVqG eOvdyU jcthWC iWCNbi"
+                      >
+                        <p>Некорректные данные в запросе</p>
+                      </div>
+                    </button>
+                  </div>
+                  <div>
+                    <button class="sc-kdWPFt gkyJaa" disabled="">
+                      <strong class="sc-dxpuJR bniiic">404<!-- --> </strong>
+                      <div
+                        html="&lt;p&gt;Кабинет не найден&lt;/p&gt;
+"
+                        class="sc-dJkDXt sc-eXfTSZ sc-dXYVqG eOvdyU jcthWC iWCNbi"
+                      >
+                        <p>Кабинет не найден</p>
+                      </div>
                     </button>
                   </div>
                 </div>
@@ -18182,6 +18311,134 @@
                     </div>
                   </div>
                 </div>
+                <div>
+                  <h3 class="sc-jUkaYT joSISv"><!-- -->Response samples<!-- --></h3>
+                  <div class="sc-bCjwNj cnTfwV" data-rttabs="true">
+                    <ul class="react-tabs__tab-list" role="tablist">
+                      <li
+                        class="tab-success react-tabs__tab--selected"
+                        role="tab"
+                        id="tab:R2e9ka:0"
+                        aria-selected="true"
+                        aria-disabled="false"
+                        aria-controls="panel:R2e9ka:0"
+                        tabindex="0"
+                        data-rttab="true"
+                      >
+                        201
+                      </li>
+                    </ul>
+                    <div
+                      class="react-tabs__tab-panel react-tabs__tab-panel--selected"
+                      role="tabpanel"
+                      id="panel:R2e9ka:0"
+                      aria-labelledby="tab:R2e9ka:0"
+                    >
+                      <div>
+                        <div class="sc-bxmmIP OIIYS">
+                          <span class="sc-fEOKFM dpRqHD">Content type</span>
+                          <div class="sc-beKSRx hmEMDU">application/json</div>
+                        </div>
+                        <div class="sc-loYsQo exYKuj">
+                          <div class="sc-eOrxMY jmgBLa">
+                            <div class="sc-lertIE hzLBDF">
+                              <button><div class="sc-fCSSOr kPewJt">Copy</div></button>
+                            </div>
+                            <div class="sc-dJkDXt eOvdyU sc-gtlvkJ fAqzdc">
+                              <div class="redoc-json">
+                                <code
+                                  ><button class="collapser" aria-label="collapse"></button
+                                  ><span class="token punctuation">{</span
+                                  ><span class="ellipsis"></span>
+                                  <ul class="obj collapsible">
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"id"</span>:
+                                        <span class="token string"
+                                          >&quot;123e4567-e89b-12d3-a456-426614174000&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"cabinetId"</span>:
+                                        <span class="token string"
+                                          >&quot;123e4567-e89b-12d3-a456-426614174000&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"deliveryDate"</span>:
+                                        <span class="token string"
+                                          >&quot;2024-02-26T12:00:00Z&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"cargoPlaces"</span>:
+                                        <span class="token number">10</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string"
+                                          >"totalProductsPrice"</span
+                                        >: <span class="token number">1000</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string"
+                                          >"logisticsToFFPrice"</span
+                                        >: <span class="token number">100</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"ffServicesPrice"</span
+                                        >: <span class="token number">200</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"totalAmount"</span>:
+                                        <span class="token number">1300</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"createdAt"</span>:
+                                        <span class="token string"
+                                          >&quot;2024-02-26T12:00:00Z&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"updatedAt"</span>:
+                                        <span class="token string"
+                                          >&quot;2024-02-26T12:00:00Z&quot;</span
+                                        >
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  <span class="token punctuation">}</span></code
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -18204,6 +18461,39 @@
                   ></a
                   >Получение списка поставок<!-- -->
                 </h2>
+                <div class="sc-bACthX gzhca">
+                  <div
+                    html='&lt;pre&gt;&lt;code&gt;Возвращает список поставок для текущего кабинета&lt;span class="token punctuation"&gt;.&lt;/span&gt;
+
+### Возможности фильтрации&lt;span class="token punctuation"&gt;:&lt;/span&gt;
+&lt;span class="token operator"&gt;-&lt;/span&gt; По статусу поставки
+&lt;span class="token operator"&gt;-&lt;/span&gt; По дате создания
+&lt;span class="token operator"&gt;-&lt;/span&gt; По дате поставки
+
+### Включенные данные&lt;span class="token punctuation"&gt;:&lt;/span&gt;
+&lt;span class="token operator"&gt;-&lt;/span&gt; Основная информация о поставке
+&lt;span class="token operator"&gt;-&lt;/span&gt; Список товаров
+&lt;span class="token operator"&gt;-&lt;/span&gt; Информация о поставщиках
+&lt;span class="token operator"&gt;-&lt;/span&gt; Выбранные услуги и расходники
+&lt;/code&gt;&lt;/pre&gt;
+'
+                    class="sc-dJkDXt sc-eXfTSZ eOvdyU iFgJCs"
+                  >
+                    <pre><code>Возвращает список поставок для текущего кабинета<span class="token punctuation">.</span>
+
+### Возможности фильтрации<span class="token punctuation">:</span>
+<span class="token operator">-</span> По статусу поставки
+<span class="token operator">-</span> По дате создания
+<span class="token operator">-</span> По дате поставки
+
+### Включенные данные<span class="token punctuation">:</span>
+<span class="token operator">-</span> Основная информация о поставке
+<span class="token operator">-</span> Список товаров
+<span class="token operator">-</span> Информация о поставщиках
+<span class="token operator">-</span> Выбранные услуги и расходники
+</code></pre>
+                  </div>
+                </div>
                 <div class="sc-jwqMsZ fJiNeh">
                   <div class="sc-irzYNq eCGDAN">
                     <h5 class="sc-deSjom sc-hRwOVo dunSEZ buXmnV">Authorizations:</h5>
@@ -18302,9 +18592,27 @@
                 <div>
                   <h3 class="sc-frtHmg eXjWTp">Responses</h3>
                   <div>
-                    <button class="sc-kdWPFt igjdiI" disabled="">
-                      <strong class="sc-dxpuJR bniiic">200<!-- --> </strong>
-                      <div html="" class="sc-dJkDXt sc-eXfTSZ sc-dXYVqG eOvdyU jcthWC iWCNbi"></div>
+                    <button class="sc-kdWPFt gpjYYu">
+                      <svg
+                        class="sc-cSaEAk gGbHCS"
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                        x="0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        y="0"
+                        aria-hidden="true"
+                      >
+                        <polygon
+                          points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                        ></polygon></svg
+                      ><strong class="sc-dxpuJR bniiic">200<!-- --> </strong>
+                      <div
+                        html="&lt;p&gt;Список поставок успешно получен&lt;/p&gt;
+"
+                        class="sc-dJkDXt sc-eXfTSZ sc-dXYVqG eOvdyU jcthWC iWCNbi"
+                      >
+                        <p>Список поставок успешно получен</p>
+                      </div>
                     </button>
                   </div>
                 </div>
@@ -18334,6 +18642,153 @@
                       <div html="" class="sc-dJkDXt sc-eXfTSZ eOvdyU fHLtmm"></div>
                       <div tabindex="0" role="button">
                         <div class="sc-cqTlu cpBCZw"><span></span>/deliveries</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="sc-jUkaYT joSISv"><!-- -->Response samples<!-- --></h3>
+                  <div class="sc-bCjwNj cnTfwV" data-rttabs="true">
+                    <ul class="react-tabs__tab-list" role="tablist">
+                      <li
+                        class="tab-success react-tabs__tab--selected"
+                        role="tab"
+                        id="tab:R2eaka:0"
+                        aria-selected="true"
+                        aria-disabled="false"
+                        aria-controls="panel:R2eaka:0"
+                        tabindex="0"
+                        data-rttab="true"
+                      >
+                        200
+                      </li>
+                    </ul>
+                    <div
+                      class="react-tabs__tab-panel react-tabs__tab-panel--selected"
+                      role="tabpanel"
+                      id="panel:R2eaka:0"
+                      aria-labelledby="tab:R2eaka:0"
+                    >
+                      <div>
+                        <div class="sc-bxmmIP OIIYS">
+                          <span class="sc-fEOKFM dpRqHD">Content type</span>
+                          <div class="sc-beKSRx hmEMDU">application/json</div>
+                        </div>
+                        <div class="sc-loYsQo exYKuj">
+                          <div class="sc-eOrxMY jmgBLa">
+                            <div class="sc-lertIE hzLBDF">
+                              <button><div class="sc-fCSSOr kPewJt">Copy</div></button
+                              ><button>Expand all</button><button>Collapse all</button>
+                            </div>
+                            <div class="sc-dJkDXt eOvdyU sc-gtlvkJ fAqzdc">
+                              <div class="redoc-json">
+                                <code
+                                  ><button class="collapser" aria-label="collapse"></button
+                                  ><span class="token punctuation">[</span
+                                  ><span class="ellipsis"></span>
+                                  <ul class="array collapsible">
+                                    <li>
+                                      <div class="hoverable">
+                                        <button class="collapser" aria-label="collapse"></button
+                                        ><span class="token punctuation">{</span
+                                        ><span class="ellipsis"></span>
+                                        <ul class="obj collapsible">
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string">"id"</span>:
+                                              <span class="token string"
+                                                >&quot;123e4567-e89b-12d3-a456-426614174000&quot;</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string">"cabinetId"</span
+                                              >:
+                                              <span class="token string"
+                                                >&quot;123e4567-e89b-12d3-a456-426614174000&quot;</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string"
+                                                >"deliveryDate"</span
+                                              >:
+                                              <span class="token string"
+                                                >&quot;2024-02-26T12:00:00Z&quot;</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string"
+                                                >"cargoPlaces"</span
+                                              >: <span class="token number">10</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string"
+                                                >"totalProductsPrice"</span
+                                              >: <span class="token number">1000</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string"
+                                                >"logisticsToFFPrice"</span
+                                              >: <span class="token number">100</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string"
+                                                >"ffServicesPrice"</span
+                                              >: <span class="token number">200</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string"
+                                                >"totalAmount"</span
+                                              >: <span class="token number">1300</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string">"createdAt"</span
+                                              >:
+                                              <span class="token string"
+                                                >&quot;2024-02-26T12:00:00Z&quot;</span
+                                              ><span class="token punctuation">,</span>
+                                            </div>
+                                          </li>
+                                          <li>
+                                            <div class="hoverable collapsed">
+                                              <span class="property token string">"updatedAt"</span
+                                              >:
+                                              <span class="token string"
+                                                >&quot;2024-02-26T12:00:00Z&quot;</span
+                                              >
+                                            </div>
+                                          </li>
+                                        </ul>
+                                        <span class="token punctuation">}</span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  <span class="token punctuation">]</span></code
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -19179,6 +19634,299 @@
                       <div html="" class="sc-dJkDXt sc-eXfTSZ eOvdyU fHLtmm"></div>
                       <div tabindex="0" role="button">
                         <div class="sc-cqTlu cpBCZw"><span></span>/deliveries/consumables</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="tag/Postavki/operation/DeliveriesController_getDeliveryById"
+            data-section-id="tag/Postavki/operation/DeliveriesController_getDeliveryById"
+            class="sc-dycHyt gWRVHL"
+          >
+            <div
+              data-section-id="operation/DeliveriesController_getDeliveryById"
+              id="operation/DeliveriesController_getDeliveryById"
+              class="sc-kfeOyU eTCvZl"
+            >
+              <div class="sc-fLDLck cCTQFs">
+                <h2 class="sc-jBIHhB ONRDj">
+                  <a
+                    class="sc-jHswkR ccWJGj"
+                    href="#tag/Postavki/operation/DeliveriesController_getDeliveryById"
+                    aria-label="tag/Postavki/operation/DeliveriesController_getDeliveryById"
+                  ></a
+                  >Получение информации о поставке<!-- -->
+                </h2>
+                <div class="sc-bACthX gzhca">
+                  <div
+                    html='&lt;pre&gt;&lt;code&gt;Возвращает детальную информацию о конкретной поставке&lt;span class="token punctuation"&gt;.&lt;/span&gt;
+
+### Включенные данные&lt;span class="token punctuation"&gt;:&lt;/span&gt;
+&lt;span class="token operator"&gt;-&lt;/span&gt; Полная информация о поставке
+&lt;span class="token operator"&gt;-&lt;/span&gt; Детальный список товаров
+&lt;span class="token operator"&gt;-&lt;/span&gt; Информация о поставщиках
+&lt;span class="token operator"&gt;-&lt;/span&gt; Все выбранные услуги и расходники
+&lt;span class="token operator"&gt;-&lt;/span&gt; Расчет стоимости по каждой позиции
+&lt;/code&gt;&lt;/pre&gt;
+'
+                    class="sc-dJkDXt sc-eXfTSZ eOvdyU iFgJCs"
+                  >
+                    <pre><code>Возвращает детальную информацию о конкретной поставке<span class="token punctuation">.</span>
+
+### Включенные данные<span class="token punctuation">:</span>
+<span class="token operator">-</span> Полная информация о поставке
+<span class="token operator">-</span> Детальный список товаров
+<span class="token operator">-</span> Информация о поставщиках
+<span class="token operator">-</span> Все выбранные услуги и расходники
+<span class="token operator">-</span> Расчет стоимости по каждой позиции
+</code></pre>
+                  </div>
+                </div>
+                <div class="sc-jwqMsZ fJiNeh">
+                  <div class="sc-irzYNq eCGDAN">
+                    <h5 class="sc-deSjom sc-hRwOVo dunSEZ buXmnV">Authorizations:</h5>
+                    <svg
+                      class="sc-cSaEAk lmJDWB"
+                      version="1.1"
+                      viewBox="0 0 24 24"
+                      x="0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      y="0"
+                      aria-hidden="true"
+                    >
+                      <polygon
+                        points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                      ></polygon>
+                    </svg>
+                  </div>
+                  <div class="sc-jWtWlb hJnkjD">
+                    <span class="sc-jqGXpJ fEVAz"
+                      ><span class="sc-hLMZRY hRDgSA"><i>JWT-auth</i></span></span
+                    >
+                  </div>
+                </div>
+                <div>
+                  <h5 class="sc-deSjom dunSEZ">
+                    path<!-- -->
+                    Parameters
+                  </h5>
+                  <table class="sc-dVupuq fEMWVS">
+                    <tbody>
+                      <tr class="last">
+                        <td kind="field" title="id" class="sc-kXOizl sc-dPKAra eztgDe kNyONh">
+                          <span class="sc-gjXmFk iXqMpQ"></span
+                          ><span class="property-name">id</span>
+                          <div class="sc-sediK sc-incsXD jBpAbV kpBMZY">required</div>
+                        </td>
+                        <td class="sc-fuExOL eidGeB">
+                          <div>
+                            <div>
+                              <span class="sc-sediK sc-cAQujh jBpAbV hELCbj"></span
+                              ><span class="sc-sediK sc-haUlXw jBpAbV bCDwpq">string</span>
+                            </div>
+                            <div><div html="" class="sc-dJkDXt sc-eXfTSZ eOvdyU fHLtmm"></div></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                  <h3 class="sc-frtHmg eXjWTp">Responses</h3>
+                  <div>
+                    <button class="sc-kdWPFt gpjYYu">
+                      <svg
+                        class="sc-cSaEAk gGbHCS"
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                        x="0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        y="0"
+                        aria-hidden="true"
+                      >
+                        <polygon
+                          points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                        ></polygon></svg
+                      ><strong class="sc-dxpuJR bniiic">200<!-- --> </strong>
+                      <div
+                        html="&lt;p&gt;Информация о поставке успешно получена&lt;/p&gt;
+"
+                        class="sc-dJkDXt sc-eXfTSZ sc-dXYVqG eOvdyU jcthWC iWCNbi"
+                      >
+                        <p>Информация о поставке успешно получена</p>
+                      </div>
+                    </button>
+                  </div>
+                  <div>
+                    <button class="sc-kdWPFt gkyJaa" disabled="">
+                      <strong class="sc-dxpuJR bniiic">404<!-- --> </strong>
+                      <div
+                        html="&lt;p&gt;Поставка не найдена&lt;/p&gt;
+"
+                        class="sc-dJkDXt sc-eXfTSZ sc-dXYVqG eOvdyU jcthWC iWCNbi"
+                      >
+                        <p>Поставка не найдена</p>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-jbAkgO sc-gNZgCX lcisZz libpUV">
+                <div class="sc-dNMyuw jSOGEJ">
+                  <button class="sc-iNzRy NZAfQ">
+                    <span type="get" class="sc-eEFyrX hBocDw http-verb get">get</span
+                    ><span class="sc-ijEwUV iRWLqc">/deliveries/{id}</span
+                    ><svg
+                      class="sc-cSaEAk jsDnaG"
+                      style="margin-right: -25px"
+                      version="1.1"
+                      viewBox="0 0 24 24"
+                      x="0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      y="0"
+                      aria-hidden="true"
+                    >
+                      <polygon
+                        points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                      ></polygon>
+                    </svg>
+                  </button>
+                  <div aria-hidden="true" class="sc-dHpROs jElwoi">
+                    <div class="sc-idhQoR fLVjhV">
+                      <div html="" class="sc-dJkDXt sc-eXfTSZ eOvdyU fHLtmm"></div>
+                      <div tabindex="0" role="button">
+                        <div class="sc-cqTlu cpBCZw"><span></span>/deliveries/{id}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="sc-jUkaYT joSISv"><!-- -->Response samples<!-- --></h3>
+                  <div class="sc-bCjwNj cnTfwV" data-rttabs="true">
+                    <ul class="react-tabs__tab-list" role="tablist">
+                      <li
+                        class="tab-success react-tabs__tab--selected"
+                        role="tab"
+                        id="tab:R2efka:0"
+                        aria-selected="true"
+                        aria-disabled="false"
+                        aria-controls="panel:R2efka:0"
+                        tabindex="0"
+                        data-rttab="true"
+                      >
+                        200
+                      </li>
+                    </ul>
+                    <div
+                      class="react-tabs__tab-panel react-tabs__tab-panel--selected"
+                      role="tabpanel"
+                      id="panel:R2efka:0"
+                      aria-labelledby="tab:R2efka:0"
+                    >
+                      <div>
+                        <div class="sc-bxmmIP OIIYS">
+                          <span class="sc-fEOKFM dpRqHD">Content type</span>
+                          <div class="sc-beKSRx hmEMDU">application/json</div>
+                        </div>
+                        <div class="sc-loYsQo exYKuj">
+                          <div class="sc-eOrxMY jmgBLa">
+                            <div class="sc-lertIE hzLBDF">
+                              <button><div class="sc-fCSSOr kPewJt">Copy</div></button>
+                            </div>
+                            <div class="sc-dJkDXt eOvdyU sc-gtlvkJ fAqzdc">
+                              <div class="redoc-json">
+                                <code
+                                  ><button class="collapser" aria-label="collapse"></button
+                                  ><span class="token punctuation">{</span
+                                  ><span class="ellipsis"></span>
+                                  <ul class="obj collapsible">
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"id"</span>:
+                                        <span class="token string"
+                                          >&quot;123e4567-e89b-12d3-a456-426614174000&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"cabinetId"</span>:
+                                        <span class="token string"
+                                          >&quot;123e4567-e89b-12d3-a456-426614174000&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"deliveryDate"</span>:
+                                        <span class="token string"
+                                          >&quot;2024-02-26T12:00:00Z&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"cargoPlaces"</span>:
+                                        <span class="token number">10</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string"
+                                          >"totalProductsPrice"</span
+                                        >: <span class="token number">1000</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string"
+                                          >"logisticsToFFPrice"</span
+                                        >: <span class="token number">100</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"ffServicesPrice"</span
+                                        >: <span class="token number">200</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"totalAmount"</span>:
+                                        <span class="token number">1300</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"createdAt"</span>:
+                                        <span class="token string"
+                                          >&quot;2024-02-26T12:00:00Z&quot;</span
+                                        ><span class="token punctuation">,</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string">"updatedAt"</span>:
+                                        <span class="token string"
+                                          >&quot;2024-02-26T12:00:00Z&quot;</span
+                                        >
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  <span class="token punctuation">}</span></code
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -22383,6 +23131,8 @@
               },
               '/deliveries': {
                 post: {
+                  description:
+                    '\n    Создает новую поставку с указанными товарами и услугами.\n\n    ### Важные моменты:\n    - Поставка должна содержать хотя бы один товар\n    - Для каждого товара:\n      - Количество должно быть больше нуля\n      - Цена должна быть больше нуля\n      - Можно выбрать дополнительные услуги и расходники\n\n    ### Процесс создания:\n    1. Проверяется существование кабинета\n    2. Создается запись поставки\n    3. Для каждого товара:\n       - Создается связь с поставкой\n       - Рассчитывается общая стоимость с учетом услуг и расходников\n    4. Рассчитываются итоговые суммы поставки\n    ',
                   operationId: 'DeliveriesController_createDelivery',
                   parameters: [],
                   requestBody: {
@@ -22394,21 +23144,26 @@
                           properties: {
                             cabinetId: {
                               type: 'string',
-                              description: 'ID кабинета',
+                              description:
+                                'ID кабинета, для которого создается поставка.\n    Используется для привязки поставки к конкретному кабинету и проверки прав доступа.',
                               example: '123e4567-e89b-12d3-a456-426614174000',
                             },
                             deliveryDate: {
                               type: 'string',
-                              description: 'Дата поставки',
+                              description:
+                                'Дата поставки.\n    Указывается в формате ISO 8601.\n    Используется для планирования и отслеживания поставок.',
                               example: '2024-02-26T12:00:00Z',
                             },
                             cargoPlaces: {
                               type: 'number',
-                              description: 'Количество грузовых мест',
+                              description:
+                                'Количество грузовых мест.\n    Необязательное поле.\n    Используется для планирования логистики.',
                               example: 10,
                             },
                             products: {
-                              description: 'Товары в поставке',
+                              description:
+                                'Массив товаров в поставке.\n    Должен содержать хотя бы один товар.\n    Каждый товар должен иметь:\n    - ID товара в WB\n    - Количество (больше нуля)\n    - Цену (больше нуля)\n    - Выбранные услуги (опционально)\n    - Выбранные расходники (опционально)\n    - ID поставщика',
+                              minItems: 1,
                               type: 'array',
                               items: {
                                 type: 'object',
@@ -22422,11 +23177,13 @@
                                     type: 'number',
                                     description: 'Количество товара',
                                     example: 100,
+                                    minimum: 1,
                                   },
                                   price: {
                                     type: 'number',
                                     description: 'Цена товара',
                                     example: 50,
+                                    minimum: 0.01,
                                   },
                                   selectedServices: {
                                     description: 'Выбранные услуги',
@@ -22448,6 +23205,7 @@
                                           type: 'number',
                                           description: 'Цена услуги',
                                           example: 10,
+                                          minimum: 0.01,
                                         },
                                       },
                                       required: ['id', 'name', 'price'],
@@ -22474,6 +23232,7 @@
                                           type: 'number',
                                           description: 'Цена расходника',
                                           example: 5,
+                                          minimum: 0.01,
                                         },
                                       },
                                       required: ['id', 'name', 'price'],
@@ -22504,12 +23263,94 @@
                       },
                     },
                   },
-                  responses: { 201: { description: '' } },
+                  responses: {
+                    201: {
+                      description: 'Поставка успешно создана',
+                      content: {
+                        'application/json': {
+                          schema: {
+                            type: 'object',
+                            properties: {
+                              id: {
+                                type: 'string',
+                                description: 'Уникальный идентификатор поставки',
+                                example: '123e4567-e89b-12d3-a456-426614174000',
+                              },
+                              cabinetId: {
+                                type: 'string',
+                                description: 'ID кабинета',
+                                example: '123e4567-e89b-12d3-a456-426614174000',
+                              },
+                              deliveryDate: {
+                                format: 'date-time',
+                                type: 'string',
+                                description: 'Дата поставки',
+                                example: '2024-02-26T12:00:00Z',
+                              },
+                              cargoPlaces: {
+                                type: 'number',
+                                description: 'Количество грузовых мест',
+                                example: 10,
+                              },
+                              totalProductsPrice: {
+                                type: 'number',
+                                description: 'Общая стоимость товаров',
+                                example: 1000,
+                              },
+                              logisticsToFFPrice: {
+                                type: 'number',
+                                description: 'Стоимость логистики до фулфилмента',
+                                example: 100,
+                              },
+                              ffServicesPrice: {
+                                type: 'number',
+                                description: 'Стоимость услуг фулфилмента',
+                                example: 200,
+                              },
+                              totalAmount: {
+                                type: 'number',
+                                description: 'Итоговая сумма',
+                                example: 1300,
+                              },
+                              createdAt: {
+                                format: 'date-time',
+                                type: 'string',
+                                description: 'Дата создания записи',
+                                example: '2024-02-26T12:00:00Z',
+                              },
+                              updatedAt: {
+                                format: 'date-time',
+                                type: 'string',
+                                description: 'Дата последнего обновления записи',
+                                example: '2024-02-26T12:00:00Z',
+                              },
+                            },
+                            required: [
+                              'id',
+                              'cabinetId',
+                              'deliveryDate',
+                              'totalProductsPrice',
+                              'logisticsToFFPrice',
+                              'ffServicesPrice',
+                              'totalAmount',
+                              'createdAt',
+                              'updatedAt',
+                            ],
+                            'x-readme-ref-name': 'Delivery',
+                          },
+                        },
+                      },
+                    },
+                    400: { description: 'Некорректные данные в запросе' },
+                    404: { description: 'Кабинет не найден' },
+                  },
                   security: [{ 'JWT-auth': [] }],
                   summary: 'Создание новой поставки',
                   tags: ['Поставки'],
                 },
                 get: {
+                  description:
+                    '\n    Возвращает список поставок для текущего кабинета.\n\n    ### Возможности фильтрации:\n    - По статусу поставки\n    - По дате создания\n    - По дате поставки\n\n    ### Включенные данные:\n    - Основная информация о поставке\n    - Список товаров\n    - Информация о поставщиках\n    - Выбранные услуги и расходники\n    ',
                   operationId: 'DeliveriesController_getDeliveries',
                   parameters: [
                     {
@@ -22527,7 +23368,88 @@
                       schema: { example: '2025-02-26T21:00:00.000Z', type: 'string' },
                     },
                   ],
-                  responses: { 200: { description: '' } },
+                  responses: {
+                    200: {
+                      description: 'Список поставок успешно получен',
+                      content: {
+                        'application/json': {
+                          schema: {
+                            type: 'array',
+                            items: {
+                              type: 'object',
+                              properties: {
+                                id: {
+                                  type: 'string',
+                                  description: 'Уникальный идентификатор поставки',
+                                  example: '123e4567-e89b-12d3-a456-426614174000',
+                                },
+                                cabinetId: {
+                                  type: 'string',
+                                  description: 'ID кабинета',
+                                  example: '123e4567-e89b-12d3-a456-426614174000',
+                                },
+                                deliveryDate: {
+                                  format: 'date-time',
+                                  type: 'string',
+                                  description: 'Дата поставки',
+                                  example: '2024-02-26T12:00:00Z',
+                                },
+                                cargoPlaces: {
+                                  type: 'number',
+                                  description: 'Количество грузовых мест',
+                                  example: 10,
+                                },
+                                totalProductsPrice: {
+                                  type: 'number',
+                                  description: 'Общая стоимость товаров',
+                                  example: 1000,
+                                },
+                                logisticsToFFPrice: {
+                                  type: 'number',
+                                  description: 'Стоимость логистики до фулфилмента',
+                                  example: 100,
+                                },
+                                ffServicesPrice: {
+                                  type: 'number',
+                                  description: 'Стоимость услуг фулфилмента',
+                                  example: 200,
+                                },
+                                totalAmount: {
+                                  type: 'number',
+                                  description: 'Итоговая сумма',
+                                  example: 1300,
+                                },
+                                createdAt: {
+                                  format: 'date-time',
+                                  type: 'string',
+                                  description: 'Дата создания записи',
+                                  example: '2024-02-26T12:00:00Z',
+                                },
+                                updatedAt: {
+                                  format: 'date-time',
+                                  type: 'string',
+                                  description: 'Дата последнего обновления записи',
+                                  example: '2024-02-26T12:00:00Z',
+                                },
+                              },
+                              required: [
+                                'id',
+                                'cabinetId',
+                                'deliveryDate',
+                                'totalProductsPrice',
+                                'logisticsToFFPrice',
+                                'ffServicesPrice',
+                                'totalAmount',
+                                'createdAt',
+                                'updatedAt',
+                              ],
+                              'x-readme-ref-name': 'Delivery',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
                   security: [{ 'JWT-auth': [] }],
                   summary: 'Получение списка поставок',
                   tags: ['Поставки'],
@@ -22664,6 +23586,99 @@
                   responses: { 200: { description: '' } },
                   security: [{ 'JWT-auth': [] }],
                   summary: 'Получение списка расходных материалов',
+                  tags: ['Поставки'],
+                },
+              },
+              '/deliveries/{id}': {
+                get: {
+                  description:
+                    '\n    Возвращает детальную информацию о конкретной поставке.\n\n    ### Включенные данные:\n    - Полная информация о поставке\n    - Детальный список товаров\n    - Информация о поставщиках\n    - Все выбранные услуги и расходники\n    - Расчет стоимости по каждой позиции\n    ',
+                  operationId: 'DeliveriesController_getDeliveryById',
+                  parameters: [
+                    { name: 'id', required: true, in: 'path', schema: { type: 'string' } },
+                  ],
+                  responses: {
+                    200: {
+                      description: 'Информация о поставке успешно получена',
+                      content: {
+                        'application/json': {
+                          schema: {
+                            type: 'object',
+                            properties: {
+                              id: {
+                                type: 'string',
+                                description: 'Уникальный идентификатор поставки',
+                                example: '123e4567-e89b-12d3-a456-426614174000',
+                              },
+                              cabinetId: {
+                                type: 'string',
+                                description: 'ID кабинета',
+                                example: '123e4567-e89b-12d3-a456-426614174000',
+                              },
+                              deliveryDate: {
+                                format: 'date-time',
+                                type: 'string',
+                                description: 'Дата поставки',
+                                example: '2024-02-26T12:00:00Z',
+                              },
+                              cargoPlaces: {
+                                type: 'number',
+                                description: 'Количество грузовых мест',
+                                example: 10,
+                              },
+                              totalProductsPrice: {
+                                type: 'number',
+                                description: 'Общая стоимость товаров',
+                                example: 1000,
+                              },
+                              logisticsToFFPrice: {
+                                type: 'number',
+                                description: 'Стоимость логистики до фулфилмента',
+                                example: 100,
+                              },
+                              ffServicesPrice: {
+                                type: 'number',
+                                description: 'Стоимость услуг фулфилмента',
+                                example: 200,
+                              },
+                              totalAmount: {
+                                type: 'number',
+                                description: 'Итоговая сумма',
+                                example: 1300,
+                              },
+                              createdAt: {
+                                format: 'date-time',
+                                type: 'string',
+                                description: 'Дата создания записи',
+                                example: '2024-02-26T12:00:00Z',
+                              },
+                              updatedAt: {
+                                format: 'date-time',
+                                type: 'string',
+                                description: 'Дата последнего обновления записи',
+                                example: '2024-02-26T12:00:00Z',
+                              },
+                            },
+                            required: [
+                              'id',
+                              'cabinetId',
+                              'deliveryDate',
+                              'totalProductsPrice',
+                              'logisticsToFFPrice',
+                              'ffServicesPrice',
+                              'totalAmount',
+                              'createdAt',
+                              'updatedAt',
+                            ],
+                            'x-readme-ref-name': 'Delivery',
+                          },
+                        },
+                      },
+                    },
+                    404: { description: 'Поставка не найдена' },
+                  },
+                  security: [{ 'JWT-auth': [] }],
+                  summary: 'Получение информации о поставке',
                   tags: ['Поставки'],
                 },
               },
@@ -24874,7 +25889,12 @@
                       example: '123e4567-e89b-12d3-a456-426614174000',
                     },
                     name: { type: 'string', description: 'Название услуги', example: 'Стирка' },
-                    price: { type: 'number', description: 'Цена услуги', example: 10 },
+                    price: {
+                      type: 'number',
+                      description: 'Цена услуги',
+                      example: 10,
+                      minimum: 0.01,
+                    },
                   },
                   required: ['id', 'name', 'price'],
                   'x-readme-ref-name': 'ServiceDto',
@@ -24892,7 +25912,12 @@
                       description: 'Название расходника',
                       example: 'Зип-пакет',
                     },
-                    price: { type: 'number', description: 'Цена расходника', example: 5 },
+                    price: {
+                      type: 'number',
+                      description: 'Цена расходника',
+                      example: 5,
+                      minimum: 0.01,
+                    },
                   },
                   required: ['id', 'name', 'price'],
                   'x-readme-ref-name': 'ConsumableDto',
@@ -24905,8 +25930,18 @@
                       description: 'ID товара в WB',
                       example: 'WB123456',
                     },
-                    quantity: { type: 'number', description: 'Количество товара', example: 100 },
-                    price: { type: 'number', description: 'Цена товара', example: 50 },
+                    quantity: {
+                      type: 'number',
+                      description: 'Количество товара',
+                      example: 100,
+                      minimum: 1,
+                    },
+                    price: {
+                      type: 'number',
+                      description: 'Цена товара',
+                      example: 50,
+                      minimum: 0.01,
+                    },
                     selectedServices: {
                       description: 'Выбранные услуги',
                       type: 'array',
@@ -24923,7 +25958,12 @@
                             description: 'Название услуги',
                             example: 'Стирка',
                           },
-                          price: { type: 'number', description: 'Цена услуги', example: 10 },
+                          price: {
+                            type: 'number',
+                            description: 'Цена услуги',
+                            example: 10,
+                            minimum: 0.01,
+                          },
                         },
                         required: ['id', 'name', 'price'],
                         'x-readme-ref-name': 'ServiceDto',
@@ -24945,7 +25985,12 @@
                             description: 'Название расходника',
                             example: 'Зип-пакет',
                           },
-                          price: { type: 'number', description: 'Цена расходника', example: 5 },
+                          price: {
+                            type: 'number',
+                            description: 'Цена расходника',
+                            example: 5,
+                            minimum: 0.01,
+                          },
                         },
                         required: ['id', 'name', 'price'],
                         'x-readme-ref-name': 'ConsumableDto',
@@ -24972,21 +26017,26 @@
                   properties: {
                     cabinetId: {
                       type: 'string',
-                      description: 'ID кабинета',
+                      description:
+                        'ID кабинета, для которого создается поставка.\n    Используется для привязки поставки к конкретному кабинету и проверки прав доступа.',
                       example: '123e4567-e89b-12d3-a456-426614174000',
                     },
                     deliveryDate: {
                       type: 'string',
-                      description: 'Дата поставки',
+                      description:
+                        'Дата поставки.\n    Указывается в формате ISO 8601.\n    Используется для планирования и отслеживания поставок.',
                       example: '2024-02-26T12:00:00Z',
                     },
                     cargoPlaces: {
                       type: 'number',
-                      description: 'Количество грузовых мест',
+                      description:
+                        'Количество грузовых мест.\n    Необязательное поле.\n    Используется для планирования логистики.',
                       example: 10,
                     },
                     products: {
-                      description: 'Товары в поставке',
+                      description:
+                        'Массив товаров в поставке.\n    Должен содержать хотя бы один товар.\n    Каждый товар должен иметь:\n    - ID товара в WB\n    - Количество (больше нуля)\n    - Цену (больше нуля)\n    - Выбранные услуги (опционально)\n    - Выбранные расходники (опционально)\n    - ID поставщика',
+                      minItems: 1,
                       type: 'array',
                       items: {
                         type: 'object',
@@ -25000,8 +26050,14 @@
                             type: 'number',
                             description: 'Количество товара',
                             example: 100,
+                            minimum: 1,
                           },
-                          price: { type: 'number', description: 'Цена товара', example: 50 },
+                          price: {
+                            type: 'number',
+                            description: 'Цена товара',
+                            example: 50,
+                            minimum: 0.01,
+                          },
                           selectedServices: {
                             description: 'Выбранные услуги',
                             type: 'array',
@@ -25018,7 +26074,12 @@
                                   description: 'Название услуги',
                                   example: 'Стирка',
                                 },
-                                price: { type: 'number', description: 'Цена услуги', example: 10 },
+                                price: {
+                                  type: 'number',
+                                  description: 'Цена услуги',
+                                  example: 10,
+                                  minimum: 0.01,
+                                },
                               },
                               required: ['id', 'name', 'price'],
                               'x-readme-ref-name': 'ServiceDto',
@@ -25044,6 +26105,7 @@
                                   type: 'number',
                                   description: 'Цена расходника',
                                   example: 5,
+                                  minimum: 0.01,
                                 },
                               },
                               required: ['id', 'name', 'price'],
@@ -25070,6 +26132,72 @@
                   },
                   required: ['cabinetId', 'deliveryDate', 'products'],
                   'x-readme-ref-name': 'CreateDeliveryDto',
+                },
+                Delivery: {
+                  type: 'object',
+                  properties: {
+                    id: {
+                      type: 'string',
+                      description: 'Уникальный идентификатор поставки',
+                      example: '123e4567-e89b-12d3-a456-426614174000',
+                    },
+                    cabinetId: {
+                      type: 'string',
+                      description: 'ID кабинета',
+                      example: '123e4567-e89b-12d3-a456-426614174000',
+                    },
+                    deliveryDate: {
+                      format: 'date-time',
+                      type: 'string',
+                      description: 'Дата поставки',
+                      example: '2024-02-26T12:00:00Z',
+                    },
+                    cargoPlaces: {
+                      type: 'number',
+                      description: 'Количество грузовых мест',
+                      example: 10,
+                    },
+                    totalProductsPrice: {
+                      type: 'number',
+                      description: 'Общая стоимость товаров',
+                      example: 1000,
+                    },
+                    logisticsToFFPrice: {
+                      type: 'number',
+                      description: 'Стоимость логистики до фулфилмента',
+                      example: 100,
+                    },
+                    ffServicesPrice: {
+                      type: 'number',
+                      description: 'Стоимость услуг фулфилмента',
+                      example: 200,
+                    },
+                    totalAmount: { type: 'number', description: 'Итоговая сумма', example: 1300 },
+                    createdAt: {
+                      format: 'date-time',
+                      type: 'string',
+                      description: 'Дата создания записи',
+                      example: '2024-02-26T12:00:00Z',
+                    },
+                    updatedAt: {
+                      format: 'date-time',
+                      type: 'string',
+                      description: 'Дата последнего обновления записи',
+                      example: '2024-02-26T12:00:00Z',
+                    },
+                  },
+                  required: [
+                    'id',
+                    'cabinetId',
+                    'deliveryDate',
+                    'totalProductsPrice',
+                    'logisticsToFFPrice',
+                    'ffServicesPrice',
+                    'totalAmount',
+                    'createdAt',
+                    'updatedAt',
+                  ],
+                  'x-readme-ref-name': 'Delivery',
                 },
                 CreateSupplierDto: {
                   type: 'object',
@@ -25181,150 +26309,154 @@
             'tag/Postavki/operation/DeliveriesController_getSuppliers',
             'tag/Postavki/operation/DeliveriesController_getFulfillmentServices',
             'tag/Postavki/operation/DeliveriesController_getFulfillmentConsumables',
+            'tag/Postavki/operation/DeliveriesController_getDeliveryById',
           ],
           index: {
             version: '2.3.9',
             fields: ['title', 'description'],
             fieldVectors: [
-              ['title/0', [0, 0.386]],
+              ['title/0', [0, 0.408]],
               ['description/0', []],
-              ['title/1', [0, 0.439]],
+              ['title/1', [0, 0.465]],
               [
                 'description/1',
                 [
-                  0, 0.595, 1, 3.126, 2, 0.719, 3, 1.826, 4, 0.77, 5, 1.431, 6, 1.431, 7, 1.431, 8,
-                  0.898, 9, 1.431, 10, 1.431, 11, 1.431,
+                  0, 0.633, 1, 3.385, 2, 0.755, 3, 1.815, 4, 0.806, 5, 1.595, 6, 1.595, 7, 1.595, 8,
+                  0.928, 9, 1.595, 10, 1.595, 11, 1.595,
                 ],
               ],
-              ['title/2', [0, 0.439]],
+              ['title/2', [0, 0.465]],
               [
                 'description/2',
                 [
-                  0, 0.595, 2, 0.9, 4, 0.964, 8, 1.123, 12, 2.903, 13, 1.79, 14, 1.79, 15, 1.79, 16,
-                  1.79, 17, 1.79,
+                  0, 0.632, 2, 0.937, 4, 1, 8, 1.151, 12, 3.149, 13, 1.978, 14, 1.978, 15, 1.978,
+                  16, 1.978, 17, 1.978,
                 ],
               ],
-              ['title/3', [0, 0.425]],
+              ['title/3', [0, 0.449]],
               [
                 'description/3',
                 [
-                  0, 0.594, 2, 0.726, 4, 0.777, 8, 0.906, 18, 1.232, 19, 1.232, 20, 1.84, 21, 1.232,
-                  22, 2.43, 23, 1.232, 24, 1.444, 25, 1.444, 26, 1.444, 27, 1.444, 28, 1.444, 29,
-                  1.444,
+                  0, 0.631, 2, 0.762, 4, 0.813, 8, 0.936, 18, 1.375, 19, 1.375, 20, 2.019, 21,
+                  1.375, 22, 2.663, 23, 1.375, 24, 1.609, 25, 1.609, 26, 1.609, 27, 1.609, 28,
+                  1.609, 29, 1.609,
                 ],
               ],
-              ['title/4', [0, 0.386]],
+              ['title/4', [0, 0.408]],
               ['description/4', []],
-              ['title/5', [0, 0.452]],
-              ['description/5', [0, 0.595, 30, 2.982]],
-              ['title/6', [0, 0.439]],
-              ['description/6', [0, 0.591, 31, 3.598]],
-              ['title/7', [0, 0.439]],
-              ['description/7', [0, 0.543, 32, 5.128]],
-              ['title/8', [0, 0.386]],
+              ['title/5', [0, 0.478]],
+              ['description/5', [0, 0.632, 30, 3.204]],
+              ['title/6', [0, 0.465]],
+              ['description/6', [0, 0.628, 31, 3.811]],
+              ['title/7', [0, 0.465]],
+              ['description/7', [0, 0.578, 32, 5.246]],
+              ['title/8', [0, 0.408]],
               ['description/8', []],
-              ['title/9', [0, 0.425]],
+              ['title/9', [0, 0.449]],
               [
                 'description/9',
                 [
-                  0, 0.588, 2, 1.149, 3, 1.731, 4, 1.231, 8, 1.434, 33, 2.286, 34, 2.286, 35, 2.286,
-                  36, 2.286, 37, 2.286, 38, 2.286, 39, 2.286,
+                  0, 0.626, 2, 1.183, 3, 1.715, 4, 1.262, 8, 1.453, 33, 2.497, 34, 2.497, 35, 2.497,
+                  36, 2.497, 37, 2.497, 38, 2.497, 39, 2.497,
                 ],
               ],
-              ['title/10', [0, 0.386]],
+              ['title/10', [0, 0.408]],
               ['description/10', []],
-              ['title/11', [0, 0.439]],
+              ['title/11', [0, 0.465]],
               [
                 'description/11',
                 [
-                  0, 0.595, 2, 0.86, 4, 0.922, 18, 3.031, 19, 3.031, 21, 1.461, 40, 1.712, 41,
-                  1.461,
+                  0, 0.632, 2, 0.898, 4, 0.958, 18, 3.258, 19, 3.258, 21, 1.619, 40, 1.896, 41,
+                  1.619,
                 ],
               ],
-              ['title/12', [0, 0.447]],
-              ['description/12', [0, 0.595, 41, 2.452, 42, 2.873]],
-              ['title/13', [0, 0.439]],
-              ['description/13', [0, 0.595, 43, 2.821, 44, 2.821]],
-              ['title/14', [0, 0.447]],
+              ['title/12', [0, 0.473]],
+              ['description/12', [0, 0.632, 41, 2.644, 42, 3.094]],
+              ['title/13', [0, 0.465]],
+              ['description/13', [0, 0.632, 43, 3.042, 44, 3.042]],
+              ['title/14', [0, 0.473]],
               [
                 'description/14',
                 [
-                  0, 0.588, 2, 0.99, 23, 2.676, 45, 1.97, 46, 1.97, 47, 1.97, 48, 1.97, 49, 1.97,
-                  50, 1.97, 51, 1.97, 52, 1.97, 53, 1.682, 54, 1.682, 55, 1.97, 56, 1.97,
+                  0, 0.626, 2, 1.027, 23, 2.892, 45, 2.168, 46, 2.168, 47, 2.168, 48, 2.168, 49,
+                  2.168, 50, 2.168, 51, 2.168, 52, 2.168, 53, 1.852, 54, 1.852, 55, 2.168, 56,
+                  2.168,
                 ],
               ],
-              ['title/15', [0, 0.447]],
-              ['description/15', [0, 0.597, 57, 2.098]],
-              ['title/16', [0, 0.439]],
-              ['description/16', [0, 0.597, 57, 1.53, 58, 2.021, 59, 2.021, 60, 2.021]],
-              ['title/17', [0, 0.425]],
-              ['description/17', [0, 0.594, 57, 2.394]],
-              ['title/18', [0, 0.425]],
-              ['description/18', [0, 0.596, 2, 1.056, 3, 1.591, 4, 1.132, 8, 1.319, 61, 2.102]],
-              ['title/19', [20, 3.54]],
+              ['title/15', [0, 0.473]],
+              ['description/15', [0, 0.634, 57, 2.269]],
+              ['title/16', [0, 0.465]],
+              ['description/16', [0, 0.635, 57, 1.685, 58, 2.221, 59, 2.221, 60, 2.221]],
+              ['title/17', [0, 0.449]],
+              ['description/17', [0, 0.631, 57, 2.566]],
+              ['title/18', [0, 0.449]],
+              ['description/18', [0, 0.634, 2, 1.092, 3, 1.584, 4, 1.165, 8, 1.342, 61, 2.306]],
+              ['title/19', [20, 3.575]],
               ['description/19', []],
-              ['title/20', [0, 0.447]],
-              ['description/20', [0, 0.598, 20, 1.706, 62, 2.253]],
-              ['title/21', [0, 0.447]],
-              ['description/21', [0, 0.572, 63, 4.67]],
-              ['title/22', [0, 0.386]],
+              ['title/20', [0, 0.473]],
+              ['description/20', [0, 0.635, 20, 1.868, 62, 2.463]],
+              ['title/21', [0, 0.473]],
+              ['description/21', [0, 0.608, 63, 4.827]],
+              ['title/22', [0, 0.408]],
               ['description/22', []],
-              ['title/23', [0, 0.439]],
-              ['description/23', [64, 4.853]],
-              ['title/24', [0, 0.439]],
-              ['description/24', [0, 0.584, 64, 3.561]],
-              ['title/25', [0, 0.425]],
-              ['description/25', [0, 0.576, 65, 3.87]],
-              ['title/26', [0, 0.425]],
-              ['description/26', [65, 4.853]],
-              ['title/27', [0, 0.439]],
-              ['description/27', [66, 4.853]],
-              ['title/28', [0, 0.439]],
-              ['description/28', [66, 4.853]],
-              ['title/29', [0, 0.425]],
-              ['description/29', [67, 4.853]],
-              ['title/30', [0, 0.425]],
-              ['description/30', [67, 4.853]],
-              ['title/31', [0, 0.439]],
-              ['description/31', [68, 4.853]],
-              ['title/32', [0, 0.439]],
-              ['description/32', [68, 4.853]],
-              ['title/33', [0, 0.425]],
-              ['description/33', [69, 4.853]],
-              ['title/34', [0, 0.425]],
-              ['description/34', [69, 4.853]],
-              ['title/35', [0, 0.447]],
-              ['description/35', [0, 0.588, 70, 3.864]],
-              ['title/36', [0, 0.452]],
-              ['description/36', [0, 0.592, 71, 3.44]],
-              ['title/37', [0, 0.425]],
+              ['title/23', [0, 0.465]],
+              ['description/23', [64, 4.909]],
+              ['title/24', [0, 0.465]],
+              ['description/24', [0, 0.62, 64, 3.726]],
+              ['title/25', [0, 0.449]],
+              ['description/25', [0, 0.612, 65, 4.017]],
+              ['title/26', [0, 0.449]],
+              ['description/26', [65, 4.909]],
+              ['title/27', [0, 0.465]],
+              ['description/27', [66, 4.909]],
+              ['title/28', [0, 0.465]],
+              ['description/28', [66, 4.909]],
+              ['title/29', [0, 0.449]],
+              ['description/29', [67, 4.909]],
+              ['title/30', [0, 0.449]],
+              ['description/30', [67, 4.909]],
+              ['title/31', [0, 0.465]],
+              ['description/31', [68, 4.909]],
+              ['title/32', [0, 0.465]],
+              ['description/32', [68, 4.909]],
+              ['title/33', [0, 0.449]],
+              ['description/33', [69, 4.909]],
+              ['title/34', [0, 0.449]],
+              ['description/34', [69, 4.909]],
+              ['title/35', [0, 0.473]],
+              ['description/35', [0, 0.625, 70, 4.068]],
+              ['title/36', [0, 0.478]],
+              ['description/36', [0, 0.629, 71, 3.657]],
+              ['title/37', [0, 0.449]],
               ['description/37', []],
-              ['title/38', [0, 0.425]],
+              ['title/38', [0, 0.449]],
               [
                 'description/38',
                 [
-                  0, 0.598, 2, 0.637, 4, 0.683, 53, 1.083, 54, 1.083, 72, 2.177, 73, 2.177, 74,
-                  1.269, 75, 1.269,
+                  0, 0.636, 2, 0.672, 4, 0.718, 53, 1.213, 54, 1.213, 72, 2.398, 73, 2.398, 74,
+                  1.42, 75, 1.42,
                 ],
               ],
-              ['title/39', [0, 0.425]],
-              ['description/39', [0, 0.572, 76, 4.67]],
-              ['title/40', [0, 0.425]],
-              ['description/40', [0, 0.572, 77, 4.67]],
-              ['title/41', [0, 0.386]],
+              ['title/39', [0, 0.449]],
+              ['description/39', [0, 0.608, 76, 4.827]],
+              ['title/40', [0, 0.449]],
+              ['description/40', [0, 0.608, 77, 4.827]],
+              ['title/41', [0, 0.408]],
               ['description/41', []],
-              ['title/42', [0, 0.439]],
-              ['description/42', [78, 4.853]],
-              ['title/43', [0, 0.439]],
-              ['description/43', [78, 4.853]],
-              ['title/44', [0, 0.425]],
-              ['description/44', [0, 0.572, 79, 3.986]],
-              ['title/45', [0, 0.439]],
-              ['description/45', [0, 0.572, 79, 3.986]],
-              ['title/46', [0, 0.447]],
-              ['description/46', [80, 5.686]],
-              ['title/47', [0, 0.447]],
-              ['description/47', [81, 5.686]],
+              ['title/42', [0, 0.465]],
+              ['description/42', [0, 0.636, 2, 0.798, 3, 1.156, 4, 0.851, 8, 0.98, 78, 1.439]],
+              ['title/43', [0, 0.465]],
+              ['description/43', [0, 0.636, 78, 2.133]],
+              ['title/44', [0, 0.449]],
+              ['description/44', [0, 0.608, 79, 4.124]],
+              ['title/45', [0, 0.465]],
+              ['description/45', [0, 0.608, 79, 4.124]],
+              ['title/46', [0, 0.473]],
+              ['description/46', [80, 5.746]],
+              ['title/47', [0, 0.473]],
+              ['description/47', [81, 5.746]],
+              ['title/48', [0, 0.473]],
+              ['description/48', [0, 0.635, 82, 2.764]],
             ],
             invertedIndex: [
               [
@@ -25379,6 +26511,7 @@
                     45: {},
                     46: {},
                     47: {},
+                    48: {},
                   },
                   description: {
                     1: {},
@@ -25405,8 +26538,11 @@
                     38: {},
                     39: {},
                     40: {},
+                    42: {},
+                    43: {},
                     44: {},
                     45: {},
+                    48: {},
                   },
                 },
               ],
@@ -25415,7 +26551,17 @@
                 {
                   _index: 2,
                   title: {},
-                  description: { 1: {}, 2: {}, 3: {}, 9: {}, 11: {}, 14: {}, 18: {}, 38: {} },
+                  description: {
+                    1: {},
+                    2: {},
+                    3: {},
+                    9: {},
+                    11: {},
+                    14: {},
+                    18: {},
+                    38: {},
+                    42: {},
+                  },
                 },
               ],
               ['1-100', { _index: 55, title: {}, description: { 14: {} } }],
@@ -25425,13 +26571,20 @@
                 {
                   _index: 4,
                   title: {},
-                  description: { 1: {}, 2: {}, 3: {}, 9: {}, 11: {}, 18: {}, 38: {} },
+                  description: { 1: {}, 2: {}, 3: {}, 9: {}, 11: {}, 18: {}, 38: {}, 42: {} },
                 },
               ],
               ['200x200', { _index: 38, title: {}, description: { 9: {} } }],
-              ['3', { _index: 8, title: {}, description: { 1: {}, 2: {}, 3: {}, 9: {}, 18: {} } }],
+              [
+                '3',
+                {
+                  _index: 8,
+                  title: {},
+                  description: { 1: {}, 2: {}, 3: {}, 9: {}, 18: {}, 42: {} },
+                },
+              ],
               ['30', { _index: 13, title: {}, description: { 2: {} } }],
-              ['4', { _index: 3, title: {}, description: { 1: {}, 9: {}, 18: {} } }],
+              ['4', { _index: 3, title: {}, description: { 1: {}, 9: {}, 18: {}, 42: {} } }],
               ['404', { _index: 43, title: {}, description: { 13: {} } }],
               ['5', { _index: 9, title: {}, description: { 1: {} } }],
               ['5mb', { _index: 34, title: {}, description: { 9: {} } }],
@@ -25460,6 +26613,7 @@
               ['deliveries/consum', { _index: 81, title: {}, description: { 47: {} } }],
               ['deliveries/servic', { _index: 80, title: {}, description: { 46: {} } }],
               ['deliveries/suppli', { _index: 79, title: {}, description: { 44: {}, 45: {} } }],
+              ['deliveries/{id', { _index: 82, title: {}, description: { 48: {} } }],
               ['desc', { _index: 52, title: {}, description: { 14: {} } }],
               ['dev_verification_cod', { _index: 7, title: {}, description: { 1: {} } }],
               ['email', { _index: 58, title: {}, description: { 16: {} } }],

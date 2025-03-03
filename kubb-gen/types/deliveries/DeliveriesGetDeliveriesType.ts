@@ -1,3 +1,5 @@
+import type { DeliveryType } from '../DeliveryType';
+
 export type DeliveriesGetDeliveriesQueryParamsType = {
   /**
    * @description Дата начала периода
@@ -11,7 +13,10 @@ export type DeliveriesGetDeliveriesQueryParamsType = {
   endDate?: string;
 };
 
-export type DeliveriesGetDeliveries200Type = any;
+/**
+ * @description Список поставок успешно получен
+ */
+export type DeliveriesGetDeliveries200Type = DeliveryType[];
 
 export type DeliveriesGetDeliveriesQueryResponseType = DeliveriesGetDeliveries200Type;
 
