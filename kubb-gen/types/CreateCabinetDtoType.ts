@@ -33,6 +33,11 @@ export type CreateCabinetDtoType = {
    */
   companyName?: string;
   /**
+   * @description Юридическое название компании
+   * @type string | undefined
+   */
+  legalCompanyName?: string;
+  /**
    * @description ОГРН компании
    * @type string | undefined
    */

@@ -23,6 +23,11 @@
       "description": "Название компании для отображения",
       "example": "ООО Компания"
     },
+    "legalCompanyName": {
+      "type": "string",
+      "description": "Юридическое название компании",
+      "example": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"КОМПАНИЯ\""
+    },
     "ogrn": { "type": "string", "description": "ОГРН компании", "example": "1157746068687" },
     "legalAddress": {
       "type": "string",

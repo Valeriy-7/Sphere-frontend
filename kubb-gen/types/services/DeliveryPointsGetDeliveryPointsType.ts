@@ -15,6 +15,11 @@ export type DeliveryPointsGetDeliveryPointsQueryParamsType = {
    * @type string | undefined
    */
   type?: DeliveryPointsGetDeliveryPointsQueryParamsTypeEnumType;
+  /**
+   * @description ID кабинета, для которого нужно получить точки доставки
+   * @type string | undefined
+   */
+  cabinetId?: string;
 };
 
 /**

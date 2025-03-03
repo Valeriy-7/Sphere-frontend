@@ -1,17 +1,22 @@
 {
   "type": "object",
   "properties": {
-    "name": {
+    "name": { "type": "string", "description": "Название точки доставки", "example": "Коледино" },
+    "id": {
       "type": "string",
-      "description": "Название точки доставки",
-      "example": "Москва (Коледино)"
+      "description": "Идентификатор точки доставки",
+      "example": "507f1f77bcf86cd799439011"
     },
-    "id": { "type": "string", "description": "Уникальный идентификатор точки", "example": "15" },
     "type": {
       "type": "string",
       "description": "Тип точки доставки",
       "enum": ["WILDBERRIES", "FULFILLMENT", "MARKETPLACE"],
       "example": "WILDBERRIES"
+    },
+    "isPartner": {
+      "type": "boolean",
+      "description": "Флаг, указывающий является ли фулфилмент партнером текущего кабинета",
+      "example": true
     }
   },
   "required": ["name", "id", "type"],

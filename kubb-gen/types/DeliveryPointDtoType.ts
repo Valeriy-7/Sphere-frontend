@@ -14,7 +14,7 @@ export type DeliveryPointDtoType = {
    */
   name: string;
   /**
-   * @description Уникальный идентификатор точки
+   * @description Идентификатор точки доставки
    * @type string
    */
   id: string;
@@ -23,4 +23,9 @@ export type DeliveryPointDtoType = {
    * @type string
    */
   type: DeliveryPointDtoTypeEnumType;
+  /**
+   * @description Флаг, указывающий является ли фулфилмент партнером текущего кабинета
+   * @type boolean | undefined
+   */
+  isPartner?: boolean;
 };

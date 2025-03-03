@@ -7,6 +7,10 @@ export const deliveryPointsGetDeliveryPointsQueryParamsSchema = z
       .enum(['WILDBERRIES', 'FULFILLMENT', 'MARKETPLACE'])
       .describe('Тип точки доставки')
       .optional(),
+    cabinetId: z
+      .string()
+      .describe('ID кабинета, для которого нужно получить точки доставки')
+      .optional(),
   })
   .optional();
 

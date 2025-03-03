@@ -1,22 +1,27 @@
 import client from '@/modules/auth/axios-client';
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query';
-import type { DeliveryPointsGetAllDeliveryPointsQueryResponseType } from '../../types/services/DeliveryPointsGetAllDeliveryPointsType';
+import type {
+  DeliveryPointsGetAllDeliveryPointsQueryResponseType,
+  DeliveryPointsGetAllDeliveryPointsQueryParamsType,
+} from '../../types/services/DeliveryPointsGetAllDeliveryPointsType';
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
-export const deliveryPointsGetAllDeliveryPointsQueryKey = () =>
-  [{ url: '/services/delivery-points/all' }] as const;
+export const deliveryPointsGetAllDeliveryPointsQueryKey = (
+  params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType,
+) => [{ url: '/services/delivery-points/all' }, ...(params ? [params] : [])] as const;
 
 export type DeliveryPointsGetAllDeliveryPointsQueryKey = ReturnType<
   typeof deliveryPointsGetAllDeliveryPointsQueryKey
 >;
 
 /**
- * @description     Возвращает полный список всех точек доставки без фильтрации.    Включает:    - Все склады Wildberries    - Все склады фулфилмент-операторов    - Все точки маркетплейсов
- * @summary Получение полного списка точек доставки
+ * @description Возвращает полный список точек доставки без фильтрации по типу. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
+ * @summary Получить полный список точек доставки
  * {@link /services/delivery-points/all}
  */
 export async function deliveryPointsGetAllDeliveryPoints(
+  params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
   const { client: request = client, ...requestConfig } = config;
@@ -28,15 +33,17 @@ export async function deliveryPointsGetAllDeliveryPoints(
   >({
     method: 'GET',
     url: `/services/delivery-points/all`,
+    params,
     ...requestConfig,
   });
   return res.data;
 }
 
 export function deliveryPointsGetAllDeliveryPointsQueryOptions(
+  params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const queryKey = deliveryPointsGetAllDeliveryPointsQueryKey();
+  const queryKey = deliveryPointsGetAllDeliveryPointsQueryKey(params);
   return queryOptions<
     DeliveryPointsGetAllDeliveryPointsQueryResponseType,
     ResponseErrorConfig<Error>,
@@ -46,14 +53,14 @@ export function deliveryPointsGetAllDeliveryPointsQueryOptions(
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return deliveryPointsGetAllDeliveryPoints(config);
+      return deliveryPointsGetAllDeliveryPoints(params, config);
     },
   });
 }
 
 /**
- * @description     Возвращает полный список всех точек доставки без фильтрации.    Включает:    - Все склады Wildberries    - Все склады фулфилмент-операторов    - Все точки маркетплейсов
- * @summary Получение полного списка точек доставки
+ * @description Возвращает полный список точек доставки без фильтрации по типу. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
+ * @summary Получить полный список точек доставки
  * {@link /services/delivery-points/all}
  */
 export function useDeliveryPointsGetAllDeliveryPoints<
@@ -61,6 +68,7 @@ export function useDeliveryPointsGetAllDeliveryPoints<
   TQueryData = DeliveryPointsGetAllDeliveryPointsQueryResponseType,
   TQueryKey extends QueryKey = DeliveryPointsGetAllDeliveryPointsQueryKey,
 >(
+  params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType,
   options: {
     query?: Partial<
       QueryObserverOptions<
@@ -75,10 +83,13 @@ export function useDeliveryPointsGetAllDeliveryPoints<
   } = {},
 ) {
   const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey = queryOptions?.queryKey ?? deliveryPointsGetAllDeliveryPointsQueryKey();
+  const queryKey = queryOptions?.queryKey ?? deliveryPointsGetAllDeliveryPointsQueryKey(params);
 
   const query = useQuery({
-    ...(deliveryPointsGetAllDeliveryPointsQueryOptions(config) as unknown as QueryObserverOptions),
+    ...(deliveryPointsGetAllDeliveryPointsQueryOptions(
+      params,
+      config,
+    ) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
   }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };

@@ -6,6 +6,7 @@ export const createCabinetDtoSchema = z.object({
   apiKey: z.string().describe('API ключ (обязателен для Wildberries)').optional(),
   isManualFilling: z.boolean().describe('Флаг ручного заполнения данных').optional(),
   companyName: z.string().describe('Название компании для отображения').optional(),
+  legalCompanyName: z.string().describe('Юридическое название компании').optional(),
   ogrn: z.string().describe('ОГРН компании').optional(),
   legalAddress: z.string().describe('Юридический адрес').optional(),
   actualAddress: z.string().describe('Фактический адрес').optional(),

@@ -1,5 +1,13 @@
 import type { DeliveryPointDtoType } from '../DeliveryPointDtoType';
 
+export type DeliveryPointsGetAllDeliveryPointsQueryParamsType = {
+  /**
+   * @description ID кабинета для приоритизации фулфилментов
+   * @type string | undefined
+   */
+  cabinetId?: string;
+};
+
 /**
  * @description Полный список точек доставки
  */
@@ -10,5 +18,6 @@ export type DeliveryPointsGetAllDeliveryPointsQueryResponseType =
 
 export type DeliveryPointsGetAllDeliveryPointsTypeQuery = {
   Response: DeliveryPointsGetAllDeliveryPoints200Type;
+  QueryParams: DeliveryPointsGetAllDeliveryPointsQueryParamsType;
   Errors: any;
 };

@@ -16,8 +16,8 @@ export type DeliveryPointsGetDeliveryPointsQueryKey = ReturnType<
 >;
 
 /**
- * @description     Возвращает список всех доступных точек доставки.    Типы точек:    - WILDBERRIES - склады Wildberries    - FULFILLMENT - склады фулфилмент-операторов    - MARKETPLACE - точки маркетплейсов (ТЯК «Москва», Южные ворота и т.д.)    Можно фильтровать по типу точки через query-параметр type.
- * @summary Получение списка точек доставки
+ * @description Возвращает список точек доставки. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
+ * @summary Получить список точек доставки
  * {@link /services/delivery-points}
  */
 export async function deliveryPointsGetDeliveryPoints(
@@ -59,8 +59,8 @@ export function deliveryPointsGetDeliveryPointsQueryOptions(
 }
 
 /**
- * @description     Возвращает список всех доступных точек доставки.    Типы точек:    - WILDBERRIES - склады Wildberries    - FULFILLMENT - склады фулфилмент-операторов    - MARKETPLACE - точки маркетплейсов (ТЯК «Москва», Южные ворота и т.д.)    Можно фильтровать по типу точки через query-параметр type.
- * @summary Получение списка точек доставки
+ * @description Возвращает список точек доставки. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
+ * @summary Получить список точек доставки
  * {@link /services/delivery-points}
  */
 export function useDeliveryPointsGetDeliveryPoints<
