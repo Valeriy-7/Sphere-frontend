@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import {consumableDtoSchema, serviceDtoSchema} from '@/kubb-gen';
+import { consumableDtoSchema, serviceDtoSchema } from '@/kubb-gen';
 
 const CheckboxItemSchema = z.object({
   id: z.string(),
@@ -37,29 +37,30 @@ export const FormSchema = z.object({
 
 export const createDeliveryDtoSchema = z.object({
   cabinetId: z
-      .string()
-      .describe(
-          'ID кабинета, для которого создается поставка.\n    Используется для привязки поставки к конкретному кабинету и проверки прав доступа.',
-      ),
-  deliveryDate: z.date({
-    required_error: 'Date is required',
-    invalid_type_error: "That's not a date!",
-  })
-      .describe(
-          'Дата поставки.\n    Указывается в формате ISO 8601.\n    Используется для планирования и отслеживания поставок.',
-      ),
+    .string()
+    .describe(
+      'ID кабинета, для которого создается поставка.\n    Используется для привязки поставки к конкретному кабинету и проверки прав доступа.',
+    ),
+  deliveryDate: z
+    .date({
+      required_error: 'Date is required',
+      invalid_type_error: "That's not a date!",
+    })
+    .describe(
+      'Дата поставки.\n    Указывается в формате ISO 8601.\n    Используется для планирования и отслеживания поставок.',
+    ),
   cargoPlaces: z
-      .number()
-      .describe(
-          'Количество грузовых мест.\n    Необязательное поле.\n    Используется для планирования логистики.',
-      )
-      .optional(),
+    .number()
+    .describe(
+      'Количество грузовых мест.\n    Необязательное поле.\n    Используется для планирования логистики.',
+    )
+    .optional(),
   products: z
-      .array(z.lazy(() => productDtoSchema))
-      .min(1,'Выберите продукт')
-      .describe(
-          'Массив товаров в поставке.\n    Должен содержать хотя бы один товар.\n    Каждый товар должен иметь:\n    - ID товара в WB\n    - Количество (больше нуля)\n    - Цену (больше нуля)\n    - Выбранные услуги (опционально)\n    - Выбранные расходники (опционально)\n    - ID поставщика',
-      ),
+    .array(z.lazy(() => productDtoSchema))
+    .min(1, 'Выберите продукт')
+    .describe(
+      'Массив товаров в поставке.\n    Должен содержать хотя бы один товар.\n    Каждый товар должен иметь:\n    - ID товара в WB\n    - Количество (больше нуля)\n    - Цену (больше нуля)\n    - Выбранные услуги (опционально)\n    - Выбранные расходники (опционально)\n    - ID поставщика',
+    ),
 });
 
 export const FormSchema = createDeliveryDtoSchema;

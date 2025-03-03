@@ -19,7 +19,6 @@ import {
 
 import { DataTablePagination } from '@/components/date-table/data-table-pagination';
 
-
 import { type FormatCurrency } from '@/lib/formatCurrency';
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import {
@@ -31,7 +30,7 @@ import {
   TableCell,
   TableRowExpand,
 } from '@/components/ui/table';
-import {TableFilter} from "@/app/(main)/admin/list/table-filter";
+import { TableFilter } from '@/app/(main)/admin/list/table-filter';
 
 declare module '@tanstack/react-table' {
   //allows us to define custom properties for our columns

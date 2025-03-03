@@ -14,16 +14,13 @@ export function TableFilter({ column }: { column: Column<any, unknown> }) {
           value={(columnFilterValue as [number, number])?.[0] ?? ''}
           onChange={(value) => column.setFilterValue((old: [number, number]) => [value, old?.[1]])}
           placeholder={`от`}
-
         />
         <DebouncedInput
           value={(columnFilterValue as [number, number])?.[1] ?? ''}
           onChange={(value) => column.setFilterValue((old: [number, number]) => [old?.[0], value])}
           placeholder={`до`}
-
         />
       </div>
-
     </div>
   ) : filterVariant === 'select' ? (
     <select

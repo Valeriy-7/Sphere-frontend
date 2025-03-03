@@ -3,7 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { type DataRow } from '@/lib/makeData';
-import {TableCardImgText, TableImgText} from '@/components/date-table/table-img-text';
+import { TableCardImgText, TableImgText } from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
 
 export const columns: ColumnDef<DataRow>[] = [
@@ -17,7 +17,11 @@ export const columns: ColumnDef<DataRow>[] = [
     },
     cell: ({ row: { original } }) => {
       return (
-          <TableCardImgText image={{ src: original.image }} title={original.title} text={`Aрт: ${original.art}`} />
+        <TableCardImgText
+          image={{ src: original.image }}
+          title={original.title}
+          text={`Aрт: ${original.art}`}
+        />
       );
     },
   },
