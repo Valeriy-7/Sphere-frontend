@@ -18,7 +18,7 @@ import {
 } from '@tanstack/react-table';
 
 import { DataTablePagination } from '@/components/date-table/data-table-pagination';
-import { TableFilter } from '@/app/(main)/ui/tanstack/filter/table-filter';
+
 
 import { type FormatCurrency } from '@/lib/formatCurrency';
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
@@ -31,6 +31,7 @@ import {
   TableCell,
   TableRowExpand,
 } from '@/components/ui/table';
+import {TableFilter} from "@/app/(main)/admin/list/table-filter";
 
 declare module '@tanstack/react-table' {
   //allows us to define custom properties for our columns
@@ -88,7 +89,7 @@ export function FilterTable<TData, TValue>({ columns, data }: TableProps<TData, 
                 {headerGroup.headers.map((header) => {
                   const totalComponent = header.column.columnDef.meta?.totalComponent;
                   return (
-                    <TableHead key={header.id + 'total'} colSpan={header.colSpan}>
+                    <TableHead isTotal key={header.id + 'total'} colSpan={header.colSpan}>
                       {header.column.getCanFilter() ? (
                         <TableFilter column={table.getColumn(header.id)}></TableFilter>
                       ) : null}

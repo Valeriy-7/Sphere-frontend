@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { productDtoSchema } from '@/kubb-gen';
+import {consumableDtoSchema, serviceDtoSchema} from '@/kubb-gen';
 
 const CheckboxItemSchema = z.object({
   id: z.string(),
@@ -7,18 +7,16 @@ const CheckboxItemSchema = z.object({
   price: z.number().min(0, 'Price must be non-negative'),
 });
 
-const NestedFieldSchema = z.object({
-  id: z.string(),
-  count: z.number().min(1),
-  price: z.number().min(0, 'Price must be non-negative').optional(),
-  checkboxList: z.array(CheckboxItemSchema),
-  supplierList: z
-    .array(CheckboxItemSchema)
-    .min(1, 'Выберите поставщика')
-    .max(1, 'Нужен один поставщик'),
+export const productDtoSchema = z.object({
+  wbProductId: z.string().describe('ID товара в WB'),
+  quantity: z.number().min(1).describe('Количество товара'),
+  price: z.number().min(0.01).describe('Цена товара'),
+  selectedServices: z.array(z.lazy(() => serviceDtoSchema)).describe('Выбранные услуги'),
+  selectedConsumables: z.array(z.lazy(() => consumableDtoSchema)).describe('Выбранные расходники'),
+  supplierId: z.string().describe('ID поставщика'),
 });
 
-const createDeliveryDtoSchema = z.object({
+/*const createDeliveryDtoSchema = z.object({
   cabinetId: z.string().describe('ID кабинета'),
   deliveryDate: z.coerce.date({
     required_error: 'Date is required',
@@ -26,7 +24,7 @@ const createDeliveryDtoSchema = z.object({
   }),
   cargoPlaces: z.number().describe('Количество грузовых мест').optional(),
   products: z.array(z.lazy(() => productDtoSchema)).describe('Товары в поставке'),
-});
+});*/
 /*
 export const FormSchema = z.object({
   date: z.date({
@@ -36,6 +34,33 @@ export const FormSchema = z.object({
   place: z.string().optional(),
   rows: z.array(NestedFieldSchema).min(1, 'Выберите поставку'),
 });*/
+
+export const createDeliveryDtoSchema = z.object({
+  cabinetId: z
+      .string()
+      .describe(
+          'ID кабинета, для которого создается поставка.\n    Используется для привязки поставки к конкретному кабинету и проверки прав доступа.',
+      ),
+  deliveryDate: z.date({
+    required_error: 'Date is required',
+    invalid_type_error: "That's not a date!",
+  })
+      .describe(
+          'Дата поставки.\n    Указывается в формате ISO 8601.\n    Используется для планирования и отслеживания поставок.',
+      ),
+  cargoPlaces: z
+      .number()
+      .describe(
+          'Количество грузовых мест.\n    Необязательное поле.\n    Используется для планирования логистики.',
+      )
+      .optional(),
+  products: z
+      .array(z.lazy(() => productDtoSchema))
+      .min(1,'Выберите продукт')
+      .describe(
+          'Массив товаров в поставке.\n    Должен содержать хотя бы один товар.\n    Каждый товар должен иметь:\n    - ID товара в WB\n    - Количество (больше нуля)\n    - Цену (больше нуля)\n    - Выбранные услуги (опционально)\n    - Выбранные расходники (опционально)\n    - ID поставщика',
+      ),
+});
 
 export const FormSchema = createDeliveryDtoSchema;
 export type FormValues = z.infer<typeof FormSchema>;

@@ -25,51 +25,59 @@ type StorageTableProps = {
   }[];
 } & React.HTMLAttributes<HTMLTableElement>;
 
+const columnIcon = 'w-[35px]'
+const columnPlace = 'w-[55px]'
+
 const { colSizeList } = getColSizeList([
-  'w-[3%]',
-  'w-[22%]',
-  'w-[4%]',
-  'w-[11%]',
+  columnIcon,
+  '',
+  '',
+  columnPlace,
 
-  'w-[4%]',
-  'w-[11%]',
-  'w-[4%]',
-  'w-[11%]',
+  '',
+  columnPlace,
+  '',
+  columnPlace,
 
-  'w-[4%]',
-  'w-[11%]',
-  'w-[4%]',
-  'w-[11%]',
+  '',
+  columnPlace,
+  '',
+  columnPlace,
 
-  'w-[3%]',
-  'w-[3%]',
+  '',
+  columnIcon
 ]);
 
 export function StorageTableNew({ caption, data = [], ...props }: StorageTableProps) {
   return (
     <div
       style={
-        {
+   /*     {
           '--storage-column-icon': '3%',
           '--storage-column-head': '11%',
           '--storage-column-place': '4%',
+        } as React.CSSProperties*/
+        {
+          '--storage-column-icon': 'initial',
+          '--storage-column-head': 'initial',
+          '--storage-column-place': 'initial',
         } as React.CSSProperties
       }
     >
       <Table
-        _colSizeList={colSizeList}
+        colSizeList={colSizeList}
         className={'relative w-full table-fixed text-center'}
         {...props}
       >
         <TableHeader>
           <TableRowHeader />
-          <TableRowFilter />
+         {/* <TableRowFilter />*/}
         </TableHeader>
         <TableBody>
           <TableRowStore />
-          <TableRowExpand colSpan={13}>
+          <TableRowExpand colSpan={14}>
             <ScrollArea className={'flex max-h-[500px] flex-col overflow-y-auto'}>
-              <Table _colSizeList={colSizeList} className={'table-fixed'}>
+              <Table colSizeList={colSizeList} className={'table-fixed'}>
                 <TableHeader>
                   <TableHeaderProduct />
                 </TableHeader>
@@ -98,7 +106,7 @@ const TableRowHeader = () => (
   <>
     <TableRow rowSpace={false}>
       <TableHead className={'w-[--storage-column-icon]'}>№</TableHead>
-      <TableHead className={'w-[calc(var(--storage-column-head)*2)]'}>Магазин</TableHead>
+      <TableHead className={'w-[calc(var(--storage-column-head)*2)]'} colSpan={2}>Магазин</TableHead>
       <TableHead className={'w-[--storage-column-place]'}></TableHead>
       <TableHead className={'w-[--storage-column-head]'}>Продукт</TableHead>
       <TableHead className={'w-[--storage-column-place]'}></TableHead>
@@ -166,7 +174,7 @@ const TableRowStore = () => (
   <>
     <TableRow>
       <TableCell className={'w-[--storage-column-icon]'}>№</TableCell>
-      <TableCell className={'w-[calc(var(--storage-column-head)*2)]'}>
+      <TableCell className={'w-[calc(var(--storage-column-head)*2)]'} colSpan={2}>
         <TableCardImgText
           image={{
             src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UE1dYBdrFfV1Dz09dGWXy7R8TasGsOk7zQ&s',
@@ -271,28 +279,28 @@ const TableRowProduct = () => (
         200
       </TableCell>
       <TableCell className={'w-[--storage-column-place]'} level={1}>
-        -
+        П - 13
       </TableCell>
       <TableCell className={'w-[--storage-column-head]'} level={1}>
-        -
+        200
       </TableCell>
       <TableCell className={'w-[--storage-column-place]'} level={1}>
-        -
+        П - 13
       </TableCell>
       <TableCell className={'w-[--storage-column-head]'} level={1}>
-        -
+        200
       </TableCell>
       <TableCell className={'w-[--storage-column-place]'} level={1}>
-        -
+        П - 13
       </TableCell>
       <TableCell className={'w-[--storage-column-head]'} level={1}>
-        -
+        200
       </TableCell>
       <TableCell className={'w-[--storage-column-place]'} level={1}>
-        -
+        П - 13
       </TableCell>
       <TableCell className={'w-[--storage-column-head]'} level={1}>
-        -
+        200
       </TableCell>
       <TableCell className={'w-[--storage-column-icon]'} level={1}></TableCell>
     </TableRow>
@@ -312,25 +320,25 @@ const TableRowSize = () => (
         200
       </TableCell>
       <TableCell className={'w-[--storage-column-place]'} level={1}>
-        -
+
       </TableCell>
       <TableCell className={'w-[--storage-column-head]'} level={1}>
         -
       </TableCell>
       <TableCell className={'w-[--storage-column-place]'} level={1}>
-        -
+
       </TableCell>
       <TableCell className={'w-[--storage-column-head]'} level={1}>
         -
       </TableCell>
       <TableCell className={'w-[--storage-column-place]'} level={1}>
-        -
+
       </TableCell>
       <TableCell className={'w-[--storage-column-head]'} level={1}>
         -
       </TableCell>
       <TableCell className={'w-[--storage-column-place]'} level={1}>
-        -
+
       </TableCell>
       <TableCell className={'w-[--storage-column-head]'} level={1}>
         -

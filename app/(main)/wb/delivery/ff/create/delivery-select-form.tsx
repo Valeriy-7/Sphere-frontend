@@ -68,7 +68,7 @@ export default function NestedDynamicForm() {
       {
         onSuccess: () => {
           clearDraft();
-          toast.success('Успешно');
+          // toast.success('Успешно');
         },
       },
     );

@@ -6,27 +6,24 @@ import { Input } from '@/components/ui/input';
 export function TableFilter({ column }: { column: Column<any, unknown> }) {
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
-
   return filterVariant === 'range' ? (
     <div>
       <div className="inline-flex max-w-[150px] gap-1">
         {/* See faceted column filters example for min max values functionality */}
-        <CurrencyInput
-          type="number"
+        <DebouncedInput
           value={(columnFilterValue as [number, number])?.[0] ?? ''}
           onChange={(value) => column.setFilterValue((old: [number, number]) => [value, old?.[1]])}
-          placeholder={`Min`}
-          className="h-auto w-full px-1 md:text-xs"
+          placeholder={`от`}
+
         />
-        <CurrencyInput
-          type="number"
+        <DebouncedInput
           value={(columnFilterValue as [number, number])?.[1] ?? ''}
           onChange={(value) => column.setFilterValue((old: [number, number]) => [old?.[0], value])}
-          placeholder={`Max`}
-          className="h-auto w-full px-1 md:text-xs"
+          placeholder={`до`}
+
         />
       </div>
-      <div className="h-1" />
+
     </div>
   ) : filterVariant === 'select' ? (
     <select
@@ -42,7 +39,7 @@ export function TableFilter({ column }: { column: Column<any, unknown> }) {
   ) : filterVariant === 'text' ? (
     <DebouncedInput
       onChange={(value) => column.setFilterValue(value)}
-      placeholder={`Поиск по карточки и артикулу...`}
+      placeholder={`Поиск`}
       type="text"
       value={(columnFilterValue ?? '') as string}
     />
@@ -77,6 +74,7 @@ function DebouncedInput({
 
   return (
     <Input
+      size={'xs'}
       className={'h-auto px-1 md:text-xs'}
       {...props}
       value={value}

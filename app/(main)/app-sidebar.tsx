@@ -82,12 +82,12 @@ function getNavMain(type: LKTypeValue) {
     ff: [
       {
         name: 'Склад',
-        url: '/ff/storage/ff',
+        url: '/ff/storage',
         icon: IconStorage,
       },
       {
         name: 'Поставки',
-        url: '/ff/delivery/ff',
+        url: '/ff/delivery',
         icon: IconDeliveryRight,
       },
       {

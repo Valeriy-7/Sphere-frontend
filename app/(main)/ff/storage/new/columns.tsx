@@ -3,7 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { type DataRow } from '@/lib/makeData';
-import { TableImgText } from '@/components/date-table/table-img-text';
+import {TableCardImgText, TableImgText} from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
 
 export const columns: ColumnDef<DataRow>[] = [
@@ -11,17 +11,13 @@ export const columns: ColumnDef<DataRow>[] = [
   {
     accessorFn: ({ title, art }) => `${title} ${art}`,
     id: 'title',
-    header: 'Карточки',
+    header: 'Магазины',
     meta: {
       filterVariant: 'text',
     },
     cell: ({ row: { original } }) => {
       return (
-        <TableImgText
-          image={{ src: original.image }}
-          title={original.title}
-          text={`Aрт: ${original.art}`}
-        />
+          <TableCardImgText image={{ src: original.image }} title={original.title} text={`Aрт: ${original.art}`} />
       );
     },
   },
@@ -31,6 +27,9 @@ export const columns: ColumnDef<DataRow>[] = [
   {
     accessorKey: 'number4',
     header: 'Продукт (ед)',
+    meta: {
+      filterVariant: 'range',
+    },
   },
   {
     id: 'empty2',
@@ -38,6 +37,9 @@ export const columns: ColumnDef<DataRow>[] = [
   {
     accessorKey: 'number5',
     header: 'Товар (ед)',
+    meta: {
+      filterVariant: 'range',
+    },
   },
   {
     id: 'empty3',
@@ -45,13 +47,20 @@ export const columns: ColumnDef<DataRow>[] = [
   {
     accessorKey: 'number6',
     header: 'Брак (ед)',
+    meta: {
+      filterVariant: 'range',
+    },
   },
+
   {
     id: 'empty4',
   },
   {
     accessorKey: 'number7',
     header: 'Расходники (ед)',
+    meta: {
+      filterVariant: 'range',
+    },
   },
   {
     id: 'empty5',
@@ -59,6 +68,9 @@ export const columns: ColumnDef<DataRow>[] = [
   {
     accessorKey: 'number8',
     header: 'Возвраты с ПВЗ (ед)',
+    meta: {
+      filterVariant: 'range',
+    },
   },
   {
     id: 'empty6',

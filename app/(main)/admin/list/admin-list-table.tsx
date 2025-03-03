@@ -18,7 +18,6 @@ import {
 } from '@tanstack/react-table';
 
 import { DataTablePagination } from '@/components/date-table/data-table-pagination';
-import { TableFilter } from '@/app/(main)/ui/tanstack/filter/table-filter';
 
 import { type FormatCurrency } from '@/lib/formatCurrency';
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
