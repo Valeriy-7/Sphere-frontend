@@ -48,8 +48,8 @@ export default function StoragePage() {
         </div>
       </div>
       <div>
-     {/*   <StorageTableNew />*/}
-      {/*  <StorageTable />*/}
+        {/*   <StorageTableNew />*/}
+        {/*  <StorageTable />*/}
       </div>
     </>
   );
