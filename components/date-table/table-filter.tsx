@@ -35,6 +35,7 @@ export function TableFilter({ column }: { column: Column<any, unknown> }) {
     </select>
   ) : filterVariant === 'text' ? (
     <DebouncedInput
+        className={'max-w-none'}
       onChange={(value) => column.setFilterValue(value)}
       placeholder={`Поиск`}
       type="text"

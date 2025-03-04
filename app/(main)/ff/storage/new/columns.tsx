@@ -14,6 +14,7 @@ export const columns: ColumnDef<DataRow>[] = [
     header: 'Магазины',
     meta: {
       filterVariant: 'text',
+      colSpan:2,
     },
     cell: ({ row: { original } }) => {
       return (

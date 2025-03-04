@@ -1,5 +1,5 @@
 'use client';
-import { StorageFfTable } from './storage-ff-table';
+import { StorageTableNew } from './storage-table-new';
 import { columns } from './columns';
 import React from 'react';
 import { makeData, DataRow } from '@/lib/makeData';
@@ -10,7 +10,7 @@ export default function StorageFfPage() {
     <>
       <div>
         <h1>Склад ФФ new</h1>
-        <StorageFfTable<DataRow, unknown> data={data} columns={columns} />
+        <StorageTableNew<DataRow, unknown> data={data} columns={columns} />
       </div>
     </>
   );

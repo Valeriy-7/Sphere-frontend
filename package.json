@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint --fix",
     "prettier": "prettier --write .",
-    "prepare": "husky",
+    "_prepare": "husky",
     "kubb-generate": "kubb generate && pnpm run prettier"
   },
   "dependencies": {

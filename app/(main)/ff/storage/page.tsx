@@ -1,6 +1,6 @@
 import { DataTableTotal } from '@/components/date-table/data-table-total';
-import { StorageTable } from '@/app/(main)/ff/storage/storage-table';
-import { StorageTableNew } from '@/app/(main)/ff/storage/storage-table-new';
+/*import { StorageTable } from '@/app/(main)/ff/storage/storage-table';
+import { StorageTableNew } from '@/app/(main)/ff/storage/storage-table-new';*/
 
 export default function StoragePage() {
   return (
@@ -48,8 +48,8 @@ export default function StoragePage() {
         </div>
       </div>
       <div>
-        <StorageTableNew />
-        <StorageTable />
+     {/*   <StorageTableNew />*/}
+      {/*  <StorageTable />*/}
       </div>
     </>
   );
