@@ -1,7 +1,10 @@
 import client from '@/modules/auth/axios-client';
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query';
-import type { DeliveriesGetFulfillmentConsumablesQueryResponseType } from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType';
+import type {
+  DeliveriesGetFulfillmentConsumablesQueryResponseType,
+  DeliveriesGetFulfillmentConsumables401Type,
+} from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType';
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
 export const deliveriesGetFulfillmentConsumablesQueryKey = () =>
@@ -12,6 +15,7 @@ export type DeliveriesGetFulfillmentConsumablesQueryKey = ReturnType<
 >;
 
 /**
+ * @description Возвращает список всех расходных материалов текущего фулфилмент-центра
  * @summary Получение списка расходных материалов
  * {@link /deliveries/consumables}
  */
@@ -22,7 +26,7 @@ export async function deliveriesGetFulfillmentConsumables(
 
   const res = await request<
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
     unknown
   >({
     method: 'GET',
@@ -38,7 +42,7 @@ export function deliveriesGetFulfillmentConsumablesQueryOptions(
   const queryKey = deliveriesGetFulfillmentConsumablesQueryKey();
   return queryOptions<
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
     typeof queryKey
   >({
@@ -51,6 +55,7 @@ export function deliveriesGetFulfillmentConsumablesQueryOptions(
 }
 
 /**
+ * @description Возвращает список всех расходных материалов текущего фулфилмент-центра
  * @summary Получение списка расходных материалов
  * {@link /deliveries/consumables}
  */
@@ -63,7 +68,7 @@ export function useDeliveriesGetFulfillmentConsumables<
     query?: Partial<
       QueryObserverOptions<
         DeliveriesGetFulfillmentConsumablesQueryResponseType,
-        ResponseErrorConfig<Error>,
+        ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
         TData,
         TQueryData,
         TQueryKey
@@ -79,7 +84,9 @@ export function useDeliveriesGetFulfillmentConsumables<
     ...(deliveriesGetFulfillmentConsumablesQueryOptions(config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };
+  }) as UseQueryResult<TData, ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>> & {
+    queryKey: TQueryKey;
+  };
 
   query.queryKey = queryKey as TQueryKey;
 

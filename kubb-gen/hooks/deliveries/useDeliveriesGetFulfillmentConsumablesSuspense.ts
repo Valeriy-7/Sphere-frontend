@@ -5,7 +5,10 @@ import type {
   UseSuspenseQueryOptions,
   UseSuspenseQueryResult,
 } from '@tanstack/react-query';
-import type { DeliveriesGetFulfillmentConsumablesQueryResponseType } from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType';
+import type {
+  DeliveriesGetFulfillmentConsumablesQueryResponseType,
+  DeliveriesGetFulfillmentConsumables401Type,
+} from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 export const deliveriesGetFulfillmentConsumablesSuspenseQueryKey = () =>
@@ -16,6 +19,7 @@ export type DeliveriesGetFulfillmentConsumablesSuspenseQueryKey = ReturnType<
 >;
 
 /**
+ * @description Возвращает список всех расходных материалов текущего фулфилмент-центра
  * @summary Получение списка расходных материалов
  * {@link /deliveries/consumables}
  */
@@ -26,7 +30,7 @@ export async function deliveriesGetFulfillmentConsumablesSuspense(
 
   const res = await request<
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
     unknown
   >({
     method: 'GET',
@@ -42,7 +46,7 @@ export function deliveriesGetFulfillmentConsumablesSuspenseQueryOptions(
   const queryKey = deliveriesGetFulfillmentConsumablesSuspenseQueryKey();
   return queryOptions<
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
     typeof queryKey
   >({
@@ -55,6 +59,7 @@ export function deliveriesGetFulfillmentConsumablesSuspenseQueryOptions(
 }
 
 /**
+ * @description Возвращает список всех расходных материалов текущего фулфилмент-центра
  * @summary Получение списка расходных материалов
  * {@link /deliveries/consumables}
  */
@@ -67,7 +72,7 @@ export function useDeliveriesGetFulfillmentConsumablesSuspense<
     query?: Partial<
       UseSuspenseQueryOptions<
         DeliveriesGetFulfillmentConsumablesQueryResponseType,
-        ResponseErrorConfig<Error>,
+        ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
         TData,
         TQueryKey
       >
@@ -84,7 +89,10 @@ export function useDeliveriesGetFulfillmentConsumablesSuspense<
     ) as unknown as UseSuspenseQueryOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };
+  }) as UseSuspenseQueryResult<
+    TData,
+    ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>
+  > & { queryKey: TQueryKey };
 
   query.queryKey = queryKey as TQueryKey;
 

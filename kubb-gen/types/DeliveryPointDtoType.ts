@@ -28,4 +28,9 @@ export type DeliveryPointDtoType = {
    * @type boolean | undefined
    */
   isPartner?: boolean;
+  /**
+   * @description Адрес точки доставки
+   * @type string | undefined
+   */
+  address?: string;
 };

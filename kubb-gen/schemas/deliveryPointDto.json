@@ -17,6 +17,11 @@
       "type": "boolean",
       "description": "Флаг, указывающий является ли фулфилмент партнером текущего кабинета",
       "example": true
+    },
+    "address": {
+      "type": "string",
+      "description": "Адрес точки доставки",
+      "example": "Тихорецкий бул., 1, стр. 6"
     }
   },
   "required": ["name", "id", "type"],

@@ -8,4 +8,5 @@ export const deliveryPointDtoSchema = z.object({
     .boolean()
     .describe('Флаг, указывающий является ли фулфилмент партнером текущего кабинета')
     .optional(),
+  address: z.string().describe('Адрес точки доставки').optional(),
 });

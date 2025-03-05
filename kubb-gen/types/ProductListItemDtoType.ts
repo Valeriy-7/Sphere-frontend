@@ -67,6 +67,21 @@ export type ProductListItemDtoType = {
    */
   volumeUnit: string;
   /**
+   * @description Ширина товара в см
+   * @type number
+   */
+  width: number;
+  /**
+   * @description Высота товара в см
+   * @type number
+   */
+  height: number;
+  /**
+   * @description Длина товара в см
+   * @type number
+   */
+  length: number;
+  /**
    * @description Всего поставлено товара
    * @type number
    */

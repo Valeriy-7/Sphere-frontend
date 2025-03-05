@@ -20,7 +20,7 @@ export type DeliveryPointsGetDeliveryPointsSuspenseQueryKey = ReturnType<
 >;
 
 /**
- * @description Возвращает список точек доставки. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
+ * @description Возвращает список точек доставки с их адресами. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
  * @summary Получить список точек доставки
  * {@link /services/delivery-points}
  */
@@ -63,7 +63,7 @@ export function deliveryPointsGetDeliveryPointsSuspenseQueryOptions(
 }
 
 /**
- * @description Возвращает список точек доставки. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
+ * @description Возвращает список точек доставки с их адресами. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
  * @summary Получить список точек доставки
  * {@link /services/delivery-points}
  */

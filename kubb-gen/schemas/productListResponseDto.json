@@ -127,6 +127,9 @@
             "example": "мл",
             "description": "Единица измерения объема"
           },
+          "width": { "type": "number", "example": 10.5, "description": "Ширина товара в см" },
+          "height": { "type": "number", "example": 15, "description": "Высота товара в см" },
+          "length": { "type": "number", "example": 5.5, "description": "Длина товара в см" },
           "totalSupplied": {
             "type": "number",
             "example": 5000,
@@ -178,6 +181,9 @@
           "numericSizes",
           "volume",
           "volumeUnit",
+          "width",
+          "height",
+          "length",
           "totalSupplied",
           "totalSold",
           "salesPercentage",

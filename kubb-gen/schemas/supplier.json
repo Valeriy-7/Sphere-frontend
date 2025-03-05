@@ -1,1 +1,72 @@
-{ "type": "object", "properties": {}, "x-readme-ref-name": "Supplier" }
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Уникальный идентификатор поставщика",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "name": {
+      "type": "string",
+      "description": "Название компании поставщика",
+      "example": "ООО \"Ромашка\""
+    },
+    "contactName": {
+      "type": "string",
+      "description": "ФИО контактного лица",
+      "example": "Иванов Иван"
+    },
+    "phone": { "type": "string", "description": "Номер телефона", "example": "+79991234567" },
+    "marketplaceName": {
+      "type": "string",
+      "description": "Название маркетплейса",
+      "example": "Садовод"
+    },
+    "address": {
+      "type": "string",
+      "description": "Адрес",
+      "example": "Москва, МКАД, 14-й километр, 2, стр. 63"
+    },
+    "location": {
+      "type": "string",
+      "description": "Местоположение (павильон, линия и т.д.)",
+      "example": "Линия 1, павильон 45"
+    },
+    "telegram": {
+      "type": "string",
+      "description": "Telegram аккаунт",
+      "example": "@ivanov_shop",
+      "nullable": true
+    },
+    "cabinetId": {
+      "type": "string",
+      "description": "ID кабинета",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Дата создания",
+      "example": "2024-03-04T12:00:00Z"
+    },
+    "updatedAt": {
+      "format": "date-time",
+      "type": "string",
+      "description": "Дата обновления",
+      "example": "2024-03-04T12:00:00Z"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "contactName",
+    "phone",
+    "marketplaceName",
+    "address",
+    "location",
+    "cabinetId",
+    "createdAt",
+    "updatedAt"
+  ],
+  "x-readme-ref-name": "Supplier"
+}
