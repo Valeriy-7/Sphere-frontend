@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   ColumnDef,
@@ -19,10 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-import { createPortal } from 'react-dom';
-import { Button } from '@/components/ui/button';
-import { PortalContext } from './portal-context';
 
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import { useFieldArray, UseFormReturn } from 'react-hook-form';
@@ -63,7 +59,7 @@ type ServicesItem = {
   _isNew?: boolean;
   _isUpdate?: boolean;
 } & ServicesItemType;
-export function ServicesTable<TData extends ServicesItem, TValue>({
+export function ProductsTable<TData extends ServicesItem, TValue>({
   form,
   columns,
   initialData,
@@ -86,8 +82,6 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
     control: form.control,
     name: 'rows',
   });
-
-  const portalContainer = useContext(PortalContext);
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -186,7 +180,6 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
   });
   return (
     <>
-      {portalContainer && createPortal(<Button onClick={addRow}>Добавить</Button>, portalContainer)}
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
