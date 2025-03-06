@@ -9,8 +9,8 @@ import Link from 'next/link';
 import { useDeliveriesGetDeliveriesSuspense } from '@/kubb-gen';
 const initData = makeData();
 export default function StorageFfPage() {
-  const { data } = useDeliveriesGetDeliveriesSuspense();
-  // const [data, setData] = React.useState(initData);
+  //const { data } = useDeliveriesGetDeliveriesSuspense();
+   const [data, setData] = React.useState(initData);
   return (
     <>
       <AppTabsWrap>

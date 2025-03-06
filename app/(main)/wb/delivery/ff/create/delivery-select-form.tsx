@@ -21,26 +21,29 @@ import { formatCurrency } from '@/lib/formatCurrency';
 
 import { useJWTAuthContext, useJWTAuthUser } from '@/modules/auth';
 import {
+  deliveriesGetFulfillmentServices,
+  //logisticsPriceGetLogisticsPrice,
   useDeliveriesCreateDelivery,
   useDeliveriesGetDeliveries,
   useDeliveriesGetDeliveriesSuspense,
   useDeliveriesGetFulfillmentConsumables,
   useDeliveriesGetFulfillmentConsumablesSuspense,
   useDeliveriesGetFulfillmentServices,
-  useDeliveriesGetSuppliers,
+  useDeliveriesGetSuppliers, useLogisticsPriceGetLogisticsPrice,
   useWbGetProducts,
   useWbGetProductsSuspense,
 } from '@/kubb-gen';
 import { useFormDraftV } from '@/app/(main)/wb/delivery/ff/create/use-form-draft';
 
 import { toast } from 'sonner';
+import {useEffect, useState} from "react";
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
 export default function NestedDynamicForm() {
   const { cabinetId } = useJWTAuthUser();
 
-  const { data: { items } = { items: [] } } = useWbGetProductsSuspense({ cabinetId });
+  const { data: { items }  } = useWbGetProductsSuspense({ cabinetId });
   const { data: servicesData = [] } = useDeliveriesGetFulfillmentServices();
   const { data: consumablesData = [] } = useDeliveriesGetFulfillmentConsumables();
   const { data: suppliersData = [] } = useDeliveriesGetSuppliers();
@@ -54,15 +57,16 @@ export default function NestedDynamicForm() {
       products: [],
     },
   });
-  const { clearDraft } = useFormDraftV(form, 'form-draft');
+  //const { clearDraft } = useFormDraftV(form, 'form-draft');
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'products',
   });
   /*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
 
+
+
   function onSubmit(data: FormValues) {
-    console.log(data);
     mutate(
       { data },
       {
@@ -74,13 +78,76 @@ export default function NestedDynamicForm() {
     );
   }
 
-  console.log(form.formState.errors);
-  console.log(form.getValues());
+//console.log(form.formState.errors);
+ /* console.log(form.getValues('products'));*/
+  const [logisticsPrice, setLogisticsPrice] = useState<number[]>([])
+  const products = form.getValues('products')
+  const logisticsPriceGetLogisticsPrice = deliveriesGetFulfillmentServices
+  const suppliers = products
+      .map(({quantity,supplierId},index)=>{
+        const { width, height, length, } = items[index]
+        return  { supplierId, volume: width*height*length, quantity }
+      })
+      .filter(i=>i.supplierId)
+  console.log(products);
+
+/*  useEffect(() => {
+    console.log('useEffect');
+
+    const suppliersPromises = suppliers
+        .map(({supplierId, volume, quantity})=>
+            logisticsPriceGetLogisticsPrice({supplierId,toPointType:'FULFILLMENT'}).then(()=>{
+              const response = {
+                "fromPoint": {
+                  "name": "Коледино",
+                  "id": "507f1f77bcf86cd799439011",
+                  "type": "WILDBERRIES",
+                  "isPartner": true,
+                  "address": "Тихорецкий бул., 1, стр. 6"
+                },
+                "toPoint": {
+                  "name": "Коледино",
+                  "id": "507f1f77bcf86cd799439011",
+                  "type": "WILDBERRIES",
+                  "isPartner": true,
+                  "address": "Тихорецкий бул., 1, стр. 6"
+                },
+                "priceUpTo1m3": 2500,
+                "pricePer1m3": 3500,
+                "description": "Доставка из склада WB в ТЯК Москва"
+              }
+
+              const result = quantity * volume / 1000000
+              if(result > 1 ) return response.priceUpTo1m3
+              return response.pricePer1m3
+            })
+        )
+    Promise.all(suppliersPromises).then(value => setLogisticsPrice(value));
+  }, [suppliers]);*/
+
+
+
+
+
+
+
+/*
+  function getLogisticsPrice(){
+
+
+  }
+
+  const supplierIdsPromises = supplierIds.map((id)=>logisticsPriceGetLogisticsPrice({supplierId:id}))
+
+
+
+*/
+
 
   const totalColumnValue = [
     getAmountReduce(form.getValues().products.map((i) => i.quantity ?? 0)),
     getAmountReduce(form.getValues().products.map((i) => i.price ?? 0)),
-    0,
+    getAmountReduce(logisticsPrice),
     getAmountReduce(
       form
         .getValues()

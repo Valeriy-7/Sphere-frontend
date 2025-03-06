@@ -42,7 +42,7 @@ const formSchema = createSupplierDtoSchema;
 export function SupplierCreateDialog() {
   const [open, setOpen] = useState(false);
 
-  const { data = [], isPending } = useDeliveryPointsGetDeliveryPoints({ type: 'WILDBERRIES' });
+  const { data = [], isPending } = useDeliveryPointsGetDeliveryPoints({ type: 'MARKETPLACE' });
   const { cabinetActive } = useJWTAuthUser();
 
   const { mutate } = useDeliveriesCreateSupplier({
@@ -130,7 +130,7 @@ export function SupplierCreateDialog() {
                         const find = data.find((i) => i.id === value) as DeliveryPointDtoType;
                         // Set just the fruit name as the field value
                         field.onChange(find.name);
-                        form.setValue('address', find.name);
+                        form.setValue('address', find.address);
                       }}
                       // Display the selected fruit id
                       value={data.find((i) => i.name === field.value)?.id || ''}
