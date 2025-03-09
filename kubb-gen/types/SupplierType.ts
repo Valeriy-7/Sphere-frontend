@@ -10,7 +10,7 @@ export type SupplierType = {
    */
   name: string;
   /**
-   * @description ФИО контактного лица
+   * @description Имя контактного лица
    * @type string
    */
   contactName: string;
@@ -20,7 +20,7 @@ export type SupplierType = {
    */
   phone: string;
   /**
-   * @description Название маркетплейса
+   * @description Название рынка
    * @type string
    */
   marketplaceName: string;
@@ -30,15 +30,15 @@ export type SupplierType = {
    */
   address: string;
   /**
-   * @description Местоположение (павильон, линия и т.д.)
+   * @description Место (павильон, линия и т.д.)
    * @type string
    */
   location: string;
   /**
-   * @description Telegram аккаунт
-   * @type string
+   * @description Является ли поставщик ТГ
+   * @type boolean
    */
-  telegram?: string | null;
+  isTG?: boolean | null;
   /**
    * @description ID кабинета
    * @type string

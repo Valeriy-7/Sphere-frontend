@@ -1,31 +1,27 @@
 import client from '@/modules/auth/axios-client';
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type {
-  QueryKey,
-  UseSuspenseQueryOptions,
-  UseSuspenseQueryResult,
-} from '@tanstack/react-query';
+import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query';
 import type {
   LogisticsPriceGetLogisticsPriceQueryResponseType,
   LogisticsPriceGetLogisticsPriceQueryParamsType,
   LogisticsPriceGetLogisticsPrice404Type,
-} from '../../types/deliveries/LogisticsPriceGetLogisticsPriceType';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
+} from '../../types/logistics-calculator/LogisticsPriceGetLogisticsPriceType';
+import { queryOptions, useQuery } from '@tanstack/react-query';
 
-export const logisticsPriceGetLogisticsPriceSuspenseQueryKey = (
+export const logisticsPriceGetLogisticsPriceQueryKey = (
   params: LogisticsPriceGetLogisticsPriceQueryParamsType,
-) => [{ url: '/deliveries/logistics-price' }, ...(params ? [params] : [])] as const;
+) => [{ url: '/logistics-calculator/price' }, ...(params ? [params] : [])] as const;
 
-export type LogisticsPriceGetLogisticsPriceSuspenseQueryKey = ReturnType<
-  typeof logisticsPriceGetLogisticsPriceSuspenseQueryKey
+export type LogisticsPriceGetLogisticsPriceQueryKey = ReturnType<
+  typeof logisticsPriceGetLogisticsPriceQueryKey
 >;
 
 /**
  * @description Возвращает информацию о цене логистики между указанными точками отправления и назначения. Цены берутся из настроек логистики, созданных фулфилмент-центрами, которые являются партнерами текущего кабинета.
  * @summary Получение цены логистики между двумя точками
- * {@link /deliveries/logistics-price}
+ * {@link /logistics-calculator/price}
  */
-export async function logisticsPriceGetLogisticsPriceSuspense(
+export async function logisticsPriceGetLogisticsPrice(
   params: LogisticsPriceGetLogisticsPriceQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
@@ -37,18 +33,18 @@ export async function logisticsPriceGetLogisticsPriceSuspense(
     unknown
   >({
     method: 'GET',
-    url: `/deliveries/logistics-price`,
+    url: `/logistics-calculator/price`,
     params,
     ...requestConfig,
   });
   return res.data;
 }
 
-export function logisticsPriceGetLogisticsPriceSuspenseQueryOptions(
+export function logisticsPriceGetLogisticsPriceQueryOptions(
   params: LogisticsPriceGetLogisticsPriceQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const queryKey = logisticsPriceGetLogisticsPriceSuspenseQueryKey(params);
+  const queryKey = logisticsPriceGetLogisticsPriceQueryKey(params);
   return queryOptions<
     LogisticsPriceGetLogisticsPriceQueryResponseType,
     ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>,
@@ -59,7 +55,7 @@ export function logisticsPriceGetLogisticsPriceSuspenseQueryOptions(
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal;
-      return logisticsPriceGetLogisticsPriceSuspense(params, config);
+      return logisticsPriceGetLogisticsPrice(params, config);
     },
   });
 }
@@ -67,20 +63,21 @@ export function logisticsPriceGetLogisticsPriceSuspenseQueryOptions(
 /**
  * @description Возвращает информацию о цене логистики между указанными точками отправления и назначения. Цены берутся из настроек логистики, созданных фулфилмент-центрами, которые являются партнерами текущего кабинета.
  * @summary Получение цены логистики между двумя точками
- * {@link /deliveries/logistics-price}
+ * {@link /logistics-calculator/price}
  */
-export function useLogisticsPriceGetLogisticsPriceSuspense<
+export function useLogisticsPriceGetLogisticsPrice<
   TData = LogisticsPriceGetLogisticsPriceQueryResponseType,
   TQueryData = LogisticsPriceGetLogisticsPriceQueryResponseType,
-  TQueryKey extends QueryKey = LogisticsPriceGetLogisticsPriceSuspenseQueryKey,
+  TQueryKey extends QueryKey = LogisticsPriceGetLogisticsPriceQueryKey,
 >(
   params: LogisticsPriceGetLogisticsPriceQueryParamsType,
   options: {
     query?: Partial<
-      UseSuspenseQueryOptions<
+      QueryObserverOptions<
         LogisticsPriceGetLogisticsPriceQueryResponseType,
         ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>,
         TData,
+        TQueryData,
         TQueryKey
       >
     >;
@@ -88,20 +85,18 @@ export function useLogisticsPriceGetLogisticsPriceSuspense<
   } = {},
 ) {
   const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey =
-    queryOptions?.queryKey ?? logisticsPriceGetLogisticsPriceSuspenseQueryKey(params);
+  const queryKey = queryOptions?.queryKey ?? logisticsPriceGetLogisticsPriceQueryKey(params);
 
-  const query = useSuspenseQuery({
-    ...(logisticsPriceGetLogisticsPriceSuspenseQueryOptions(
+  const query = useQuery({
+    ...(logisticsPriceGetLogisticsPriceQueryOptions(
       params,
       config,
-    ) as unknown as UseSuspenseQueryOptions),
+    ) as unknown as QueryObserverOptions),
     queryKey,
-    ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<
-    TData,
-    ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>
-  > & { queryKey: TQueryKey };
+    ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
+  }) as UseQueryResult<TData, ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>> & {
+    queryKey: TQueryKey;
+  };
 
   query.queryKey = queryKey as TQueryKey;
 

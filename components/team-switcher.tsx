@@ -26,7 +26,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { useJWTAuthContext } from '@/modules/auth';
+import { useJWTAuthContext, useJWTAuthUser } from '@/modules/auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cabinetsGetActiveSuspenseQueryKey, useCabinetsSetActive } from '@/kubb-gen';
 import { useQueryClient, QueryCache } from '@tanstack/react-query';
@@ -34,13 +34,9 @@ import { useQueryClient, QueryCache } from '@tanstack/react-query';
 export function TeamSwitcher() {
   const { isMobile } = useSidebar();
 
-  const {
-    user: { cabinets },
-    logout,
-    fetchUser,
-  } = useJWTAuthContext();
+  const { logout, fetchUser } = useJWTAuthContext();
+  const { cabinetActive, cabinets, role } = useJWTAuthUser();
   const queryClient = useQueryClient();
-  const cabinetActive = cabinets.filter((i) => i.isActive)[0];
   // @TODO на интерфейсе не переключается н аактивный
   // @todo табы переключаются только по тексту
   const { mutate } = useCabinetsSetActive({
@@ -72,6 +68,10 @@ export function TeamSwitcher() {
               <div className="grid flex-1 text-left text-sm leading-normal">
                 <span className="truncate font-medium">{cabinetActive.companyName}</span>
                 <span className="truncate text-min">{cabinetActive.legalCompanyName}</span>
+                {cabinets.length > 1 && (
+                  <span className="truncate text-min">{cabinetActive.type}</span>
+                )}
+                {role === 'admin' && <span className="truncate text-min">{role}</span>}
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>

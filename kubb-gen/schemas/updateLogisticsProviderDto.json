@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Название компании логиста",
+      "example": "Быстрая доставка"
+    },
+    "contactName": {
+      "type": "string",
+      "description": "Имя контактного лица",
+      "example": "Алексей"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Контактный телефон",
+      "example": "+7 (999) 123-45-67"
+    },
+    "carModel": { "type": "string", "description": "Модель автомобиля", "example": "Газель Next" },
+    "carNumber": { "type": "string", "description": "Номер автомобиля", "example": "А123БВ777" },
+    "telegram": {
+      "type": "string",
+      "description": "Telegram аккаунт",
+      "example": "@delivery_driver"
+    }
+  },
+  "x-readme-ref-name": "UpdateLogisticsProviderDto"
+}

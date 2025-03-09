@@ -55,7 +55,10 @@ export function LoginOtp({ phone }: LoginOtpProps) {
           router.push('/admin/list/requests');
           return;
         }
+
         if (regStatus === 'verified') {
+          router.push('/');
+          return;
           if (cabinets?.[0].type === 'fulfillment') {
             router.push('/ff');
           }

@@ -1,0 +1,5 @@
+{
+  "type": "string",
+  "enum": ["CREATED", "IN_PROGRESS", "ACCEPTED", "PREPARATION", "COMPLETED"],
+  "x-readme-ref-name": "DeliveryStatus"
+}

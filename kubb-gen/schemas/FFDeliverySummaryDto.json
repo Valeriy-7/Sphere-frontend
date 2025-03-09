@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "suppliersCount": { "type": "number", "description": "Количество поставщиков", "example": 3 },
+    "totalCargoPlaces": {
+      "type": "number",
+      "description": "Общее количество грузовых мест",
+      "example": 15
+    },
+    "totalPlanQuantity": {
+      "type": "number",
+      "description": "Общее плановое количество товаров",
+      "example": 10700
+    },
+    "totalFactQuantity": {
+      "type": "number",
+      "description": "Общее фактическое количество товаров",
+      "example": 4690
+    },
+    "totalDefects": { "type": "number", "description": "Общее количество дефектов", "example": 25 },
+    "totalProductsPrice": {
+      "type": "number",
+      "description": "Общая стоимость товаров",
+      "example": 3140000
+    },
+    "totalFFServicesPrice": {
+      "type": "number",
+      "description": "Общая стоимость услуг ФФ",
+      "example": 255500
+    },
+    "totalLogisticsToFFPrice": {
+      "type": "number",
+      "description": "Общая стоимость логистики до ФФ",
+      "example": 13000
+    }
+  },
+  "required": [
+    "suppliersCount",
+    "totalCargoPlaces",
+    "totalPlanQuantity",
+    "totalFactQuantity",
+    "totalDefects",
+    "totalProductsPrice",
+    "totalFFServicesPrice",
+    "totalLogisticsToFFPrice"
+  ],
+  "x-readme-ref-name": "FFDeliverySummaryDto"
+}

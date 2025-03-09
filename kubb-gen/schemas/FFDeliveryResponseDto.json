@@ -1,0 +1,206 @@
+{
+  "type": "object",
+  "properties": {
+    "summary": {
+      "description": "Сводная информация о поставках",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "suppliersCount": {
+              "type": "number",
+              "description": "Количество поставщиков",
+              "example": 3
+            },
+            "totalCargoPlaces": {
+              "type": "number",
+              "description": "Общее количество грузовых мест",
+              "example": 15
+            },
+            "totalPlanQuantity": {
+              "type": "number",
+              "description": "Общее плановое количество товаров",
+              "example": 10700
+            },
+            "totalFactQuantity": {
+              "type": "number",
+              "description": "Общее фактическое количество товаров",
+              "example": 4690
+            },
+            "totalDefects": {
+              "type": "number",
+              "description": "Общее количество дефектов",
+              "example": 25
+            },
+            "totalProductsPrice": {
+              "type": "number",
+              "description": "Общая стоимость товаров",
+              "example": 3140000
+            },
+            "totalFFServicesPrice": {
+              "type": "number",
+              "description": "Общая стоимость услуг ФФ",
+              "example": 255500
+            },
+            "totalLogisticsToFFPrice": {
+              "type": "number",
+              "description": "Общая стоимость логистики до ФФ",
+              "example": 13000
+            }
+          },
+          "required": [
+            "suppliersCount",
+            "totalCargoPlaces",
+            "totalPlanQuantity",
+            "totalFactQuantity",
+            "totalDefects",
+            "totalProductsPrice",
+            "totalFFServicesPrice",
+            "totalLogisticsToFFPrice"
+          ],
+          "x-readme-ref-name": "FFDeliverySummaryDto"
+        }
+      ]
+    },
+    "deliveries": {
+      "description": "Список поставок",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID поставки",
+            "example": "123e4567-e89b-12d3-a456-426614174000",
+            "format": "uuid"
+          },
+          "number": { "type": "number", "description": "Порядковый номер", "example": 3 },
+          "deliveryDate": {
+            "type": "string",
+            "description": "Дата поставки",
+            "example": "15.09.24"
+          },
+          "supplierName": {
+            "type": "string",
+            "description": "Название поставщика",
+            "example": "Elegance Emporium"
+          },
+          "marketplaceName": {
+            "type": "string",
+            "description": "Название магазина/маркетплейса",
+            "example": "ТЯК \"Москва\""
+          },
+          "cargoPlaces": {
+            "type": "number",
+            "description": "Количество грузовых мест",
+            "example": 10
+          },
+          "planQuantity": {
+            "type": "number",
+            "description": "Плановое количество товаров",
+            "example": 6000
+          },
+          "factQuantity": {
+            "type": "number",
+            "description": "Фактическое количество товаров",
+            "example": 0
+          },
+          "defects": { "type": "number", "description": "Количество дефектов", "example": 0 },
+          "productsPrice": {
+            "type": "number",
+            "description": "Стоимость товаров",
+            "example": 2600000
+          },
+          "ffServicesPrice": {
+            "type": "number",
+            "description": "Стоимость услуг ФФ",
+            "example": 150000
+          },
+          "logisticsToFFPrice": {
+            "type": "number",
+            "description": "Стоимость логистики до ФФ",
+            "example": 7000
+          },
+          "status": {
+            "description": "Статус поставки",
+            "example": "IN_PROGRESS",
+            "allOf": [
+              {
+                "type": "string",
+                "enum": ["CREATED", "IN_PROGRESS", "ACCEPTED", "PREPARATION", "COMPLETED"],
+                "x-readme-ref-name": "DeliveryStatus"
+              }
+            ]
+          },
+          "supplierInfo": {
+            "description": "Информация о поставщике",
+            "allOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "ID поставщика",
+                    "example": "123e4567-e89b-12d3-a456-426614174000",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Название поставщика",
+                    "example": "Elegance Emporium"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "Адрес поставщика",
+                    "example": "г. Москва, ул. Ленина, д. 10"
+                  },
+                  "contactPerson": {
+                    "type": "string",
+                    "description": "Контактное лицо",
+                    "example": "Иванов Иван"
+                  },
+                  "contactPhone": {
+                    "type": "string",
+                    "description": "Контактный телефон",
+                    "example": "+7 (999) 123-45-67"
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "Местоположение",
+                    "example": "Москва"
+                  },
+                  "isTG": {
+                    "type": "boolean",
+                    "description": "Является ли поставщиком ТЯК",
+                    "example": true
+                  }
+                },
+                "required": ["id", "name"],
+                "x-readme-ref-name": "SupplierInfoDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "number",
+          "deliveryDate",
+          "supplierName",
+          "marketplaceName",
+          "cargoPlaces",
+          "planQuantity",
+          "factQuantity",
+          "defects",
+          "productsPrice",
+          "ffServicesPrice",
+          "logisticsToFFPrice",
+          "status",
+          "supplierInfo"
+        ],
+        "x-readme-ref-name": "FFDeliveryListItemDto"
+      }
+    }
+  },
+  "required": ["summary", "deliveries"],
+  "x-readme-ref-name": "FFDeliveryResponseDto"
+}

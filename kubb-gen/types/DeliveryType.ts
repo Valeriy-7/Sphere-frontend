@@ -1,3 +1,13 @@
+export const deliveryStatusEnum = {
+  CREATED: 'CREATED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  ACCEPTED: 'ACCEPTED',
+  PREPARATION: 'PREPARATION',
+  COMPLETED: 'COMPLETED',
+} as const;
+
+export type DeliveryStatusEnumType = (typeof deliveryStatusEnum)[keyof typeof deliveryStatusEnum];
+
 export type DeliveryType = {
   /**
    * @description Уникальный идентификатор поставки
@@ -19,6 +29,71 @@ export type DeliveryType = {
    * @type number | undefined
    */
   cargoPlaces?: number;
+  /**
+   * @description Ширина груза (см)
+   * @type number | undefined
+   */
+  cargoWidth?: number;
+  /**
+   * @description Длина груза (см)
+   * @type number | undefined
+   */
+  cargoLength?: number;
+  /**
+   * @description Высота груза (см)
+   * @type number | undefined
+   */
+  cargoHeight?: number;
+  /**
+   * @description Объем груза (м³)
+   * @type number | undefined
+   */
+  cargoVolume?: number;
+  /**
+   * @description Ответственный сотрудник
+   * @type string | undefined
+   */
+  responsiblePerson?: string;
+  /**
+   * @description ID логиста
+   * @type string | undefined
+   */
+  logisticsProviderId?: string;
+  /**
+   * @description Статус поставки
+   * @type string
+   */
+  status: DeliveryStatusEnumType;
+  /**
+   * @description ID магазина
+   * @type string | undefined
+   */
+  storeId?: string;
+  /**
+   * @description Название магазина
+   * @type string | undefined
+   */
+  storeName?: string;
+  /**
+   * @description Контактное лицо магазина
+   * @type string | undefined
+   */
+  storeContactPerson?: string;
+  /**
+   * @description Контактный телефон магазина
+   * @type string | undefined
+   */
+  storeContactPhone?: string;
+  /**
+   * @description Время работы магазина
+   * @type string | undefined
+   */
+  storeWorkingHours?: string;
+  /**
+   * @description Идентификатор магазина в системе
+   * @type string | undefined
+   */
+  storeExternalId?: string;
   /**
    * @description Общая стоимость товаров
    * @type number

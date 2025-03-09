@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "storeId": {
+      "type": "string",
+      "description": "ID магазина",
+      "example": "123e4567-e89b-12d3-a456-426614174000",
+      "format": "uuid"
+    },
+    "storeName": { "type": "string", "description": "Название магазина", "example": "Детский мир" },
+    "storeContactPerson": {
+      "type": "string",
+      "description": "Контактное лицо магазина",
+      "example": "Мария"
+    },
+    "storeContactPhone": {
+      "type": "string",
+      "description": "Контактный телефон магазина",
+      "example": "+7 (918) 299-65-42"
+    },
+    "storeWorkingHours": {
+      "type": "string",
+      "description": "Время работы магазина",
+      "example": "с 9:00 до 18:00"
+    },
+    "storeExternalId": {
+      "type": "string",
+      "description": "Идентификатор магазина в системе",
+      "example": "25589978"
+    }
+  },
+  "x-readme-ref-name": "UpdateStoreInfoDto"
+}

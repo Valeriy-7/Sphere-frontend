@@ -6,11 +6,15 @@ import { makeData, DataRow } from '@/lib/makeData';
 import { AppTabs, AppTabsWrap } from '@/components/app-tabs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useDeliveriesGetDeliveriesSuspense } from '@/kubb-gen';
+import {
+  useDeliveriesGetDeliveriesSuspense,
+  useFFDeliveriesGetFFDeliveriesSuspense,
+} from '@/kubb-gen';
 const initData = makeData();
 export default function StorageFfPage() {
   //const { data } = useDeliveriesGetDeliveriesSuspense();
-   const [data, setData] = React.useState(initData);
+  const { data } = useFFDeliveriesGetFFDeliveriesSuspense();
+  //const [data, setData] = React.useState(initData);
   return (
     <>
       <AppTabsWrap>

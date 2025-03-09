@@ -11,16 +11,12 @@
       "description": "Название компании поставщика",
       "example": "ООО \"Ромашка\""
     },
-    "contactName": {
-      "type": "string",
-      "description": "ФИО контактного лица",
-      "example": "Иванов Иван"
-    },
+    "contactName": { "type": "string", "description": "Имя контактного лица", "example": "Иван" },
     "phone": { "type": "string", "description": "Номер телефона", "example": "+79991234567" },
     "marketplaceName": {
       "type": "string",
-      "description": "Название маркетплейса",
-      "example": "Садовод"
+      "description": "Название рынка",
+      "example": "ТЯК \"Москва\""
     },
     "address": {
       "type": "string",
@@ -29,13 +25,13 @@
     },
     "location": {
       "type": "string",
-      "description": "Местоположение (павильон, линия и т.д.)",
+      "description": "Место (павильон, линия и т.д.)",
       "example": "Линия 1, павильон 45"
     },
-    "telegram": {
-      "type": "string",
-      "description": "Telegram аккаунт",
-      "example": "@ivanov_shop",
+    "isTG": {
+      "type": "boolean",
+      "description": "Является ли поставщик ТГ",
+      "example": true,
       "nullable": true
     },
     "cabinetId": {

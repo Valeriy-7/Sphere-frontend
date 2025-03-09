@@ -66,8 +66,6 @@ export function SupplierCreateDialog() {
     mutate({ data });
   }
 
-  console.log(form.formState.errors);
-  console.log(form.getValues());
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>

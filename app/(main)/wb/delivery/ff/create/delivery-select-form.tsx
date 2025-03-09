@@ -22,28 +22,32 @@ import { formatCurrency } from '@/lib/formatCurrency';
 import { useJWTAuthContext, useJWTAuthUser } from '@/modules/auth';
 import {
   deliveriesGetFulfillmentServices,
-  //logisticsPriceGetLogisticsPrice,
+  logisticsPriceGetLogisticsPrice,
   useDeliveriesCreateDelivery,
   useDeliveriesGetDeliveries,
   useDeliveriesGetDeliveriesSuspense,
   useDeliveriesGetFulfillmentConsumables,
   useDeliveriesGetFulfillmentConsumablesSuspense,
   useDeliveriesGetFulfillmentServices,
-  useDeliveriesGetSuppliers, useLogisticsPriceGetLogisticsPrice,
+  useDeliveriesGetSuppliers,
+  useLogisticsPriceGetLogisticsPrice,
   useWbGetProducts,
   useWbGetProductsSuspense,
 } from '@/kubb-gen';
 import { useFormDraftV } from '@/app/(main)/wb/delivery/ff/create/use-form-draft';
 
 import { toast } from 'sonner';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
+import { $logisticsPrice } from '@/app/(main)/wb/delivery/ff/create/store';
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
 export default function NestedDynamicForm() {
   const { cabinetId } = useJWTAuthUser();
 
-  const { data: { items }  } = useWbGetProductsSuspense({ cabinetId });
+  const {
+    data: { items },
+  } = useWbGetProductsSuspense({ cabinetId });
   const { data: servicesData = [] } = useDeliveriesGetFulfillmentServices();
   const { data: consumablesData = [] } = useDeliveriesGetFulfillmentConsumables();
   const { data: suppliersData = [] } = useDeliveriesGetSuppliers();
@@ -62,9 +66,10 @@ export default function NestedDynamicForm() {
     control: form.control,
     name: 'products',
   });
+
+  const watchSupplierIds = fields.map((field, index) => form.watch(`products.${index}.supplierId`));
+
   /*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
-
-
 
   function onSubmit(data: FormValues) {
     mutate(
@@ -78,76 +83,45 @@ export default function NestedDynamicForm() {
     );
   }
 
-//console.log(form.formState.errors);
- /* console.log(form.getValues('products'));*/
-  const [logisticsPrice, setLogisticsPrice] = useState<number[]>([])
-  const products = form.getValues('products')
-  const logisticsPriceGetLogisticsPrice = deliveriesGetFulfillmentServices
-  const suppliers = products
-      .map(({quantity,supplierId},index)=>{
-        const { width, height, length, } = items[index]
-        return  { supplierId, volume: width*height*length, quantity }
-      })
-      .filter(i=>i.supplierId)
-  console.log(products);
+  type LogisticsPrice = { supplierId: string; price: number; select: boolean };
+  const [logisticsPrice, setLogisticsPrice] = useState<LogisticsPrice[]>([]);
+  const updateLogisticsPrice = (index: number, params: LogisticsPrice) => {
+    setLogisticsPrice((old) => {
+      const list = [...old];
+      list[index] = params;
+      return list;
+    });
+  };
+  useEffect(() => {
+    console.log('useEffect(()');
+    watchSupplierIds.forEach(async (supplierId, index) => {
+      if (!supplierId) {
+        if (logisticsPrice[index]?.select) {
+          updateLogisticsPrice(index, { price: 0, supplierId, select: false });
+        }
+      } else {
+        if (logisticsPrice[index]?.supplierId === supplierId) return; // значит запрос уже был сделан и данные получены
+        const price = await logisticsPriceGetLogisticsPrice({
+          supplierId,
+          toPointType: 'FULFILLMENT',
+        })
+          .then(({ priceUpTo1m3, pricePer1m3 }) => {
+            const { width, height, length } = items[index];
+            const volume = (width * height * length) / 1000000; // sm3 to m3
+            const { quantity } = fields[index];
+            return quantity * volume > 1 ? priceUpTo1m3 : pricePer1m3;
+          })
+          .catch(() => 0);
 
-/*  useEffect(() => {
-    console.log('useEffect');
-
-    const suppliersPromises = suppliers
-        .map(({supplierId, volume, quantity})=>
-            logisticsPriceGetLogisticsPrice({supplierId,toPointType:'FULFILLMENT'}).then(()=>{
-              const response = {
-                "fromPoint": {
-                  "name": "Коледино",
-                  "id": "507f1f77bcf86cd799439011",
-                  "type": "WILDBERRIES",
-                  "isPartner": true,
-                  "address": "Тихорецкий бул., 1, стр. 6"
-                },
-                "toPoint": {
-                  "name": "Коледино",
-                  "id": "507f1f77bcf86cd799439011",
-                  "type": "WILDBERRIES",
-                  "isPartner": true,
-                  "address": "Тихорецкий бул., 1, стр. 6"
-                },
-                "priceUpTo1m3": 2500,
-                "pricePer1m3": 3500,
-                "description": "Доставка из склада WB в ТЯК Москва"
-              }
-
-              const result = quantity * volume / 1000000
-              if(result > 1 ) return response.priceUpTo1m3
-              return response.pricePer1m3
-            })
-        )
-    Promise.all(suppliersPromises).then(value => setLogisticsPrice(value));
-  }, [suppliers]);*/
-
-
-
-
-
-
-
-/*
-  function getLogisticsPrice(){
-
-
-  }
-
-  const supplierIdsPromises = supplierIds.map((id)=>logisticsPriceGetLogisticsPrice({supplierId:id}))
-
-
-
-*/
-
+        updateLogisticsPrice(index, { price, supplierId, select: false });
+      }
+    });
+  }, [watchSupplierIds]);
 
   const totalColumnValue = [
     getAmountReduce(form.getValues().products.map((i) => i.quantity ?? 0)),
     getAmountReduce(form.getValues().products.map((i) => i.price ?? 0)),
-    getAmountReduce(logisticsPrice),
+    getAmountReduce(logisticsPrice.map((i) => i.price)),
     getAmountReduce(
       form
         .getValues()

@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "cargoWidth": {
+      "type": "number",
+      "description": "Ширина груза (см)",
+      "example": 100,
+      "minimum": 0
+    },
+    "cargoLength": {
+      "type": "number",
+      "description": "Длина груза (см)",
+      "example": 120,
+      "minimum": 0
+    },
+    "cargoHeight": {
+      "type": "number",
+      "description": "Высота груза (см)",
+      "example": 80,
+      "minimum": 0
+    },
+    "cargoPlaces": {
+      "type": "number",
+      "description": "Количество грузовых мест",
+      "example": 10,
+      "minimum": 1
+    }
+  },
+  "x-readme-ref-name": "UpdateCargoDimensionsDto"
+}

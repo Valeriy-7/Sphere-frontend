@@ -39,6 +39,7 @@ import {
 import { SupplierCreateDialog } from '@/app/(main)/wb/delivery/ff/create/supplier-create-dialog';
 import { CheckboxItem, FormValues } from '@/app/(main)/wb/delivery/ff/create/schema';
 import * as React from 'react';
+import { addLogisticsPrice } from '@/app/(main)/wb/delivery/ff/create/store';
 
 const FormSchema = z.object({
   items: z.array(z.string().optional()),
@@ -292,7 +293,9 @@ export function DPSelectForm2({
                       id={`${name}-checkbox-${index}-${option.id}`}
                       checked={field.value === option.id}
                       onCheckedChange={() => {
-                        field.onChange(field.value === option.id ? '' : option.id);
+                        const id = field.value === option.id ? '' : option.id;
+                        //addLogisticsPrice(id);
+                        field.onChange(id);
                       }}
                     />
                   ) : (
