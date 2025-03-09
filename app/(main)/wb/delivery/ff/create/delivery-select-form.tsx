@@ -71,6 +71,8 @@ export default function NestedDynamicForm() {
 
   /*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
 
+  console.log(form.formState.errors);
+
   function onSubmit(data: FormValues) {
     mutate(
       { data },
