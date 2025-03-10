@@ -5,9 +5,10 @@ import { ColumnDef } from '@tanstack/react-table';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
 import { formatDate } from '@/lib/utils/formatDate';
-import type { FFDeliveryListItemDtoType } from '@/kubb-gen';
+import { FFDeliveryListItemDtoType} from '@/kubb-gen';
 import { getTextCurrency } from '@/lib/constants/rub';
 import {Badge} from "@/components/ui/badge";
+import {DELIVERY_COLOR_MAP, DELIVERY_STATUS_MAP} from "@/lib/utils/delivery";
 
 export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
   getColumnNumber<FFDeliveryListItemDtoType>(),
@@ -21,22 +22,14 @@ export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
     sortingFn: 'datetime',
   },
   {
-    accessorFn: ({ supplierInfo }) => `${supplierInfo.name} ${supplierInfo.address}`,
-    id: 'supplierInfo',
+    accessorKey: 'marketplaceName',
     header: 'Оптовик',
-    cell: ({
-      row: {
-        original: { supplierInfo },
-      },
-    }) => {
+    cell: ({getValue}) => {
       return (
-        <div className={'text-left'}>
           <TableCardImgText
-            image={{ src: undefined }}
-            title={supplierInfo.name}
-            text={supplierInfo.address}
+              image={{ src: undefined }}
+              title={getValue()}
           />
-        </div>
       );
     },
   },
@@ -79,7 +72,9 @@ export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
     header: 'Статус',
     sortingFn: 'text',
     cell:({ getValue })=>{
-      return <Badge variant="outline">{getValue()}</Badge>
+      const value = getValue()
+
+      return <Badge variant={'outline'} className={`${DELIVERY_COLOR_MAP[value]} dark:text-black`}>{DELIVERY_STATUS_MAP[value]}</Badge>
     }
   },
 ];

@@ -20,7 +20,7 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
   useReactTable,
-  SortingState,
+  SortingState, Row,
 } from '@tanstack/react-table';
 
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
@@ -28,6 +28,7 @@ import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import type { DataRow } from '@/lib/makeData';
 
 import {
+  type ColSizeList,
   defaultColumn,
   fuzzyFilter,
   getColSizeList,
@@ -35,6 +36,7 @@ import {
   type TableProps,
 } from '@/lib/TableHelpers';
 import { TableImgText } from '@/components/date-table/table-img-text';
+import {useFFDeliveriesGetFFDeliveryProducts} from "@/kubb-gen";
 
 export function DeliveryFfTable<TData, TValue>({ columns, data }: TableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -129,42 +131,53 @@ export function DeliveryFfTable<TData, TValue>({ columns, data }: TableProps<TDa
                 })}
               </TableRow>
               {row.getIsExpanded() && (
-                <TableRowExpand colSpan={row.getVisibleCells().length}>
-                  <Table colSizeList={colSizeList}>
-                    <TableBody>
-                      <TableRow rowSpace={false}>
-                        <TableCell
-                          className={'border-none'}
-                          colSpan={2}
-                          rowSpan={row.original.subRows.length + 2}
-                        >
-                          <ul>
-                            <li>Кристина</li>
-                            <li>+7 (922) 333-08-32</li>
-                            <li>Ул. Тихорецкий б-р 1</li>
-                            <li>Секция А 2Д-08</li>
-                            <li>Время с 08:00 до 18:00</li>
-                            <li>ИП Смирнов С. Д.</li>
-                          </ul>
-                        </TableCell>
-                      </TableRow>
-                      {row.original.subRows.map((subRow, index) => (
-                        <TableRowSize
-                          index={index}
-                          length={row.original.subRows.length}
-                          key={subRow.uuid}
-                          row={subRow}
-                        />
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableRowExpand>
+                  <TableRowExpandLevel colSizeList={colSizeList} row={row}/>
               )}
             </Fragment>
           );
         })}
       </TableBody>
     </Table>
+  );
+}
+
+export function TableRowExpandLevel<TData>({
+                                             row,
+                                             colSizeList,
+                                             table,
+                                           }: { row: Row<TData>; table: TTable<TData> } & ColSizeList) {
+  const {data:subRows = []} = useFFDeliveriesGetFFDeliveryProducts(row.original.id)
+  return (
+      <TableRowExpand colSpan={row.getVisibleCells().length}>
+        <Table colSizeList={colSizeList}>
+          <TableBody>
+            <TableRow rowSpace={false}>
+              <TableCell
+                  className={'border-none'}
+                  colSpan={2}
+                  rowSpan={subRows.length + 2}
+              >
+                <ul>
+                  <li>Кристина</li>
+                  <li>+7 (922) 333-08-32</li>
+                  <li>Ул. Тихорецкий б-р 1</li>
+                  <li>Секция А 2Д-08</li>
+                  <li>Время с 08:00 до 18:00</li>
+                  <li>ИП Смирнов С. Д.</li>
+                </ul>
+              </TableCell>
+            </TableRow>
+         {/*   {subRows.map((subRow, index) => (
+                <TableRowSize
+                    index={index}
+                    length={row.original.subRows.length}
+                    key={subRow.uuid}
+                    row={subRow}
+                />
+            ))}*/}
+          </TableBody>
+        </Table>
+      </TableRowExpand>
   );
 }
 
