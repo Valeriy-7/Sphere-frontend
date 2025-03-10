@@ -67,7 +67,12 @@ export default function NestedDynamicForm() {
     name: 'products',
   });
 
-  const watchSupplierIds = fields.map((field, index) => form.watch(`products.${index}.supplierId`));
+  const watchSuppliers = fields.map((field, index) => ({
+    supplierId: form.watch(`products.${index}.supplierId`),
+    quantity: form.watch(`products.${index}.quantity`),
+    wbProductId: form.watch(`products.${index}.wbProductId`),
+    volume: (items[index].width * items[index].height * items[index].length) / 1000000,
+  }));
 
   /*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
 
@@ -85,45 +90,68 @@ export default function NestedDynamicForm() {
     );
   }
 
-  type LogisticsPrice = { supplierId: string; price: number; select: boolean };
+  type LogisticsPrice = {
+    supplierId: string;
+    priceUpTo1m3: number;
+    pricePer1m3: number;
+    select: boolean;
+    quantity: number;
+    wbProductId: string;
+    volume: number;
+  };
   const [logisticsPrice, setLogisticsPrice] = useState<LogisticsPrice[]>([]);
-  const updateLogisticsPrice = (index: number, params: LogisticsPrice) => {
+  const updateLogisticsPrice = (index: number, select: boolean) => {
     setLogisticsPrice((old) => {
       const list = [...old];
-      list[index] = params;
+      list[index].select = select;
       return list;
     });
   };
+  console.log(logisticsPrice);
   useEffect(() => {
-    console.log('useEffect(()');
-    watchSupplierIds.forEach(async (supplierId, index) => {
-      if (!supplierId) {
-        if (logisticsPrice[index]?.select) {
-          updateLogisticsPrice(index, { price: 0, supplierId, select: false });
-        }
-      } else {
-        if (logisticsPrice[index]?.supplierId === supplierId) return; // значит запрос уже был сделан и данные получены
-        const price = await logisticsPriceGetLogisticsPrice({
+    //console.log('useEffect(()', watchSuppliers);
+    watchSuppliers.forEach(async ({ supplierId, quantity, wbProductId, volume }, index) => {
+      const findIndex = logisticsPrice.findIndex((i) => i.wbProductId === wbProductId);
+      const isFind = logisticsPrice.findIndex((i) => i.wbProductId === wbProductId) !== -1;
+      const select = Boolean(supplierId);
+
+      if (!isFind) {
+        if (!supplierId) return;
+        const priceObj = await logisticsPriceGetLogisticsPrice({
           supplierId,
           toPointType: 'FULFILLMENT',
         })
-          .then(({ priceUpTo1m3, pricePer1m3 }) => {
-            const { width, height, length } = items[index];
-            const volume = (width * height * length) / 1000000; // sm3 to m3
-            const { quantity } = fields[index];
-            return quantity * volume > 1 ? priceUpTo1m3 : pricePer1m3;
-          })
-          .catch(() => 0);
+          .then(({ priceUpTo1m3, pricePer1m3 }) => ({ priceUpTo1m3, pricePer1m3 }))
+          .catch(() => ({ priceUpTo1m3: 0, pricePer1m3: 0 }));
 
-        updateLogisticsPrice(index, { price, supplierId, select: false });
+        setLogisticsPrice((old) => {
+          return [...old, { ...priceObj, supplierId, select: true, quantity, wbProductId, volume }];
+        });
+
+        return;
       }
+
+      // if(select === logisticsPrice[findIndex].select) return
+      //updateLogisticsPrice(findIndex, select);
     });
-  }, [watchSupplierIds]);
+  }, [watchSuppliers]);
+
+  /*  const { width, height, length } = items[index];
+  const volume = (width * height * length) / 1000000; // sm3 to m3
+  const { quantity } = fields[index];
+  return quantity * volume > 1 ? priceUpTo1m3 : pricePer1m3;*/
 
   const totalColumnValue = [
     getAmountReduce(form.getValues().products.map((i) => i.quantity ?? 0)),
     getAmountReduce(form.getValues().products.map((i) => i.price ?? 0)),
-    getAmountReduce(logisticsPrice.map((i) => i.price)),
+    getAmountReduce(
+      watchSuppliers.map((i, index) => {
+        const { priceUpTo1m3, pricePer1m3 } = logisticsPrice.find(
+          (item) => item.supplierId === i.supplierId,
+        ) ?? { priceUpTo1m3: 0, pricePer1m3: 0 };
+        return i.quantity * i.volume > 1 ? priceUpTo1m3 : pricePer1m3;
+      }),
+    ),
     getAmountReduce(
       form
         .getValues()

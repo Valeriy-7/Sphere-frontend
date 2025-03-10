@@ -1,4 +1,4 @@
-import { cabinetSchema } from '../cabinetSchema';
+import { cabinetResponseDtoSchema } from '../cabinetResponseDtoSchema';
 import { z } from 'zod';
 
 export const cabinetsFindOnePathParamsSchema = z.object({
@@ -8,7 +8,7 @@ export const cabinetsFindOnePathParamsSchema = z.object({
 /**
  * @description Информация о кабинете успешно получена
  */
-export const cabinetsFindOne200Schema = z.lazy(() => cabinetSchema);
+export const cabinetsFindOne200Schema = z.lazy(() => cabinetResponseDtoSchema);
 
 /**
  * @description Кабинет не найден

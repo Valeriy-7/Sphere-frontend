@@ -1,9 +1,9 @@
-import type { CabinetType } from '../CabinetType';
+import type { CabinetResponseDtoType } from '../CabinetResponseDtoType';
 
 /**
  * @description Активный кабинет успешно получен
  */
-export type CabinetsGetActive200Type = CabinetType;
+export type CabinetsGetActive200Type = CabinetResponseDtoType;
 
 /**
  * @description Активный кабинет не найден

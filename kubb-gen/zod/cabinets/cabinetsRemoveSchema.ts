@@ -7,11 +7,11 @@ export const cabinetsRemovePathParamsSchema = z.object({
 /**
  * @description Кабинет успешно удален
  */
-export const cabinetsRemove200Schema = z.any();
+export const cabinetsRemove204Schema = z.any();
 
 /**
  * @description Кабинет не найден
  */
 export const cabinetsRemove404Schema = z.any();
 
-export const cabinetsRemoveMutationResponseSchema = z.lazy(() => cabinetsRemove200Schema);
+export const cabinetsRemoveMutationResponseSchema = z.lazy(() => cabinetsRemove204Schema);

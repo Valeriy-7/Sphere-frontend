@@ -11,6 +11,10 @@ export const deliveryPointsGetDeliveryPointsQueryParamsSchema = z
       .string()
       .describe('ID кабинета, для которого нужно получить точки доставки')
       .optional(),
+    onlyPartners: z
+      .boolean()
+      .describe('Флаг для получения только партнерских точек доставки')
+      .optional(),
   })
   .optional();
 

@@ -8,11 +8,10 @@ import { PropsWithChildren, useEffect } from 'react';
 import ThemeWrap from '@/components/themeWrap';
 import { LKTypeValue } from '@/lib/types';
 
-import {useRouter, useSelectedLayoutSegments} from 'next/navigation';
+import { useRouter, useSelectedLayoutSegments } from 'next/navigation';
 import { useJWTAuthContext } from '@/modules/auth';
 import { AppSpinner } from '@/components/app-spinner';
 import * as React from 'react';
-
 
 export default function MainLayout({ children }: PropsWithChildren) {
   const [lk] = useSelectedLayoutSegments();
@@ -20,7 +19,6 @@ export default function MainLayout({ children }: PropsWithChildren) {
   if (!isLoggedIn) {
     return null;
   }
-
 
   return (
     <ThemeWrap name={lk as LKTypeValue}>

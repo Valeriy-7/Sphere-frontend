@@ -20,6 +20,11 @@ export type DeliveryPointsGetDeliveryPointsQueryParamsType = {
    * @type string | undefined
    */
   cabinetId?: string;
+  /**
+   * @description Флаг для получения только партнерских точек доставки
+   * @type boolean | undefined
+   */
+  onlyPartners?: boolean;
 };
 
 /**

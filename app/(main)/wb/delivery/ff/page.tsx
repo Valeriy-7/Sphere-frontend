@@ -13,7 +13,9 @@ import {
 const initData = makeData();
 export default function StorageFfPage() {
   //const { data } = useDeliveriesGetDeliveriesSuspense();
-  const { data } = useFFDeliveriesGetFFDeliveriesSuspense();
+  const {
+    data: { summary, deliveries },
+  } = useFFDeliveriesGetFFDeliveriesSuspense();
   //const [data, setData] = React.useState(initData);
   return (
     <>
@@ -36,7 +38,7 @@ export default function StorageFfPage() {
       </AppTabsWrap>
       <div>
         <h1>Магазин / Поставки на ФФ</h1>
-        <DeliveryFfTable<DataRow, unknown> data={data} columns={columns} />
+        <DeliveryFfTable<DataRow, unknown> data={deliveries} columns={columns} />
       </div>
     </>
   );

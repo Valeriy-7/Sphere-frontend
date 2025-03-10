@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "messageId": {
+      "type": "string",
+      "description": "ID сообщения",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    }
+  },
+  "required": ["messageId"],
+  "x-readme-ref-name": "ToggleFavoriteDto"
+}

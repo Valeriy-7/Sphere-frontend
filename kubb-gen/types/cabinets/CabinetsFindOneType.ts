@@ -1,4 +1,4 @@
-import type { CabinetType } from '../CabinetType';
+import type { CabinetResponseDtoType } from '../CabinetResponseDtoType';
 
 export type CabinetsFindOnePathParamsType = {
   /**
@@ -10,7 +10,7 @@ export type CabinetsFindOnePathParamsType = {
 /**
  * @description Информация о кабинете успешно получена
  */
-export type CabinetsFindOne200Type = CabinetType;
+export type CabinetsFindOne200Type = CabinetResponseDtoType;
 
 /**
  * @description Кабинет не найден

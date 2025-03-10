@@ -8,17 +8,17 @@ export type CabinetsRemovePathParamsType = {
 /**
  * @description Кабинет успешно удален
  */
-export type CabinetsRemove200Type = any;
+export type CabinetsRemove204Type = any;
 
 /**
  * @description Кабинет не найден
  */
 export type CabinetsRemove404Type = any;
 
-export type CabinetsRemoveMutationResponseType = CabinetsRemove200Type;
+export type CabinetsRemoveMutationResponseType = CabinetsRemove204Type;
 
 export type CabinetsRemoveTypeMutation = {
-  Response: CabinetsRemove200Type;
+  Response: CabinetsRemove204Type;
   PathParams: CabinetsRemovePathParamsType;
   Errors: CabinetsRemove404Type;
 };

@@ -1,10 +1,10 @@
-import { cabinetSchema } from '../cabinetSchema';
+import { cabinetResponseDtoSchema } from '../cabinetResponseDtoSchema';
 import { z } from 'zod';
 
 /**
  * @description Активный кабинет успешно получен
  */
-export const cabinetsGetActive200Schema = z.lazy(() => cabinetSchema);
+export const cabinetsGetActive200Schema = z.lazy(() => cabinetResponseDtoSchema);
 
 /**
  * @description Активный кабинет не найден

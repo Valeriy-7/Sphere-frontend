@@ -1,17 +1,17 @@
 'use client';
-import { RussianRuble } from 'lucide-react';
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { type DataRow } from '@/lib/makeData';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
 import { formatDate } from '@/lib/utils/formatDate';
+import type { FFDeliveryListItemDtoType } from '@/kubb-gen';
+import { setSuffixRub } from '@/lib/constants/rub';
 
-export const columns: ColumnDef<DataRow>[] = [
-  getColumnNumber<DataRow>(),
+export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
+  getColumnNumber<FFDeliveryListItemDtoType>(),
   {
-    accessorKey: 'date1',
+    accessorKey: 'deliveryDate',
     header: 'Дата поставки',
     cell: ({ getValue }) => {
       const value = getValue<Date>();
@@ -20,52 +20,56 @@ export const columns: ColumnDef<DataRow>[] = [
     sortingFn: 'datetime',
   },
   {
-    accessorFn: ({ streetAddress, city }) => `${city} ${streetAddress}`,
-    id: 'city',
+    accessorFn: ({ supplierInfo }) => `${supplierInfo.name} ${supplierInfo.address}`,
+    id: 'supplierInfo',
     header: 'Оптовик',
-    cell: ({ row: { original } }) => {
+    cell: ({
+      row: {
+        original: { supplierInfo },
+      },
+    }) => {
       return (
         <div className={'text-left'}>
           <TableCardImgText
-            image={{ src: original.image }}
-            title={original.city}
-            text={original.streetAddress}
+            image={{ src: '' }}
+            title={supplierInfo.name}
+            text={supplierInfo.address}
           />
         </div>
       );
     },
   },
   {
-    accessorKey: 'number4',
+    accessorKey: 'cargoPlaces',
     header: 'Грузовые места (ед) ',
   },
   {
-    accessorKey: 'number5',
+    accessorKey: 'planQuantity',
     header: 'План',
   },
   {
-    accessorKey: 'number6',
+    accessorKey: 'factQuantity',
     header: 'Факт',
   },
   {
-    accessorKey: 'number7',
+    accessorKey: 'defects',
     header: 'Брак',
   },
   {
-    accessorKey: 'number8',
-    header: 'Цена товаров (₽)',
+    accessorKey: 'productsPrice',
+    header: setSuffixRub('Цена товаров'),
   },
   {
-    accessorKey: 'number9',
-    header: 'Цена услуг ФФ (₽)',
+    accessorKey: 'ffServicesPrice',
+    header: setSuffixRub('Цена услуг ФФ'),
   },
   {
-    accessorKey: 'number2',
+    accessorKey: 'logisticsToFFPrice',
     header: () => (
       <>
         Цена логистики
         <br />
-        до ФФ (₽)
+        {setSuffixRub('до ФФ')}
       </>
     ),
   },
