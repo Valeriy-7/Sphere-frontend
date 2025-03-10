@@ -42,10 +42,7 @@ export const createDeliveryDtoSchema = z.object({
       'ID кабинета, для которого создается поставка.\n    Используется для привязки поставки к конкретному кабинету и проверки прав доступа.',
     ),
   deliveryDate: z
-    .date({
-      required_error: 'Date is required',
-      invalid_type_error: "That's not a date!",
-    })
+    .string()
     .describe(
       'Дата поставки.\n    Указывается в формате ISO 8601.\n    Используется для планирования и отслеживания поставок.',
     ),

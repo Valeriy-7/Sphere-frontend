@@ -3,7 +3,6 @@
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { X } from 'lucide-react';
@@ -13,32 +12,32 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { MarketImg } from '@/app/(main)/wb/delivery/ff/create/market-img';
 import * as React from 'react';
 import { DPBody, DPItem, DPTitle } from '@/app/(main)/wb/delivery/ff/create/delivery-create-row';
-import { CheckboxItem, FormSchema, FormValues } from './schema';
+import { FormSchema, FormValues } from './schema';
 import { DPSelect } from '@/app/(main)/wb/delivery/ff/create/DPList';
 import { DatePicker } from '@/components/date-picker';
 import { CurrencyInput } from '@/components/currency-input';
 import { formatCurrency } from '@/lib/formatCurrency';
 
-import { useJWTAuthContext, useJWTAuthUser } from '@/modules/auth';
+import {useJWTAuthUser } from '@/modules/auth';
 import {
-  deliveriesGetFulfillmentServices,
+  FFDeliveriesGetFFDeliveriesSuspenseQueryKey,
   logisticsPriceGetLogisticsPrice,
   useDeliveriesCreateDelivery,
-  useDeliveriesGetDeliveries,
-  useDeliveriesGetDeliveriesSuspense,
+
   useDeliveriesGetFulfillmentConsumables,
-  useDeliveriesGetFulfillmentConsumablesSuspense,
+
   useDeliveriesGetFulfillmentServices,
   useDeliveriesGetSuppliers,
-  useLogisticsPriceGetLogisticsPrice,
-  useWbGetProducts,
+
   useWbGetProductsSuspense,
 } from '@/kubb-gen';
 import { useFormDraftV } from '@/app/(main)/wb/delivery/ff/create/use-form-draft';
 
-import { toast } from 'sonner';
+
 import { useEffect, useState } from 'react';
-import { $logisticsPrice } from '@/app/(main)/wb/delivery/ff/create/store';
+
+import {getTextCurrency} from "@/lib/constants/rub";
+import {useQueryClient} from "@tanstack/react-query";
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
@@ -61,11 +60,14 @@ export default function NestedDynamicForm() {
       products: [],
     },
   });
-  //const { clearDraft } = useFormDraftV(form, 'form-draft');
-  const { fields, append, remove } = useFieldArray({
+
+
+  const { fields, append, remove,replace } = useFieldArray({
     control: form.control,
     name: 'products',
   });
+  const { clearDraft } = useFormDraftV(form, 'form-draft');
+  const queryClient = useQueryClient();
 
   const watchSuppliers = fields.map((field, index) => ({
     supplierId: form.watch(`products.${index}.supplierId`),
@@ -76,7 +78,7 @@ export default function NestedDynamicForm() {
 
   /*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
 
-  console.log(form.formState.errors);
+  console.log(fields);
 
   function onSubmit(data: FormValues) {
     mutate(
@@ -84,6 +86,14 @@ export default function NestedDynamicForm() {
       {
         onSuccess: () => {
           clearDraft();
+          form.reset({
+            cabinetId
+          })
+          replace([])
+
+          queryClient.invalidateQueries({
+            queryKey: FFDeliveriesGetFFDeliveriesSuspenseQueryKey(),
+          });
           // toast.success('Успешно');
         },
       },
@@ -94,29 +104,17 @@ export default function NestedDynamicForm() {
     supplierId: string;
     priceUpTo1m3: number;
     pricePer1m3: number;
-    select: boolean;
     quantity: number;
     wbProductId: string;
     volume: number;
   };
   const [logisticsPrice, setLogisticsPrice] = useState<LogisticsPrice[]>([]);
-  const updateLogisticsPrice = (index: number, select: boolean) => {
-    setLogisticsPrice((old) => {
-      const list = [...old];
-      list[index].select = select;
-      return list;
-    });
-  };
-  console.log(logisticsPrice);
-  useEffect(() => {
-    //console.log('useEffect(()', watchSuppliers);
-    watchSuppliers.forEach(async ({ supplierId, quantity, wbProductId, volume }, index) => {
-      const findIndex = logisticsPrice.findIndex((i) => i.wbProductId === wbProductId);
-      const isFind = logisticsPrice.findIndex((i) => i.wbProductId === wbProductId) !== -1;
-      const select = Boolean(supplierId);
 
-      if (!isFind) {
-        if (!supplierId) return;
+  useEffect(() => {
+    watchSuppliers.forEach(async ({ supplierId, quantity, wbProductId, volume }, index) => {
+      const isFind = logisticsPrice.find((i) => i.supplierId === supplierId)
+
+      if (!isFind && supplierId) {
         const priceObj = await logisticsPriceGetLogisticsPrice({
           supplierId,
           toPointType: 'FULFILLMENT',
@@ -125,25 +123,17 @@ export default function NestedDynamicForm() {
           .catch(() => ({ priceUpTo1m3: 0, pricePer1m3: 0 }));
 
         setLogisticsPrice((old) => {
-          return [...old, { ...priceObj, supplierId, select: true, quantity, wbProductId, volume }];
+          return [...old, { ...priceObj, supplierId, quantity, wbProductId, volume }];
         });
-
-        return;
       }
-
-      // if(select === logisticsPrice[findIndex].select) return
-      //updateLogisticsPrice(findIndex, select);
     });
   }, [watchSuppliers]);
 
-  /*  const { width, height, length } = items[index];
-  const volume = (width * height * length) / 1000000; // sm3 to m3
-  const { quantity } = fields[index];
-  return quantity * volume > 1 ? priceUpTo1m3 : pricePer1m3;*/
+
 
   const totalColumnValue = [
-    getAmountReduce(form.getValues().products.map((i) => i.quantity ?? 0)),
-    getAmountReduce(form.getValues().products.map((i) => i.price ?? 0)),
+    getAmountReduce(fields.map((i) => i.quantity ?? 0)),
+    getAmountReduce(fields.map((i) => i.price ?? 0)),
     getAmountReduce(
       watchSuppliers.map((i, index) => {
         const { priceUpTo1m3, pricePer1m3 } = logisticsPrice.find(
@@ -153,9 +143,12 @@ export default function NestedDynamicForm() {
       }),
     ),
     getAmountReduce(
-      form
-        .getValues()
-        .products.map((row) => getAmountReduce(row.selectedServices.map((i) => i.price))),
+        fields.map((row) => {
+
+        const servicesAmount = getAmountReduce(row.selectedServices.map((i) => i.price))
+        const consumablesAmount = getAmountReduce(row.selectedConsumables.map((i) => i.price))
+        return servicesAmount + consumablesAmount
+      }),
     ),
   ];
 
@@ -165,19 +158,19 @@ export default function NestedDynamicForm() {
       value: formatCurrency(totalColumnValue[0]),
     },
     {
-      title: 'Цена товаров (₽)',
+      title: getTextCurrency('Цена товаров'),
       value: formatCurrency(totalColumnValue[1]),
     },
     {
-      title: 'Логистика до ФФ (₽)',
+      title: getTextCurrency('Логистика до ФФ'),
       value: formatCurrency(totalColumnValue[2]),
     },
     {
-      title: 'Цена за услуги ФФ (₽)',
+      title: getTextCurrency('Цена за услуги ФФ'),
       value: formatCurrency(totalColumnValue[3]),
     },
     {
-      title: 'Сумма (₽)',
+      title: getTextCurrency('Сумма'),
       value: formatCurrency(totalColumnValue[1] + totalColumnValue[2] + totalColumnValue[3]),
     },
   ];
@@ -248,7 +241,8 @@ export default function NestedDynamicForm() {
 
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
-            {form.formState.errors.products?.message}
+            <div className={'text-red-500'}>{form.formState.errors.products?.message}</div>
+
           </div>
 
           {fields.map((field, index) => {

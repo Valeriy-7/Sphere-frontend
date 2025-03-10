@@ -6,7 +6,7 @@ import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
 import { formatDate } from '@/lib/utils/formatDate';
 import type { FFDeliveryListItemDtoType } from '@/kubb-gen';
-import { setSuffixRub } from '@/lib/constants/rub';
+import { getTextCurrency } from '@/lib/constants/rub';
 
 export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
   getColumnNumber<FFDeliveryListItemDtoType>(),
@@ -57,11 +57,11 @@ export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
   },
   {
     accessorKey: 'productsPrice',
-    header: setSuffixRub('Цена товаров'),
+    header: getTextCurrency('Цена товаров'),
   },
   {
     accessorKey: 'ffServicesPrice',
-    header: setSuffixRub('Цена услуг ФФ'),
+    header: getTextCurrency('Цена услуг ФФ'),
   },
   {
     accessorKey: 'logisticsToFFPrice',
@@ -69,7 +69,7 @@ export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
       <>
         Цена логистики
         <br />
-        {setSuffixRub('до ФФ')}
+        {getTextCurrency('до ФФ')}
       </>
     ),
   },

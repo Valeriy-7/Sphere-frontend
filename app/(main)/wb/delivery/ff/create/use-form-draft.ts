@@ -121,7 +121,7 @@ export function useFormDraftV<T extends Record<string, any>>(
   // Clear draft function
   const clearDraft = () => {
     localStorage.removeItem(storageKey);
-    form.reset({} as T);
+    // form.reset({} as T);
   };
 
   return {

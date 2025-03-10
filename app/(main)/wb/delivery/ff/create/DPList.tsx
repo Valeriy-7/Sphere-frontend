@@ -81,9 +81,8 @@ export function DPSelect({
           {isSelect ? selectSum : sum} {RUB}
         </DPBody>
       )}
-      {isSupplier && <SupplierCreateDialog />}
-      {error && <div className={'text-red-500'}>{error}</div>}
-      <ScrollArea className={'max-h-[92px]'}>
+      {isSupplier && <SupplierCreateDialog/>}
+      <ScrollArea  className={cn('max-h-[92px]',{'rounded-lg border border-red-500':!!error})}>
         {isSelect ? (
           <DPSelectForm2
             isSupplier={isSupplier}
@@ -294,7 +293,6 @@ export function DPSelectForm2({
                       checked={field.value === option.id}
                       onCheckedChange={() => {
                         const id = field.value === option.id ? '' : option.id;
-                        //addLogisticsPrice(id);
                         field.onChange(id);
                       }}
                     />

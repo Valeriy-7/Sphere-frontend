@@ -74,6 +74,7 @@ export default defineConfig({
       },
     }),
     pluginZod({
+      dateType:'string',
       //include: [{ type: "path", pattern: /cabinets/ }],
       transformers: {
         name: (name) => `${name.replace('Controller', '')}`,
