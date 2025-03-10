@@ -4,7 +4,7 @@
 .husky
 node_modules
 README.md
-.env
+.env.production
 .env.*
 docker-compose.yml
 Dockerfile

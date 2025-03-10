@@ -8,6 +8,12 @@
       "example": 100,
       "minimum": 1
     },
+    "planQuantity": {
+      "type": "number",
+      "description": "Плановое количество товара",
+      "example": 100,
+      "minimum": 1
+    },
     "price": { "type": "number", "description": "Цена товара", "example": 50, "minimum": 0.01 },
     "selectedServices": {
       "description": "Выбранные услуги",

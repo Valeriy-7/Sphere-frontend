@@ -25,7 +25,7 @@ const clientOperationGenerator = createReactGenerator({
 
 export default defineConfig({
   input: {
-    path: 'http://localhost:3001/api-json',
+    path: 'http://188.225.18.179:3000/api-json',
   },
   output: {
     path: './kubb-gen',
@@ -82,10 +82,10 @@ export default defineConfig({
         type: 'path',
       },
     }),
-    pluginRedoc({
+    /*  pluginRedoc({
       output: {
         path: './docs/index.html',
       },
-    }),
+    }),*/
   ],
 });

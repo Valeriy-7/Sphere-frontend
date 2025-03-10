@@ -30,7 +30,6 @@ import {
   TableCell,
   TableRowExpand,
 } from '@/components/ui/table';
-import { TableFilter } from '@/app/(main)/admin/list/table-filter';
 
 declare module '@tanstack/react-table' {
   //allows us to define custom properties for our columns

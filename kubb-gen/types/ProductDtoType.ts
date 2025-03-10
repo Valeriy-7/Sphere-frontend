@@ -14,6 +14,12 @@ export type ProductDtoType = {
    */
   quantity: number;
   /**
+   * @description Плановое количество товара
+   * @minLength 1
+   * @type number | undefined
+   */
+  planQuantity?: number;
+  /**
    * @description Цена товара
    * @minLength 0.01
    * @type number
