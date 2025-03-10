@@ -18,26 +18,22 @@ import { DatePicker } from '@/components/date-picker';
 import { CurrencyInput } from '@/components/currency-input';
 import { formatCurrency } from '@/lib/formatCurrency';
 
-import {useJWTAuthUser } from '@/modules/auth';
+import { useJWTAuthUser } from '@/modules/auth';
 import {
   FFDeliveriesGetFFDeliveriesSuspenseQueryKey,
   logisticsPriceGetLogisticsPrice,
   useDeliveriesCreateDelivery,
-
   useDeliveriesGetFulfillmentConsumables,
-
   useDeliveriesGetFulfillmentServices,
   useDeliveriesGetSuppliers,
-
   useWbGetProductsSuspense,
 } from '@/kubb-gen';
 import { useFormDraftV } from '@/app/(main)/wb/delivery/ff/create/use-form-draft';
 
-
 import { useEffect, useState } from 'react';
 
-import {getTextCurrency} from "@/lib/constants/rub";
-import {useQueryClient} from "@tanstack/react-query";
+import { getTextCurrency } from '@/lib/constants/rub';
+import { useQueryClient } from '@tanstack/react-query';
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
@@ -61,8 +57,7 @@ export default function NestedDynamicForm() {
     },
   });
 
-
-  const { fields, append, remove,replace } = useFieldArray({
+  const { fields, append, remove, replace } = useFieldArray({
     control: form.control,
     name: 'products',
   });
@@ -87,9 +82,9 @@ export default function NestedDynamicForm() {
         onSuccess: () => {
           clearDraft();
           form.reset({
-            cabinetId
-          })
-          replace([])
+            cabinetId,
+          });
+          replace([]);
 
           queryClient.invalidateQueries({
             queryKey: FFDeliveriesGetFFDeliveriesSuspenseQueryKey(),
@@ -112,7 +107,7 @@ export default function NestedDynamicForm() {
 
   useEffect(() => {
     watchSuppliers.forEach(async ({ supplierId, quantity, wbProductId, volume }, index) => {
-      const isFind = logisticsPrice.find((i) => i.supplierId === supplierId)
+      const isFind = logisticsPrice.find((i) => i.supplierId === supplierId);
 
       if (!isFind && supplierId) {
         const priceObj = await logisticsPriceGetLogisticsPrice({
@@ -129,8 +124,6 @@ export default function NestedDynamicForm() {
     });
   }, [watchSuppliers]);
 
-
-
   const totalColumnValue = [
     getAmountReduce(fields.map((i) => i.quantity ?? 0)),
     getAmountReduce(fields.map((i) => i.price ?? 0)),
@@ -143,11 +136,10 @@ export default function NestedDynamicForm() {
       }),
     ),
     getAmountReduce(
-        fields.map((row) => {
-
-        const servicesAmount = getAmountReduce(row.selectedServices.map((i) => i.price))
-        const consumablesAmount = getAmountReduce(row.selectedConsumables.map((i) => i.price))
-        return servicesAmount + consumablesAmount
+      fields.map((row) => {
+        const servicesAmount = getAmountReduce(row.selectedServices.map((i) => i.price));
+        const consumablesAmount = getAmountReduce(row.selectedConsumables.map((i) => i.price));
+        return servicesAmount + consumablesAmount;
       }),
     ),
   ];
@@ -242,7 +234,6 @@ export default function NestedDynamicForm() {
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
             <div className={'text-red-500'}>{form.formState.errors.products?.message}</div>
-
           </div>
 
           {fields.map((field, index) => {

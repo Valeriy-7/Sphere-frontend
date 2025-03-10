@@ -7,6 +7,7 @@ import { getColumnNumber } from '@/lib/TableHelpers';
 import { formatDate } from '@/lib/utils/formatDate';
 import type { FFDeliveryListItemDtoType } from '@/kubb-gen';
 import { getTextCurrency } from '@/lib/constants/rub';
+import {Badge} from "@/components/ui/badge";
 
 export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
   getColumnNumber<FFDeliveryListItemDtoType>(),
@@ -31,7 +32,7 @@ export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
       return (
         <div className={'text-left'}>
           <TableCardImgText
-            image={{ src: '' }}
+            image={{ src: undefined }}
             title={supplierInfo.name}
             text={supplierInfo.address}
           />
@@ -77,5 +78,8 @@ export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
     accessorKey: 'status',
     header: 'Статус',
     sortingFn: 'text',
+    cell:({ getValue })=>{
+      return <Badge variant="outline">{getValue()}</Badge>
+    }
   },
 ];

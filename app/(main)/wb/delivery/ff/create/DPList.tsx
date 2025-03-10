@@ -81,8 +81,8 @@ export function DPSelect({
           {isSelect ? selectSum : sum} {RUB}
         </DPBody>
       )}
-      {isSupplier && <SupplierCreateDialog/>}
-      <ScrollArea  className={cn('max-h-[92px]',{'rounded-lg border border-red-500':!!error})}>
+      {isSupplier && <SupplierCreateDialog />}
+      <ScrollArea className={cn('max-h-[92px]', { 'rounded-lg border border-red-500': !!error })}>
         {isSelect ? (
           <DPSelectForm2
             isSupplier={isSupplier}

@@ -2,7 +2,7 @@ import React, { PropsWithChildren, ReactNode } from 'react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 type TableImage = {
-  src: string;
+  src?: string;
 };
 export function TableImgText({
   title,
@@ -48,7 +48,7 @@ export function TableCardImgText({
       >
         <div className={'relative h-[30px] w-[60px]'}>
           {!slotImage && (
-            <img className={'h-full w-full rounded-sm object-cover'} src={image?.src} alt={title} />
+            <img className={'h-full w-full rounded-sm object-cover'} src={image?.src ?? '/no-image.jpg'} alt={title} />
           )}
           {slotImage}
         </div>
