@@ -34,6 +34,7 @@ import { useEffect, useState } from 'react';
 
 import { getTextCurrency } from '@/lib/constants/rub';
 import { useQueryClient } from '@tanstack/react-query';
+import { cn } from '@/lib/utils';
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
@@ -70,10 +71,16 @@ export default function NestedDynamicForm() {
     wbProductId: form.watch(`products.${index}.wbProductId`),
     volume: (items[index].width * items[index].height * items[index].length) / 1000000,
   }));
+  const watchTotals = fields.map((field, index) => ({
+    quantity: form.watch(`products.${index}.quantity`),
+    price: form.watch(`products.${index}.price`),
+    selectedServices: form.watch(`products.${index}.selectedServices`),
+    selectedConsumables: form.watch(`products.${index}.selectedConsumables`),
+  }));
 
   /*  const { lastSaved, hasDraft, saveDraft, clearDraft } = useFormDraft<FormValues>(form, 'form-draft')*/
 
-  console.log(fields);
+  console.log(form.formState.errors);
 
   function onSubmit(data: FormValues) {
     mutate(
@@ -125,8 +132,8 @@ export default function NestedDynamicForm() {
   }, [watchSuppliers]);
 
   const totalColumnValue = [
-    getAmountReduce(fields.map((i) => i.quantity ?? 0)),
-    getAmountReduce(fields.map((i) => i.price ?? 0)),
+    getAmountReduce(watchTotals.map((i) => i.quantity ?? 0)),
+    getAmountReduce(watchTotals.map((i) => i.price ?? 0)),
     getAmountReduce(
       watchSuppliers.map((i, index) => {
         const { priceUpTo1m3, pricePer1m3 } = logisticsPrice.find(
@@ -136,7 +143,7 @@ export default function NestedDynamicForm() {
       }),
     ),
     getAmountReduce(
-      fields.map((row) => {
+      watchTotals.map((row) => {
         const servicesAmount = getAmountReduce(row.selectedServices.map((i) => i.price));
         const consumablesAmount = getAmountReduce(row.selectedConsumables.map((i) => i.price));
         return servicesAmount + consumablesAmount;
@@ -209,7 +216,11 @@ export default function NestedDynamicForm() {
             </div>
           </div>
           <div>
-            <ScrollArea className={'rounded-lg border bg-white p-2 dark:bg-transparent'}>
+            <ScrollArea
+              className={cn('rounded-lg border bg-white p-2 dark:bg-transparent', {
+                'border-red-500': !!form.formState.errors.products?.message,
+              })}
+            >
               <div className={'flex items-center gap-4'}>
                 {items.map(({ id }, index) => (
                   <button
@@ -233,7 +244,6 @@ export default function NestedDynamicForm() {
 
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
-            <div className={'text-red-500'}>{form.formState.errors.products?.message}</div>
           </div>
 
           {fields.map((field, index) => {

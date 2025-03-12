@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID кабинета",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "companyName": {
+      "type": "string",
+      "description": "Название компании",
+      "example": "ООО \"Ромашка\""
+    },
+    "type": {
+      "type": "string",
+      "description": "Тип организации",
+      "enum": ["wildberries", "fulfillment"],
+      "example": "wildberries"
+    },
+    "avatarUrl": {
+      "type": "string",
+      "description": "URL аватарки кабинета",
+      "example": "https://s3.timeweb.cloud/617774af-sphere/avatars/default/wb.webp"
+    }
+  },
+  "required": ["id", "companyName", "type"],
+  "x-readme-ref-name": "CabinetInfoDto"
+}

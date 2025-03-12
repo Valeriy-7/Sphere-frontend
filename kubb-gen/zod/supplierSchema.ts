@@ -10,6 +10,6 @@ export const supplierSchema = z.object({
   location: z.string().describe('Место (павильон, линия и т.д.)'),
   isTG: z.boolean().describe('Является ли поставщик ТГ').nullable().nullish(),
   cabinetId: z.string().describe('ID кабинета'),
-  createdAt: z.string().datetime().describe('Дата создания'),
-  updatedAt: z.string().datetime().describe('Дата обновления'),
+  createdAt: z.date().describe('Дата создания'),
+  updatedAt: z.date().describe('Дата обновления'),
 });

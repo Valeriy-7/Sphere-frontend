@@ -48,7 +48,11 @@ export function TableCardImgText({
       >
         <div className={'relative h-[30px] w-[60px]'}>
           {!slotImage && (
-            <img className={'h-full w-full rounded-sm object-cover'} src={image?.src ?? '/no-image.jpg'} alt={title} />
+            <img
+              className={'h-full w-full rounded-sm object-cover'}
+              src={image?.src ?? '/no-image.jpg'}
+              alt={title}
+            />
           )}
           {slotImage}
         </div>

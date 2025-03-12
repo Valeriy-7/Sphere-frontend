@@ -8,7 +8,7 @@ export type CreateDeliveryDtoType = {
   cabinetId: string;
   /**
    * @description Дата поставки.\n    Указывается в формате ISO 8601.\n    Используется для планирования и отслеживания поставок.
-   * @type string
+   * @type string, date-time
    */
   deliveryDate: string;
   /**

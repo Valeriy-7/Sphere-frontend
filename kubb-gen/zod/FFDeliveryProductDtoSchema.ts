@@ -4,6 +4,7 @@ export const FFDeliveryProductDtoSchema = z.object({
   id: z.string().uuid().describe('ID продукта'),
   number: z.number().describe('Порядковый номер'),
   name: z.string().describe('Название продукта'),
+  article: z.string().describe('Артикул товара'),
   imageUrl: z.string().describe('URL изображения продукта'),
   planQuantity: z.number().describe('Плановое количество'),
   factQuantity: z.number().describe('Фактическое количество'),

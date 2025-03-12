@@ -1,3 +1,4 @@
+import { cabinetInfoDtoSchema } from './cabinetInfoDtoSchema';
 import { deliveryStatusSchema } from './deliveryStatusSchema';
 import { supplierInfoDtoSchema } from './supplierInfoDtoSchema';
 import { z } from 'zod';
@@ -5,7 +6,7 @@ import { z } from 'zod';
 export const FFDeliveryListItemDtoSchema = z.object({
   id: z.string().uuid().describe('ID поставки'),
   number: z.number().describe('Порядковый номер'),
-  deliveryDate: z.string().describe('Дата поставки'),
+  deliveryDate: z.date().describe('Дата поставки в формате dd.MM.yy'),
   supplierName: z.string().describe('Название поставщика'),
   marketplaceName: z.string().describe('Название магазина/маркетплейса'),
   cargoPlaces: z.number().describe('Количество грузовых мест'),
@@ -16,5 +17,15 @@ export const FFDeliveryListItemDtoSchema = z.object({
   ffServicesPrice: z.number().describe('Стоимость услуг ФФ'),
   logisticsToFFPrice: z.number().describe('Стоимость логистики до ФФ'),
   status: z.lazy(() => deliveryStatusSchema).describe('Статус поставки'),
-  supplierInfo: z.lazy(() => supplierInfoDtoSchema).describe('Информация о поставщике'),
+  supplierInfo: z
+    .lazy(() => supplierInfoDtoSchema)
+    .describe('Информация о поставщике (устаревшее, используйте suppliersInfo)'),
+  suppliersInfo: z
+    .array(z.lazy(() => supplierInfoDtoSchema))
+    .describe('Информация о всех поставщиках в поставке'),
+  isPartnerDelivery: z.boolean().describe('Признак партнерской поставки'),
+  cabinetInfo: z
+    .lazy(() => cabinetInfoDtoSchema)
+    .describe('Информация о кабинете-владельце поставки')
+    .optional(),
 });

@@ -11,4 +11,24 @@ export type FFDeliveryResponseDtoType = {
    * @type array
    */
   deliveries: FFDeliveryListItemDtoType[];
+  /**
+   * @description Общее количество поставок
+   * @type number
+   */
+  total: number;
+  /**
+   * @description Текущая страница
+   * @type number
+   */
+  page: number;
+  /**
+   * @description Всего страниц
+   * @type number
+   */
+  pages: number;
+  /**
+   * @description Количество записей на странице
+   * @type number
+   */
+  limit: number;
 };

@@ -1,30 +1,34 @@
+import type { DeliveryStatusType } from '../DeliveryStatusType';
 import type { FFDeliveryResponseDtoType } from '../FFDeliveryResponseDtoType';
-
-export const FFAccountDeliveriesControllerGetDeliveriesQueryParamsStatusEnum = {
-  CREATED: 'CREATED',
-  IN_PROGRESS: 'IN_PROGRESS',
-  ACCEPTED: 'ACCEPTED',
-  PREPARATION: 'PREPARATION',
-  COMPLETED: 'COMPLETED',
-} as const;
-
-export type FFAccountDeliveriesGetDeliveriesQueryParamsStatusEnumType =
-  (typeof FFAccountDeliveriesControllerGetDeliveriesQueryParamsStatusEnum)[keyof typeof FFAccountDeliveriesControllerGetDeliveriesQueryParamsStatusEnum];
 
 export type FFAccountDeliveriesGetDeliveriesQueryParamsType = {
   /**
-   * @description Фильтр по статусу поставки
+   * @description Номер страницы
+   * @minLength 1
+   * @default 1
+   * @type number | undefined
+   */
+  page?: number;
+  /**
+   * @description Количество записей на странице. Для получения всех записей установите значение -1.
+   * @minLength -1
+   * @maxLength 100
+   * @default 10
+   * @type number | undefined
+   */
+  limit?: number;
+  /**
    * @type string | undefined
    */
-  status?: FFAccountDeliveriesGetDeliveriesQueryParamsStatusEnumType;
+  status?: DeliveryStatusType;
   /**
    * @description Начальная дата периода в формате YYYY-MM-DD
-   * @type string | undefined
+   * @type string | undefined, date-time
    */
   startDate?: string;
   /**
    * @description Конечная дата периода в формате YYYY-MM-DD
-   * @type string | undefined
+   * @type string | undefined, date-time
    */
   endDate?: string;
 };

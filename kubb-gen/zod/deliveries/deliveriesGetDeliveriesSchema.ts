@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 export const deliveriesGetDeliveriesQueryParamsSchema = z
   .object({
-    startDate: z.string().describe('Дата начала периода').optional(),
-    endDate: z.string().describe('Дата окончания периода').optional(),
+    startDate: z.date().describe('Дата начала периода').optional(),
+    endDate: z.date().describe('Дата окончания периода').optional(),
   })
   .optional();
 

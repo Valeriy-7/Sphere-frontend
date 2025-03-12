@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { consumableDtoSchema, serviceDtoSchema } from '@/kubb-gen';
+import { consumableDtoSchema, serviceDtoSchema, createDeliveryDtoSchema } from '@/kubb-gen';
 
 const CheckboxItemSchema = z.object({
   id: z.string(),
@@ -35,7 +35,7 @@ export const FormSchema = z.object({
   rows: z.array(NestedFieldSchema).min(1, 'Выберите поставку'),
 });*/
 
-export const createDeliveryDtoSchema = z.object({
+/*export const createDeliveryDtoSchema = z.object({
   cabinetId: z
     .string()
     .describe(
@@ -58,7 +58,7 @@ export const createDeliveryDtoSchema = z.object({
     .describe(
       'Массив товаров в поставке.\n    Должен содержать хотя бы один товар.\n    Каждый товар должен иметь:\n    - ID товара в WB\n    - Количество (больше нуля)\n    - Цену (больше нуля)\n    - Выбранные услуги (опционально)\n    - Выбранные расходники (опционально)\n    - ID поставщика',
     ),
-});
+});*/
 
 export const FormSchema = createDeliveryDtoSchema;
 export type FormValues = z.infer<typeof FormSchema>;

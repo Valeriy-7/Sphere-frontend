@@ -8,11 +8,8 @@
       "format": "uuid"
     },
     "number": { "type": "number", "description": "Порядковый номер", "example": 23 },
-    "name": {
-      "type": "string",
-      "description": "Название продукта",
-      "example": "Футболка женская / Арт 36749595"
-    },
+    "name": { "type": "string", "description": "Название продукта", "example": "Футболка женская" },
+    "article": { "type": "string", "description": "Артикул товара", "example": "36749595" },
     "imageUrl": {
       "type": "string",
       "description": "URL изображения продукта",
@@ -48,6 +45,7 @@
     "id",
     "number",
     "name",
+    "article",
     "imageUrl",
     "planQuantity",
     "factQuantity",

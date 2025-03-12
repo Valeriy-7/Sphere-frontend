@@ -3,12 +3,12 @@ import type { DeliveryType } from '../DeliveryType';
 export type DeliveriesGetDeliveriesQueryParamsType = {
   /**
    * @description Дата начала периода
-   * @type string | undefined
+   * @type string | undefined, date-time
    */
   startDate?: string;
   /**
    * @description Дата окончания периода
-   * @type string | undefined
+   * @type string | undefined, date-time
    */
   endDate?: string;
 };

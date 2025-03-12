@@ -7,10 +7,10 @@ import DeliveryNewPage from '@/app/(main)/ff/delivery/new/page';
 import { useFFAccountDeliveriesGetDeliveriesSuspense } from '@/kubb-gen';
 const initData = makeData();
 export default function DeliveryAcceptancePage() {
-  //const [data, setData] = React.useState(initData);
-  const {
+  const [deliveries, setData] = React.useState(initData);
+  /*  const {
     data: { deliveries },
-  } = useFFAccountDeliveriesGetDeliveriesSuspense();
+  } = useFFAccountDeliveriesGetDeliveriesSuspense();*/
   return (
     <>
       <div>

@@ -1,3 +1,4 @@
+import type { CabinetInfoDtoType } from './CabinetInfoDtoType';
 import type { DeliveryStatusType } from './DeliveryStatusType';
 import type { SupplierInfoDtoType } from './SupplierInfoDtoType';
 
@@ -13,8 +14,8 @@ export type FFDeliveryListItemDtoType = {
    */
   number: number;
   /**
-   * @description Дата поставки
-   * @type string
+   * @description Дата поставки в формате dd.MM.yy
+   * @type string, date
    */
   deliveryDate: string;
   /**
@@ -67,7 +68,22 @@ export type FFDeliveryListItemDtoType = {
    */
   status: DeliveryStatusType;
   /**
-   * @description Информация о поставщике
+   * @description Информация о поставщике (устаревшее, используйте suppliersInfo)
+   * @deprecated
    */
   supplierInfo: SupplierInfoDtoType;
+  /**
+   * @description Информация о всех поставщиках в поставке
+   * @type array
+   */
+  suppliersInfo: SupplierInfoDtoType[];
+  /**
+   * @description Признак партнерской поставки
+   * @type boolean
+   */
+  isPartnerDelivery: boolean;
+  /**
+   * @description Информация о кабинете-владельце поставки
+   */
+  cabinetInfo?: CabinetInfoDtoType;
 };

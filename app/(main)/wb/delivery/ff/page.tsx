@@ -38,7 +38,7 @@ export default function StorageFfPage() {
       </AppTabsWrap>
       <div>
         <h1>Магазин / Поставки на ФФ</h1>
-        <DeliveryFfTable<DataRow, unknown> data={deliveries} columns={columns} />
+        <DeliveryFfTable<DataRow, unknown> data={deliveries} columns={columns} summary={summary} />
       </div>
     </>
   );

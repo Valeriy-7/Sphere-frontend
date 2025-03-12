@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "responsiblePerson": {
+      "type": "string",
+      "description": "ФИО ответственного сотрудника",
+      "example": "Иванов Иван Иванович"
+    },
+    "logisticsProviderId": {
+      "type": "string",
+      "description": "ID логиста",
+      "example": "123e4567-e89b-12d3-a456-426614174000",
+      "format": "uuid"
+    }
+  },
+  "x-readme-ref-name": "UpdateDeliveryDetailsDto"
+}

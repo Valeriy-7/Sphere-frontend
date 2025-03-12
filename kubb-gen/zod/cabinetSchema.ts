@@ -9,9 +9,9 @@ export const cabinetSchema = z.object({
   companyName: z.string().describe('Название компании (для отображения)').nullable().nullish(),
   number1: z.string().describe('Номер первого уровня').nullable(),
   number2: z.string().describe('Номер второго уровня').nullable(),
-  createdAt: z.string().datetime().describe('Дата создания').nullable(),
-  updatedAt: z.string().datetime().describe('Дата обновления').nullable(),
-  verifiedAt: z.string().datetime().describe('Дата верификации').nullable(),
+  createdAt: z.date().describe('Дата создания').nullable(),
+  updatedAt: z.date().describe('Дата обновления').nullable(),
+  verifiedAt: z.date().describe('Дата верификации').nullable(),
   avatarUrl: z.string().describe('URL аватарки кабинета').nullable(),
   apiKey: z.string().describe('API ключ Wildberries').nullable().nullish(),
   isVerified: z.boolean().describe('Статус верификации кабинета').nullable(),
@@ -37,5 +37,5 @@ export const cabinetSchema = z.object({
     .describe('Комментарий администратора при верификации')
     .nullable()
     .nullish(),
-  blockedAt: z.string().datetime().describe('Дата блокировки').nullable(),
+  blockedAt: z.date().describe('Дата блокировки').nullable(),
 });

@@ -15,6 +15,11 @@ export type FFDeliveryProductDtoType = {
    */
   name: string;
   /**
+   * @description Артикул товара
+   * @type string
+   */
+  article: string;
+  /**
    * @description URL изображения продукта
    * @type string
    */

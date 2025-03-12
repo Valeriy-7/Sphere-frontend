@@ -15,6 +15,6 @@ export const logisticsSchema = z.object({
   priceUpTo1m3: z.number().describe('Цена за объем до 1 м³'),
   pricePer1m3: z.number().describe('Цена за 1 м³'),
   description: z.string().describe('Описание маршрута'),
-  createdAt: z.string().datetime().describe('Дата создания'),
-  updatedAt: z.string().datetime().describe('Дата обновления'),
+  createdAt: z.date().describe('Дата создания'),
+  updatedAt: z.date().describe('Дата обновления'),
 });

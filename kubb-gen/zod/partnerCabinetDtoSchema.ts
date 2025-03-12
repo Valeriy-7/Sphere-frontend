@@ -10,7 +10,7 @@ export const partnerCabinetDtoSchema = z.object({
   isVerified: z.boolean().describe('Статус верификации'),
   companyPhone: z.string().describe('Контактный телефон'),
   telegramUrl: z.string().describe('Telegram'),
-  createdAt: z.string().datetime().describe('Дата создания'),
+  createdAt: z.date().describe('Дата создания'),
   income: z.number().describe('Общий доход'),
   ffDeliveries: z.number().describe('Количество поставок на ФФ'),
   productsCount: z.number().describe('Количество товара'),

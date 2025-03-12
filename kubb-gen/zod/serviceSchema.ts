@@ -8,6 +8,6 @@ export const serviceSchema = z.object({
   description: z.string().describe('Описание услуги'),
   imageUrl: z.string().describe('URL изображения услуги').optional(),
   price: z.number().describe('Цена услуги'),
-  createdAt: z.string().datetime().describe('Дата создания'),
-  updatedAt: z.string().datetime().describe('Дата обновления'),
+  createdAt: z.date().describe('Дата создания'),
+  updatedAt: z.date().describe('Дата обновления'),
 });
