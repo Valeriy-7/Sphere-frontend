@@ -222,24 +222,33 @@ export default function NestedDynamicForm() {
               })}
             >
               <div className={'flex items-center gap-4'}>
-                {items.map(({ id }, index) => (
-                  <button
-                    key={id}
-                    className={'flex-none cursor-pointer'}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      append({
-                        wbProductId: id,
-                        quantity: 0,
-                        price: 0,
-                        selectedServices: [],
-                        selectedConsumables: [],
-                      });
-                    }}
-                  >
-                    <MarketImg src={items[index].imageUrl} alt={items[index].name} />
-                  </button>
-                ))}
+                {items.map(({ id }, index) => {
+                  const disabled = !!fields.find((i) => i.wbProductId === id);
+                  return (
+                    <>
+                      <button
+                        key={id}
+                        disabled={disabled}
+                        className={cn('flex-none', {
+                          'cursor-pointer': !disabled,
+                          'opacity-50': disabled,
+                        })}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          append({
+                            wbProductId: id,
+                            quantity: 0,
+                            price: 0,
+                            selectedServices: [],
+                            selectedConsumables: [],
+                          });
+                        }}
+                      >
+                        <MarketImg src={items[index].imageUrl} alt={items[index].name} />
+                      </button>
+                    </>
+                  );
+                })}
               </div>
 
               <ScrollBar orientation="horizontal" />

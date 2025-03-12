@@ -20,7 +20,9 @@ export function useFormDraftV<T extends Record<string, any>>(
     if (savedDraft) {
       try {
         const parsedDraft = JSON.parse(savedDraft);
-        parsedDraft.deliveryDate = new Date(parsedDraft.deliveryDate);
+        parsedDraft.deliveryDate = parsedDraft.deliveryDate
+          ? new Date(parsedDraft.deliveryDate)
+          : undefined;
         form.reset(parsedDraft);
       } catch (error) {
         console.error('Failed to parse draft:', error);
