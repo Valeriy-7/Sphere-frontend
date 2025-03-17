@@ -79,7 +79,7 @@ const newDataRow = (): DataRow => {
 };
 
 export function makeData() {
-  return generateData(20, 10, 3);
+  return generateData(5, 2, 0);
 }
 
 export function generateData(...lens: number[]) {

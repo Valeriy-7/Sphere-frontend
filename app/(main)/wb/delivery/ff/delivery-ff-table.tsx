@@ -36,19 +36,22 @@ import {
 } from '@/lib/TableHelpers';
 import { TableCardImgText, TableImgText } from '@/components/date-table/table-img-text';
 import {
-  FFDeliveryListItemDtoType,
+  FFDeliveryWithRoutesResponseDtoType,
   FFDeliveryProductDtoType,
   FFDeliveryResponseDtoType,
   type SupplierInfoDtoType,
   useFFDeliveriesGetFFDeliveryProducts,
+  type FFDeliveryStatsResponseDtoType,
+  type FFSupplierInfoResponseDtoType,
+  type FFRouteInfoResponseDtoType,
 } from '@/kubb-gen';
 import { formatCurrency } from '@/lib/formatCurrency';
 
-export function DeliveryFfTable<TData extends FFDeliveryListItemDtoType, TValue>({
+export function DeliveryFfTable<TData extends FFDeliveryWithRoutesResponseDtoType, TValue>({
   columns,
   data,
-  summary,
-}: TableProps<TData, TValue> & Pick<FFDeliveryResponseDtoType, 'summary'>) {
+  stats,
+}: TableProps<TData, TValue> & Pick<FFDeliveryResponseDtoType, 'stats'>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const [globalFilter, setGlobalFilter] = useState('');
@@ -83,7 +86,7 @@ export function DeliveryFfTable<TData extends FFDeliveryListItemDtoType, TValue>
     onSortingChange: setSorting,
   });
 
-  const { colSizeList } = getColSizeList(['w-[60px]', '', '', '', '', '', '', '', '', '', '']);
+  const { colSizeList } = getColSizeList(['w-[60px]', '', '', '', '', '', '', '', '', '']);
 
   return (
     <Table colSizeList={colSizeList}>
@@ -103,7 +106,7 @@ export function DeliveryFfTable<TData extends FFDeliveryListItemDtoType, TValue>
                 );
               })}
             </TableRow>
-            <TableRowTotal<TData> table={table} summary={summary} />
+            <TableRowTotal<TData> table={table} stats={stats} />
           </Fragment>
         ))}
       </TableHeader>
@@ -126,12 +129,15 @@ export function DeliveryFfTable<TData extends FFDeliveryListItemDtoType, TValue>
                 })}
               </TableRow>
               {row.getIsExpanded() &&
-                row.original.suppliersInfo.map((supplierInfo) => (
-                  <TableRowExpandLevel
-                    supplierInfo={supplierInfo}
-                    colSizeList={colSizeList}
-                    row={row}
-                  />
+                row.original.routes.map((val, index) => (
+                  <>
+                    <TableRowRoute colSizeList={colSizeList} row={row} data={val} />
+                    {/*     <TableRowSupplier
+                          supplierInfo={supplierInfo}
+                          colSizeList={colSizeList}
+                          row={row}
+                      />*/}
+                  </>
                 ))}
             </Fragment>
           );
@@ -141,20 +147,16 @@ export function DeliveryFfTable<TData extends FFDeliveryListItemDtoType, TValue>
   );
 }
 
-export function TableRowExpandLevel<TData extends FFDeliveryListItemDtoType>({
+export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>({
   row,
   colSizeList,
   table,
-  supplierInfo,
+  data,
 }: {
-  productId: string;
   row: Row<TData>;
   table: TTable<TData>;
-  supplierInfo: SupplierInfoDtoType;
+  data: FFRouteInfoResponseDtoType;
 } & ColSizeList) {
-  const { data: subRows = [] } = useFFDeliveriesGetFFDeliveryProducts(row.original.id, {
-    supplierId: supplierInfo.id,
-  });
   return (
     <>
       {/*   <TableRow>
@@ -171,31 +173,80 @@ export function TableRowExpandLevel<TData extends FFDeliveryListItemDtoType>({
       <TableRowExpand colSpan={row.getVisibleCells().length}>
         <Table colSizeList={colSizeList}>
           <TableBody>
-            <TableRow rowSpace={false}>
-              <TableCell className={'border-none'} colSpan={2} rowSpan={subRows.length + 2}>
-                <ul>
-                  <li>{supplierInfo.contactPerson}</li>
-                  <li>{supplierInfo.contactPhone}</li>
-                  <li>{supplierInfo.address}</li>
-                  <li>{supplierInfo.location}</li>
-                </ul>
+            <TableRow>
+              <TableCell colSpan={2} level={1}>
+                {data.name} <br />
+                {data.address}
               </TableCell>
-              <TableCell className={'border-none'} rowSpan={subRows.length + 2}>
-                <TableCardImgText image={{ src: undefined }} title={supplierInfo.name} />
-              </TableCell>
+
+              <TableCell level={1}>4</TableCell>
+              <TableCell level={1}>5</TableCell>
+              <TableCell level={1}>6</TableCell>
+              <TableCell level={1}>7</TableCell>
+              <TableCell level={1}>8</TableCell>
+              <TableCell level={1}>9</TableCell>
+              <TableCell level={1}>10</TableCell>
+              <TableCell level={1}>11</TableCell>
             </TableRow>
-            {subRows.map((subRow, index) => (
-              <TableRowSize
-                supplierInfo={supplierInfo}
-                index={index}
-                length={subRows.length}
-                key={subRow.id}
-                row={subRow}
-              />
+
+            {data.suppliers.map((i) => (
+              <TableRowSupplier supplierInfo={i} colSizeList={colSizeList} row={row} />
             ))}
           </TableBody>
         </Table>
       </TableRowExpand>
+    </>
+  );
+}
+
+export function TableRowSupplier<TData extends FFDeliveryWithRoutesResponseDtoType>({
+  row,
+  colSizeList,
+  table,
+  supplierInfo,
+}: {
+  productId: string;
+  row: Row<TData>;
+  table: TTable<TData>;
+  supplierInfo: FFSupplierInfoResponseDtoType;
+} & ColSizeList) {
+  const { data: subRows = [] } = useFFDeliveriesGetFFDeliveryProducts(row.original.id, {
+    supplierId: supplierInfo.id,
+  });
+  return (
+    <>
+      <TableRow>
+        <TableCell level={1} colSpan={2}>
+          <TableCardImgText image={{ src: undefined }} title={supplierInfo.name} />
+        </TableCell>
+        <TableCell level={1}>1</TableCell>
+        <TableCell level={1}>2</TableCell>
+        <TableCell level={1}>3</TableCell>
+        <TableCell level={1}>3</TableCell>
+        <TableCell level={1}>4</TableCell>
+        <TableCell level={1}>5</TableCell>
+        <TableCell level={1}>6</TableCell>
+        <TableCell level={1}>7</TableCell>
+      </TableRow>
+      <TableRow rowSpace={false}>
+        <TableCell className={'border-none'} colSpan={2} rowSpan={subRows.length + 2}>
+          <ul>
+            <li>{supplierInfo.contactPerson}</li>
+            <li>{supplierInfo.contactPhone}</li>
+            <li>{supplierInfo.address}</li>
+            <li>{supplierInfo.location}</li>
+          </ul>
+        </TableCell>
+      </TableRow>
+      {subRows.map((subRow, index) => (
+        <TableRowSize
+          supplierInfo={supplierInfo}
+          index={index}
+          length={subRows.length}
+          key={subRow.id}
+          row={subRow}
+        />
+      ))}
     </>
   );
 }
@@ -240,8 +291,11 @@ function TableRowSize({
 
 function TableRowTotal<TData>({
   table,
-  summary,
-}: { table: TTable<TData> } & Pick<FFDeliveryResponseDtoType, 'summary'>) {
+  stats,
+}: {
+  table: TTable<TData>;
+  stats: FFDeliveryStatsResponseDtoType;
+}) {
   return (
     <>
       <TableRow>
@@ -253,14 +307,13 @@ function TableRowTotal<TData>({
             placeholder="Поиск"
           />
         </TableHead>
-        <TableHead isTotal>{formatCurrency(summary.suppliersCount)}</TableHead>
-        <TableHead isTotal>{formatCurrency(summary.totalCargoPlaces)}</TableHead>
-        <TableHead isTotal>{formatCurrency(summary.totalPlanQuantity)}</TableHead>
-        <TableHead isTotal>{formatCurrency(summary.totalFactQuantity)}</TableHead>
-        <TableHead isTotal>{formatCurrency(summary.totalDefects)}</TableHead>
-        <TableHead isTotal>{formatCurrency(summary.totalProductsPrice)}</TableHead>
-        <TableHead isTotal>{formatCurrency(summary.totalFFServicesPrice)}</TableHead>
-        <TableHead isTotal>{formatCurrency(summary.totalLogisticsToFFPrice)}</TableHead>
+        <TableHead isTotal></TableHead>
+        <TableHead isTotal>{formatCurrency(stats.planQuantity)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.factQuantity)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.defects)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.productsPrice)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.ffServicesPrice)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.logisticsToFFPrice)}</TableHead>
         <TableHead isTotal></TableHead>
       </TableRow>
     </>

@@ -1,7 +1,7 @@
-export type SupplierInfoDtoType = {
+export type FFSupplierInfoResponseDtoType = {
   /**
    * @description ID поставщика
-   * @type string, uuid
+   * @type string
    */
   id: string;
   /**
@@ -30,7 +30,7 @@ export type SupplierInfoDtoType = {
    */
   location?: string;
   /**
-   * @description Является ли поставщиком ТЯК
+   * @description Является ли поставщик ТГ
    * @type boolean | undefined
    */
   isTG?: boolean;

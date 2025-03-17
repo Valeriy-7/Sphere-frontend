@@ -5,14 +5,14 @@ import { ColumnDef } from '@tanstack/react-table';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
 import { formatDate } from '@/lib/utils/formatDate';
-import { type DeliveryStatusType, FFDeliveryListItemDtoType } from '@/kubb-gen';
+import { type DeliveryStatusType, FFDeliveryWithRoutesResponseDtoType } from '@/kubb-gen';
 import { getTextCurrency } from '@/lib/constants/rub';
 import { Badge } from '@/components/ui/badge';
 import { DELIVERY_COLOR_MAP, DELIVERY_STATUS_MAP } from '@/lib/utils/delivery';
 import { cn } from '@/lib/utils';
 
-export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
-  // getColumnNumber<FFDeliveryListItemDtoType>(),
+export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
+  // getColumnNumber<FFDeliveryWithRoutesResponseDtoType>(),
   {
     accessorKey: 'number',
     header: '№',
@@ -29,22 +29,12 @@ export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
     enableSorting: false,
   },
   {
-    accessorKey: 'marketplaceName',
-    header: 'Поставщик',
-    cell: ({
-      getValue,
-      row: {
-        original: { suppliersInfo, supplierName },
-      },
-    }) => {
-      const title = suppliersInfo.length !== 1 ? '' : supplierName;
-      return <TableCardImgText image={{ src: undefined }} title={title} text={getValue()} />;
+    accessorKey: 'id',
+    header: 'Номер поставки',
+    cell: ({ getValue }) => {
+      const str = getValue().substring(getValue().length - 5);
+      return <span className={'text-red-500'}>{str}</span>;
     },
-    enableSorting: false,
-  },
-  {
-    accessorKey: 'cargoPlaces',
-    header: 'Грузовые места (ед) ',
     enableSorting: false,
   },
   {
@@ -86,16 +76,6 @@ export const columns: ColumnDef<FFDeliveryListItemDtoType>[] = [
   {
     accessorKey: 'status',
     enableSorting: false,
-    header: 'Статус',
-    sortingFn: 'text',
-    cell: ({ getValue }) => {
-      const value = getValue() as DeliveryStatusType;
-      const color = value !== 'COMPLETED' ? 'bg-yellow-500' : 'bg-green-500';
-      return (
-        <Badge variant={'outline'} className={cn('dark:text-black', color)}>
-          {DELIVERY_STATUS_MAP[value]}
-        </Badge>
-      );
-    },
+    header: getTextCurrency('Сумма'),
   },
 ];

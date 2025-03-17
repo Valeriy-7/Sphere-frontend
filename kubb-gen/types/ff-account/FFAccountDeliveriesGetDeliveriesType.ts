@@ -1,5 +1,5 @@
 import type { DeliveryStatusType } from '../DeliveryStatusType';
-import type { FFDeliveryResponseDtoType } from '../FFDeliveryResponseDtoType';
+import type { FFDeliveryWithRoutesListResponseDtoType } from '../FFDeliveryWithRoutesListResponseDtoType';
 
 export type FFAccountDeliveriesGetDeliveriesQueryParamsType = {
   /**
@@ -34,9 +34,9 @@ export type FFAccountDeliveriesGetDeliveriesQueryParamsType = {
 };
 
 /**
- * @description Список поставок и сводная информация
+ * @description Список поставок с маршрутами, поставщиками и статистикой
  */
-export type FFAccountDeliveriesGetDeliveries200Type = FFDeliveryResponseDtoType;
+export type FFAccountDeliveriesGetDeliveries200Type = FFDeliveryWithRoutesListResponseDtoType;
 
 export type FFAccountDeliveriesGetDeliveriesQueryResponseType =
   FFAccountDeliveriesGetDeliveries200Type;

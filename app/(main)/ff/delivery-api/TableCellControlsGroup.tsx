@@ -39,7 +39,7 @@ export function TableCellControlsGroup<TData>({
   const selectedList = row.subRows.filter((i) => i.getIsSelected()).map((i) => i.original.uuid);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log('ЕЙ', data, row.subRows);
+    console.log('ЕЙ');
 
     if (!isGroupHeader) {
       return;

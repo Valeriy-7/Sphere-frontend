@@ -1,5 +1,5 @@
 import { deliveryStatusSchema } from '../deliveryStatusSchema';
-import { FFDeliveryResponseDtoSchema } from '../FFDeliveryResponseDtoSchema';
+import { FFDeliveryWithRoutesListResponseDtoSchema } from '../FFDeliveryWithRoutesListResponseDtoSchema';
 import { z } from 'zod';
 
 export const FFDeliveriesGetFFDeliveriesQueryParamsSchema = z
@@ -20,9 +20,11 @@ export const FFDeliveriesGetFFDeliveriesQueryParamsSchema = z
   .optional();
 
 /**
- * @description Список поставок и сводная информация
+ * @description Список поставок с маршрутами, поставщиками и статистикой
  */
-export const FFDeliveriesGetFFDeliveries200Schema = z.lazy(() => FFDeliveryResponseDtoSchema);
+export const FFDeliveriesGetFFDeliveries200Schema = z.lazy(
+  () => FFDeliveryWithRoutesListResponseDtoSchema,
+);
 
 /**
  * @description Не авторизован

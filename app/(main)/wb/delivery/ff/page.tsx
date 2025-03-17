@@ -6,15 +6,12 @@ import { makeData, DataRow } from '@/lib/makeData';
 import { AppTabs, AppTabsWrap } from '@/components/app-tabs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import {
-  useDeliveriesGetDeliveriesSuspense,
-  useFFDeliveriesGetFFDeliveriesSuspense,
-} from '@/kubb-gen';
+import { useFFDeliveriesGetFFDeliveriesSuspense } from '@/kubb-gen';
 const initData = makeData();
 export default function StorageFfPage() {
   //const { data } = useDeliveriesGetDeliveriesSuspense();
   const {
-    data: { summary, deliveries },
+    data: { items, stats },
   } = useFFDeliveriesGetFFDeliveriesSuspense();
   //const [data, setData] = React.useState(initData);
   return (
@@ -38,7 +35,7 @@ export default function StorageFfPage() {
       </AppTabsWrap>
       <div>
         <h1>Магазин / Поставки на ФФ</h1>
-        <DeliveryFfTable<DataRow, unknown> data={deliveries} columns={columns} summary={summary} />
+        <DeliveryFfTable<DataRow, unknown> data={items} columns={columns} stats={stats} />
       </div>
     </>
   );

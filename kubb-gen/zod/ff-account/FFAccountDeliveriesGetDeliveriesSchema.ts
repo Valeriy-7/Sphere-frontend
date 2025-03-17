@@ -1,5 +1,5 @@
 import { deliveryStatusSchema } from '../deliveryStatusSchema';
-import { FFDeliveryResponseDtoSchema } from '../FFDeliveryResponseDtoSchema';
+import { FFDeliveryWithRoutesListResponseDtoSchema } from '../FFDeliveryWithRoutesListResponseDtoSchema';
 import { z } from 'zod';
 
 export const FFAccountDeliveriesGetDeliveriesQueryParamsSchema = z
@@ -20,9 +20,11 @@ export const FFAccountDeliveriesGetDeliveriesQueryParamsSchema = z
   .optional();
 
 /**
- * @description Список поставок и сводная информация
+ * @description Список поставок с маршрутами, поставщиками и статистикой
  */
-export const FFAccountDeliveriesGetDeliveries200Schema = z.lazy(() => FFDeliveryResponseDtoSchema);
+export const FFAccountDeliveriesGetDeliveries200Schema = z.lazy(
+  () => FFDeliveryWithRoutesListResponseDtoSchema,
+);
 
 export const FFAccountDeliveriesGetDeliveriesQueryResponseSchema = z.lazy(
   () => FFAccountDeliveriesGetDeliveries200Schema,
