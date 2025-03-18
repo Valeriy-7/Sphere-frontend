@@ -147,6 +147,37 @@ export function DeliveryFfTable<TData extends FFDeliveryWithRoutesResponseDtoTyp
   );
 }
 
+function TableRowTotal<TData>({
+  table,
+  stats,
+}: {
+  table: TTable<TData>;
+  stats: FFDeliveryStatsResponseDtoType;
+}) {
+  return (
+    <>
+      <TableRow>
+        <TableHead isTotal colSpan={2}>
+          <Input
+            value={table.getState().globalFilter ?? ''}
+            onChange={(e) => table.setGlobalFilter(String(e.target.value))}
+            className="h-auto px-1 md:text-xs"
+            placeholder="Поиск"
+          />
+        </TableHead>
+        <TableHead isTotal></TableHead>
+        <TableHead isTotal>{formatCurrency(stats.planQuantity)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.factQuantity)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.defects)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.productsPrice)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.ffServicesPrice)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.logisticsToFFPrice)}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalPrice)}</TableHead>
+      </TableRow>
+    </>
+  );
+}
+
 export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>({
   row,
   colSizeList,
@@ -179,14 +210,14 @@ export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>
                 {data.address}
               </TableCell>
 
-              <TableCell level={1}>4</TableCell>
-              <TableCell level={1}>5</TableCell>
-              <TableCell level={1}>6</TableCell>
-              <TableCell level={1}>7</TableCell>
-              <TableCell level={1}>8</TableCell>
-              <TableCell level={1}>9</TableCell>
-              <TableCell level={1}>10</TableCell>
-              <TableCell level={1}>11</TableCell>
+              <TableCell level={1}></TableCell>
+              <TableCell level={1}>{formatCurrency(data.planQuantity)}</TableCell>
+              <TableCell level={1}>{formatCurrency(data.factQuantity)}</TableCell>
+              <TableCell level={1}>{formatCurrency(data.defects)}</TableCell>
+              <TableCell level={1}>{formatCurrency(data.productsPrice)}</TableCell>
+              <TableCell level={1}>{formatCurrency(data.ffServicesPrice)}</TableCell>
+              <TableCell level={1}>{formatCurrency(data.logisticsToFFPrice)}</TableCell>
+              <TableCell level={1}>{formatCurrency(data.totalPrice)}</TableCell>
             </TableRow>
 
             {data.suppliers.map((i) => (
@@ -220,13 +251,13 @@ export function TableRowSupplier<TData extends FFDeliveryWithRoutesResponseDtoTy
           <TableCardImgText image={{ src: undefined }} title={supplierInfo.name} />
         </TableCell>
         <TableCell level={1}>1</TableCell>
-        <TableCell level={1}>2</TableCell>
-        <TableCell level={1}>3</TableCell>
-        <TableCell level={1}>3</TableCell>
-        <TableCell level={1}>4</TableCell>
-        <TableCell level={1}>5</TableCell>
-        <TableCell level={1}>6</TableCell>
-        <TableCell level={1}>7</TableCell>
+        <TableCell level={1}>{formatCurrency(supplierInfo.planQuantity)}</TableCell>
+        <TableCell level={1}>{formatCurrency(supplierInfo.factQuantity)}</TableCell>
+        <TableCell level={1}>{formatCurrency(supplierInfo.defects)}</TableCell>
+        <TableCell level={1}>{formatCurrency(supplierInfo.productsPrice)}</TableCell>
+        <TableCell level={1}>{formatCurrency(supplierInfo.ffServicesPrice)}</TableCell>
+        <TableCell level={1}></TableCell>
+        <TableCell level={1}></TableCell>
       </TableRow>
       <TableRow rowSpace={false}>
         <TableCell className={'border-none'} colSpan={2} rowSpan={subRows.length + 2}>
@@ -283,38 +314,8 @@ function TableRowSize({
         <TableCell level={1}>{formatCurrency(row.defects)}</TableCell>
         <TableCell level={1}>{formatCurrency(row.price)}</TableCell>
         <TableCell level={1}>{formatCurrency(row.logisticsPrice)}</TableCell>
-        <TableCell level={1}>{formatCurrency(row.consumablesPrice)}</TableCell>
-      </TableRow>
-    </>
-  );
-}
-
-function TableRowTotal<TData>({
-  table,
-  stats,
-}: {
-  table: TTable<TData>;
-  stats: FFDeliveryStatsResponseDtoType;
-}) {
-  return (
-    <>
-      <TableRow>
-        <TableHead isTotal colSpan={2}>
-          <Input
-            value={table.getState().globalFilter ?? ''}
-            onChange={(e) => table.setGlobalFilter(String(e.target.value))}
-            className="h-auto px-1 md:text-xs"
-            placeholder="Поиск"
-          />
-        </TableHead>
-        <TableHead isTotal></TableHead>
-        <TableHead isTotal>{formatCurrency(stats.planQuantity)}</TableHead>
-        <TableHead isTotal>{formatCurrency(stats.factQuantity)}</TableHead>
-        <TableHead isTotal>{formatCurrency(stats.defects)}</TableHead>
-        <TableHead isTotal>{formatCurrency(stats.productsPrice)}</TableHead>
-        <TableHead isTotal>{formatCurrency(stats.ffServicesPrice)}</TableHead>
-        <TableHead isTotal>{formatCurrency(stats.logisticsToFFPrice)}</TableHead>
-        <TableHead isTotal></TableHead>
+        <TableCell level={1}></TableCell>
+        <TableCell level={1}></TableCell>
       </TableRow>
     </>
   );

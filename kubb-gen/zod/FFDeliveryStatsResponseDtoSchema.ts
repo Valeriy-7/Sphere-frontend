@@ -7,4 +7,5 @@ export const FFDeliveryStatsResponseDtoSchema = z.object({
   productsPrice: z.number().describe('Общая стоимость товаров'),
   ffServicesPrice: z.number().describe('Общая стоимость услуг фулфилмента'),
   logisticsToFFPrice: z.number().describe('Общая стоимость логистики до фулфилмента'),
+  totalPrice: z.number().describe('Общая сумма (товары + услуги + логистика)'),
 });

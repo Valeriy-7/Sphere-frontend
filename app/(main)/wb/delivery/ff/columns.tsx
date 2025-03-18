@@ -10,6 +10,7 @@ import { getTextCurrency } from '@/lib/constants/rub';
 import { Badge } from '@/components/ui/badge';
 import { DELIVERY_COLOR_MAP, DELIVERY_STATUS_MAP } from '@/lib/utils/delivery';
 import { cn } from '@/lib/utils';
+import { formatCurrency } from '@/lib/formatCurrency';
 
 export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
   // getColumnNumber<FFDeliveryWithRoutesResponseDtoType>(),
@@ -41,30 +42,36 @@ export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
     accessorKey: 'planQuantity',
     header: 'План',
     enableSorting: false,
+    cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'factQuantity',
     header: 'Факт',
     enableSorting: false,
+    cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'defects',
     header: 'Брак',
     enableSorting: false,
+    cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'productsPrice',
     header: getTextCurrency('Цена товаров'),
     enableSorting: false,
+    cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'ffServicesPrice',
     header: getTextCurrency('Цена услуг ФФ'),
     enableSorting: false,
+    cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'logisticsToFFPrice',
     enableSorting: false,
+    cell: ({ getValue }) => formatCurrency(getValue()),
     header: () => (
       <>
         Цена логистики
@@ -74,8 +81,9 @@ export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
     ),
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'totalPrice',
     enableSorting: false,
     header: getTextCurrency('Сумма'),
+    cell: ({ getValue }) => formatCurrency(getValue()),
   },
 ];

@@ -26,6 +26,11 @@
       "type": "number",
       "description": "Общая стоимость логистики до фулфилмента",
       "example": 15000
+    },
+    "totalPrice": {
+      "type": "number",
+      "description": "Общая сумма (товары + услуги + логистика)",
+      "example": 290000
     }
   },
   "required": [
@@ -34,7 +39,8 @@
     "defects",
     "productsPrice",
     "ffServicesPrice",
-    "logisticsToFFPrice"
+    "logisticsToFFPrice",
+    "totalPrice"
   ],
   "x-readme-ref-name": "FFDeliveryStatsResponseDto"
 }

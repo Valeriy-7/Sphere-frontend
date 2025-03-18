@@ -10,6 +10,12 @@ import { LoginInput } from '@/app/(full-page)/login/login-input';
 import { sendCodeDtoSchema, useAuthSendCode } from '@/kubb-gen';
 import { AppSpinner } from '@/components/app-spinner';
 
+import { useMaskito } from '@maskito/react';
+
+import { digitsOnlyMask } from '@/lib/mask';
+
+import { useImperativeHandle } from 'react';
+
 /*
 const FormSchema = z.object({
   phone: z.string().min(1, {
@@ -23,7 +29,7 @@ type LoginPhoneProps = {
 */
 
 z.setErrorMap((issue, ctx) => {
-  //console.log(issue.path);
+  console.log(issue, ctx);
   if (issue.code === z.ZodIssueCode.invalid_type && issue.received === 'undefined') {
     return { message: 'Обязательно для заполнения' };
   }
@@ -41,14 +47,16 @@ export function LoginPhone(props: LoginPhoneProps) {
       phone: "",
     },
   });*/
-
+  const maskedInputRef = useMaskito({ options: digitsOnlyMask });
   const form = useForm<z.infer<typeof sendCodeDtoSchema>>({
     resolver: zodResolver(sendCodeDtoSchema),
   });
-
+  /*    const {ref} = form.register('phone')
+        useImperativeHandle(ref, () => maskedInputRef(e=>e))*/
   const { mutate, isPending } = useAuthSendCode();
 
   function onSubmit(data: z.infer<typeof sendCodeDtoSchema>) {
+    console.log(data);
     mutate(
       { data },
       {
@@ -72,10 +80,17 @@ export function LoginPhone(props: LoginPhoneProps) {
             <FormItem>
               <FormControl>
                 <LoginInput
-                  isloading={isPending}
+                  isLoading={isPending}
                   onButtonClick={form.handleSubmit(onSubmit)}
                   placeholder="Номер телефона"
                   {...field}
+                  onInput={(event) => {
+                    field.onChange(event.currentTarget.value);
+                  }}
+                  ref={(e) => {
+                    maskedInputRef(e);
+                    field.ref(e);
+                  }}
                 />
               </FormControl>
               <FormMessage className={'text-black'} />

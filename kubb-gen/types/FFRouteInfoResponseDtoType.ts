@@ -36,4 +36,39 @@ export type FFRouteInfoResponseDtoType = {
    * @type array
    */
   suppliers: FFSupplierInfoResponseDtoType[];
+  /**
+   * @description Плановое количество товаров
+   * @type number
+   */
+  planQuantity: number;
+  /**
+   * @description Фактическое количество товаров
+   * @type number
+   */
+  factQuantity: number;
+  /**
+   * @description Количество дефектов
+   * @type number
+   */
+  defects: number;
+  /**
+   * @description Стоимость товаров
+   * @type number
+   */
+  productsPrice: number;
+  /**
+   * @description Стоимость услуг фулфилмента
+   * @type number
+   */
+  ffServicesPrice: number;
+  /**
+   * @description Стоимость логистики до фулфилмента
+   * @type number
+   */
+  logisticsToFFPrice: number;
+  /**
+   * @description Общая сумма (товары + услуги + логистика)
+   * @type number
+   */
+  totalPrice: number;
 };

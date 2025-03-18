@@ -34,4 +34,44 @@ export type FFSupplierInfoResponseDtoType = {
    * @type boolean | undefined
    */
   isTG?: boolean;
+  /**
+   * @description Порядковый номер поставщика
+   * @type number | undefined
+   */
+  number?: number;
+  /**
+   * @description Плановое количество товаров поставщика
+   * @type number | undefined
+   */
+  planQuantity?: number;
+  /**
+   * @description Фактическое количество товаров поставщика
+   * @type number | undefined
+   */
+  factQuantity?: number;
+  /**
+   * @description Количество дефектов у поставщика
+   * @type number | undefined
+   */
+  defects?: number;
+  /**
+   * @description Стоимость товаров поставщика
+   * @type number | undefined
+   */
+  productsPrice?: number;
+  /**
+   * @description Стоимость услуг фулфилмента для поставщика
+   * @type number | undefined
+   */
+  ffServicesPrice?: number;
+  /**
+   * @description Стоимость логистики до фулфилмента для поставщика
+   * @type number | undefined
+   */
+  logisticsToFFPrice?: number;
+  /**
+   * @description Общая сумма для поставщика (товары + услуги + логистика)
+   * @type number | undefined
+   */
+  totalPrice?: number;
 };

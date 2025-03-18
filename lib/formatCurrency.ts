@@ -7,6 +7,7 @@ export const formatCurrency: FormatCurrency = (value, type = 'currency') => {
   const formatedValue = formatValue({
     value: String(value),
     intlConfig: { locale: 'ru' },
+    decimalScale: 0,
   });
 
   const suffix = type === 'currency' ? SUFFIX_RUB : '';

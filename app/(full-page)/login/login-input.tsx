@@ -8,14 +8,14 @@ interface InputWithIconButtonProps {
   placeholder?: string;
   onButtonClick?: () => void;
   className?: string;
-  isloading?: boolean;
+  isLoading?: boolean;
 }
 
 export function LoginInput({
   placeholder = '',
   onButtonClick,
   className = '',
-  isloading,
+  isLoading,
   ...props
 }: InputWithIconButtonProps & React.ComponentProps<'input'>) {
   return (
@@ -27,7 +27,7 @@ export function LoginInput({
         placeholder={placeholder}
       />
       <LoginButtonChevron
-        disabled={isloading}
+        disabled={isLoading}
         onClick={onButtonClick}
         className={'absolute right-0 top-0'}
       />

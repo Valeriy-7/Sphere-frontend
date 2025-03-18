@@ -126,14 +126,102 @@
                         "type": "boolean",
                         "description": "Является ли поставщик ТГ",
                         "example": true
+                      },
+                      "number": {
+                        "type": "number",
+                        "description": "Порядковый номер поставщика",
+                        "example": 1
+                      },
+                      "planQuantity": {
+                        "type": "number",
+                        "description": "Плановое количество товаров поставщика",
+                        "example": 1000
+                      },
+                      "factQuantity": {
+                        "type": "number",
+                        "description": "Фактическое количество товаров поставщика",
+                        "example": 980
+                      },
+                      "defects": {
+                        "type": "number",
+                        "description": "Количество дефектов у поставщика",
+                        "example": 20
+                      },
+                      "productsPrice": {
+                        "type": "number",
+                        "description": "Стоимость товаров поставщика",
+                        "example": 50000
+                      },
+                      "ffServicesPrice": {
+                        "type": "number",
+                        "description": "Стоимость услуг фулфилмента для поставщика",
+                        "example": 5000
+                      },
+                      "logisticsToFFPrice": {
+                        "type": "number",
+                        "description": "Стоимость логистики до фулфилмента для поставщика",
+                        "example": 3000
+                      },
+                      "totalPrice": {
+                        "type": "number",
+                        "description": "Общая сумма для поставщика (товары + услуги + логистика)",
+                        "example": 58000
                       }
                     },
                     "required": ["id", "name"],
                     "x-readme-ref-name": "FFSupplierInfoResponseDto"
                   }
+                },
+                "planQuantity": {
+                  "type": "number",
+                  "description": "Плановое количество товаров",
+                  "example": 1000
+                },
+                "factQuantity": {
+                  "type": "number",
+                  "description": "Фактическое количество товаров",
+                  "example": 980
+                },
+                "defects": {
+                  "type": "number",
+                  "description": "Количество дефектов",
+                  "example": 20
+                },
+                "productsPrice": {
+                  "type": "number",
+                  "description": "Стоимость товаров",
+                  "example": 50000
+                },
+                "ffServicesPrice": {
+                  "type": "number",
+                  "description": "Стоимость услуг фулфилмента",
+                  "example": 5000
+                },
+                "logisticsToFFPrice": {
+                  "type": "number",
+                  "description": "Стоимость логистики до фулфилмента",
+                  "example": 3000
+                },
+                "totalPrice": {
+                  "type": "number",
+                  "description": "Общая сумма (товары + услуги + логистика)",
+                  "example": 58000
                 }
               },
-              "required": ["id", "name", "status", "deliveryDate", "suppliers"],
+              "required": [
+                "id",
+                "name",
+                "status",
+                "deliveryDate",
+                "suppliers",
+                "planQuantity",
+                "factQuantity",
+                "defects",
+                "productsPrice",
+                "ffServicesPrice",
+                "logisticsToFFPrice",
+                "totalPrice"
+              ],
               "x-readme-ref-name": "FFRouteInfoResponseDto"
             }
           }
@@ -190,6 +278,11 @@
               "type": "number",
               "description": "Общая стоимость логистики до фулфилмента",
               "example": 15000
+            },
+            "totalPrice": {
+              "type": "number",
+              "description": "Общая сумма (товары + услуги + логистика)",
+              "example": 290000
             }
           },
           "required": [
@@ -198,7 +291,8 @@
             "defects",
             "productsPrice",
             "ffServicesPrice",
-            "logisticsToFFPrice"
+            "logisticsToFFPrice",
+            "totalPrice"
           ],
           "x-readme-ref-name": "FFDeliveryStatsResponseDto"
         }

@@ -29,4 +29,9 @@ export type FFDeliveryStatsResponseDtoType = {
    * @type number
    */
   logisticsToFFPrice: number;
+  /**
+   * @description Общая сумма (товары + услуги + логистика)
+   * @type number
+   */
+  totalPrice: number;
 };
