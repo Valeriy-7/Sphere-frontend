@@ -45,12 +45,13 @@ export async function cabinetsUpdate(
  * @summary Обновление настроек кабинета
  * {@link /cabinets/:id}
  */
-export function useCabinetsUpdate(
+export function useCabinetsUpdate<TContext>(
   options: {
     mutation?: UseMutationOptions<
       CabinetsUpdateMutationResponseType,
       ResponseErrorConfig<CabinetsUpdate404Type>,
-      { id: CabinetsUpdatePathParamsType['id']; data?: CabinetsUpdateMutationRequestType }
+      { id: CabinetsUpdatePathParamsType['id']; data?: CabinetsUpdateMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<CabinetsUpdateMutationRequestType>> & { client?: typeof client };
   } = {},
@@ -61,7 +62,8 @@ export function useCabinetsUpdate(
   return useMutation<
     CabinetsUpdateMutationResponseType,
     ResponseErrorConfig<CabinetsUpdate404Type>,
-    { id: CabinetsUpdatePathParamsType['id']; data?: CabinetsUpdateMutationRequestType }
+    { id: CabinetsUpdatePathParamsType['id']; data?: CabinetsUpdateMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return cabinetsUpdate(id, data, config);

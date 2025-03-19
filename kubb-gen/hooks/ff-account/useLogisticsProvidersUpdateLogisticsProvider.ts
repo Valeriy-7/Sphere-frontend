@@ -43,7 +43,7 @@ export async function logisticsProvidersUpdateLogisticsProvider(
  * @summary Обновить информацию о логисте
  * {@link /ff-account/logistics-providers/:id}
  */
-export function useLogisticsProvidersUpdateLogisticsProvider(
+export function useLogisticsProvidersUpdateLogisticsProvider<TContext>(
   options: {
     mutation?: UseMutationOptions<
       LogisticsProvidersUpdateLogisticsProviderMutationResponseType,
@@ -51,7 +51,8 @@ export function useLogisticsProvidersUpdateLogisticsProvider(
       {
         id: LogisticsProvidersUpdateLogisticsProviderPathParamsType['id'];
         data?: LogisticsProvidersUpdateLogisticsProviderMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<
       RequestConfig<LogisticsProvidersUpdateLogisticsProviderMutationRequestType>
@@ -68,7 +69,8 @@ export function useLogisticsProvidersUpdateLogisticsProvider(
     {
       id: LogisticsProvidersUpdateLogisticsProviderPathParamsType['id'];
       data?: LogisticsProvidersUpdateLogisticsProviderMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return logisticsProvidersUpdateLogisticsProvider(id, data, config);

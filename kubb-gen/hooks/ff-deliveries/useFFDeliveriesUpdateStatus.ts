@@ -45,7 +45,7 @@ export async function FFDeliveriesUpdateStatus(
  * @summary Обновить статус поставки
  * {@link /ff-deliveries/:id/status}
  */
-export function useFFDeliveriesUpdateStatus(
+export function useFFDeliveriesUpdateStatus<TContext>(
   options: {
     mutation?: UseMutationOptions<
       FFDeliveriesUpdateStatusMutationResponseType,
@@ -53,7 +53,8 @@ export function useFFDeliveriesUpdateStatus(
       {
         id: FFDeliveriesUpdateStatusPathParamsType['id'];
         data: FFDeliveriesUpdateStatusMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<RequestConfig<FFDeliveriesUpdateStatusMutationRequestType>> & {
       client?: typeof client;
@@ -69,7 +70,8 @@ export function useFFDeliveriesUpdateStatus(
     {
       id: FFDeliveriesUpdateStatusPathParamsType['id'];
       data: FFDeliveriesUpdateStatusMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return FFDeliveriesUpdateStatus(id, data, config);

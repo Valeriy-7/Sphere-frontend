@@ -15,7 +15,13 @@ export const FFAccountDeliveriesGetDeliveriesQueryParamsSchema = z
       ),
     status: z.lazy(() => deliveryStatusSchema).optional(),
     startDate: z.date().describe('Начальная дата периода в формате YYYY-MM-DD').optional(),
-    endDate: z.date().describe('Конечная дата периода в формате YYYY-MM-DD').optional(),
+    endDate: z.string().describe('Дата окончания периода в формате ISO (YYYY-MM-DD)').optional(),
+    deliveryDate: z
+      .string()
+      .describe(
+        'Конкретная дата поставки в формате ISO (YYYY-MM-DD). Если указана, то startDate и endDate игнорируются.',
+      )
+      .optional(),
   })
   .optional();
 

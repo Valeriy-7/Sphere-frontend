@@ -53,12 +53,13 @@ export async function attachmentsUploadVoice(
  * @summary Загрузить голосовое сообщение
  * {@link /attachments/upload-voice}
  */
-export function useAttachmentsUploadVoice(
+export function useAttachmentsUploadVoice<TContext>(
   options: {
     mutation?: UseMutationOptions<
       AttachmentsUploadVoiceMutationResponseType,
       ResponseErrorConfig<Error>,
-      { data?: AttachmentsUploadVoiceMutationRequestType }
+      { data?: AttachmentsUploadVoiceMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<AttachmentsUploadVoiceMutationRequestType>> & {
       client?: typeof client;
@@ -71,7 +72,8 @@ export function useAttachmentsUploadVoice(
   return useMutation<
     AttachmentsUploadVoiceMutationResponseType,
     ResponseErrorConfig<Error>,
-    { data?: AttachmentsUploadVoiceMutationRequestType }
+    { data?: AttachmentsUploadVoiceMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return attachmentsUploadVoice(data, config);

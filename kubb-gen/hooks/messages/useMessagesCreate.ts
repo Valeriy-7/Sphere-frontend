@@ -40,12 +40,13 @@ export async function messagesCreate(
  * @summary Создать новое сообщение
  * {@link /messages}
  */
-export function useMessagesCreate(
+export function useMessagesCreate<TContext>(
   options: {
     mutation?: UseMutationOptions<
       MessagesCreateMutationResponseType,
       ResponseErrorConfig<Error>,
-      { data: MessagesCreateMutationRequestType }
+      { data: MessagesCreateMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<MessagesCreateMutationRequestType>> & { client?: typeof client };
   } = {},
@@ -56,7 +57,8 @@ export function useMessagesCreate(
   return useMutation<
     MessagesCreateMutationResponseType,
     ResponseErrorConfig<Error>,
-    { data: MessagesCreateMutationRequestType }
+    { data: MessagesCreateMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return messagesCreate(data, config);

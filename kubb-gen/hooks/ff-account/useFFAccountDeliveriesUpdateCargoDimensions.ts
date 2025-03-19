@@ -48,7 +48,7 @@ export async function FFAccountDeliveriesUpdateCargoDimensions(
  * @summary Обновить размеры груза
  * {@link /ff-account/deliveries/:id/cargo-dimensions}
  */
-export function useFFAccountDeliveriesUpdateCargoDimensions(
+export function useFFAccountDeliveriesUpdateCargoDimensions<TContext>(
   options: {
     mutation?: UseMutationOptions<
       FFAccountDeliveriesUpdateCargoDimensionsMutationResponseType,
@@ -56,7 +56,8 @@ export function useFFAccountDeliveriesUpdateCargoDimensions(
       {
         id: FFAccountDeliveriesUpdateCargoDimensionsPathParamsType['id'];
         data?: FFAccountDeliveriesUpdateCargoDimensionsMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<RequestConfig<FFAccountDeliveriesUpdateCargoDimensionsMutationRequestType>> & {
       client?: typeof client;
@@ -73,7 +74,8 @@ export function useFFAccountDeliveriesUpdateCargoDimensions(
     {
       id: FFAccountDeliveriesUpdateCargoDimensionsPathParamsType['id'];
       data?: FFAccountDeliveriesUpdateCargoDimensionsMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return FFAccountDeliveriesUpdateCargoDimensions(id, data, config);

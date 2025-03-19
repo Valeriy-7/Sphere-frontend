@@ -7,6 +7,11 @@ export type FFRouteInfoResponseDtoType = {
    */
   id: string;
   /**
+   * @description Порядковый номер маршрута
+   * @type number
+   */
+  number: number;
+  /**
    * @description Название маршрута
    * @type string
    */

@@ -42,12 +42,13 @@ export async function authSendCode(
  * @summary Отправка кода подтверждения
  * {@link /auth/send-code}
  */
-export function useAuthSendCode(
+export function useAuthSendCode<TContext>(
   options: {
     mutation?: UseMutationOptions<
       AuthSendCodeMutationResponseType,
       ResponseErrorConfig<AuthSendCode400Type | AuthSendCode429Type>,
-      { data: AuthSendCodeMutationRequestType }
+      { data: AuthSendCodeMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<AuthSendCodeMutationRequestType>> & { client?: typeof client };
   } = {},
@@ -58,7 +59,8 @@ export function useAuthSendCode(
   return useMutation<
     AuthSendCodeMutationResponseType,
     ResponseErrorConfig<AuthSendCode400Type | AuthSendCode429Type>,
-    { data: AuthSendCodeMutationRequestType }
+    { data: AuthSendCodeMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return authSendCode(data, config);

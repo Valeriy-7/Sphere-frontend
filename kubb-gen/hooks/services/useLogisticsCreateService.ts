@@ -52,12 +52,13 @@ export async function logisticsCreateService(
  * @summary Создание новой услуги
  * {@link /services/service}
  */
-export function useLogisticsCreateService(
+export function useLogisticsCreateService<TContext>(
   options: {
     mutation?: UseMutationOptions<
       LogisticsCreateServiceMutationResponseType,
       ResponseErrorConfig<Error>,
-      { data: LogisticsCreateServiceMutationRequestType }
+      { data: LogisticsCreateServiceMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<LogisticsCreateServiceMutationRequestType>> & {
       client?: typeof client;
@@ -70,7 +71,8 @@ export function useLogisticsCreateService(
   return useMutation<
     LogisticsCreateServiceMutationResponseType,
     ResponseErrorConfig<Error>,
-    { data: LogisticsCreateServiceMutationRequestType }
+    { data: LogisticsCreateServiceMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return logisticsCreateService(data, config);

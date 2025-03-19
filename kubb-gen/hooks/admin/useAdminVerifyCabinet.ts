@@ -45,12 +45,13 @@ export async function adminVerifyCabinet(
  * @summary Верификация кабинета
  * {@link /admin/cabinets/:id/verify}
  */
-export function useAdminVerifyCabinet(
+export function useAdminVerifyCabinet<TContext>(
   options: {
     mutation?: UseMutationOptions<
       AdminVerifyCabinetMutationResponseType,
       ResponseErrorConfig<Error>,
-      { id: AdminVerifyCabinetPathParamsType['id']; data: AdminVerifyCabinetMutationRequestType }
+      { id: AdminVerifyCabinetPathParamsType['id']; data: AdminVerifyCabinetMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<AdminVerifyCabinetMutationRequestType>> & {
       client?: typeof client;
@@ -63,7 +64,8 @@ export function useAdminVerifyCabinet(
   return useMutation<
     AdminVerifyCabinetMutationResponseType,
     ResponseErrorConfig<Error>,
-    { id: AdminVerifyCabinetPathParamsType['id']; data: AdminVerifyCabinetMutationRequestType }
+    { id: AdminVerifyCabinetPathParamsType['id']; data: AdminVerifyCabinetMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return adminVerifyCabinet(id, data, config);

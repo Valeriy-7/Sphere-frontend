@@ -55,7 +55,7 @@ export async function logisticsUpdateConsumable(
  * @summary Обновление расходника
  * {@link /services/consumables/:id}
  */
-export function useLogisticsUpdateConsumable(
+export function useLogisticsUpdateConsumable<TContext>(
   options: {
     mutation?: UseMutationOptions<
       LogisticsUpdateConsumableMutationResponseType,
@@ -63,7 +63,8 @@ export function useLogisticsUpdateConsumable(
       {
         id: LogisticsUpdateConsumablePathParamsType['id'];
         data: LogisticsUpdateConsumableMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<RequestConfig<LogisticsUpdateConsumableMutationRequestType>> & {
       client?: typeof client;
@@ -79,7 +80,8 @@ export function useLogisticsUpdateConsumable(
     {
       id: LogisticsUpdateConsumablePathParamsType['id'];
       data: LogisticsUpdateConsumableMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return logisticsUpdateConsumable(id, data, config);

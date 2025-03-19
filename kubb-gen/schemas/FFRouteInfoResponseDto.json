@@ -6,6 +6,7 @@
       "description": "ID маршрута",
       "example": "123e4567-e89b-12d3-a456-426614174000"
     },
+    "number": { "type": "number", "description": "Порядковый номер маршрута", "example": 1 },
     "name": { "type": "string", "description": "Название маршрута", "example": "Маршрут 1" },
     "status": { "type": "string", "description": "Статус маршрута", "example": "CREATED" },
     "deliveryDate": { "type": "string", "description": "Дата доставки", "example": "01.01.24" },
@@ -127,6 +128,7 @@
   },
   "required": [
     "id",
+    "number",
     "name",
     "status",
     "deliveryDate",

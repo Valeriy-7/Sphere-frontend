@@ -41,12 +41,13 @@ export async function authCompleteRegistration(
  * @summary Завершение регистрации
  * {@link /auth/complete}
  */
-export function useAuthCompleteRegistration(
+export function useAuthCompleteRegistration<TContext>(
   options: {
     mutation?: UseMutationOptions<
       AuthCompleteRegistrationMutationResponseType,
       ResponseErrorConfig<AuthCompleteRegistration400Type | AuthCompleteRegistration401Type>,
-      { data: AuthCompleteRegistrationMutationRequestType }
+      { data: AuthCompleteRegistrationMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<AuthCompleteRegistrationMutationRequestType>> & {
       client?: typeof client;
@@ -59,7 +60,8 @@ export function useAuthCompleteRegistration(
   return useMutation<
     AuthCompleteRegistrationMutationResponseType,
     ResponseErrorConfig<AuthCompleteRegistration400Type | AuthCompleteRegistration401Type>,
-    { data: AuthCompleteRegistrationMutationRequestType }
+    { data: AuthCompleteRegistrationMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return authCompleteRegistration(data, config);

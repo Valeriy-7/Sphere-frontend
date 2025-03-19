@@ -43,12 +43,13 @@ export async function usersUpdateProfile(
  * @summary Обновление профиля пользователя
  * {@link /users/profile}
  */
-export function useUsersUpdateProfile(
+export function useUsersUpdateProfile<TContext>(
   options: {
     mutation?: UseMutationOptions<
       UsersUpdateProfileMutationResponseType,
       ResponseErrorConfig<UsersUpdateProfile404Type>,
-      { data: UsersUpdateProfileMutationRequestType }
+      { data: UsersUpdateProfileMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<UsersUpdateProfileMutationRequestType>> & {
       client?: typeof client;
@@ -61,7 +62,8 @@ export function useUsersUpdateProfile(
   return useMutation<
     UsersUpdateProfileMutationResponseType,
     ResponseErrorConfig<UsersUpdateProfile404Type>,
-    { data: UsersUpdateProfileMutationRequestType }
+    { data: UsersUpdateProfileMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return usersUpdateProfile(data, config);

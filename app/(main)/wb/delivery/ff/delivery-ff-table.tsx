@@ -43,7 +43,7 @@ import {
   useFFDeliveriesGetFFDeliveryProducts,
   type FFDeliveryStatsResponseDtoType,
   type FFSupplierInfoResponseDtoType,
-  type FFRouteInfoResponseDtoType,
+  type FFRouteInfoResponseDtoType, useFFDeliveriesGetFFRouteSupplierProducts,
 } from '@/kubb-gen';
 import { formatCurrency } from '@/lib/formatCurrency';
 
@@ -221,7 +221,7 @@ export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>
             </TableRow>
 
             {data.suppliers.map((i) => (
-              <TableRowSupplier supplierInfo={i} colSizeList={colSizeList} row={row} />
+              <TableRowSupplier routerId={data.id}  supplierInfo={i} colSizeList={colSizeList} row={row} />
             ))}
           </TableBody>
         </Table>
@@ -235,22 +235,22 @@ export function TableRowSupplier<TData extends FFDeliveryWithRoutesResponseDtoTy
   colSizeList,
   table,
   supplierInfo,
+    routerId
 }: {
-  productId: string;
+  routerId: string;
   row: Row<TData>;
   table: TTable<TData>;
   supplierInfo: FFSupplierInfoResponseDtoType;
 } & ColSizeList) {
-  const { data: subRows = [] } = useFFDeliveriesGetFFDeliveryProducts(row.original.id, {
-    supplierId: supplierInfo.id,
-  });
+
+  const { data: subRows = [] } = useFFDeliveriesGetFFRouteSupplierProducts(routerId, supplierInfo.id);
   return (
     <>
       <TableRow>
         <TableCell level={1} colSpan={2}>
           <TableCardImgText image={{ src: undefined }} title={supplierInfo.name} />
         </TableCell>
-        <TableCell level={1}>1</TableCell>
+        <TableCell level={1}>{subRows.length}</TableCell>
         <TableCell level={1}>{formatCurrency(supplierInfo.planQuantity)}</TableCell>
         <TableCell level={1}>{formatCurrency(supplierInfo.factQuantity)}</TableCell>
         <TableCell level={1}>{formatCurrency(supplierInfo.defects)}</TableCell>

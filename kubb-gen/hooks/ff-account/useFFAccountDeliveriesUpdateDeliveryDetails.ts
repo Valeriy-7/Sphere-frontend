@@ -43,7 +43,7 @@ export async function FFAccountDeliveriesUpdateDeliveryDetails(
  * @summary Обновить детали поставки
  * {@link /ff-account/deliveries/:id/details}
  */
-export function useFFAccountDeliveriesUpdateDeliveryDetails(
+export function useFFAccountDeliveriesUpdateDeliveryDetails<TContext>(
   options: {
     mutation?: UseMutationOptions<
       FFAccountDeliveriesUpdateDeliveryDetailsMutationResponseType,
@@ -51,7 +51,8 @@ export function useFFAccountDeliveriesUpdateDeliveryDetails(
       {
         id: FFAccountDeliveriesUpdateDeliveryDetailsPathParamsType['id'];
         data?: FFAccountDeliveriesUpdateDeliveryDetailsMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<RequestConfig<FFAccountDeliveriesUpdateDeliveryDetailsMutationRequestType>> & {
       client?: typeof client;
@@ -68,7 +69,8 @@ export function useFFAccountDeliveriesUpdateDeliveryDetails(
     {
       id: FFAccountDeliveriesUpdateDeliveryDetailsPathParamsType['id'];
       data?: FFAccountDeliveriesUpdateDeliveryDetailsMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return FFAccountDeliveriesUpdateDeliveryDetails(id, data, config);

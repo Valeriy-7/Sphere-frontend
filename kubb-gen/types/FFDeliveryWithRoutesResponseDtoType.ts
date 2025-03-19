@@ -57,6 +57,11 @@ export type FFDeliveryWithRoutesResponseDtoType = {
    */
   logisticsToFFPrice: number;
   /**
+   * @description Общая сумма (товары + услуги + логистика)
+   * @type number
+   */
+  totalPrice: number;
+  /**
    * @description Маршруты поставки
    * @type array
    */

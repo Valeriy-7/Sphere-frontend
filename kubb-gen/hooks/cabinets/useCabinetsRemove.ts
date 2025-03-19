@@ -40,12 +40,13 @@ export async function cabinetsRemove(
  * @summary Удаление кабинета
  * {@link /cabinets/:id}
  */
-export function useCabinetsRemove(
+export function useCabinetsRemove<TContext>(
   options: {
     mutation?: UseMutationOptions<
       CabinetsRemoveMutationResponseType,
       ResponseErrorConfig<CabinetsRemove404Type>,
-      { id: CabinetsRemovePathParamsType['id'] }
+      { id: CabinetsRemovePathParamsType['id'] },
+      TContext
     >;
     client?: Partial<RequestConfig> & { client?: typeof client };
   } = {},
@@ -56,7 +57,8 @@ export function useCabinetsRemove(
   return useMutation<
     CabinetsRemoveMutationResponseType,
     ResponseErrorConfig<CabinetsRemove404Type>,
-    { id: CabinetsRemovePathParamsType['id'] }
+    { id: CabinetsRemovePathParamsType['id'] },
+    TContext
   >({
     mutationFn: async ({ id }) => {
       return cabinetsRemove(id, config);

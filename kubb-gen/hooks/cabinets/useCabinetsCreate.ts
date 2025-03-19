@@ -43,12 +43,13 @@ export async function cabinetsCreate(
  * @summary Создание нового кабинета
  * {@link /cabinets}
  */
-export function useCabinetsCreate(
+export function useCabinetsCreate<TContext>(
   options: {
     mutation?: UseMutationOptions<
       CabinetsCreateMutationResponseType,
       ResponseErrorConfig<CabinetsCreate400Type>,
-      { data: CabinetsCreateMutationRequestType }
+      { data: CabinetsCreateMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<CabinetsCreateMutationRequestType>> & { client?: typeof client };
   } = {},
@@ -59,7 +60,8 @@ export function useCabinetsCreate(
   return useMutation<
     CabinetsCreateMutationResponseType,
     ResponseErrorConfig<CabinetsCreate400Type>,
-    { data: CabinetsCreateMutationRequestType }
+    { data: CabinetsCreateMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return cabinetsCreate(data, config);

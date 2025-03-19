@@ -48,7 +48,7 @@ export async function FFAccountDeliveriesAssignLogisticsProvider(
  * @summary Назначить логиста для поставки
  * {@link /ff-account/deliveries/:id/logistics-provider}
  */
-export function useFFAccountDeliveriesAssignLogisticsProvider(
+export function useFFAccountDeliveriesAssignLogisticsProvider<TContext>(
   options: {
     mutation?: UseMutationOptions<
       FFAccountDeliveriesAssignLogisticsProviderMutationResponseType,
@@ -56,7 +56,8 @@ export function useFFAccountDeliveriesAssignLogisticsProvider(
       {
         id: FFAccountDeliveriesAssignLogisticsProviderPathParamsType['id'];
         data: FFAccountDeliveriesAssignLogisticsProviderMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<
       RequestConfig<FFAccountDeliveriesAssignLogisticsProviderMutationRequestType>
@@ -73,7 +74,8 @@ export function useFFAccountDeliveriesAssignLogisticsProvider(
     {
       id: FFAccountDeliveriesAssignLogisticsProviderPathParamsType['id'];
       data: FFAccountDeliveriesAssignLogisticsProviderMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return FFAccountDeliveriesAssignLogisticsProvider(id, data, config);

@@ -54,7 +54,7 @@ export async function avatarUploadAvatar(
  * @summary Загрузка аватарки
  * {@link /avatar/:cabinetId/upload}
  */
-export function useAvatarUploadAvatar(
+export function useAvatarUploadAvatar<TContext>(
   options: {
     mutation?: UseMutationOptions<
       AvatarUploadAvatarMutationResponseType,
@@ -62,7 +62,8 @@ export function useAvatarUploadAvatar(
       {
         cabinetId: AvatarUploadAvatarPathParamsType['cabinetId'];
         data?: AvatarUploadAvatarMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<RequestConfig<AvatarUploadAvatarMutationRequestType>> & {
       client?: typeof client;
@@ -78,7 +79,8 @@ export function useAvatarUploadAvatar(
     {
       cabinetId: AvatarUploadAvatarPathParamsType['cabinetId'];
       data?: AvatarUploadAvatarMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ cabinetId, data }) => {
       return avatarUploadAvatar(cabinetId, data, config);

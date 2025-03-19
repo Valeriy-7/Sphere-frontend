@@ -41,12 +41,13 @@ export async function deliveriesCreateDelivery(
  * @summary Создание новой поставки
  * {@link /deliveries}
  */
-export function useDeliveriesCreateDelivery(
+export function useDeliveriesCreateDelivery<TContext>(
   options: {
     mutation?: UseMutationOptions<
       DeliveriesCreateDeliveryMutationResponseType,
       ResponseErrorConfig<DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery404Type>,
-      { data: DeliveriesCreateDeliveryMutationRequestType }
+      { data: DeliveriesCreateDeliveryMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<DeliveriesCreateDeliveryMutationRequestType>> & {
       client?: typeof client;
@@ -59,7 +60,8 @@ export function useDeliveriesCreateDelivery(
   return useMutation<
     DeliveriesCreateDeliveryMutationResponseType,
     ResponseErrorConfig<DeliveriesCreateDelivery400Type | DeliveriesCreateDelivery404Type>,
-    { data: DeliveriesCreateDeliveryMutationRequestType }
+    { data: DeliveriesCreateDeliveryMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return deliveriesCreateDelivery(data, config);

@@ -16,6 +16,12 @@ export const FFDeliveriesGetFFDeliveriesQueryParamsSchema = z
     status: z.lazy(() => deliveryStatusSchema).optional(),
     startDate: z.date().describe('Дата начала периода в формате ISO (YYYY-MM-DD)').optional(),
     endDate: z.date().describe('Дата окончания периода в формате ISO (YYYY-MM-DD)').optional(),
+    deliveryDate: z
+      .date()
+      .describe(
+        'Конкретная дата поставки в формате ISO (YYYY-MM-DD). Если указана, то startDate и endDate игнорируются.',
+      )
+      .optional(),
   })
   .optional();
 

@@ -48,7 +48,7 @@ export async function FFAccountDeliveriesAssignResponsiblePerson(
  * @summary Назначить ответственного сотрудника
  * {@link /ff-account/deliveries/:id/responsible-person}
  */
-export function useFFAccountDeliveriesAssignResponsiblePerson(
+export function useFFAccountDeliveriesAssignResponsiblePerson<TContext>(
   options: {
     mutation?: UseMutationOptions<
       FFAccountDeliveriesAssignResponsiblePersonMutationResponseType,
@@ -56,7 +56,8 @@ export function useFFAccountDeliveriesAssignResponsiblePerson(
       {
         id: FFAccountDeliveriesAssignResponsiblePersonPathParamsType['id'];
         data: FFAccountDeliveriesAssignResponsiblePersonMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<
       RequestConfig<FFAccountDeliveriesAssignResponsiblePersonMutationRequestType>
@@ -73,7 +74,8 @@ export function useFFAccountDeliveriesAssignResponsiblePerson(
     {
       id: FFAccountDeliveriesAssignResponsiblePersonPathParamsType['id'];
       data: FFAccountDeliveriesAssignResponsiblePersonMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return FFAccountDeliveriesAssignResponsiblePerson(id, data, config);

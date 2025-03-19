@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 export const FFRouteInfoResponseDtoSchema = z.object({
   id: z.string().describe('ID маршрута'),
+  number: z.number().describe('Порядковый номер маршрута'),
   name: z.string().describe('Название маршрута'),
   status: z.string().describe('Статус маршрута'),
   deliveryDate: z.string().describe('Дата доставки'),

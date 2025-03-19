@@ -54,7 +54,7 @@ export async function logisticsUpdateService(
  * @summary Обновление услуги
  * {@link /services/service/:id}
  */
-export function useLogisticsUpdateService(
+export function useLogisticsUpdateService<TContext>(
   options: {
     mutation?: UseMutationOptions<
       LogisticsUpdateServiceMutationResponseType,
@@ -62,7 +62,8 @@ export function useLogisticsUpdateService(
       {
         id: LogisticsUpdateServicePathParamsType['id'];
         data: LogisticsUpdateServiceMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<RequestConfig<LogisticsUpdateServiceMutationRequestType>> & {
       client?: typeof client;
@@ -78,7 +79,8 @@ export function useLogisticsUpdateService(
     {
       id: LogisticsUpdateServicePathParamsType['id'];
       data: LogisticsUpdateServiceMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return logisticsUpdateService(id, data, config);

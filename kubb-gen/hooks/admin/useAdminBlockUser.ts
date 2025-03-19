@@ -44,12 +44,13 @@ export async function adminBlockUser(
  * @summary Блокировка пользователя
  * {@link /admin/users/:id/block}
  */
-export function useAdminBlockUser(
+export function useAdminBlockUser<TContext>(
   options: {
     mutation?: UseMutationOptions<
       AdminBlockUserMutationResponseType,
       ResponseErrorConfig<Error>,
-      { id: AdminBlockUserPathParamsType['id']; data: AdminBlockUserMutationRequestType }
+      { id: AdminBlockUserPathParamsType['id']; data: AdminBlockUserMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<AdminBlockUserMutationRequestType>> & { client?: typeof client };
   } = {},
@@ -60,7 +61,8 @@ export function useAdminBlockUser(
   return useMutation<
     AdminBlockUserMutationResponseType,
     ResponseErrorConfig<Error>,
-    { id: AdminBlockUserPathParamsType['id']; data: AdminBlockUserMutationRequestType }
+    { id: AdminBlockUserPathParamsType['id']; data: AdminBlockUserMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return adminBlockUser(id, data, config);

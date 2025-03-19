@@ -40,12 +40,13 @@ export async function chatsMarkAsRead(
  * @summary Отметить сообщения в чате как прочитанные
  * {@link /chats/mark-as-read}
  */
-export function useChatsMarkAsRead(
+export function useChatsMarkAsRead<TContext>(
   options: {
     mutation?: UseMutationOptions<
       ChatsMarkAsReadMutationResponseType,
       ResponseErrorConfig<Error>,
-      { data: ChatsMarkAsReadMutationRequestType }
+      { data: ChatsMarkAsReadMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<ChatsMarkAsReadMutationRequestType>> & {
       client?: typeof client;
@@ -58,7 +59,8 @@ export function useChatsMarkAsRead(
   return useMutation<
     ChatsMarkAsReadMutationResponseType,
     ResponseErrorConfig<Error>,
-    { data: ChatsMarkAsReadMutationRequestType }
+    { data: ChatsMarkAsReadMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return chatsMarkAsRead(data, config);

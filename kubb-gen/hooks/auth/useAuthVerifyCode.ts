@@ -39,12 +39,13 @@ export async function authVerifyCode(
  * @summary Проверка кода подтверждения
  * {@link /auth/verify-code}
  */
-export function useAuthVerifyCode(
+export function useAuthVerifyCode<TContext>(
   options: {
     mutation?: UseMutationOptions<
       AuthVerifyCodeMutationResponseType,
       ResponseErrorConfig<AuthVerifyCode400Type | AuthVerifyCode404Type>,
-      { data: AuthVerifyCodeMutationRequestType }
+      { data: AuthVerifyCodeMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<AuthVerifyCodeMutationRequestType>> & { client?: typeof client };
   } = {},
@@ -55,7 +56,8 @@ export function useAuthVerifyCode(
   return useMutation<
     AuthVerifyCodeMutationResponseType,
     ResponseErrorConfig<AuthVerifyCode400Type | AuthVerifyCode404Type>,
-    { data: AuthVerifyCodeMutationRequestType }
+    { data: AuthVerifyCodeMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return authVerifyCode(data, config);

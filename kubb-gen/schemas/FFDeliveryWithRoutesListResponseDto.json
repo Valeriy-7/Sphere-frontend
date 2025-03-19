@@ -50,6 +50,11 @@
             "description": "Стоимость логистики до фулфилмента",
             "example": 3000
           },
+          "totalPrice": {
+            "type": "number",
+            "description": "Общая сумма (товары + услуги + логистика)",
+            "example": 58000
+          },
           "routes": {
             "description": "Маршруты поставки",
             "type": "array",
@@ -60,6 +65,11 @@
                   "type": "string",
                   "description": "ID маршрута",
                   "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "number": {
+                  "type": "number",
+                  "description": "Порядковый номер маршрута",
+                  "example": 1
                 },
                 "name": {
                   "type": "string",
@@ -210,6 +220,7 @@
               },
               "required": [
                 "id",
+                "number",
                 "name",
                 "status",
                 "deliveryDate",
@@ -238,6 +249,7 @@
           "productsPrice",
           "ffServicesPrice",
           "logisticsToFFPrice",
+          "totalPrice",
           "routes"
         ],
         "x-readme-ref-name": "FFDeliveryWithRoutesResponseDto"

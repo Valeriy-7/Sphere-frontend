@@ -42,12 +42,13 @@ export async function messagesToggleFavorite(
  * @summary Добавить/удалить сообщение из избранного
  * {@link /messages/favorite}
  */
-export function useMessagesToggleFavorite(
+export function useMessagesToggleFavorite<TContext>(
   options: {
     mutation?: UseMutationOptions<
       MessagesToggleFavoriteMutationResponseType,
       ResponseErrorConfig<Error>,
-      { data: MessagesToggleFavoriteMutationRequestType }
+      { data: MessagesToggleFavoriteMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<MessagesToggleFavoriteMutationRequestType>> & {
       client?: typeof client;
@@ -60,7 +61,8 @@ export function useMessagesToggleFavorite(
   return useMutation<
     MessagesToggleFavoriteMutationResponseType,
     ResponseErrorConfig<Error>,
-    { data: MessagesToggleFavoriteMutationRequestType }
+    { data: MessagesToggleFavoriteMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return messagesToggleFavorite(data, config);

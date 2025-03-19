@@ -40,12 +40,13 @@ export async function logisticsDeleteConsumable(
  * @summary Удаление расходника
  * {@link /services/consumables/:id}
  */
-export function useLogisticsDeleteConsumable(
+export function useLogisticsDeleteConsumable<TContext>(
   options: {
     mutation?: UseMutationOptions<
       LogisticsDeleteConsumableMutationResponseType,
       ResponseErrorConfig<Error>,
-      { id: LogisticsDeleteConsumablePathParamsType['id'] }
+      { id: LogisticsDeleteConsumablePathParamsType['id'] },
+      TContext
     >;
     client?: Partial<RequestConfig> & { client?: typeof client };
   } = {},
@@ -56,7 +57,8 @@ export function useLogisticsDeleteConsumable(
   return useMutation<
     LogisticsDeleteConsumableMutationResponseType,
     ResponseErrorConfig<Error>,
-    { id: LogisticsDeleteConsumablePathParamsType['id'] }
+    { id: LogisticsDeleteConsumablePathParamsType['id'] },
+    TContext
   >({
     mutationFn: async ({ id }) => {
       return logisticsDeleteConsumable(id, config);

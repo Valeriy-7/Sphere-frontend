@@ -42,12 +42,13 @@ export async function deliveriesCreateSupplier(
  * @summary Создание поставщика
  * {@link /deliveries/suppliers}
  */
-export function useDeliveriesCreateSupplier(
+export function useDeliveriesCreateSupplier<TContext>(
   options: {
     mutation?: UseMutationOptions<
       DeliveriesCreateSupplierMutationResponseType,
       ResponseErrorConfig<DeliveriesCreateSupplier400Type | DeliveriesCreateSupplier401Type>,
-      { data: DeliveriesCreateSupplierMutationRequestType }
+      { data: DeliveriesCreateSupplierMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<DeliveriesCreateSupplierMutationRequestType>> & {
       client?: typeof client;
@@ -60,7 +61,8 @@ export function useDeliveriesCreateSupplier(
   return useMutation<
     DeliveriesCreateSupplierMutationResponseType,
     ResponseErrorConfig<DeliveriesCreateSupplier400Type | DeliveriesCreateSupplier401Type>,
-    { data: DeliveriesCreateSupplierMutationRequestType }
+    { data: DeliveriesCreateSupplierMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return deliveriesCreateSupplier(data, config);

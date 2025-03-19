@@ -50,12 +50,13 @@ export async function attachmentsUploadFile(
  * @summary Загрузить файл
  * {@link /attachments/upload}
  */
-export function useAttachmentsUploadFile(
+export function useAttachmentsUploadFile<TContext>(
   options: {
     mutation?: UseMutationOptions<
       AttachmentsUploadFileMutationResponseType,
       ResponseErrorConfig<Error>,
-      { data?: AttachmentsUploadFileMutationRequestType }
+      { data?: AttachmentsUploadFileMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<AttachmentsUploadFileMutationRequestType>> & {
       client?: typeof client;
@@ -68,7 +69,8 @@ export function useAttachmentsUploadFile(
   return useMutation<
     AttachmentsUploadFileMutationResponseType,
     ResponseErrorConfig<Error>,
-    { data?: AttachmentsUploadFileMutationRequestType }
+    { data?: AttachmentsUploadFileMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return attachmentsUploadFile(data, config);

@@ -39,12 +39,13 @@ export async function logisticsProvidersDeleteLogisticsProvider(
  * @summary Удалить логиста
  * {@link /ff-account/logistics-providers/:id}
  */
-export function useLogisticsProvidersDeleteLogisticsProvider(
+export function useLogisticsProvidersDeleteLogisticsProvider<TContext>(
   options: {
     mutation?: UseMutationOptions<
       LogisticsProvidersDeleteLogisticsProviderMutationResponseType,
       ResponseErrorConfig<LogisticsProvidersDeleteLogisticsProvider404Type>,
-      { id: LogisticsProvidersDeleteLogisticsProviderPathParamsType['id'] }
+      { id: LogisticsProvidersDeleteLogisticsProviderPathParamsType['id'] },
+      TContext
     >;
     client?: Partial<RequestConfig> & { client?: typeof client };
   } = {},
@@ -56,7 +57,8 @@ export function useLogisticsProvidersDeleteLogisticsProvider(
   return useMutation<
     LogisticsProvidersDeleteLogisticsProviderMutationResponseType,
     ResponseErrorConfig<LogisticsProvidersDeleteLogisticsProvider404Type>,
-    { id: LogisticsProvidersDeleteLogisticsProviderPathParamsType['id'] }
+    { id: LogisticsProvidersDeleteLogisticsProviderPathParamsType['id'] },
+    TContext
   >({
     mutationFn: async ({ id }) => {
       return logisticsProvidersDeleteLogisticsProvider(id, config);

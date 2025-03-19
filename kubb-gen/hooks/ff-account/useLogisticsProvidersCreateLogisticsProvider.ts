@@ -40,12 +40,13 @@ export async function logisticsProvidersCreateLogisticsProvider(
  * @summary Создать нового логиста
  * {@link /ff-account/logistics-providers}
  */
-export function useLogisticsProvidersCreateLogisticsProvider(
+export function useLogisticsProvidersCreateLogisticsProvider<TContext>(
   options: {
     mutation?: UseMutationOptions<
       LogisticsProvidersCreateLogisticsProviderMutationResponseType,
       ResponseErrorConfig<Error>,
-      { data: LogisticsProvidersCreateLogisticsProviderMutationRequestType }
+      { data: LogisticsProvidersCreateLogisticsProviderMutationRequestType },
+      TContext
     >;
     client?: Partial<
       RequestConfig<LogisticsProvidersCreateLogisticsProviderMutationRequestType>
@@ -59,7 +60,8 @@ export function useLogisticsProvidersCreateLogisticsProvider(
   return useMutation<
     LogisticsProvidersCreateLogisticsProviderMutationResponseType,
     ResponseErrorConfig<Error>,
-    { data: LogisticsProvidersCreateLogisticsProviderMutationRequestType }
+    { data: LogisticsProvidersCreateLogisticsProviderMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return logisticsProvidersCreateLogisticsProvider(data, config);

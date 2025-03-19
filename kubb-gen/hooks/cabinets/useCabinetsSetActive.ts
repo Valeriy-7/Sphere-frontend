@@ -45,12 +45,13 @@ export async function cabinetsSetActive(
  * @summary Активация кабинета
  * {@link /cabinets/:id/activate}
  */
-export function useCabinetsSetActive(
+export function useCabinetsSetActive<TContext>(
   options: {
     mutation?: UseMutationOptions<
       CabinetsSetActiveMutationResponseType,
       ResponseErrorConfig<CabinetsSetActive404Type>,
-      { id: CabinetsSetActivePathParamsType['id']; data?: CabinetsSetActiveMutationRequestType }
+      { id: CabinetsSetActivePathParamsType['id']; data?: CabinetsSetActiveMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<CabinetsSetActiveMutationRequestType>> & {
       client?: typeof client;
@@ -63,7 +64,8 @@ export function useCabinetsSetActive(
   return useMutation<
     CabinetsSetActiveMutationResponseType,
     ResponseErrorConfig<CabinetsSetActive404Type>,
-    { id: CabinetsSetActivePathParamsType['id']; data?: CabinetsSetActiveMutationRequestType }
+    { id: CabinetsSetActivePathParamsType['id']; data?: CabinetsSetActiveMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return cabinetsSetActive(id, data, config);

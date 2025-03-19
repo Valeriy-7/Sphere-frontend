@@ -27,10 +27,15 @@ export type FFAccountDeliveriesGetDeliveriesQueryParamsType = {
    */
   startDate?: string;
   /**
-   * @description Конечная дата периода в формате YYYY-MM-DD
-   * @type string | undefined, date-time
+   * @description Дата окончания периода в формате ISO (YYYY-MM-DD)
+   * @type string | undefined
    */
   endDate?: string;
+  /**
+   * @description Конкретная дата поставки в формате ISO (YYYY-MM-DD). Если указана, то startDate и endDate игнорируются.
+   * @type string | undefined
+   */
+  deliveryDate?: string;
 };
 
 /**

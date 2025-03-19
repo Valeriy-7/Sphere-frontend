@@ -53,12 +53,13 @@ export async function logisticsCreateConsumable(
  * @summary Создание нового расходника
  * {@link /services/consumables}
  */
-export function useLogisticsCreateConsumable(
+export function useLogisticsCreateConsumable<TContext>(
   options: {
     mutation?: UseMutationOptions<
       LogisticsCreateConsumableMutationResponseType,
       ResponseErrorConfig<Error>,
-      { data: LogisticsCreateConsumableMutationRequestType }
+      { data: LogisticsCreateConsumableMutationRequestType },
+      TContext
     >;
     client?: Partial<RequestConfig<LogisticsCreateConsumableMutationRequestType>> & {
       client?: typeof client;
@@ -71,7 +72,8 @@ export function useLogisticsCreateConsumable(
   return useMutation<
     LogisticsCreateConsumableMutationResponseType,
     ResponseErrorConfig<Error>,
-    { data: LogisticsCreateConsumableMutationRequestType }
+    { data: LogisticsCreateConsumableMutationRequestType },
+    TContext
   >({
     mutationFn: async ({ data }) => {
       return logisticsCreateConsumable(data, config);

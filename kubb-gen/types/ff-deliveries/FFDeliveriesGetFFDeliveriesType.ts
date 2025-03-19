@@ -31,6 +31,11 @@ export type FFDeliveriesGetFFDeliveriesQueryParamsType = {
    * @type string | undefined, date-time
    */
   endDate?: string;
+  /**
+   * @description Конкретная дата поставки в формате ISO (YYYY-MM-DD). Если указана, то startDate и endDate игнорируются.
+   * @type string | undefined, date-time
+   */
+  deliveryDate?: string;
 };
 
 /**

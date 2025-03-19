@@ -43,7 +43,7 @@ export async function FFAccountDeliveriesUpdateStoreInfo(
  * @summary Обновить информацию о магазине
  * {@link /ff-account/deliveries/:id/store-info}
  */
-export function useFFAccountDeliveriesUpdateStoreInfo(
+export function useFFAccountDeliveriesUpdateStoreInfo<TContext>(
   options: {
     mutation?: UseMutationOptions<
       FFAccountDeliveriesUpdateStoreInfoMutationResponseType,
@@ -51,7 +51,8 @@ export function useFFAccountDeliveriesUpdateStoreInfo(
       {
         id: FFAccountDeliveriesUpdateStoreInfoPathParamsType['id'];
         data?: FFAccountDeliveriesUpdateStoreInfoMutationRequestType;
-      }
+      },
+      TContext
     >;
     client?: Partial<RequestConfig<FFAccountDeliveriesUpdateStoreInfoMutationRequestType>> & {
       client?: typeof client;
@@ -68,7 +69,8 @@ export function useFFAccountDeliveriesUpdateStoreInfo(
     {
       id: FFAccountDeliveriesUpdateStoreInfoPathParamsType['id'];
       data?: FFAccountDeliveriesUpdateStoreInfoMutationRequestType;
-    }
+    },
+    TContext
   >({
     mutationFn: async ({ id, data }) => {
       return FFAccountDeliveriesUpdateStoreInfo(id, data, config);
