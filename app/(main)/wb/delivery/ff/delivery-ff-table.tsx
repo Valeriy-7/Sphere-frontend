@@ -43,7 +43,8 @@ import {
   useFFDeliveriesGetFFDeliveryProducts,
   type FFDeliveryStatsResponseDtoType,
   type FFSupplierInfoResponseDtoType,
-  type FFRouteInfoResponseDtoType, useFFDeliveriesGetFFRouteSupplierProducts,
+  type FFRouteInfoResponseDtoType,
+  useFFDeliveriesGetFFRouteSupplierProducts,
 } from '@/kubb-gen';
 import { formatCurrency } from '@/lib/formatCurrency';
 
@@ -204,7 +205,7 @@ export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>
       <TableRowExpand colSpan={row.getVisibleCells().length}>
         <Table colSizeList={colSizeList}>
           <TableBody>
-            <TableRow>
+            <TableRow rowSpace={false}>
               <TableCell colSpan={2} level={1}>
                 {data.name} <br />
                 {data.address}
@@ -221,7 +222,12 @@ export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>
             </TableRow>
 
             {data.suppliers.map((i) => (
-              <TableRowSupplier routerId={data.id}  supplierInfo={i} colSizeList={colSizeList} row={row} />
+              <TableRowSupplier
+                routerId={data.id}
+                supplierInfo={i}
+                colSizeList={colSizeList}
+                row={row}
+              />
             ))}
           </TableBody>
         </Table>
@@ -235,18 +241,20 @@ export function TableRowSupplier<TData extends FFDeliveryWithRoutesResponseDtoTy
   colSizeList,
   table,
   supplierInfo,
-    routerId
+  routerId,
 }: {
   routerId: string;
   row: Row<TData>;
   table: TTable<TData>;
   supplierInfo: FFSupplierInfoResponseDtoType;
 } & ColSizeList) {
-
-  const { data: subRows = [] } = useFFDeliveriesGetFFRouteSupplierProducts(routerId, supplierInfo.id);
+  const { data: subRows = [] } = useFFDeliveriesGetFFRouteSupplierProducts(
+    routerId,
+    supplierInfo.id,
+  );
   return (
     <>
-      <TableRow>
+      <TableRow  rowSpace={false}>
         <TableCell level={1} colSpan={2}>
           <TableCardImgText image={{ src: undefined }} title={supplierInfo.name} />
         </TableCell>
@@ -260,7 +268,7 @@ export function TableRowSupplier<TData extends FFDeliveryWithRoutesResponseDtoTy
         <TableCell level={1}></TableCell>
       </TableRow>
       <TableRow rowSpace={false}>
-        <TableCell className={'border-none'} colSpan={2} rowSpan={subRows.length + 2}>
+        <TableCell className={'border-none align-top'} colSpan={2} rowSpan={subRows.length + 2}>
           <ul>
             <li>{supplierInfo.contactPerson}</li>
             <li>{supplierInfo.contactPhone}</li>
@@ -302,7 +310,7 @@ function TableRowSize({
               </TableCell>
           )}*/}
 
-        <TableCell className={''} level={1}>
+        <TableCell level={1}>
           <TableImgText
             image={{ src: row.imageUrl }}
             title={row.name}

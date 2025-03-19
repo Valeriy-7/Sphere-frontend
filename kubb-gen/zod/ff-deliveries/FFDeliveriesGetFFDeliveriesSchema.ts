@@ -22,6 +22,7 @@ export const FFDeliveriesGetFFDeliveriesQueryParamsSchema = z
         'Конкретная дата поставки в формате ISO (YYYY-MM-DD). Если указана, то startDate и endDate игнорируются.',
       )
       .optional(),
+    deliveryNumber: z.string().describe('Номер поставки (последние 5 символов ID)').optional(),
   })
   .optional();
 

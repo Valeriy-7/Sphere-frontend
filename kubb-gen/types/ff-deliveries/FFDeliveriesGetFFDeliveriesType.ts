@@ -36,6 +36,11 @@ export type FFDeliveriesGetFFDeliveriesQueryParamsType = {
    * @type string | undefined, date-time
    */
   deliveryDate?: string;
+  /**
+   * @description Номер поставки (последние 5 символов ID)
+   * @type string | undefined
+   */
+  deliveryNumber?: string;
 };
 
 /**
