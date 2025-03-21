@@ -10,6 +10,7 @@ import {
   PieChart,
   SquareTerminal,
   Users,
+  MessageSquare,
 } from 'lucide-react';
 
 import { NavProjects } from '@/components/nav-projects';
@@ -55,6 +56,11 @@ function getNavMain(type: LKTypeValue) {
       name: 'Настройки',
       url: '/settings',
       icon: IconSettings,
+    },
+    {
+      icon: MessageSquare,
+      url: '/messenger',
+      name: 'Мессенджер',
     },
   ];
 
