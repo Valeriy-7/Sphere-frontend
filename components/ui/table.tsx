@@ -83,32 +83,30 @@ TableRow.displayName = 'TableRow';
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement> & { isTotal?: boolean }
->(({ className, isTotal,children, ...props }, ref) => (
-    <th
-        ref={ref}
-        className={cn(
-            'h-8 p-[2px] align-middle font-semibold [&:has([role=checkbox])]:pr-0',
-            isTotal
-                ? 'border-y bg-white first:rounded-bl-lg first:border-l last:rounded-br-lg last:border-r dark:bg-transparent'
-                : 'bg-primary text-primary-foreground first:rounded-tl-lg last:rounded-tr-lg',
-            className,
-        )}
-        {...props}
-    >
-        <div className={'min-h-8 flex items-center justify-center'}>
-            {children}
-        </div>
-    </th>
+>(({ className, isTotal, children, ...props }, ref) => (
+  <th
+    ref={ref}
+    className={cn(
+      'h-8 p-[2px] align-middle font-semibold [&:has([role=checkbox])]:pr-0',
+      isTotal
+        ? 'border-y bg-white first:rounded-bl-lg first:border-l last:rounded-br-lg last:border-r dark:bg-transparent'
+        : 'bg-primary text-primary-foreground first:rounded-tl-lg last:rounded-tr-lg',
+      className,
+    )}
+    {...props}
+  >
+    <div className={'flex min-h-8 items-center justify-center'}>{children}</div>
+  </th>
 ));
 TableHead.displayName = 'TableHead';
 
 const TableCell = React.forwardRef<
-    HTMLTableCellElement,
+  HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement> & {
     level?: number;
     noBgHover?: boolean;
   }
->(({ className, level = 0, noBgHover, children,...props }, ref) => (
+>(({ className, level = 0, noBgHover, children, ...props }, ref) => (
   <td
     ref={ref}
     className={cn(
@@ -123,9 +121,9 @@ const TableCell = React.forwardRef<
       className,
     )}
     {...props}
-  ><div className={'min-h-8 flex items-center justify-center flex-col'}>
-      {children}
-  </div></td>
+  >
+    <div className={'flex min-h-8 flex-col items-center justify-center'}>{children}</div>
+  </td>
 ));
 TableCell.displayName = 'TableCell';
 

@@ -10,7 +10,7 @@ export function TableImgText({
   image,
 }: PropsWithChildren & { image?: TableImage; title?: string; text?: string }) {
   return (
-    <div className={'flex items-center gap-2 text-left w-full'}>
+    <div className={'flex w-full items-center gap-2 text-left'}>
       <img
         className={'h-[26px] w-[18px] rounded-sm border object-cover'}
         src={image?.src}

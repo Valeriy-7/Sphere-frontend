@@ -254,7 +254,7 @@ export function TableRowSupplier<TData extends FFDeliveryWithRoutesResponseDtoTy
   );
   return (
     <>
-      <TableRow  rowSpace={false}>
+      <TableRow rowSpace={false}>
         <TableCell level={1} colSpan={2}>
           <TableCardImgText image={{ src: undefined }} title={supplierInfo.name} />
         </TableCell>
