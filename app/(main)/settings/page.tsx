@@ -18,7 +18,7 @@ import {
   cabinetsGetActiveSuspenseQueryKey,
   useAvatarUploadAvatar,
 } from '@/kubb-gen';
-import { useJWTAuthContext } from '@/modules/auth';
+import {useJWTAuthContext, useJWTAuthUser} from '@/modules/auth';
 
 /*z.setErrorMap((issue, ctx) => {
   if (issue.received === "null") {
@@ -30,8 +30,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import ImageUpload from '@/components/image-upload-validator';
 export default function SettingsPage() {
   const { user, fetchUser } = useJWTAuthContext();
+  useJWTAuthUser()
 
-  const { data } = useCabinetsGetActiveSuspense();
+  const { data:{ token, cabinet} } = useCabinetsGetActiveSuspense();
   const { mutateAsync: mutateAvatar } = useAvatarUploadAvatar({
     mutation: {
       onError: (error) => {
@@ -48,7 +49,7 @@ export default function SettingsPage() {
   });
   const queryClient = useQueryClient();
 
-  const { id: cabinetActiveId, type, registrationUrl: token, ...restData } = data as CabinetType;
+  const { id: cabinetActiveId, type, registrationUrl:oldUrl,  ...restData } = cabinet;
 
   const { mutate, isPending } = useCabinetsUpdate();
 

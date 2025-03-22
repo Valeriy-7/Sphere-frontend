@@ -38,9 +38,6 @@ import { TableCardImgText, TableImgText } from '@/components/date-table/table-im
 import {
   FFDeliveryWithRoutesResponseDtoType,
   FFDeliveryProductDtoType,
-  FFDeliveryResponseDtoType,
-  type SupplierInfoDtoType,
-  useFFDeliveriesGetFFDeliveryProducts,
   type FFDeliveryStatsResponseDtoType,
   type FFSupplierInfoResponseDtoType,
   type FFRouteInfoResponseDtoType,
@@ -52,7 +49,8 @@ export function DeliveryFfTable<TData extends FFDeliveryWithRoutesResponseDtoTyp
   columns,
   data,
   stats,
-}: TableProps<TData, TValue> & Pick<FFDeliveryResponseDtoType, 'stats'>) {
+}: TableProps<TData, TValue> & { stats: FFDeliveryStatsResponseDtoType }) {
+
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const [globalFilter, setGlobalFilter] = useState('');
@@ -80,11 +78,12 @@ export function DeliveryFfTable<TData extends FFDeliveryWithRoutesResponseDtoTyp
     getExpandedRowModel: getExpandedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: 'fuzzy', //apply fuzzy filter to the global filter (most common use case for fuzzy filter)
+    globalFilterFn: 'auto', //apply fuzzy filter to the global filter (most common use case for fuzzy filter)
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
+    maxLeafRowFilterDepth:0
   });
 
   const { colSizeList } = getColSizeList(['w-[60px]', '', '', '', '', '', '', '', '', '']);
@@ -163,7 +162,7 @@ function TableRowTotal<TData>({
             value={table.getState().globalFilter ?? ''}
             onChange={(e) => table.setGlobalFilter(String(e.target.value))}
             className="h-auto px-1 md:text-xs"
-            placeholder="Поиск"
+            placeholder="Номер поставки"
           />
         </TableHead>
         <TableHead isTotal></TableHead>

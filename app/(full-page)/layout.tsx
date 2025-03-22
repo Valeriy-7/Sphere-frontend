@@ -8,7 +8,7 @@ export default function FullPageLayout({ children }: PropsWithChildren) {
   const router = useRouter();
   const { isLoggedIn, user } = useJWTAuthContext();
 
-  if (isLoggedIn && pathname === '/login' && user.regStatus === 'complete') {
+  if (isLoggedIn && pathname === '/login' && user.regStatus === 'verified') {
     router.push('/');
     return null;
   }
