@@ -17,8 +17,8 @@ export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
   {
     accessorKey: 'number',
     header: '№',
-     enableSorting: false,
-    enableColumnFilter:false
+    enableSorting: false,
+    enableColumnFilter: false,
   },
   {
     accessorKey: 'deliveryDate',
@@ -29,7 +29,7 @@ export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
     },
     sortingFn: 'datetime',
     enableSorting: false,
-    enableColumnFilter:false
+    enableColumnFilter: false,
   },
   {
     accessorKey: 'id',
@@ -49,35 +49,35 @@ export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
   {
     accessorKey: 'factQuantity',
     header: 'Факт',
-     enableSorting: false,
-    enableColumnFilter:false,
+    enableSorting: false,
+    enableColumnFilter: false,
     cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'defects',
     header: 'Брак',
-     enableSorting: false,
-    enableColumnFilter:false,
+    enableSorting: false,
+    enableColumnFilter: false,
     cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'productsPrice',
     header: getTextCurrency('Цена товаров'),
-     enableSorting: false,
-    enableColumnFilter:false,
+    enableSorting: false,
+    enableColumnFilter: false,
     cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'ffServicesPrice',
     header: getTextCurrency('Цена услуг ФФ'),
-     enableSorting: false,
-    enableColumnFilter:false,
+    enableSorting: false,
+    enableColumnFilter: false,
     cell: ({ getValue }) => formatCurrency(getValue()),
   },
   {
     accessorKey: 'logisticsToFFPrice',
-     enableSorting: false,
-    enableColumnFilter:false,
+    enableSorting: false,
+    enableColumnFilter: false,
     cell: ({ getValue }) => formatCurrency(getValue()),
     header: () => (
       <>
@@ -89,8 +89,8 @@ export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
   },
   {
     accessorKey: 'totalPrice',
-     enableSorting: false,
-    enableColumnFilter:false,
+    enableSorting: false,
+    enableColumnFilter: false,
     header: getTextCurrency('Сумма'),
     cell: ({ getValue }) => formatCurrency(getValue()),
   },

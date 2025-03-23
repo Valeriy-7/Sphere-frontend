@@ -50,7 +50,6 @@ export function DeliveryFfTable<TData extends FFDeliveryWithRoutesResponseDtoTyp
   data,
   stats,
 }: TableProps<TData, TValue> & { stats: FFDeliveryStatsResponseDtoType }) {
-
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const [globalFilter, setGlobalFilter] = useState('');
@@ -83,7 +82,7 @@ export function DeliveryFfTable<TData extends FFDeliveryWithRoutesResponseDtoTyp
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
-    maxLeafRowFilterDepth:0
+    maxLeafRowFilterDepth: 0,
   });
 
   const { colSizeList } = getColSizeList(['w-[60px]', '', '', '', '', '', '', '', '', '']);

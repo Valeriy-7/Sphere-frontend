@@ -57,7 +57,7 @@ export function DeliveryMpTable<TData, TValue>({
 
   const hasGrouping = grouping.length;
   const initRowSelection = {};
-  data.forEach((row) => {
+  data?.forEach((row) => {
     initRowSelection[row.uuid] = true;
   });
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(initRowSelection); //manage your own row selection state
