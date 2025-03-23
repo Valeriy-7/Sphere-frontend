@@ -99,7 +99,7 @@ export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
               name={`rows.${index}.${id}`}
               render={({ field }) => (
                 <FormItem>
-                  <FormControl>
+                  <FormControl className={'w-full'}>
                     <Textarea
                       {...field}
                       style={{ fieldSizing: 'content', minInlineSize: '5ch' }}
@@ -424,7 +424,7 @@ export const defaultColumn: Partial<ColumnDef<ServicesItemType>> = {
             },
           };
           return (
-            <FormItem>
+            <FormItem className={'w-full'}>
               <FormControl>
                 {isNumber ? (
                   <CurrencyInput {...props} />

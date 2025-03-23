@@ -25,7 +25,7 @@ export function TableHeaderSort<TData, TValue>({
     <div
       {...{
         className: header.column.getCanSort()
-          ? 'cursor-pointer select-none inline-flex flex-1 [&_svg]:w-4 items-center'
+          ? 'cursor-pointer select-none inline-flex [&_svg]:w-4 items-center'
           : '',
         onClick: header.column.getToggleSortingHandler(),
       }}
