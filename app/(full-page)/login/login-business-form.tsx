@@ -46,8 +46,8 @@ export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }
       token: localStorage.getItem('registrationUrl'),
     },
   });
-  const { user } = useJWTAuthContext();
-
+  const { user, fetchUser } = useJWTAuthContext();
+  const router = useRouter();
   const { mutate, isPending } = useAuthCompleteRegistration();
 
   const [isMutateSuccess, setIsMutateSuccess] = useState(false);
@@ -70,6 +70,11 @@ export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }
         onSuccess: () => {
           if (data.token) {
             localStorage.removeItem('registrationUrl');
+          }
+          if(data.type ==='wildberries'){
+            fetchUser().then(()=>{
+              router.push('/');
+            })
           }
           setIsMutateSuccess(true);
         },

@@ -41,9 +41,12 @@ export default function SettingsPage() {
         toast.error(error?.response?.data?.message);
       },
       onSuccess: ({ avatarUrl }) => {
-        queryClient.setQueriesData(cabinetsGetActiveSuspenseQueryKey(), (old) => ({
+          queryClient.setQueriesData(cabinetsGetActiveSuspenseQueryKey(), (old) => ({
           ...old,
-          avatarUrl,
+            cabinet:{
+              ...old.cabinet,
+              avatarUrl
+            }
         }));
         fetchUser();
       },
@@ -53,7 +56,7 @@ export default function SettingsPage() {
 
   const { id: cabinetActiveId, type, registrationUrl: oldUrl, ...restData } = cabinet;
 
-  const { mutate, isPending } = useCabinetsUpdate();
+    const { mutate, isPending } = useCabinetsUpdate();
 
   const form = useForm<z.infer<typeof cabinetsUpdateMutationRequestSchema>>({
     resolver: zodResolver(cabinetsUpdateMutationRequestSchema),
@@ -69,7 +72,7 @@ export default function SettingsPage() {
         onSuccess: () => {
           toast.success('Успешно обновлено');
           queryClient.invalidateQueries({
-            queryKey: [...cabinetsGetActiveSuspenseQueryKey()],
+            queryKey: cabinetsGetActiveSuspenseQueryKey(),
           });
           fetchUser();
         },
@@ -97,7 +100,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className={'max-w-screen-lg'}>
+    <div className={''}>
       <TypographyH2 as={'h1'}>Данные организации</TypographyH2>
 
       <Form {...form}>

@@ -6,22 +6,32 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/s
 import { PropsWithChildren, useEffect } from 'react';
 
 import ThemeWrap from '@/components/themeWrap';
-import { LKTypeValue } from '@/lib/types';
+import {LKTypeValue, ServerToClientMapType } from '@/lib/types';
 
 import { useRouter, useSelectedLayoutSegments } from 'next/navigation';
-import { useJWTAuthContext } from '@/modules/auth';
+import {useJWTAuthContext, useJWTAuthUser} from '@/modules/auth';
 import { AppSpinner } from '@/components/app-spinner';
 import * as React from 'react';
+import {setThemeClassName} from "@/app/themeStore";
+import {CabinetShortDataDtoType} from "@/kubb-gen";
 
 export default function MainLayout({ children }: PropsWithChildren) {
   const [lk] = useSelectedLayoutSegments();
-  const { isLoggedIn } = useJWTAuthContext();
+  const { isLoggedIn, user } = useJWTAuthContext();
+
+  const cabinetActive = user?.cabinets?.find((i) => i.isActive) ?? ({} as CabinetShortDataDtoType);
+
   if (!isLoggedIn) {
     return null;
   }
 
+  if(user.role ==='admin') {
+    setThemeClassName('admin')
+  } else {
+    setThemeClassName(cabinetActive.type as keyof typeof ServerToClientMapType)
+  }
+
   return (
-    <ThemeWrap name={lk as LKTypeValue}>
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
@@ -35,6 +45,5 @@ export default function MainLayout({ children }: PropsWithChildren) {
           <div className="flex flex-1 flex-col gap-4 px-5 py-7">{children}</div>
         </SidebarInset>
       </SidebarProvider>
-    </ThemeWrap>
   );
 }

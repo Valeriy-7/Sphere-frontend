@@ -25,7 +25,7 @@ import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import { useFieldArray, useForm, UseFormReturn } from 'react-hook-form';
 import { FormValues, FormSchema } from './schema';
 
-import { defaultColumn, columns, ColumnData } from './columns';
+import {  columns, ColumnData } from './columns';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Check, Pencil, X } from 'lucide-react';
@@ -161,7 +161,6 @@ export function ProductsTable<TData extends ColumnData, TValue>({
   const table = useReactTable({
     data,
     columns,
-    defaultColumn,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,

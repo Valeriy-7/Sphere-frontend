@@ -11,10 +11,11 @@ export const metadata: Metadata = {
   title: "Сфера",
   robots: { index: false, follow: false },
 };*/
-
+import { useStore } from '@nanostores/react'
 import { Inter } from 'next/font/google';
 import './globals.css';
 import dynamic from 'next/dynamic';
+import {$themeClassName} from "@/app/themeStore";
 const AppLayout = dynamic(() => import('@/components/app-layout'), {
   ssr: false,
 });
@@ -30,8 +31,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const themeClassName = useStore($themeClassName)
+
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="ru" suppressHydrationWarning className={themeClassName}>
       <body className={`${inter.className} antialiased`}>
         <AppLayout>{children}</AppLayout>
       </body>
