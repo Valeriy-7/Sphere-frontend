@@ -13,7 +13,7 @@ import { Pencil, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { getColSizeList } from '@/lib/TableHelpers';
+import { getColSizeList, TableProps } from '@/lib/TableHelpers';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import {
   ColumnFiltersState,
@@ -28,6 +28,7 @@ import {
 import { Fragment } from 'react';
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import { TableFilter } from '@/components/date-table/table-filter';
+import { ProductsTable } from '@/app/(main)/ff/storage/new/products-table/products-table';
 
 const columnIcon = 'w-[35px]';
 const columnPlace = 'w-[55px]';
@@ -37,17 +38,14 @@ const { colSizeList } = getColSizeList([
   '',
   '',
   columnPlace,
-
   '',
   columnPlace,
   '',
   columnPlace,
-
   '',
   columnPlace,
   '',
   columnPlace,
-
   '',
   columnIcon,
 ]);
@@ -72,6 +70,39 @@ export function StorageTableNew<TData, TValue>({ columns, data }: TableProps<TDa
     debugHeaders: true,
     debugColumns: false,
   });
+
+  const productsTableData = [
+    {
+      id: '1',
+      number: 1,
+      key2: 'Футболка женская',
+      key3: '36749595',
+      key4: 'П - 13',
+      key5: 200,
+      key14: 'edit',
+      sizeList: [
+        {
+          id: '2',
+          number: 1,
+          key2: 'Размер',
+          key3: 'S',
+          key4: '',
+          key5: 100,
+          key14: 'edit',
+        },
+        {
+          id: '3',
+          number: 2,
+          key2: 'Размер',
+          key3: 'М',
+          key4: '',
+          key5: 100,
+          key14: 'edit',
+        },
+      ],
+    },
+  ];
+
   return (
     <Table colSizeList={colSizeList} className={'relative w-full table-fixed text-center'}>
       <TableHeader>
@@ -133,17 +164,15 @@ export function StorageTableNew<TData, TValue>({ columns, data }: TableProps<TDa
         })}
         <TableRowExpand colSpan={14}>
           <ScrollArea className={'flex max-h-[500px] flex-col overflow-y-auto'}>
+            <ProductsTable colSizeList={colSizeList} initialData={productsTableData} />
             <Table colSizeList={colSizeList} className={'table-fixed'}>
               <TableHeader>
                 <TableHeaderProduct />
               </TableHeader>
               <TableBody>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((i) => (
+                {[1, 2].map((i) => (
                   <>
                     <TableRowProduct />
-                    <TableRowSize />
-                    <TableRowSize />
-                    <TableRowSize />
                     <TableRowSize />
                   </>
                 ))}
@@ -296,7 +325,7 @@ const TableFilterRange = () => (
 
 const TableRowTotal = () => (
   <>
-    <TableRow rowSpace={'0'}>
+    <TableRow rowSpace={false}>
       <TableHead isTotal></TableHead>
       <TableHead isTotal colSpan={6}>
         Всего

@@ -13,7 +13,7 @@ export function TableImgText({
     <div className={'flex w-full items-center gap-2 text-left'}>
       <img
         className={'h-[26px] w-[18px] rounded-sm border object-cover'}
-        src={image?.src}
+        src={image?.src ?? '/no-image.jpg'}
         alt={title}
       />
       <div className={'overflow-hidden'}>

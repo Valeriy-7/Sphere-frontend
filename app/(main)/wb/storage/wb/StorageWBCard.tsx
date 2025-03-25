@@ -12,15 +12,11 @@ export function StorageWBCard({
     <>
       <Card className={'p-2 text-left text-min'}>
         <div className={'flex gap-2'}>
-          <img
-              className={'h-[88px] w-[80px] rounded-md object-cover'}
-              src={imageUrl}
-              alt={name}
-          />
+          <img className={'h-[88px] w-[80px] rounded-md object-cover'} src={imageUrl} alt={name} />
           <div className={'space-y-1'}>
             <div className={'text-primary'}>{name}</div>
             <ul className={'space-y-1'}>
-            <li>Арт: {article}</li>
+              <li>Арт: {article}</li>
               <li>Цвет: {color}</li>
               <li>Категория: {category}</li>
             </ul>

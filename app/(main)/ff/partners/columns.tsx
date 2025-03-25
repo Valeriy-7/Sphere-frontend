@@ -10,7 +10,6 @@ export const columns: ColumnDef<PartnerCabinetDtoType>[] = [
   {
     accessorKey: 'number1',
     header: '№',
-
   },
   {
     accessorFn: ({ companyName }) => `${companyName}`,
@@ -18,11 +17,11 @@ export const columns: ColumnDef<PartnerCabinetDtoType>[] = [
     header: 'Магазин',
     cell: ({ row: { original } }) => {
       return (
-          <TableCardImgText
-              image={{ src: original.avatarUrl }}
-              title={original.companyName}
-              text={original.companyName}
-          />
+        <TableCardImgText
+          image={{ src: original.avatarUrl }}
+          title={original.companyName}
+          text={original.companyName}
+        />
       );
     },
   },

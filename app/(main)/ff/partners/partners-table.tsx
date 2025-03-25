@@ -75,9 +75,7 @@ export function PartnersTable<TData extends PartnerCabinetDtoType, TValue>({
     debugColumns: false,
   });
 
-  const { colSizeList } = getColSizeList([
-    'w-[60px]',
-  ]);
+  const { colSizeList } = getColSizeList(['w-[60px]']);
 
   return (
     <Table colSizeList={colSizeList}>
