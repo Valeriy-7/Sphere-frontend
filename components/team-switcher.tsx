@@ -54,13 +54,10 @@ export function TeamSwitcher() {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
+            <SidebarMenuButton size="lg" className="">
               <div className="flex aspect-square size-11 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground group-data-[collapsible=icon]:size-8">
                 <Avatar>
-                  <AvatarImage src={cabinetActive.avatarUrl}  />
+                  <AvatarImage src={cabinetActive.avatarUrl} />
                   <AvatarFallback>{cabinetActive.type}</AvatarFallback>
                 </Avatar>
               </div>

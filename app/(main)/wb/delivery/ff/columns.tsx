@@ -4,14 +4,14 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { getColumnNumber } from '@/lib/TableHelpers';
-import {formatDate, formatDateOrm} from '@/lib/utils/formatDate';
+import { formatDate, formatDateOrm } from '@/lib/utils/formatDate';
 import { type DeliveryStatusType, FFDeliveryWithRoutesResponseDtoType } from '@/kubb-gen';
 import { getTextCurrency } from '@/lib/constants/rub';
 import { Badge } from '@/components/ui/badge';
 import { DELIVERY_COLOR_MAP, DELIVERY_STATUS_MAP } from '@/lib/utils/delivery';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@/lib/formatCurrency';
-import {DATE_FORMAT_SERVER_ORM} from "@/lib/constants/date";
+import { DATE_FORMAT_SERVER_ORM } from '@/lib/constants/date';
 
 export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
   // getColumnNumber<FFDeliveryWithRoutesResponseDtoType>(),

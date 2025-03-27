@@ -28,7 +28,7 @@ export default function StorageFfPage() {
           ]}
         />
         <div className={'text-xs'}>
-            Цена логистики не пишется за каждый товар, только итог по каждому маршруту и их сумма
+          Цена логистики не пишется за каждый товар, только итог по каждому маршруту и их сумма
         </div>
         <div>
           <Button asChild>
@@ -37,7 +37,7 @@ export default function StorageFfPage() {
         </div>
       </AppTabsWrap>
       <div>
-          <DeliveryFfTable<DataRow, unknown> data={items} columns={columns} stats={stats} />
+        <DeliveryFfTable<DataRow, unknown> data={items} columns={columns} stats={stats} />
       </div>
     </>
   );

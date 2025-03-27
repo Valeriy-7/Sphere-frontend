@@ -24,11 +24,11 @@ export function formatDate(
   }
 }
 
-export function parseDateOrm(val:string){
-  return parse(val,DATE_FORMAT_SERVER_ORM, new Date())
+export function parseDateOrm(val: string) {
+  return parse(val, DATE_FORMAT_SERVER_ORM, new Date());
 }
 
-export function formatDateOrm(val:string){
-  const result = parse(val, 'dd.MM.yy', new Date())
-  return formatDate(result)
+export function formatDateOrm(val: string) {
+  const result = parse(val, 'dd.MM.yy', new Date());
+  return formatDate(result);
 }
