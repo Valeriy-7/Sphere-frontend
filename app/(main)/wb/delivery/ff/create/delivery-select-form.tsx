@@ -320,6 +320,13 @@ export default function NestedDynamicForm() {
                   tForm={{ form, index, name: `selectedConsumables` }}
                 />
 
+                <DPSelect
+                  isSelect
+                  title={'Расходники магазина'}
+                  items={[]}
+                  tForm={{ form, index, name: `` }}
+                />
+
                 {/*   <DPSelect
                 isSelect
                 title={'Расходники Магазина'}

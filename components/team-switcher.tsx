@@ -37,7 +37,6 @@ export function TeamSwitcher() {
   const { logout, fetchUser } = useJWTAuthContext();
   const { cabinetActive, cabinets, role } = useJWTAuthUser();
   const queryClient = useQueryClient();
-  // @TODO на интерфейсе не переключается н аактивный
   // @todo табы переключаются только по тексту
   const { mutate } = useCabinetsSetActive({
     mutation: {
@@ -61,7 +60,7 @@ export function TeamSwitcher() {
             >
               <div className="flex aspect-square size-11 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground group-data-[collapsible=icon]:size-8">
                 <Avatar>
-                  <AvatarImage src={cabinetActive.avatarUrl} />
+                  <AvatarImage src={cabinetActive.avatarUrl}  />
                   <AvatarFallback>{cabinetActive.type}</AvatarFallback>
                 </Avatar>
               </div>

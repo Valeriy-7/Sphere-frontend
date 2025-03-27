@@ -34,8 +34,8 @@ export default function RootLayout({
   const themeClassName = useStore($themeClassName);
 
   return (
-    <html lang="ru" suppressHydrationWarning className={themeClassName}>
-      <body className={`${inter.className} antialiased`}>
+    <html lang="ru" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased ${themeClassName}`}>
         <AppLayout>{children}</AppLayout>
       </body>
     </html>
