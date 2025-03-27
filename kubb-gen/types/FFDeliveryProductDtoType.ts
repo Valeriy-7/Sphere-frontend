@@ -30,15 +30,15 @@ export type FFDeliveryProductDtoType = {
    */
   planQuantity: number;
   /**
-   * @description Фактическое количество
+   * @description Фактическое количество (может быть null или \"-\" после создания поставки)
    * @type number
    */
-  factQuantity: number;
+  factQuantity: number | null;
   /**
-   * @description Количество дефектов
+   * @description Количество дефектов (может быть null или \"-\" после создания поставки)
    * @type number
    */
-  defects: number;
+  defects: number | null;
   /**
    * @description Цена за единицу
    * @type number

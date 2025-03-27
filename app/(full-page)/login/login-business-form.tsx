@@ -71,10 +71,10 @@ export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }
           if (data.token) {
             localStorage.removeItem('registrationUrl');
           }
-          if(data.type ==='wildberries'){
-            fetchUser().then(()=>{
+          if (data.type === 'wildberries') {
+            fetchUser().then(() => {
               router.push('/');
-            })
+            });
           }
           setIsMutateSuccess(true);
         },

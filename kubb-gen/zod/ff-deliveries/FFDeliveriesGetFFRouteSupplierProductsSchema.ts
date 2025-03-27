@@ -7,16 +7,11 @@ export const FFDeliveriesGetFFRouteSupplierProductsPathParamsSchema = z.object({
 });
 
 /**
- * @description Список товаров поставщика по маршруту успешно получен
+ * @description Список товаров по маршруту и поставщику успешно получен
  */
 export const FFDeliveriesGetFFRouteSupplierProducts200Schema = z.array(
   z.lazy(() => FFDeliveryProductDtoSchema),
 );
-
-/**
- * @description Неверный запрос (например, неверный формат UUID)
- */
-export const FFDeliveriesGetFFRouteSupplierProducts400Schema = z.any();
 
 /**
  * @description Не авторизован
@@ -24,7 +19,7 @@ export const FFDeliveriesGetFFRouteSupplierProducts400Schema = z.any();
 export const FFDeliveriesGetFFRouteSupplierProducts401Schema = z.any();
 
 /**
- * @description Маршрут или поставщик не найден
+ * @description Товары не найдены
  */
 export const FFDeliveriesGetFFRouteSupplierProducts404Schema = z.any();
 

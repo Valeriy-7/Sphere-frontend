@@ -7,8 +7,14 @@ export const FFDeliveryProductDtoSchema = z.object({
   article: z.string().describe('Артикул товара'),
   imageUrl: z.string().describe('URL изображения продукта'),
   planQuantity: z.number().describe('Плановое количество'),
-  factQuantity: z.number().describe('Фактическое количество'),
-  defects: z.number().describe('Количество дефектов'),
+  factQuantity: z
+    .number()
+    .describe('Фактическое количество (может быть null или "-" после создания поставки)')
+    .nullable(),
+  defects: z
+    .number()
+    .describe('Количество дефектов (может быть null или "-" после создания поставки)')
+    .nullable(),
   price: z.number().describe('Цена за единицу'),
   logisticsPrice: z.number().describe('Стоимость логистики за единицу'),
   consumablesPrice: z.number().describe('Стоимость расходников за единицу'),

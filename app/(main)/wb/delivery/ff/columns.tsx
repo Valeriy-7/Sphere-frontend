@@ -32,11 +32,10 @@ export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
     enableColumnFilter: false,
   },
   {
-    accessorKey: 'id',
+    accessorKey: 'deliveryNumber',
     header: 'Номер поставки',
     cell: ({ getValue }) => {
-      const str = getValue().substring(getValue().length - 5);
-      return <span className={'text-red-500'}>{str}</span>;
+      return <span className={'text-red-500'}>{getValue() as string}</span>;
     },
     enableSorting: false,
   },

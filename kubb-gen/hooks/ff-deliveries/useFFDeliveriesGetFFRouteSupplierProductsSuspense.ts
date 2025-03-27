@@ -8,7 +8,6 @@ import type {
 import type {
   FFDeliveriesGetFFRouteSupplierProductsQueryResponseType,
   FFDeliveriesGetFFRouteSupplierProductsPathParamsType,
-  FFDeliveriesGetFFRouteSupplierProducts400Type,
   FFDeliveriesGetFFRouteSupplierProducts401Type,
   FFDeliveriesGetFFRouteSupplierProducts404Type,
 } from '../../types/ff-deliveries/FFDeliveriesGetFFRouteSupplierProductsType';
@@ -30,8 +29,8 @@ export type FFDeliveriesGetFFRouteSupplierProductsSuspenseQueryKey = ReturnType<
 >;
 
 /**
- * @description Возвращает список товаров конкретного поставщика для конкретного маршрута поставки
- * @summary Получить список товаров поставщика по маршруту
+ * @description Возвращает список товаров для конкретного маршрута и поставщика. После создания поставки значения factQuantity и defects равны null или "-".
+ * @summary Получить список товаров по маршруту и поставщику
  * {@link /ff-deliveries/route/:routeId/supplier/:supplierId/products}
  */
 export async function FFDeliveriesGetFFRouteSupplierProductsSuspense(
@@ -44,9 +43,7 @@ export async function FFDeliveriesGetFFRouteSupplierProductsSuspense(
   const res = await request<
     FFDeliveriesGetFFRouteSupplierProductsQueryResponseType,
     ResponseErrorConfig<
-      | FFDeliveriesGetFFRouteSupplierProducts400Type
-      | FFDeliveriesGetFFRouteSupplierProducts401Type
-      | FFDeliveriesGetFFRouteSupplierProducts404Type
+      FFDeliveriesGetFFRouteSupplierProducts401Type | FFDeliveriesGetFFRouteSupplierProducts404Type
     >,
     unknown
   >({
@@ -66,9 +63,7 @@ export function FFDeliveriesGetFFRouteSupplierProductsSuspenseQueryOptions(
   return queryOptions<
     FFDeliveriesGetFFRouteSupplierProductsQueryResponseType,
     ResponseErrorConfig<
-      | FFDeliveriesGetFFRouteSupplierProducts400Type
-      | FFDeliveriesGetFFRouteSupplierProducts401Type
-      | FFDeliveriesGetFFRouteSupplierProducts404Type
+      FFDeliveriesGetFFRouteSupplierProducts401Type | FFDeliveriesGetFFRouteSupplierProducts404Type
     >,
     FFDeliveriesGetFFRouteSupplierProductsQueryResponseType,
     typeof queryKey
@@ -83,8 +78,8 @@ export function FFDeliveriesGetFFRouteSupplierProductsSuspenseQueryOptions(
 }
 
 /**
- * @description Возвращает список товаров конкретного поставщика для конкретного маршрута поставки
- * @summary Получить список товаров поставщика по маршруту
+ * @description Возвращает список товаров для конкретного маршрута и поставщика. После создания поставки значения factQuantity и defects равны null или "-".
+ * @summary Получить список товаров по маршруту и поставщику
  * {@link /ff-deliveries/route/:routeId/supplier/:supplierId/products}
  */
 export function useFFDeliveriesGetFFRouteSupplierProductsSuspense<
@@ -99,7 +94,6 @@ export function useFFDeliveriesGetFFRouteSupplierProductsSuspense<
       UseSuspenseQueryOptions<
         FFDeliveriesGetFFRouteSupplierProductsQueryResponseType,
         ResponseErrorConfig<
-          | FFDeliveriesGetFFRouteSupplierProducts400Type
           | FFDeliveriesGetFFRouteSupplierProducts401Type
           | FFDeliveriesGetFFRouteSupplierProducts404Type
         >,
@@ -126,11 +120,11 @@ export function useFFDeliveriesGetFFRouteSupplierProductsSuspense<
   }) as UseSuspenseQueryResult<
     TData,
     ResponseErrorConfig<
-      | FFDeliveriesGetFFRouteSupplierProducts400Type
-      | FFDeliveriesGetFFRouteSupplierProducts401Type
-      | FFDeliveriesGetFFRouteSupplierProducts404Type
+      FFDeliveriesGetFFRouteSupplierProducts401Type | FFDeliveriesGetFFRouteSupplierProducts404Type
     >
-  > & { queryKey: TQueryKey };
+  > & {
+    queryKey: TQueryKey;
+  };
 
   query.queryKey = queryKey as TQueryKey;
 

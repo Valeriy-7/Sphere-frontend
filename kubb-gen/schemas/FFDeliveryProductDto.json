@@ -16,8 +16,18 @@
       "example": "https://example.com/image.jpg"
     },
     "planQuantity": { "type": "number", "description": "Плановое количество", "example": 2000 },
-    "factQuantity": { "type": "number", "description": "Фактическое количество", "example": 1980 },
-    "defects": { "type": "number", "description": "Количество дефектов", "example": 15 },
+    "factQuantity": {
+      "type": "number",
+      "description": "Фактическое количество (может быть null или \"-\" после создания поставки)",
+      "example": 1980,
+      "nullable": true
+    },
+    "defects": {
+      "type": "number",
+      "description": "Количество дефектов (может быть null или \"-\" после создания поставки)",
+      "example": 15,
+      "nullable": true
+    },
     "price": { "type": "number", "description": "Цена за единицу", "example": 500 },
     "logisticsPrice": {
       "type": "number",

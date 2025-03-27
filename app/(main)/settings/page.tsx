@@ -41,12 +41,12 @@ export default function SettingsPage() {
         toast.error(error?.response?.data?.message);
       },
       onSuccess: ({ avatarUrl }) => {
-          queryClient.setQueriesData(cabinetsGetActiveSuspenseQueryKey(), (old) => ({
+        queryClient.setQueriesData(cabinetsGetActiveSuspenseQueryKey(), (old) => ({
           ...old,
-            cabinet:{
-              ...old.cabinet,
-              avatarUrl
-            }
+          cabinet: {
+            ...old.cabinet,
+            avatarUrl,
+          },
         }));
         fetchUser();
       },
@@ -56,7 +56,7 @@ export default function SettingsPage() {
 
   const { id: cabinetActiveId, type, registrationUrl: oldUrl, ...restData } = cabinet;
 
-    const { mutate, isPending } = useCabinetsUpdate();
+  const { mutate, isPending } = useCabinetsUpdate();
 
   const form = useForm<z.infer<typeof cabinetsUpdateMutationRequestSchema>>({
     resolver: zodResolver(cabinetsUpdateMutationRequestSchema),

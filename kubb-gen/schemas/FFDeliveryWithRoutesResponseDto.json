@@ -37,6 +37,11 @@
       "description": "Общая сумма (товары + услуги + логистика)",
       "example": 58000
     },
+    "deliveryNumber": {
+      "type": "string",
+      "description": "Номер поставки для отображения (последние 5 символов ID)",
+      "example": "74000"
+    },
     "routes": {
       "description": "Маршруты поставки",
       "type": "array",
@@ -216,6 +221,7 @@
     "ffServicesPrice",
     "logisticsToFFPrice",
     "totalPrice",
+    "deliveryNumber",
     "routes"
   ],
   "x-readme-ref-name": "FFDeliveryWithRoutesResponseDto"

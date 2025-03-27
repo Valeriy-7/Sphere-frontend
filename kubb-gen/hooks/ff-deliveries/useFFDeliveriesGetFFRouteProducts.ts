@@ -19,7 +19,7 @@ export type FFDeliveriesGetFFRouteProductsQueryKey = ReturnType<
 >;
 
 /**
- * @description Возвращает список товаров для конкретного маршрута поставки
+ * @description Возвращает список товаров для конкретного маршрута поставки. После создания поставки значения factQuantity и defects равны null или "-".
  * @summary Получить список товаров по маршруту
  * {@link /ff-deliveries/route/:id/products}
  */
@@ -66,7 +66,7 @@ export function FFDeliveriesGetFFRouteProductsQueryOptions(
 }
 
 /**
- * @description Возвращает список товаров для конкретного маршрута поставки
+ * @description Возвращает список товаров для конкретного маршрута поставки. После создания поставки значения factQuantity и defects равны null или "-".
  * @summary Получить список товаров по маршруту
  * {@link /ff-deliveries/route/:id/products}
  */

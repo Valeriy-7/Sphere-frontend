@@ -25,7 +25,7 @@ export type FFDeliveriesGetFFDeliveryProductsQueryKey = ReturnType<
 >;
 
 /**
- * @description Возвращает список товаров для конкретной поставки на ФФ с возможностью фильтрации по поставщику
+ * @description Возвращает список товаров для конкретной поставки на ФФ с возможностью фильтрации по поставщику. После создания поставки значения factQuantity и defects равны null или "-".
  * @summary Получить список товаров в поставке на ФФ
  * {@link /ff-deliveries/:id/products}
  */
@@ -74,7 +74,7 @@ export function FFDeliveriesGetFFDeliveryProductsQueryOptions(
 }
 
 /**
- * @description Возвращает список товаров для конкретной поставки на ФФ с возможностью фильтрации по поставщику
+ * @description Возвращает список товаров для конкретной поставки на ФФ с возможностью фильтрации по поставщику. После создания поставки значения factQuantity и defects равны null или "-".
  * @summary Получить список товаров в поставке на ФФ
  * {@link /ff-deliveries/:id/products}
  */

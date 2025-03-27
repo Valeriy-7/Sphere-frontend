@@ -14,14 +14,9 @@ export type FFDeliveriesGetFFRouteSupplierProductsPathParamsType = {
 };
 
 /**
- * @description Список товаров поставщика по маршруту успешно получен
+ * @description Список товаров по маршруту и поставщику успешно получен
  */
 export type FFDeliveriesGetFFRouteSupplierProducts200Type = FFDeliveryProductDtoType[];
-
-/**
- * @description Неверный запрос (например, неверный формат UUID)
- */
-export type FFDeliveriesGetFFRouteSupplierProducts400Type = any;
 
 /**
  * @description Не авторизован
@@ -29,8 +24,7 @@ export type FFDeliveriesGetFFRouteSupplierProducts400Type = any;
 export type FFDeliveriesGetFFRouteSupplierProducts401Type = any;
 
 /**
- * @description Маршрут или поставщик не найден
- * @example [object Object]
+ * @description Товары не найдены
  */
 export type FFDeliveriesGetFFRouteSupplierProducts404Type = any;
 
@@ -41,7 +35,6 @@ export type FFDeliveriesGetFFRouteSupplierProductsTypeQuery = {
   Response: FFDeliveriesGetFFRouteSupplierProducts200Type;
   PathParams: FFDeliveriesGetFFRouteSupplierProductsPathParamsType;
   Errors:
-    | FFDeliveriesGetFFRouteSupplierProducts400Type
     | FFDeliveriesGetFFRouteSupplierProducts401Type
     | FFDeliveriesGetFFRouteSupplierProducts404Type;
 };

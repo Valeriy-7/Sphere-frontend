@@ -25,7 +25,7 @@ import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import { useFieldArray, useForm, UseFormReturn } from 'react-hook-form';
 import { FormValues, FormSchema } from './schema';
 
-import {  columns, ColumnData } from './columns';
+import { columns, ColumnData } from './columns';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Check, Pencil, X } from 'lucide-react';

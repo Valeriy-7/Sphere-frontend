@@ -14,5 +14,6 @@ export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
   ffServicesPrice: z.number().describe('Стоимость услуг фулфилмента'),
   logisticsToFFPrice: z.number().describe('Стоимость логистики до фулфилмента'),
   totalPrice: z.number().describe('Общая сумма (товары + услуги + логистика)'),
+  deliveryNumber: z.string().describe('Номер поставки для отображения (последние 5 символов ID)'),
   routes: z.array(z.lazy(() => FFRouteInfoResponseDtoSchema)).describe('Маршруты поставки'),
 });

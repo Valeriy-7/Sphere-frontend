@@ -62,6 +62,11 @@ export type FFDeliveryWithRoutesResponseDtoType = {
    */
   totalPrice: number;
   /**
+   * @description Номер поставки для отображения (последние 5 символов ID)
+   * @type string
+   */
+  deliveryNumber: string;
+  /**
    * @description Маршруты поставки
    * @type array
    */
