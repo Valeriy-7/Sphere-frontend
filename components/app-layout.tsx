@@ -8,11 +8,9 @@ import { ThemeProvider } from '@/providers/ThemeProvider';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   return (
-    <ThemeProvider attribute="class" enableSystem defaultTheme="system" disableTransitionOnChange>
       <JWTAuthProvider config={authConfig}>
-        <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
-        <Toaster />
+          <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
+          <Toaster />
       </JWTAuthProvider>
-    </ThemeProvider>
   );
 }

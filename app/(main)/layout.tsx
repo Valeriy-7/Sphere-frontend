@@ -5,24 +5,28 @@ import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { PropsWithChildren, useEffect } from 'react';
 
-import ThemeWrap from '@/components/themeWrap';
 import { LKTypeValue, ServerToClientMapType } from '@/lib/types';
 
-import { useRouter, useSelectedLayoutSegments } from 'next/navigation';
 import { useJWTAuthContext, useJWTAuthUser } from '@/modules/auth';
 import { AppSpinner } from '@/components/app-spinner';
 import * as React from 'react';
 import { setThemeClassName } from '@/app/themeStore';
 import { CabinetShortDataDtoType } from '@/kubb-gen';
-
+import {ThemeProvider} from "@/providers/ThemeProvider";
+import { usePathname, useRouter } from 'next/navigation';
 export default function MainLayout({ children }: PropsWithChildren) {
-  const [lk] = useSelectedLayoutSegments();
+  const router = useRouter()
+
   const { isLoggedIn, user } = useJWTAuthContext();
 
   const cabinetActive = user?.cabinets?.find((i) => i.isActive) ?? ({} as CabinetShortDataDtoType);
 
   if (!isLoggedIn) {
     return null;
+  }
+
+  if(user.regStatus!=='verified') {
+    return router.push('/login');
   }
 
   if (user.role === 'admin') {
@@ -32,7 +36,8 @@ export default function MainLayout({ children }: PropsWithChildren) {
   }
 
   return (
-    <SidebarProvider>
+      <ThemeProvider attribute="class" enableSystem defaultTheme="system" disableTransitionOnChange>
+        <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
         {/*   <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
@@ -45,5 +50,6 @@ export default function MainLayout({ children }: PropsWithChildren) {
         <div className="flex flex-1 flex-col gap-4 px-5 py-7">{children}</div>
       </SidebarInset>
     </SidebarProvider>
+      </ThemeProvider>
   );
 }
