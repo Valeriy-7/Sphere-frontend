@@ -2,26 +2,25 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  ColumnDef,
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-  RowData,
-  SortingState,
-  getSortedRowModel,
-  Row,
+    ColumnDef,
+    useReactTable,
+    getCoreRowModel,
+    flexRender,
+    RowData,
+    SortingState,
+    getSortedRowModel,
+    Row, getExpandedRowModel,
 } from '@tanstack/react-table';
 
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow, TableRowExpand,
 } from '@/components/ui/table';
 
-import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import { useFieldArray, useForm, UseFormReturn } from 'react-hook-form';
 import { FormValues, FormSchema } from './schema';
 
@@ -29,13 +28,14 @@ import { columns, ColumnData } from './columns';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Check, Pencil, X } from 'lucide-react';
-import { Table as TTable } from '@tanstack/table-core/build/lib/types';
+import { Table as TTable } from '@tanstack/table-core';
 import { ColSizeList } from '@/lib/TableHelpers';
 import { TableImgText } from '@/components/date-table/table-img-text';
 import { formatCurrency } from '@/lib/formatCurrency';
-import { FormControl, FormField, FormItem } from '@/components/ui/form';
+import {Form, FormControl, FormField, FormItem} from '@/components/ui/form';
 import { CurrencyInput } from '@/components/currency-input';
-import { Textarea } from '@/components/ui/textarea';
+
+import {Input} from "@/components/ui/input";
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -79,7 +79,7 @@ export function ProductsTable<TData extends ColumnData, TValue>({
 
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { rows: data },
+    defaultValues: { rows: initialData },
   });
 
   const [sorting, setSorting] = React.useState<SortingState>([
@@ -98,7 +98,7 @@ export function ProductsTable<TData extends ColumnData, TValue>({
     name: 'rows',
   });
 
-  console.log(form.formState);
+
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -107,24 +107,6 @@ export function ProductsTable<TData extends ColumnData, TValue>({
   const resetData = () => {
     setIsEdit(false);
     setData(initialData);
-  };
-
-  const addRow = () => {
-    const row = {
-      //name: '',
-      number: data.length + 1,
-      //price: 0,
-      //description: '',
-    };
-    formAppend(row);
-    setData((old) => [
-      ...old,
-      {
-        ...row,
-        _isNew: true,
-      },
-    ]);
-    setIsEdit(true);
   };
 
   const deleteRow = (rowIndex) => {
@@ -163,6 +145,8 @@ export function ProductsTable<TData extends ColumnData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+      getRowCanExpand: () => true,
+      getExpandedRowModel: getExpandedRowModel(),
     onSortingChange: setSorting,
     meta: {
       form,
@@ -195,7 +179,7 @@ export function ProductsTable<TData extends ColumnData, TValue>({
     },
   });
   return (
-    <>
+    <Form {...form}>
       <Table colSizeList={colSizeList}>
         <TableHeader>
           <TableRowHeader table={table} />
@@ -204,16 +188,22 @@ export function ProductsTable<TData extends ColumnData, TValue>({
           {table.getRowModel().rows?.map((row) => {
             return (
               <>
-                <TableRowProduct key={row.id} row={row} table={table} />
-                {row.original?.sizeList.map((i) => (
-                  <TableRowSize key={i.id} data={i} row={row} table={table} />
-                ))}
+                <TableRowProduct {...{
+                    onClick: row.getToggleExpandedHandler(),
+                    style: { cursor: 'pointer' },
+                }} key={row.id} row={row} table={table} />
+                  {row.getIsExpanded() && (
+                      row.original?.sizeList.map((i, index) => (
+                              <TableRowSize dataIndex={index} key={i.id} data={i} row={row} table={table} />
+                          ))
+                  )}
+
               </>
             );
           })}
         </TableBody>
       </Table>
-    </>
+    </Form>
   );
 }
 
@@ -303,19 +293,14 @@ function TableRowHeader({ table }: { table: TTable<ColumnData> }) {
 function CellEdit({
   table,
   editType,
-  columnId,
-  row,
+    initialValue,
+    formName,
 }: {
-  row: Row<ColumnData>;
+    formName:string;
+    initialValue:string | number,
   table: TTable<ColumnData>;
   editType: 'number' | 'text';
-  columnId: keyof ColumnData;
 }) {
-  const initialValue = row.getValue(columnId);
-  const [value, setValue] = useState(initialValue);
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
 
   const isNumber = editType === 'number';
 
@@ -326,30 +311,17 @@ function CellEdit({
     return initialValue;
   }
 
-  const onBlur = () => {
-    table.options.meta?.updateData(row.index, columnId, value);
-  };
-
   const form = table.options.meta?.form;
 
-  return (
+    return (
     <FormField
       control={form.control}
-      name={`rows.${row.index}.${columnId}`}
+      name={formName}
       render={({ field }) => {
         const props = {
           size: 'xs',
           style: { fieldSizing: 'content' },
-          value,
-          onChange: (val?: number) => {
-            console.log(val);
-            setValue(val);
-            field.onChange(val);
-          },
-          onBlur: () => {
-            onBlur();
-            field.onBlur();
-          },
+          ...field
         };
         return (
           <FormItem>
@@ -357,7 +329,7 @@ function CellEdit({
               {isNumber ? (
                 <CurrencyInput {...props} />
               ) : (
-                <Textarea className={'block h-auto w-full max-w-none'} {...props} />
+                <Input {...props} type={'text'} />
               )}
             </FormControl>
           </FormItem>
@@ -371,18 +343,21 @@ function TableRowSize({
   row,
   table,
   data,
+  dataIndex,
 }: {
   row: Row<ColumnData>;
   table: TTable<ColumnData>;
   data: ColumnData;
+  dataIndex:number
 }) {
+const getFormName =(columnId:string)=>`rows.${row.index}.sizeList.${dataIndex}.${columnId}`
   return (
     <TableRow rowSpace={'xs'}>
       <TableCell level={1}>{data.number}</TableCell>
       <TableCell level={1}>{data.key2}</TableCell>
       <TableCell level={1}>{data.key3}</TableCell>
       <TableCell level={1}>{data.key4}</TableCell>
-      <TableCell level={1}>{data.key5}</TableCell>
+      <TableCell level={1}> <CellEdit initialValue={data.key5} formName={getFormName('key5')} table={table} editType={'number'}/></TableCell>
       <TableCell level={1}>[П - 13]</TableCell>
       <TableCell level={1}>[200]</TableCell>
       <TableCell level={1}>[П - 13]</TableCell>
@@ -397,6 +372,7 @@ function TableRowSize({
 }
 
 function TableRowProduct({ row, table }: { row: Row<ColumnData>; table: TTable<ColumnData> }) {
+    const getFormName =(columnId:string)=>`rows.${row.index}.${columnId}`
   return (
     <TableRow rowSpace={'xs'}>
       <TableCell level={1}>{row.getValue('number')}</TableCell>
@@ -405,7 +381,7 @@ function TableRowProduct({ row, table }: { row: Row<ColumnData>; table: TTable<C
       </TableCell>
       <TableCell level={1}>{row.getValue('key3')}</TableCell>
       <TableCell level={1}>
-        <CellEdit table={table} row={row} editType={'text'} columnId={'key4'} />
+          <CellEdit initialValue={row.getValue('key4')} formName={getFormName('key4')} table={table} editType={'text'}/>
       </TableCell>
       <TableCell level={1}>{row.getValue('key5')}</TableCell>
       <TableCell level={1}>[П - 13]</TableCell>

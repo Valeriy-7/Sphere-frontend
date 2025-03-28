@@ -165,19 +165,6 @@ export function StorageTableNew<TData, TValue>({ columns, data }: TableProps<TDa
         <TableRowExpand colSpan={14}>
           <ScrollArea className={'flex max-h-[500px] flex-col overflow-y-auto'}>
             <ProductsTable colSizeList={colSizeList} initialData={productsTableData} />
-            <Table colSizeList={colSizeList} className={'table-fixed'}>
-              <TableHeader>
-                <TableHeaderProduct />
-              </TableHeader>
-              <TableBody>
-                {[1, 2].map((i) => (
-                  <>
-                    <TableRowProduct />
-                    <TableRowSize />
-                  </>
-                ))}
-              </TableBody>
-            </Table>
           </ScrollArea>
         </TableRowExpand>
         <TableRowStore />
