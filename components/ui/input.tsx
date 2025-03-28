@@ -28,16 +28,15 @@ export const inputVariants = cva(
 );
 
 export type InputProps = React.ComponentProps<'input'> &
-  VariantProps<typeof inputVariants> & { label?: string};
+  VariantProps<typeof inputVariants> & { label?: string };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, variant, size, type, label, id,readonly, ...props }, ref) => {
+  ({ className, variant, size, type, label, id, ...props }, ref) => {
     if (label) {
       return (
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor={id}>{label}</Label>
           <input
-            data-readonly={readonly}
             type={type}
             className={cn(inputVariants({ variant, size, className }))}
             ref={ref}

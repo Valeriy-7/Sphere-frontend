@@ -92,7 +92,7 @@ body {
 }
 
 .theme-admin {
-  --primary: 240 5.9% 10%;
+  --primary: 150 70% 10%;
 }
 
 @layer base {

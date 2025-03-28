@@ -146,7 +146,7 @@ export default function NestedDynamicForm() {
       watchTotals.map((row) => {
         const servicesAmount = getAmountReduce(row.selectedServices.map((i) => i.price));
         const consumablesAmount = getAmountReduce(row.selectedConsumables.map((i) => i.price));
-        return servicesAmount + consumablesAmount;
+        return (servicesAmount + consumablesAmount) * row.quantity;
       }),
     ),
   ];
