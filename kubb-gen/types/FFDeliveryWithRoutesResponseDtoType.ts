@@ -35,12 +35,12 @@ export type FFDeliveryWithRoutesResponseDtoType = {
    * @description Фактическое количество товаров
    * @type number
    */
-  factQuantity: number;
+  factQuantity: number | null;
   /**
    * @description Количество дефектов
    * @type number
    */
-  defects: number;
+  defects: number | null;
   /**
    * @description Стоимость товаров
    * @type number

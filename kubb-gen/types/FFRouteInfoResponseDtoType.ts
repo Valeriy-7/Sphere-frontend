@@ -47,15 +47,15 @@ export type FFRouteInfoResponseDtoType = {
    */
   planQuantity: number;
   /**
-   * @description Фактическое количество товаров
+   * @description Фактическое количество товаров (может быть null или \"-\" после создания поставки)
    * @type number
    */
-  factQuantity: number;
+  factQuantity: number | null;
   /**
-   * @description Количество дефектов
+   * @description Количество дефектов (может быть null или \"-\" после создания поставки)
    * @type number
    */
-  defects: number;
+  defects: number | null;
   /**
    * @description Стоимость товаров
    * @type number

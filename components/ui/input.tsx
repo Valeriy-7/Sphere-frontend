@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 
 export const inputVariants = cva(
   [
-    'text-center inline-flex w-full rounded-md border  shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-75 text-sm',
+    'text-center inline-flex w-full rounded-md border  shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-75 text-sm',
     'aria-invalid:border-red-500',
     'light:bg-white dark:bg-transparent',
   ],
@@ -28,15 +28,16 @@ export const inputVariants = cva(
 );
 
 export type InputProps = React.ComponentProps<'input'> &
-  VariantProps<typeof inputVariants> & { label?: string };
+  VariantProps<typeof inputVariants> & { label?: string};
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, variant, size, type, label, id, ...props }, ref) => {
+  ({ className, variant, size, type, label, id,readonly, ...props }, ref) => {
     if (label) {
       return (
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor={id}>{label}</Label>
           <input
+            data-readonly={readonly}
             type={type}
             className={cn(inputVariants({ variant, size, className }))}
             ref={ref}

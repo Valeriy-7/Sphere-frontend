@@ -54,7 +54,7 @@ export default function SettingsPage() {
   });
   const queryClient = useQueryClient();
 
-  const { id: cabinetActiveId, type, registrationUrl: oldUrl, avatarUrl , ...restData } = cabinet;
+  const { id: cabinetActiveId, type, registrationUrl: oldUrl, avatarUrl, ...restData } = cabinet;
 
   const { mutate, isPending } = useCabinetsUpdate();
 

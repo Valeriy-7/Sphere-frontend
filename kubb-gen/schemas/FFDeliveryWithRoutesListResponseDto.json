@@ -32,9 +32,15 @@
           "factQuantity": {
             "type": "number",
             "description": "Фактическое количество товаров",
-            "example": 980
+            "example": 980,
+            "nullable": true
           },
-          "defects": { "type": "number", "description": "Количество дефектов", "example": 20 },
+          "defects": {
+            "type": "number",
+            "description": "Количество дефектов",
+            "example": 20,
+            "nullable": true
+          },
           "productsPrice": {
             "type": "number",
             "description": "Стоимость товаров",
@@ -194,13 +200,15 @@
                 },
                 "factQuantity": {
                   "type": "number",
-                  "description": "Фактическое количество товаров",
-                  "example": 980
+                  "description": "Фактическое количество товаров (может быть null или \"-\" после создания поставки)",
+                  "example": 980,
+                  "nullable": true
                 },
                 "defects": {
                   "type": "number",
-                  "description": "Количество дефектов",
-                  "example": 20
+                  "description": "Количество дефектов (может быть null или \"-\" после создания поставки)",
+                  "example": 20,
+                  "nullable": true
                 },
                 "productsPrice": {
                   "type": "number",

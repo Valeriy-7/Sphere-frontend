@@ -157,16 +157,15 @@ export function StorageTableNew<TData, TValue>({ columns, data }: TableProps<TDa
                 })}
               </TableRow>
               {row.getIsExpanded() && (
-                <TableRowExpand colSpan={row.getVisibleCells().length + 1}>t1</TableRowExpand>
+                <TableRowExpand colSpan={row.getVisibleCells().length + 1}>
+                  <ScrollArea className={'flex max-h-[500px] flex-col overflow-y-auto'}>
+                    <ProductsTable colSizeList={colSizeList} initialData={productsTableData} />
+                  </ScrollArea>
+                </TableRowExpand>
               )}
             </Fragment>
           );
         })}
-        <TableRowExpand colSpan={14}>
-          <ScrollArea className={'flex max-h-[500px] flex-col overflow-y-auto'}>
-            <ProductsTable colSizeList={colSizeList} initialData={productsTableData} />
-          </ScrollArea>
-        </TableRowExpand>
         <TableRowStore />
       </TableBody>
     </Table>
