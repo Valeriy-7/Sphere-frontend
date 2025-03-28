@@ -54,7 +54,7 @@ export default function SettingsPage() {
   });
   const queryClient = useQueryClient();
 
-  const { id: cabinetActiveId, type, registrationUrl: oldUrl, ...restData } = cabinet;
+  const { id: cabinetActiveId, type, registrationUrl: oldUrl, avatarUrl , ...restData } = cabinet;
 
   const { mutate, isPending } = useCabinetsUpdate();
 
@@ -111,7 +111,7 @@ export default function SettingsPage() {
                 onFile={(file, imageUrl) => {
                   mutateAvatar({ cabinetId: cabinetActiveId, data: { file } });
                 }}
-                src={restData.avatarUrl}
+                src={avatarUrl}
               ></ImageUpload>
             </SettingsAvatar>
             {/*<SettingsAvatarUpload/>*/}
