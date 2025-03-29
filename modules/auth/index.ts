@@ -56,7 +56,7 @@ export const authConfig: JWTAuthConfig = {
    */
   endpoints: {
     login: { url: '/auth/verify-code', method: 'post' },
-    logout: { url: '/auth/signout', method: 'post' },
+    logout: { url: '', method: 'post' },
     /**
      * (Optional)
      * You can skip 'refresh' property if your backend has no token refreshing mechanism

@@ -18,6 +18,7 @@ import { userTypeEnum, useAuthCompleteRegistration } from '@/kubb-gen';
 import { AppSpinner } from '@/components/app-spinner';
 import { useJWTAuthContext } from '@/modules/auth';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 const FormSchema = z.discriminatedUnion('type', [
   z.object({
@@ -36,7 +37,13 @@ const FormSchema = z.discriminatedUnion('type', [
   }),
 ]);
 
-export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }) {
+export function LoginBusinessForm({
+  classNameTitle,
+  onLogoutFF,
+}: {
+  classNameTitle: string;
+  onLogoutFF: () => void;
+}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -46,7 +53,7 @@ export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }
       token: localStorage.getItem('registrationUrl'),
     },
   });
-  const { user, fetchUser } = useJWTAuthContext();
+  const { user, fetchUser, controller } = useJWTAuthContext();
   const router = useRouter();
   const { mutate, isPending } = useAuthCompleteRegistration();
 
@@ -76,7 +83,9 @@ export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }
               router.push('/');
             });
           }
-          setIsMutateSuccess(true);
+          if (data.type === 'fulfillment') {
+            onLogoutFF();
+          }
         },
       },
     );
@@ -153,7 +162,7 @@ export function LoginBusinessForm({ classNameTitle }: { classNameTitle: string }
                           inputMode="numeric"
                           maxLength={12}
                           onButtonClick={form.handleSubmit(onSubmit)}
-                          placeholder="Инн"
+                          placeholder="ИНН"
                           {...field}
                         />
                       </FormControl>
