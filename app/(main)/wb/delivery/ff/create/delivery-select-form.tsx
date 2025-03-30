@@ -35,6 +35,7 @@ import { useEffect, useState } from 'react';
 import { getTextCurrency } from '@/lib/constants/rub';
 import { useQueryClient } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import {toast} from "sonner";
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
@@ -86,13 +87,15 @@ export default function NestedDynamicForm() {
     mutate(
       { data },
       {
+        onError: (error) => {
+          toast.error(error?.response?.data?.message);
+        },
         onSuccess: () => {
           clearDraft();
           form.reset({
             cabinetId,
           });
           replace([]);
-
           queryClient.invalidateQueries({
             queryKey: FFDeliveriesGetFFDeliveriesSuspenseQueryKey(),
           });
