@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import TextareaAutosize from 'react-textarea-autosize';
 
 export type ServicesItemType = ServiceType | ConsumableType | LogisticsType;
 
@@ -102,7 +103,6 @@ export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
                   <FormControl className={'w-full'}>
                     <Textarea
                       {...field}
-                      style={{ fieldSizing: 'content', minInlineSize: '5ch' }}
                       size={'xs'}
                       //className={'min-h-0 pt-0 pb-0 block w-full rounded-md bg-transparent text-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'}
                       className={'block h-auto w-full min-w-3 max-w-none'}
@@ -411,9 +411,8 @@ export const defaultColumn: Partial<ColumnDef<ServicesItemType>> = {
         render={({ field }) => {
           const props = {
             size: 'xs',
-            style: { fieldSizing: 'content' },
             value,
-            onChange: (val?: number) => {
+            onChange: (val) => {
               console.log(val);
               setValue(val);
               field.onChange(val);
@@ -429,7 +428,7 @@ export const defaultColumn: Partial<ColumnDef<ServicesItemType>> = {
                 {isNumber ? (
                   <CurrencyInput {...props} />
                 ) : (
-                  <Textarea className={'block h-auto w-full max-w-none'} {...props} />
+                  <Textarea className={'block w-full h-auto max-w-none'} {...props}/>
                 )}
               </FormControl>
             </FormItem>
