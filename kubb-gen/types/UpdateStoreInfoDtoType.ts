@@ -3,30 +3,30 @@ export type UpdateStoreInfoDtoType = {
    * @description ID магазина
    * @type string | undefined, uuid
    */
-  storeId?: string;
+  storeId?: string
   /**
    * @description Название магазина
    * @type string | undefined
    */
-  storeName?: string;
+  storeName?: string
   /**
    * @description Контактное лицо магазина
    * @type string | undefined
    */
-  storeContactPerson?: string;
+  storeContactPerson?: string
   /**
    * @description Контактный телефон магазина
    * @type string | undefined
    */
-  storeContactPhone?: string;
+  storeContactPhone?: string
   /**
    * @description Время работы магазина
    * @type string | undefined
    */
-  storeWorkingHours?: string;
+  storeWorkingHours?: string
   /**
    * @description Идентификатор магазина в системе
    * @type string | undefined
    */
-  storeExternalId?: string;
-};
+  storeExternalId?: string
+}

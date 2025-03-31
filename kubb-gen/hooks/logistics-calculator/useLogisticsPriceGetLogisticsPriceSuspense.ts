@@ -1,24 +1,17 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type {
-  QueryKey,
-  UseSuspenseQueryOptions,
-  UseSuspenseQueryResult,
-} from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   LogisticsPriceGetLogisticsPriceQueryResponseType,
   LogisticsPriceGetLogisticsPriceQueryParamsType,
   LogisticsPriceGetLogisticsPrice404Type,
-} from '../../types/logistics-calculator/LogisticsPriceGetLogisticsPriceType';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
+} from '../../types/logistics-calculator/LogisticsPriceGetLogisticsPriceType'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const logisticsPriceGetLogisticsPriceSuspenseQueryKey = (
-  params: LogisticsPriceGetLogisticsPriceQueryParamsType,
-) => [{ url: '/logistics-calculator/price' }, ...(params ? [params] : [])] as const;
+export const logisticsPriceGetLogisticsPriceSuspenseQueryKey = (params: LogisticsPriceGetLogisticsPriceQueryParamsType) =>
+  [{ url: '/logistics-calculator/price' }, ...(params ? [params] : [])] as const
 
-export type LogisticsPriceGetLogisticsPriceSuspenseQueryKey = ReturnType<
-  typeof logisticsPriceGetLogisticsPriceSuspenseQueryKey
->;
+export type LogisticsPriceGetLogisticsPriceSuspenseQueryKey = ReturnType<typeof logisticsPriceGetLogisticsPriceSuspenseQueryKey>
 
 /**
  * @description Возвращает информацию о цене логистики между указанными точками отправления и назначения. Цены берутся из настроек логистики, созданных фулфилмент-центрами, которые являются партнерами текущего кабинета.
@@ -29,26 +22,22 @@ export async function logisticsPriceGetLogisticsPriceSuspense(
   params: LogisticsPriceGetLogisticsPriceQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
-  const res = await request<
-    LogisticsPriceGetLogisticsPriceQueryResponseType,
-    ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>,
-    unknown
-  >({
+  const res = await request<LogisticsPriceGetLogisticsPriceQueryResponseType, ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>, unknown>({
     method: 'GET',
     url: `/logistics-calculator/price`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function logisticsPriceGetLogisticsPriceSuspenseQueryOptions(
   params: LogisticsPriceGetLogisticsPriceQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const queryKey = logisticsPriceGetLogisticsPriceSuspenseQueryKey(params);
+  const queryKey = logisticsPriceGetLogisticsPriceSuspenseQueryKey(params)
   return queryOptions<
     LogisticsPriceGetLogisticsPriceQueryResponseType,
     ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>,
@@ -58,10 +47,10 @@ export function logisticsPriceGetLogisticsPriceSuspenseQueryOptions(
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return logisticsPriceGetLogisticsPriceSuspense(params, config);
+      config.signal = signal
+      return logisticsPriceGetLogisticsPriceSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -77,33 +66,21 @@ export function useLogisticsPriceGetLogisticsPriceSuspense<
   params: LogisticsPriceGetLogisticsPriceQueryParamsType,
   options: {
     query?: Partial<
-      UseSuspenseQueryOptions<
-        LogisticsPriceGetLogisticsPriceQueryResponseType,
-        ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>,
-        TData,
-        TQueryKey
-      >
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+      UseSuspenseQueryOptions<LogisticsPriceGetLogisticsPriceQueryResponseType, ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>, TData, TQueryKey>
+    >
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey =
-    queryOptions?.queryKey ?? logisticsPriceGetLogisticsPriceSuspenseQueryKey(params);
+  const { query: queryOptions, client: config = {} } = options ?? {}
+  const queryKey = queryOptions?.queryKey ?? logisticsPriceGetLogisticsPriceSuspenseQueryKey(params)
 
   const query = useSuspenseQuery({
-    ...(logisticsPriceGetLogisticsPriceSuspenseQueryOptions(
-      params,
-      config,
-    ) as unknown as UseSuspenseQueryOptions),
+    ...(logisticsPriceGetLogisticsPriceSuspenseQueryOptions(params, config) as unknown as UseSuspenseQueryOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<
-    TData,
-    ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>
-  > & { queryKey: TQueryKey };
+  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<LogisticsPriceGetLogisticsPrice404Type>> & { queryKey: TQueryKey }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

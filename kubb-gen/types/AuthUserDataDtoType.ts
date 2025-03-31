@@ -1,46 +1,44 @@
-import type { CabinetShortDataDtoType } from './CabinetShortDataDtoType';
+import type { CabinetShortDataDtoType } from './CabinetShortDataDtoType'
 
 export const authUserDataDtoRoleEnum = {
   user: 'user',
   admin: 'admin',
-} as const;
+} as const
 
-export type AuthUserDataDtoRoleEnumType =
-  (typeof authUserDataDtoRoleEnum)[keyof typeof authUserDataDtoRoleEnum];
+export type AuthUserDataDtoRoleEnumType = (typeof authUserDataDtoRoleEnum)[keyof typeof authUserDataDtoRoleEnum]
 
 export const authUserDataDtoRegStatusEnum = {
   incomplete: 'incomplete',
   complete: 'complete',
   verified: 'verified',
-} as const;
+} as const
 
-export type AuthUserDataDtoRegStatusEnumType =
-  (typeof authUserDataDtoRegStatusEnum)[keyof typeof authUserDataDtoRegStatusEnum];
+export type AuthUserDataDtoRegStatusEnumType = (typeof authUserDataDtoRegStatusEnum)[keyof typeof authUserDataDtoRegStatusEnum]
 
 export type AuthUserDataDtoType = {
   /**
    * @description Уникальный идентификатор пользователя
    * @type string
    */
-  id: string;
+  id: string
   /**
    * @description Номер телефона пользователя
    * @type string
    */
-  phone: string;
+  phone: string
   /**
    * @description Роль пользователя
    * @type string
    */
-  role: AuthUserDataDtoRoleEnumType;
+  role: AuthUserDataDtoRoleEnumType
   /**
    * @description Статус регистрации пользователя
    * @type string
    */
-  regStatus: AuthUserDataDtoRegStatusEnumType;
+  regStatus: AuthUserDataDtoRegStatusEnumType
   /**
    * @description Список кабинетов пользователя
    * @type array
    */
-  cabinets: CabinetShortDataDtoType[];
-};
+  cabinets: CabinetShortDataDtoType[]
+}

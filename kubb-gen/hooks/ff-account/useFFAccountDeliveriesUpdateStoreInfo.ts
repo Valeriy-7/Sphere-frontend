@@ -1,20 +1,17 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   FFAccountDeliveriesUpdateStoreInfoMutationRequestType,
   FFAccountDeliveriesUpdateStoreInfoMutationResponseType,
   FFAccountDeliveriesUpdateStoreInfoPathParamsType,
   FFAccountDeliveriesUpdateStoreInfo404Type,
-} from '../../types/ff-account/FFAccountDeliveriesUpdateStoreInfoType';
-import { useMutation } from '@tanstack/react-query';
+} from '../../types/ff-account/FFAccountDeliveriesUpdateStoreInfoType'
+import { useMutation } from '@tanstack/react-query'
 
-export const FFAccountDeliveriesUpdateStoreInfoMutationKey = () =>
-  [{ url: '/ff-account/deliveries/{id}/store-info' }] as const;
+export const FFAccountDeliveriesUpdateStoreInfoMutationKey = () => [{ url: '/ff-account/deliveries/{id}/store-info' }] as const
 
-export type FFAccountDeliveriesUpdateStoreInfoMutationKey = ReturnType<
-  typeof FFAccountDeliveriesUpdateStoreInfoMutationKey
->;
+export type FFAccountDeliveriesUpdateStoreInfoMutationKey = ReturnType<typeof FFAccountDeliveriesUpdateStoreInfoMutationKey>
 
 /**
  * @description Обновляет информацию о магазине для поставки, включая контактные данные и время работы.
@@ -24,18 +21,16 @@ export type FFAccountDeliveriesUpdateStoreInfoMutationKey = ReturnType<
 export async function FFAccountDeliveriesUpdateStoreInfo(
   id: FFAccountDeliveriesUpdateStoreInfoPathParamsType['id'],
   data?: FFAccountDeliveriesUpdateStoreInfoMutationRequestType,
-  config: Partial<RequestConfig<FFAccountDeliveriesUpdateStoreInfoMutationRequestType>> & {
-    client?: typeof client;
-  } = {},
+  config: Partial<RequestConfig<FFAccountDeliveriesUpdateStoreInfoMutationRequestType>> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
   const res = await request<
     FFAccountDeliveriesUpdateStoreInfoMutationResponseType,
     ResponseErrorConfig<FFAccountDeliveriesUpdateStoreInfo404Type>,
     FFAccountDeliveriesUpdateStoreInfoMutationRequestType
-  >({ method: 'PATCH', url: `/ff-account/deliveries/${id}/store-info`, data, ...requestConfig });
-  return res.data;
+  >({ method: 'PATCH', url: `/ff-account/deliveries/${id}/store-info`, data, ...requestConfig })
+  return res.data
 }
 
 /**
@@ -48,34 +43,25 @@ export function useFFAccountDeliveriesUpdateStoreInfo<TContext>(
     mutation?: UseMutationOptions<
       FFAccountDeliveriesUpdateStoreInfoMutationResponseType,
       ResponseErrorConfig<FFAccountDeliveriesUpdateStoreInfo404Type>,
-      {
-        id: FFAccountDeliveriesUpdateStoreInfoPathParamsType['id'];
-        data?: FFAccountDeliveriesUpdateStoreInfoMutationRequestType;
-      },
+      { id: FFAccountDeliveriesUpdateStoreInfoPathParamsType['id']; data?: FFAccountDeliveriesUpdateStoreInfoMutationRequestType },
       TContext
-    >;
-    client?: Partial<RequestConfig<FFAccountDeliveriesUpdateStoreInfoMutationRequestType>> & {
-      client?: typeof client;
-    };
+    >
+    client?: Partial<RequestConfig<FFAccountDeliveriesUpdateStoreInfoMutationRequestType>> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey =
-    mutationOptions?.mutationKey ?? FFAccountDeliveriesUpdateStoreInfoMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? FFAccountDeliveriesUpdateStoreInfoMutationKey()
 
   return useMutation<
     FFAccountDeliveriesUpdateStoreInfoMutationResponseType,
     ResponseErrorConfig<FFAccountDeliveriesUpdateStoreInfo404Type>,
-    {
-      id: FFAccountDeliveriesUpdateStoreInfoPathParamsType['id'];
-      data?: FFAccountDeliveriesUpdateStoreInfoMutationRequestType;
-    },
+    { id: FFAccountDeliveriesUpdateStoreInfoPathParamsType['id']; data?: FFAccountDeliveriesUpdateStoreInfoMutationRequestType },
     TContext
   >({
     mutationFn: async ({ id, data }) => {
-      return FFAccountDeliveriesUpdateStoreInfo(id, data, config);
+      return FFAccountDeliveriesUpdateStoreInfo(id, data, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

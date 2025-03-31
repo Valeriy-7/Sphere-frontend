@@ -4,23 +4,23 @@ export type UpdateCargoDimensionsDtoType = {
    * @minLength 0
    * @type number | undefined
    */
-  cargoWidth?: number;
+  cargoWidth?: number
   /**
    * @description Длина груза (см)
    * @minLength 0
    * @type number | undefined
    */
-  cargoLength?: number;
+  cargoLength?: number
   /**
    * @description Высота груза (см)
    * @minLength 0
    * @type number | undefined
    */
-  cargoHeight?: number;
+  cargoHeight?: number
   /**
    * @description Количество грузовых мест
    * @minLength 1
    * @type number | undefined
    */
-  cargoPlaces?: number;
-};
+  cargoPlaces?: number
+}

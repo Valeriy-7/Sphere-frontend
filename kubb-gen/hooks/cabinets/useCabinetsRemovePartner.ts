@@ -1,18 +1,17 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   CabinetsRemovePartnerMutationResponseType,
   CabinetsRemovePartnerPathParamsType,
   CabinetsRemovePartner400Type,
   CabinetsRemovePartner404Type,
-} from '../../types/cabinets/CabinetsRemovePartnerType';
-import { useMutation } from '@tanstack/react-query';
+} from '../../types/cabinets/CabinetsRemovePartnerType'
+import { useMutation } from '@tanstack/react-query'
 
-export const cabinetsRemovePartnerMutationKey = () =>
-  [{ url: '/cabinets/partners/{partnerId}' }] as const;
+export const cabinetsRemovePartnerMutationKey = () => [{ url: '/cabinets/partners/{partnerId}' }] as const
 
-export type CabinetsRemovePartnerMutationKey = ReturnType<typeof cabinetsRemovePartnerMutationKey>;
+export type CabinetsRemovePartnerMutationKey = ReturnType<typeof cabinetsRemovePartnerMutationKey>
 
 /**
  * @description Удаляет партнера из активного кабинета пользователя
@@ -23,14 +22,14 @@ export async function cabinetsRemovePartner(
   partnerId: CabinetsRemovePartnerPathParamsType['partnerId'],
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
   const res = await request<
     CabinetsRemovePartnerMutationResponseType,
     ResponseErrorConfig<CabinetsRemovePartner400Type | CabinetsRemovePartner404Type>,
     unknown
-  >({ method: 'DELETE', url: `/cabinets/partners/${partnerId}`, ...requestConfig });
-  return res.data;
+  >({ method: 'DELETE', url: `/cabinets/partners/${partnerId}`, ...requestConfig })
+  return res.data
 }
 
 /**
@@ -45,12 +44,12 @@ export function useCabinetsRemovePartner<TContext>(
       ResponseErrorConfig<CabinetsRemovePartner400Type | CabinetsRemovePartner404Type>,
       { partnerId: CabinetsRemovePartnerPathParamsType['partnerId'] },
       TContext
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+    >
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey = mutationOptions?.mutationKey ?? cabinetsRemovePartnerMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? cabinetsRemovePartnerMutationKey()
 
   return useMutation<
     CabinetsRemovePartnerMutationResponseType,
@@ -59,9 +58,9 @@ export function useCabinetsRemovePartner<TContext>(
     TContext
   >({
     mutationFn: async ({ partnerId }) => {
-      return cabinetsRemovePartner(partnerId, config);
+      return cabinetsRemovePartner(partnerId, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

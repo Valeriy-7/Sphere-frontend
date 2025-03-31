@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const updateStoreInfoDtoSchema = z.object({
   storeId: z.string().uuid().describe('ID магазина').optional(),
@@ -7,4 +7,4 @@ export const updateStoreInfoDtoSchema = z.object({
   storeContactPhone: z.string().describe('Контактный телефон магазина').optional(),
   storeWorkingHours: z.string().describe('Время работы магазина').optional(),
   storeExternalId: z.string().describe('Идентификатор магазина в системе').optional(),
-});
+})

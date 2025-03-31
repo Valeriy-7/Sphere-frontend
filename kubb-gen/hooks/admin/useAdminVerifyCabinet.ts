@@ -1,17 +1,16 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   AdminVerifyCabinetMutationRequestType,
   AdminVerifyCabinetMutationResponseType,
   AdminVerifyCabinetPathParamsType,
-} from '../../types/admin/AdminVerifyCabinetType';
-import { useMutation } from '@tanstack/react-query';
+} from '../../types/admin/AdminVerifyCabinetType'
+import { useMutation } from '@tanstack/react-query'
 
-export const adminVerifyCabinetMutationKey = () =>
-  [{ url: '/admin/cabinets/{id}/verify' }] as const;
+export const adminVerifyCabinetMutationKey = () => [{ url: '/admin/cabinets/{id}/verify' }] as const
 
-export type AdminVerifyCabinetMutationKey = ReturnType<typeof adminVerifyCabinetMutationKey>;
+export type AdminVerifyCabinetMutationKey = ReturnType<typeof adminVerifyCabinetMutationKey>
 
 /**
  * @description     Подтверждает или отменяет верификацию кабинета администратором.
@@ -21,23 +20,17 @@ export type AdminVerifyCabinetMutationKey = ReturnType<typeof adminVerifyCabinet
 export async function adminVerifyCabinet(
   id: AdminVerifyCabinetPathParamsType['id'],
   data: AdminVerifyCabinetMutationRequestType,
-  config: Partial<RequestConfig<AdminVerifyCabinetMutationRequestType>> & {
-    client?: typeof client;
-  } = {},
+  config: Partial<RequestConfig<AdminVerifyCabinetMutationRequestType>> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
-  const res = await request<
-    AdminVerifyCabinetMutationResponseType,
-    ResponseErrorConfig<Error>,
-    AdminVerifyCabinetMutationRequestType
-  >({
+  const res = await request<AdminVerifyCabinetMutationResponseType, ResponseErrorConfig<Error>, AdminVerifyCabinetMutationRequestType>({
     method: 'PUT',
     url: `/admin/cabinets/${id}/verify`,
     data,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 /**
@@ -52,14 +45,12 @@ export function useAdminVerifyCabinet<TContext>(
       ResponseErrorConfig<Error>,
       { id: AdminVerifyCabinetPathParamsType['id']; data: AdminVerifyCabinetMutationRequestType },
       TContext
-    >;
-    client?: Partial<RequestConfig<AdminVerifyCabinetMutationRequestType>> & {
-      client?: typeof client;
-    };
+    >
+    client?: Partial<RequestConfig<AdminVerifyCabinetMutationRequestType>> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey = mutationOptions?.mutationKey ?? adminVerifyCabinetMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? adminVerifyCabinetMutationKey()
 
   return useMutation<
     AdminVerifyCabinetMutationResponseType,
@@ -68,9 +59,9 @@ export function useAdminVerifyCabinet<TContext>(
     TContext
   >({
     mutationFn: async ({ id, data }) => {
-      return adminVerifyCabinet(id, data, config);
+      return adminVerifyCabinet(id, data, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

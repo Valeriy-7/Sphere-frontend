@@ -1,12 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "phone": {
-      "type": "string",
-      "description": "Номер телефона пользователя в международном формате",
-      "example": "+79991234567"
-    }
-  },
-  "required": ["phone"],
-  "x-readme-ref-name": "SendCodeDto"
-}
+{"type":"object","properties":{"phone":{"type":"string","description":"Номер телефона пользователя в международном формате","example":"+79991234567"}},"required":["phone"],"x-readme-ref-name":"SendCodeDto"}

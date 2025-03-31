@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const createSupplierDtoSchema = z.object({
   cabinetId: z.string().describe('ID кабинета'),
@@ -9,4 +9,4 @@ export const createSupplierDtoSchema = z.object({
   address: z.string().describe('Адрес'),
   location: z.string().describe('Место (павильон, линия и т.д.)'),
   telegram: z.string().describe('Telegram аккаунт').optional(),
-});
+})

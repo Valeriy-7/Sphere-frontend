@@ -6,7 +6,7 @@ export type VerifyCodeDtoType = {
    * @pattern \+7[0-9]{10}
    * @type string
    */
-  phone: string;
+  phone: string
   /**
    * @description Код подтверждения из SMS (4 цифры)
    * @minLength 4
@@ -14,5 +14,5 @@ export type VerifyCodeDtoType = {
    * @pattern [0-9]{4}
    * @type string
    */
-  code: string;
-};
+  code: string
+}

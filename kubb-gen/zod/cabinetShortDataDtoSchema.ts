@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const cabinetShortDataDtoSchema = z.object({
   id: z.string().describe('Уникальный идентификатор кабинета'),
@@ -8,4 +8,4 @@ export const cabinetShortDataDtoSchema = z.object({
   legalCompanyName: z.string().describe('Юридическое название организации').nullable().nullish(),
   avatarUrl: z.string().describe('URL аватарки кабинета').nullable(),
   isActive: z.boolean().describe('Признак активного кабинета'),
-});
+})

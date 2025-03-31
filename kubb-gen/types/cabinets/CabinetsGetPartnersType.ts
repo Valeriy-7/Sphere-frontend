@@ -1,61 +1,61 @@
-import type { PartnersResponseDtoType } from '../PartnersResponseDtoType';
+import type { PartnersResponseDtoType } from '../PartnersResponseDtoType'
 
 export const cabinetsControllerGetPartnersQueryParamsTypeEnum = {
   wildberries: 'wildberries',
   fulfillment: 'fulfillment',
-} as const;
+} as const
 
 export type CabinetsGetPartnersQueryParamsTypeEnumType =
-  (typeof cabinetsControllerGetPartnersQueryParamsTypeEnum)[keyof typeof cabinetsControllerGetPartnersQueryParamsTypeEnum];
+  (typeof cabinetsControllerGetPartnersQueryParamsTypeEnum)[keyof typeof cabinetsControllerGetPartnersQueryParamsTypeEnum]
 
 export const cabinetsControllerGetPartnersQueryParamsSortByEnum = {
   createdAt: 'createdAt',
   companyName: 'companyName',
   number1: 'number1',
   type: 'type',
-} as const;
+} as const
 
 export type CabinetsGetPartnersQueryParamsSortByEnumType =
-  (typeof cabinetsControllerGetPartnersQueryParamsSortByEnum)[keyof typeof cabinetsControllerGetPartnersQueryParamsSortByEnum];
+  (typeof cabinetsControllerGetPartnersQueryParamsSortByEnum)[keyof typeof cabinetsControllerGetPartnersQueryParamsSortByEnum]
 
 export const cabinetsControllerGetPartnersQueryParamsSortOrderEnum = {
   ASC: 'ASC',
   DESC: 'DESC',
-} as const;
+} as const
 
 export type CabinetsGetPartnersQueryParamsSortOrderEnumType =
-  (typeof cabinetsControllerGetPartnersQueryParamsSortOrderEnum)[keyof typeof cabinetsControllerGetPartnersQueryParamsSortOrderEnum];
+  (typeof cabinetsControllerGetPartnersQueryParamsSortOrderEnum)[keyof typeof cabinetsControllerGetPartnersQueryParamsSortOrderEnum]
 
 export type CabinetsGetPartnersQueryParamsType = {
   /**
    * @description Поиск по названию компании
    * @type string | undefined
    */
-  search?: string;
+  search?: string
   /**
    * @description Тип организации
    * @type string | undefined
    */
-  type?: CabinetsGetPartnersQueryParamsTypeEnumType;
+  type?: CabinetsGetPartnersQueryParamsTypeEnumType
   /**
    * @description Поле для сортировки
    * @default "createdAt"
    * @type string | undefined
    */
-  sortBy?: CabinetsGetPartnersQueryParamsSortByEnumType;
+  sortBy?: CabinetsGetPartnersQueryParamsSortByEnumType
   /**
    * @description Порядок сортировки
    * @default "DESC"
    * @type string | undefined
    */
-  sortOrder?: CabinetsGetPartnersQueryParamsSortOrderEnumType;
+  sortOrder?: CabinetsGetPartnersQueryParamsSortOrderEnumType
   /**
    * @description Номер страницы
    * @minLength 1
    * @default 1
    * @type number | undefined
    */
-  page?: number;
+  page?: number
   /**
    * @description Количество элементов на странице. Используйте -1 для получения всех записей.
    * @minLength -1
@@ -63,18 +63,18 @@ export type CabinetsGetPartnersQueryParamsType = {
    * @default 10
    * @type number | undefined
    */
-  limit?: number;
-};
+  limit?: number
+}
 
 /**
  * @description Список партнерских кабинетов
  */
-export type CabinetsGetPartners200Type = PartnersResponseDtoType;
+export type CabinetsGetPartners200Type = PartnersResponseDtoType
 
-export type CabinetsGetPartnersQueryResponseType = CabinetsGetPartners200Type;
+export type CabinetsGetPartnersQueryResponseType = CabinetsGetPartners200Type
 
 export type CabinetsGetPartnersTypeQuery = {
-  Response: CabinetsGetPartners200Type;
-  QueryParams: CabinetsGetPartnersQueryParamsType;
-  Errors: any;
-};
+  Response: CabinetsGetPartners200Type
+  QueryParams: CabinetsGetPartnersQueryParamsType
+  Errors: any
+}

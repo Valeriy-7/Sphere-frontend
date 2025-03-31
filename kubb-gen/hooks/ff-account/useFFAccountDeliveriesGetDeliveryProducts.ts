@@ -1,26 +1,20 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   FFAccountDeliveriesGetDeliveryProductsQueryResponseType,
   FFAccountDeliveriesGetDeliveryProductsPathParamsType,
   FFAccountDeliveriesGetDeliveryProductsQueryParamsType,
   FFAccountDeliveriesGetDeliveryProducts404Type,
-} from '../../types/ff-account/FFAccountDeliveriesGetDeliveryProductsType';
-import { queryOptions, useQuery } from '@tanstack/react-query';
+} from '../../types/ff-account/FFAccountDeliveriesGetDeliveryProductsType'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const FFAccountDeliveriesGetDeliveryProductsQueryKey = (
   id: FFAccountDeliveriesGetDeliveryProductsPathParamsType['id'],
   params?: FFAccountDeliveriesGetDeliveryProductsQueryParamsType,
-) =>
-  [
-    { url: '/ff-account/deliveries/:id/products', params: { id: id } },
-    ...(params ? [params] : []),
-  ] as const;
+) => [{ url: '/ff-account/deliveries/:id/products', params: { id: id } }, ...(params ? [params] : [])] as const
 
-export type FFAccountDeliveriesGetDeliveryProductsQueryKey = ReturnType<
-  typeof FFAccountDeliveriesGetDeliveryProductsQueryKey
->;
+export type FFAccountDeliveriesGetDeliveryProductsQueryKey = ReturnType<typeof FFAccountDeliveriesGetDeliveryProductsQueryKey>
 
 /**
  * @description Возвращает список товаров для конкретной поставки с возможностью фильтрации по поставщику.
@@ -32,14 +26,14 @@ export async function FFAccountDeliveriesGetDeliveryProducts(
   params?: FFAccountDeliveriesGetDeliveryProductsQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
   const res = await request<
     FFAccountDeliveriesGetDeliveryProductsQueryResponseType,
     ResponseErrorConfig<FFAccountDeliveriesGetDeliveryProducts404Type>,
     unknown
-  >({ method: 'GET', url: `/ff-account/deliveries/${id}/products`, params, ...requestConfig });
-  return res.data;
+  >({ method: 'GET', url: `/ff-account/deliveries/${id}/products`, params, ...requestConfig })
+  return res.data
 }
 
 export function FFAccountDeliveriesGetDeliveryProductsQueryOptions(
@@ -47,7 +41,7 @@ export function FFAccountDeliveriesGetDeliveryProductsQueryOptions(
   params?: FFAccountDeliveriesGetDeliveryProductsQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const queryKey = FFAccountDeliveriesGetDeliveryProductsQueryKey(id, params);
+  const queryKey = FFAccountDeliveriesGetDeliveryProductsQueryKey(id, params)
   return queryOptions<
     FFAccountDeliveriesGetDeliveryProductsQueryResponseType,
     ResponseErrorConfig<FFAccountDeliveriesGetDeliveryProducts404Type>,
@@ -57,10 +51,10 @@ export function FFAccountDeliveriesGetDeliveryProductsQueryOptions(
     enabled: !!id,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return FFAccountDeliveriesGetDeliveryProducts(id, params, config);
+      config.signal = signal
+      return FFAccountDeliveriesGetDeliveryProducts(id, params, config)
     },
-  });
+  })
 }
 
 /**
@@ -84,28 +78,20 @@ export function useFFAccountDeliveriesGetDeliveryProducts<
         TQueryData,
         TQueryKey
       >
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+    >
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey =
-    queryOptions?.queryKey ?? FFAccountDeliveriesGetDeliveryProductsQueryKey(id, params);
+  const { query: queryOptions, client: config = {} } = options ?? {}
+  const queryKey = queryOptions?.queryKey ?? FFAccountDeliveriesGetDeliveryProductsQueryKey(id, params)
 
   const query = useQuery({
-    ...(FFAccountDeliveriesGetDeliveryProductsQueryOptions(
-      id,
-      params,
-      config,
-    ) as unknown as QueryObserverOptions),
+    ...(FFAccountDeliveriesGetDeliveryProductsQueryOptions(id, params, config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<
-    TData,
-    ResponseErrorConfig<FFAccountDeliveriesGetDeliveryProducts404Type>
-  > & { queryKey: TQueryKey };
+  }) as UseQueryResult<TData, ResponseErrorConfig<FFAccountDeliveriesGetDeliveryProducts404Type>> & { queryKey: TQueryKey }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

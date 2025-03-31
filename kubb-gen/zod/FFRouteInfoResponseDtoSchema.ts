@@ -1,5 +1,5 @@
-import { FFSupplierInfoResponseDtoSchema } from './FFSupplierInfoResponseDtoSchema';
-import { z } from 'zod';
+import { FFSupplierInfoResponseDtoSchema } from './FFSupplierInfoResponseDtoSchema'
+import { z } from 'zod'
 
 export const FFRouteInfoResponseDtoSchema = z.object({
   id: z.string().describe('ID маршрута'),
@@ -9,20 +9,12 @@ export const FFRouteInfoResponseDtoSchema = z.object({
   deliveryDate: z.string().describe('Дата доставки'),
   address: z.string().describe('Адрес доставки').optional(),
   deliveryNumber: z.string().describe('Номер поставки').optional(),
-  suppliers: z
-    .array(z.lazy(() => FFSupplierInfoResponseDtoSchema))
-    .describe('Список поставщиков на маршруте'),
+  suppliers: z.array(z.lazy(() => FFSupplierInfoResponseDtoSchema)).describe('Список поставщиков на маршруте'),
   planQuantity: z.number().describe('Плановое количество товаров'),
-  factQuantity: z
-    .number()
-    .describe('Фактическое количество товаров (может быть null или "-" после создания поставки)')
-    .nullable(),
-  defects: z
-    .number()
-    .describe('Количество дефектов (может быть null или "-" после создания поставки)')
-    .nullable(),
+  factQuantity: z.number().describe('Фактическое количество товаров (может быть null или "-" после создания поставки)').nullable(),
+  defects: z.number().describe('Количество дефектов (может быть null или "-" после создания поставки)').nullable(),
   productsPrice: z.number().describe('Стоимость товаров'),
   ffServicesPrice: z.number().describe('Стоимость услуг фулфилмента'),
   logisticsToFFPrice: z.number().describe('Стоимость логистики до фулфилмента'),
   totalPrice: z.number().describe('Общая сумма (товары + услуги + логистика)'),
-});
+})

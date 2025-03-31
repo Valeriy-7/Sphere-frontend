@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const updateLogisticsProviderDtoSchema = z.object({
   name: z.string().describe('Название компании логиста').optional(),
@@ -7,4 +7,4 @@ export const updateLogisticsProviderDtoSchema = z.object({
   carModel: z.string().describe('Модель автомобиля').optional(),
   carNumber: z.string().describe('Номер автомобиля').optional(),
   telegram: z.string().describe('Telegram аккаунт').optional(),
-});
+})

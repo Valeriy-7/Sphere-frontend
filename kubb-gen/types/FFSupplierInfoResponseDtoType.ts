@@ -3,75 +3,75 @@ export type FFSupplierInfoResponseDtoType = {
    * @description ID поставщика
    * @type string
    */
-  id: string;
+  id: string
   /**
    * @description Название поставщика
    * @type string
    */
-  name: string;
+  name: string
   /**
    * @description Адрес поставщика
    * @type string | undefined
    */
-  address?: string;
+  address?: string
   /**
    * @description Контактное лицо
    * @type string | undefined
    */
-  contactPerson?: string;
+  contactPerson?: string
   /**
    * @description Контактный телефон
    * @type string | undefined
    */
-  contactPhone?: string;
+  contactPhone?: string
   /**
    * @description Местоположение
    * @type string | undefined
    */
-  location?: string;
+  location?: string
   /**
    * @description Является ли поставщик ТГ
    * @type boolean | undefined
    */
-  isTG?: boolean;
+  isTG?: boolean
   /**
    * @description Порядковый номер поставщика
    * @type number | undefined
    */
-  number?: number;
+  number?: number
   /**
    * @description Плановое количество товаров поставщика
    * @type number | undefined
    */
-  planQuantity?: number;
+  planQuantity?: number
   /**
    * @description Фактическое количество товаров поставщика
    * @type number | undefined
    */
-  factQuantity?: number;
+  factQuantity?: number
   /**
    * @description Количество дефектов у поставщика
    * @type number | undefined
    */
-  defects?: number;
+  defects?: number
   /**
    * @description Стоимость товаров поставщика
    * @type number | undefined
    */
-  productsPrice?: number;
+  productsPrice?: number
   /**
    * @description Стоимость услуг фулфилмента для поставщика
    * @type number | undefined
    */
-  ffServicesPrice?: number;
+  ffServicesPrice?: number
   /**
    * @description Стоимость логистики до фулфилмента для поставщика
    * @type number | undefined
    */
-  logisticsToFFPrice?: number;
+  logisticsToFFPrice?: number
   /**
    * @description Общая сумма для поставщика (товары + услуги + логистика)
    * @type number | undefined
    */
-  totalPrice?: number;
-};
+  totalPrice?: number
+}

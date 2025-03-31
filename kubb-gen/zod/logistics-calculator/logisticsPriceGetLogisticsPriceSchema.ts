@@ -1,5 +1,5 @@
-import { logisticsPriceDtoSchema } from '../logisticsPriceDtoSchema';
-import { z } from 'zod';
+import { logisticsPriceDtoSchema } from '../logisticsPriceDtoSchema'
+import { z } from 'zod'
 
 export const logisticsPriceGetLogisticsPriceQueryParamsSchema = z.object({
   supplierId: z.string().describe('ID поставщика'),
@@ -7,18 +7,16 @@ export const logisticsPriceGetLogisticsPriceQueryParamsSchema = z.object({
     .enum(['WILDBERRIES', 'FULFILLMENT', 'MARKETPLACE'])
     .describe('Тип точки назначения (необязательно, будет использован тип FULFILLMENT)')
     .optional(),
-});
+})
 
 /**
  * @description Информация о цене логистики
  */
-export const logisticsPriceGetLogisticsPrice200Schema = z.lazy(() => logisticsPriceDtoSchema);
+export const logisticsPriceGetLogisticsPrice200Schema = z.lazy(() => logisticsPriceDtoSchema)
 
 /**
  * @description Логистика между указанными точками не найдена
  */
-export const logisticsPriceGetLogisticsPrice404Schema = z.any();
+export const logisticsPriceGetLogisticsPrice404Schema = z.any()
 
-export const logisticsPriceGetLogisticsPriceQueryResponseSchema = z.lazy(
-  () => logisticsPriceGetLogisticsPrice200Schema,
-);
+export const logisticsPriceGetLogisticsPriceQueryResponseSchema = z.lazy(() => logisticsPriceGetLogisticsPrice200Schema)

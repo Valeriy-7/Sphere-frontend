@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 /**
  * @description Информация успешно получена
@@ -20,6 +20,6 @@ export const usersGetCurrentUser200Schema = z.object({
       }),
     )
     .optional(),
-});
+})
 
-export const usersGetCurrentUserQueryResponseSchema = z.lazy(() => usersGetCurrentUser200Schema);
+export const usersGetCurrentUserQueryResponseSchema = z.lazy(() => usersGetCurrentUser200Schema)

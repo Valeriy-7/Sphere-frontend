@@ -1,19 +1,18 @@
-import type { ConsumableType } from '../ConsumableType';
+import type { ConsumableType } from '../ConsumableType'
 
 /**
  * @description Список расходных материалов успешно получен
  */
-export type DeliveriesGetFulfillmentConsumables200Type = ConsumableType[];
+export type DeliveriesGetFulfillmentConsumables200Type = ConsumableType[]
 
 /**
  * @description Не авторизован
  */
-export type DeliveriesGetFulfillmentConsumables401Type = any;
+export type DeliveriesGetFulfillmentConsumables401Type = any
 
-export type DeliveriesGetFulfillmentConsumablesQueryResponseType =
-  DeliveriesGetFulfillmentConsumables200Type;
+export type DeliveriesGetFulfillmentConsumablesQueryResponseType = DeliveriesGetFulfillmentConsumables200Type
 
 export type DeliveriesGetFulfillmentConsumablesTypeQuery = {
-  Response: DeliveriesGetFulfillmentConsumables200Type;
-  Errors: DeliveriesGetFulfillmentConsumables401Type;
-};
+  Response: DeliveriesGetFulfillmentConsumables200Type
+  Errors: DeliveriesGetFulfillmentConsumables401Type
+}

@@ -1,75 +1,74 @@
 export const createCabinetDtoTypeEnum = {
   wildberries: 'wildberries',
   fulfillment: 'fulfillment',
-} as const;
+} as const
 
-export type CreateCabinetDtoTypeEnumType =
-  (typeof createCabinetDtoTypeEnum)[keyof typeof createCabinetDtoTypeEnum];
+export type CreateCabinetDtoTypeEnumType = (typeof createCabinetDtoTypeEnum)[keyof typeof createCabinetDtoTypeEnum]
 
 export type CreateCabinetDtoType = {
   /**
    * @description Тип организации
    * @type string
    */
-  type?: CreateCabinetDtoTypeEnumType | null;
+  type?: CreateCabinetDtoTypeEnumType | null
   /**
    * @description ИНН компании
    * @type string
    */
-  inn: string;
+  inn: string
   /**
    * @description API ключ (обязателен для Wildberries)
    * @type string | undefined
    */
-  apiKey?: string;
+  apiKey?: string
   /**
    * @description Флаг ручного заполнения данных
    * @type boolean | undefined
    */
-  isManualFilling?: boolean;
+  isManualFilling?: boolean
   /**
    * @description Название компании для отображения
    * @type string | undefined
    */
-  companyName?: string;
+  companyName?: string
   /**
    * @description Юридическое название компании
    * @type string | undefined
    */
-  legalCompanyName?: string;
+  legalCompanyName?: string
   /**
    * @description ОГРН компании
    * @type string | undefined
    */
-  ogrn?: string;
+  ogrn?: string
   /**
    * @description Юридический адрес
    * @type string | undefined
    */
-  legalAddress?: string;
+  legalAddress?: string
   /**
    * @description Фактический адрес
    * @type string | undefined
    */
-  actualAddress?: string;
+  actualAddress?: string
   /**
    * @description ФИО управляющего
    * @type string | undefined
    */
-  managerFullName?: string;
+  managerFullName?: string
   /**
    * @description Телефон компании
    * @type string | undefined
    */
-  companyPhone?: string;
+  companyPhone?: string
   /**
    * @description Email компании
    * @type string | undefined
    */
-  companyEmail?: string;
+  companyEmail?: string
   /**
    * @description Токен партнера (из ссылки регистрации)
    * @type string | undefined
    */
-  partnerToken?: string;
-};
+  partnerToken?: string
+}

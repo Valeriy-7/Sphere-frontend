@@ -3,10 +3,10 @@ export type UpdateDeliveryDetailsDtoType = {
    * @description ФИО ответственного сотрудника
    * @type string | undefined
    */
-  responsiblePerson?: string;
+  responsiblePerson?: string
   /**
    * @description ID логиста
    * @type string | undefined, uuid
    */
-  logisticsProviderId?: string;
-};
+  logisticsProviderId?: string
+}

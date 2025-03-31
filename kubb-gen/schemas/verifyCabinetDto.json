@@ -1,17 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "isVerified": {
-      "type": "boolean",
-      "description": "Статус верификации кабинета",
-      "example": true
-    },
-    "comment": {
-      "type": "string",
-      "description": "Комментарий администратора",
-      "example": "Документы проверены, все в порядке"
-    }
-  },
-  "required": ["isVerified"],
-  "x-readme-ref-name": "VerifyCabinetDto"
-}
+{"type":"object","properties":{"isVerified":{"type":"boolean","description":"Статус верификации кабинета","example":true},"comment":{"type":"string","description":"Комментарий администратора","example":"Документы проверены, все в порядке"}},"required":["isVerified"],"x-readme-ref-name":"VerifyCabinetDto"}

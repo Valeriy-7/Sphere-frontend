@@ -4,29 +4,29 @@ export type ChatsFindAllQueryParamsType = {
    * @default 20
    * @type number
    */
-  limit: number;
+  limit: number
   /**
    * @description Смещение (для пагинации)
    * @default 0
    * @type number
    */
-  offset: number;
+  offset: number
   /**
    * @description Поисковый запрос
    * @type string | undefined
    */
-  search?: string;
-};
+  search?: string
+}
 
 /**
  * @description Список чатов успешно получен
  */
-export type ChatsFindAll200Type = any;
+export type ChatsFindAll200Type = any
 
-export type ChatsFindAllQueryResponseType = ChatsFindAll200Type;
+export type ChatsFindAllQueryResponseType = ChatsFindAll200Type
 
 export type ChatsFindAllTypeQuery = {
-  Response: ChatsFindAll200Type;
-  QueryParams: ChatsFindAllQueryParamsType;
-  Errors: any;
-};
+  Response: ChatsFindAll200Type
+  QueryParams: ChatsFindAllQueryParamsType
+  Errors: any
+}

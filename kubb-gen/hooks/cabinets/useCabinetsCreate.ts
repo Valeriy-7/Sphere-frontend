@@ -1,16 +1,12 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
-import type {
-  CabinetsCreateMutationRequestType,
-  CabinetsCreateMutationResponseType,
-  CabinetsCreate400Type,
-} from '../../types/cabinets/CabinetsCreateType';
-import { useMutation } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
+import type { CabinetsCreateMutationRequestType, CabinetsCreateMutationResponseType, CabinetsCreate400Type } from '../../types/cabinets/CabinetsCreateType'
+import { useMutation } from '@tanstack/react-query'
 
-export const cabinetsCreateMutationKey = () => [{ url: '/cabinets' }] as const;
+export const cabinetsCreateMutationKey = () => [{ url: '/cabinets' }] as const
 
-export type CabinetsCreateMutationKey = ReturnType<typeof cabinetsCreateMutationKey>;
+export type CabinetsCreateMutationKey = ReturnType<typeof cabinetsCreateMutationKey>
 
 /**
  * @description     Создает новый кабинет для пользователя с возможностью автоматического или ручного заполнения данных.    Процесс создания:    1. Для WB кабинетов:       - Проверка API ключа       - Автоматическое получение данных через API WB       - Автоматическая верификация    2. Для FF кабинетов:       - Ручное заполнение или автозаполнение через DaData       - Требуется верификация администратором    Особенности:    - При создании первого кабинета он автоматически становится активным    - Для WB кабинетов API ключ обязателен
@@ -19,23 +15,17 @@ export type CabinetsCreateMutationKey = ReturnType<typeof cabinetsCreateMutation
  */
 export async function cabinetsCreate(
   data: CabinetsCreateMutationRequestType,
-  config: Partial<RequestConfig<CabinetsCreateMutationRequestType>> & {
-    client?: typeof client;
-  } = {},
+  config: Partial<RequestConfig<CabinetsCreateMutationRequestType>> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
-  const res = await request<
-    CabinetsCreateMutationResponseType,
-    ResponseErrorConfig<CabinetsCreate400Type>,
-    CabinetsCreateMutationRequestType
-  >({
+  const res = await request<CabinetsCreateMutationResponseType, ResponseErrorConfig<CabinetsCreate400Type>, CabinetsCreateMutationRequestType>({
     method: 'POST',
     url: `/cabinets`,
     data,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 /**
@@ -50,23 +40,18 @@ export function useCabinetsCreate<TContext>(
       ResponseErrorConfig<CabinetsCreate400Type>,
       { data: CabinetsCreateMutationRequestType },
       TContext
-    >;
-    client?: Partial<RequestConfig<CabinetsCreateMutationRequestType>> & { client?: typeof client };
+    >
+    client?: Partial<RequestConfig<CabinetsCreateMutationRequestType>> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey = mutationOptions?.mutationKey ?? cabinetsCreateMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? cabinetsCreateMutationKey()
 
-  return useMutation<
-    CabinetsCreateMutationResponseType,
-    ResponseErrorConfig<CabinetsCreate400Type>,
-    { data: CabinetsCreateMutationRequestType },
-    TContext
-  >({
+  return useMutation<CabinetsCreateMutationResponseType, ResponseErrorConfig<CabinetsCreate400Type>, { data: CabinetsCreateMutationRequestType }, TContext>({
     mutationFn: async ({ data }) => {
-      return cabinetsCreate(data, config);
+      return cabinetsCreate(data, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

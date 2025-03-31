@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const userSchema = z.object({
   id: z.string().describe('ID пользователя'),
@@ -10,4 +10,4 @@ export const userSchema = z.object({
   role: z.enum(['user', 'admin']).describe('Роль пользователя'),
   isBlocked: z.boolean().describe('Статус блокировки пользователя'),
   blockReason: z.string().describe('Причина блокировки').optional(),
-});
+})

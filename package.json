@@ -9,7 +9,7 @@
     "lint": "next lint --fix",
     "prettier": "prettier --write .",
     "prepare": "husky",
-    "kubb-generate": "kubb generate && pnpm run prettier"
+    "kubb-generate": "kubb generate"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

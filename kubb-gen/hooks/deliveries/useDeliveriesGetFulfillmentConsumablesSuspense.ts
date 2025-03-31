@@ -1,49 +1,34 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type {
-  QueryKey,
-  UseSuspenseQueryOptions,
-  UseSuspenseQueryResult,
-} from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   DeliveriesGetFulfillmentConsumablesQueryResponseType,
   DeliveriesGetFulfillmentConsumables401Type,
-} from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
+} from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const deliveriesGetFulfillmentConsumablesSuspenseQueryKey = () =>
-  [{ url: '/deliveries/consumables' }] as const;
+export const deliveriesGetFulfillmentConsumablesSuspenseQueryKey = () => [{ url: '/deliveries/consumables' }] as const
 
-export type DeliveriesGetFulfillmentConsumablesSuspenseQueryKey = ReturnType<
-  typeof deliveriesGetFulfillmentConsumablesSuspenseQueryKey
->;
+export type DeliveriesGetFulfillmentConsumablesSuspenseQueryKey = ReturnType<typeof deliveriesGetFulfillmentConsumablesSuspenseQueryKey>
 
 /**
  * @description Возвращает список всех расходных материалов текущего фулфилмент-центра
  * @summary Получение списка расходных материалов
  * {@link /deliveries/consumables}
  */
-export async function deliveriesGetFulfillmentConsumablesSuspense(
-  config: Partial<RequestConfig> & { client?: typeof client } = {},
-) {
-  const { client: request = client, ...requestConfig } = config;
+export async function deliveriesGetFulfillmentConsumablesSuspense(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const { client: request = client, ...requestConfig } = config
 
-  const res = await request<
-    DeliveriesGetFulfillmentConsumablesQueryResponseType,
-    ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
-    unknown
-  >({
+  const res = await request<DeliveriesGetFulfillmentConsumablesQueryResponseType, ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>, unknown>({
     method: 'GET',
     url: `/deliveries/consumables`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
-export function deliveriesGetFulfillmentConsumablesSuspenseQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof client } = {},
-) {
-  const queryKey = deliveriesGetFulfillmentConsumablesSuspenseQueryKey();
+export function deliveriesGetFulfillmentConsumablesSuspenseQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const queryKey = deliveriesGetFulfillmentConsumablesSuspenseQueryKey()
   return queryOptions<
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
     ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
@@ -52,10 +37,10 @@ export function deliveriesGetFulfillmentConsumablesSuspenseQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return deliveriesGetFulfillmentConsumablesSuspense(config);
+      config.signal = signal
+      return deliveriesGetFulfillmentConsumablesSuspense(config)
     },
-  });
+  })
 }
 
 /**
@@ -76,25 +61,20 @@ export function useDeliveriesGetFulfillmentConsumablesSuspense<
         TData,
         TQueryKey
       >
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+    >
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey = queryOptions?.queryKey ?? deliveriesGetFulfillmentConsumablesSuspenseQueryKey();
+  const { query: queryOptions, client: config = {} } = options ?? {}
+  const queryKey = queryOptions?.queryKey ?? deliveriesGetFulfillmentConsumablesSuspenseQueryKey()
 
   const query = useSuspenseQuery({
-    ...(deliveriesGetFulfillmentConsumablesSuspenseQueryOptions(
-      config,
-    ) as unknown as UseSuspenseQueryOptions),
+    ...(deliveriesGetFulfillmentConsumablesSuspenseQueryOptions(config) as unknown as UseSuspenseQueryOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<
-    TData,
-    ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>
-  > & { queryKey: TQueryKey };
+  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>> & { queryKey: TQueryKey }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

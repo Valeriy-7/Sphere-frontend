@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const supplierSchema = z.object({
   id: z.string().describe('Уникальный идентификатор поставщика'),
@@ -12,4 +12,4 @@ export const supplierSchema = z.object({
   cabinetId: z.string().describe('ID кабинета'),
   createdAt: z.date().describe('Дата создания'),
   updatedAt: z.date().describe('Дата обновления'),
-});
+})

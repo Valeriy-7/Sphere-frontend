@@ -5,19 +5,19 @@ export type UsersGetCurrentUser200Type = {
   /**
    * @type string | undefined
    */
-  id?: string;
+  id?: string
   /**
    * @type string | undefined
    */
-  phone?: string;
+  phone?: string
   /**
    * @type string | undefined
    */
-  role?: string;
+  role?: string
   /**
    * @type string | undefined
    */
-  regStatus?: string;
+  regStatus?: string
   /**
    * @type array | undefined
    */
@@ -25,33 +25,33 @@ export type UsersGetCurrentUser200Type = {
     /**
      * @type string | undefined
      */
-    id?: string;
+    id?: string
     /**
      * @type string | undefined
      */
-    type?: string;
+    type?: string
     /**
      * @type boolean | undefined
      */
-    isVerified?: boolean;
+    isVerified?: boolean
     /**
      * @type string | undefined
      */
-    companyName?: string;
+    companyName?: string
     /**
      * @type string | undefined
      */
-    avatarUrl?: string;
+    avatarUrl?: string
     /**
      * @type boolean | undefined
      */
-    isActive?: boolean;
-  }[];
-};
+    isActive?: boolean
+  }[]
+}
 
-export type UsersGetCurrentUserQueryResponseType = UsersGetCurrentUser200Type;
+export type UsersGetCurrentUserQueryResponseType = UsersGetCurrentUser200Type
 
 export type UsersGetCurrentUserTypeQuery = {
-  Response: UsersGetCurrentUser200Type;
-  Errors: any;
-};
+  Response: UsersGetCurrentUser200Type
+  Errors: any
+}

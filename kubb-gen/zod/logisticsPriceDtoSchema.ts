@@ -1,5 +1,5 @@
-import { deliveryPointDtoSchema } from './deliveryPointDtoSchema';
-import { z } from 'zod';
+import { deliveryPointDtoSchema } from './deliveryPointDtoSchema'
+import { z } from 'zod'
 
 export const logisticsPriceDtoSchema = z.object({
   fromPoint: z.lazy(() => deliveryPointDtoSchema).describe('Точка отправления'),
@@ -7,4 +7,4 @@ export const logisticsPriceDtoSchema = z.object({
   priceUpTo1m3: z.number().describe('Цена за объем до 1 м³'),
   pricePer1m3: z.number().describe('Цена за 1 м³'),
   description: z.string().describe('Описание маршрута').optional(),
-});
+})

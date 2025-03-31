@@ -1,35 +1,33 @@
-import type { UpdateCargoDimensionsDtoType } from '../UpdateCargoDimensionsDtoType';
+import type { UpdateCargoDimensionsDtoType } from '../UpdateCargoDimensionsDtoType'
 
 export type FFAccountDeliveriesUpdateCargoDimensionsPathParamsType = {
   /**
    * @description Идентификатор поставки
    * @type string, uuid
    */
-  id: string;
-};
+  id: string
+}
 
 /**
  * @description Размеры груза успешно обновлены
  */
-export type FFAccountDeliveriesUpdateCargoDimensions200Type = any;
+export type FFAccountDeliveriesUpdateCargoDimensions200Type = any
 
 /**
  * @description Поставка не найдена
  */
-export type FFAccountDeliveriesUpdateCargoDimensions404Type = any;
+export type FFAccountDeliveriesUpdateCargoDimensions404Type = any
 
 /**
  * @description Данные для обновления размеров груза
  */
-export type FFAccountDeliveriesUpdateCargoDimensionsMutationRequestType =
-  UpdateCargoDimensionsDtoType;
+export type FFAccountDeliveriesUpdateCargoDimensionsMutationRequestType = UpdateCargoDimensionsDtoType
 
-export type FFAccountDeliveriesUpdateCargoDimensionsMutationResponseType =
-  FFAccountDeliveriesUpdateCargoDimensions200Type;
+export type FFAccountDeliveriesUpdateCargoDimensionsMutationResponseType = FFAccountDeliveriesUpdateCargoDimensions200Type
 
 export type FFAccountDeliveriesUpdateCargoDimensionsTypeMutation = {
-  Response: FFAccountDeliveriesUpdateCargoDimensions200Type;
-  Request: FFAccountDeliveriesUpdateCargoDimensionsMutationRequestType;
-  PathParams: FFAccountDeliveriesUpdateCargoDimensionsPathParamsType;
-  Errors: FFAccountDeliveriesUpdateCargoDimensions404Type;
-};
+  Response: FFAccountDeliveriesUpdateCargoDimensions200Type
+  Request: FFAccountDeliveriesUpdateCargoDimensionsMutationRequestType
+  PathParams: FFAccountDeliveriesUpdateCargoDimensionsPathParamsType
+  Errors: FFAccountDeliveriesUpdateCargoDimensions404Type
+}

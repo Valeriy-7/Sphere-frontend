@@ -3,35 +3,35 @@ export type LogisticsProviderListItemDtoType = {
    * @description ID логиста
    * @type string, uuid
    */
-  id: string;
+  id: string
   /**
    * @description Название компании логиста
    * @type string
    */
-  name: string;
+  name: string
   /**
    * @description Имя контактного лица
    * @type string
    */
-  contactName: string;
+  contactName: string
   /**
    * @description Контактный телефон
    * @type string
    */
-  phone: string;
+  phone: string
   /**
    * @description Модель автомобиля
    * @type string | undefined
    */
-  carModel?: string;
+  carModel?: string
   /**
    * @description Номер автомобиля
    * @type string | undefined
    */
-  carNumber?: string;
+  carNumber?: string
   /**
    * @description Telegram аккаунт
    * @type string | undefined
    */
-  telegram?: string;
-};
+  telegram?: string
+}

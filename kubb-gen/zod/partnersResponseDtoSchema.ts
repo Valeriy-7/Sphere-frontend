@@ -1,6 +1,6 @@
-import { partnerCabinetDtoSchema } from './partnerCabinetDtoSchema';
-import { partnerStatsDtoSchema } from './partnerStatsDtoSchema';
-import { z } from 'zod';
+import { partnerCabinetDtoSchema } from './partnerCabinetDtoSchema'
+import { partnerStatsDtoSchema } from './partnerStatsDtoSchema'
+import { z } from 'zod'
 
 export const partnersResponseDtoSchema = z.object({
   stats: z.lazy(() => partnerStatsDtoSchema).describe('Общая статистика'),
@@ -9,4 +9,4 @@ export const partnersResponseDtoSchema = z.object({
   page: z.number().describe('Текущая страница'),
   limit: z.number().describe('Количество записей на странице'),
   pages: z.number().describe('Общее количество страниц'),
-});
+})

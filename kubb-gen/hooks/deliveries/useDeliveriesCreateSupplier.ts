@@ -1,20 +1,17 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   DeliveriesCreateSupplierMutationRequestType,
   DeliveriesCreateSupplierMutationResponseType,
   DeliveriesCreateSupplier400Type,
   DeliveriesCreateSupplier401Type,
-} from '../../types/deliveries/DeliveriesCreateSupplierType';
-import { useMutation } from '@tanstack/react-query';
+} from '../../types/deliveries/DeliveriesCreateSupplierType'
+import { useMutation } from '@tanstack/react-query'
 
-export const deliveriesCreateSupplierMutationKey = () =>
-  [{ url: '/deliveries/suppliers' }] as const;
+export const deliveriesCreateSupplierMutationKey = () => [{ url: '/deliveries/suppliers' }] as const
 
-export type DeliveriesCreateSupplierMutationKey = ReturnType<
-  typeof deliveriesCreateSupplierMutationKey
->;
+export type DeliveriesCreateSupplierMutationKey = ReturnType<typeof deliveriesCreateSupplierMutationKey>
 
 /**
  * @description Создает нового поставщика для указанного кабинета
@@ -23,18 +20,16 @@ export type DeliveriesCreateSupplierMutationKey = ReturnType<
  */
 export async function deliveriesCreateSupplier(
   data: DeliveriesCreateSupplierMutationRequestType,
-  config: Partial<RequestConfig<DeliveriesCreateSupplierMutationRequestType>> & {
-    client?: typeof client;
-  } = {},
+  config: Partial<RequestConfig<DeliveriesCreateSupplierMutationRequestType>> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
   const res = await request<
     DeliveriesCreateSupplierMutationResponseType,
     ResponseErrorConfig<DeliveriesCreateSupplier400Type | DeliveriesCreateSupplier401Type>,
     DeliveriesCreateSupplierMutationRequestType
-  >({ method: 'POST', url: `/deliveries/suppliers`, data, ...requestConfig });
-  return res.data;
+  >({ method: 'POST', url: `/deliveries/suppliers`, data, ...requestConfig })
+  return res.data
 }
 
 /**
@@ -49,14 +44,12 @@ export function useDeliveriesCreateSupplier<TContext>(
       ResponseErrorConfig<DeliveriesCreateSupplier400Type | DeliveriesCreateSupplier401Type>,
       { data: DeliveriesCreateSupplierMutationRequestType },
       TContext
-    >;
-    client?: Partial<RequestConfig<DeliveriesCreateSupplierMutationRequestType>> & {
-      client?: typeof client;
-    };
+    >
+    client?: Partial<RequestConfig<DeliveriesCreateSupplierMutationRequestType>> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey = mutationOptions?.mutationKey ?? deliveriesCreateSupplierMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? deliveriesCreateSupplierMutationKey()
 
   return useMutation<
     DeliveriesCreateSupplierMutationResponseType,
@@ -65,9 +58,9 @@ export function useDeliveriesCreateSupplier<TContext>(
     TContext
   >({
     mutationFn: async ({ data }) => {
-      return deliveriesCreateSupplier(data, config);
+      return deliveriesCreateSupplier(data, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

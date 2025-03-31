@@ -1,23 +1,16 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type {
-  QueryKey,
-  UseSuspenseQueryOptions,
-  UseSuspenseQueryResult,
-} from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
 import type {
   DeliveryPointsGetAllDeliveryPointsQueryResponseType,
   DeliveryPointsGetAllDeliveryPointsQueryParamsType,
-} from '../../types/services/DeliveryPointsGetAllDeliveryPointsType';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
+} from '../../types/services/DeliveryPointsGetAllDeliveryPointsType'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const deliveryPointsGetAllDeliveryPointsSuspenseQueryKey = (
-  params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType,
-) => [{ url: '/services/delivery-points/all' }, ...(params ? [params] : [])] as const;
+export const deliveryPointsGetAllDeliveryPointsSuspenseQueryKey = (params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType) =>
+  [{ url: '/services/delivery-points/all' }, ...(params ? [params] : [])] as const
 
-export type DeliveryPointsGetAllDeliveryPointsSuspenseQueryKey = ReturnType<
-  typeof deliveryPointsGetAllDeliveryPointsSuspenseQueryKey
->;
+export type DeliveryPointsGetAllDeliveryPointsSuspenseQueryKey = ReturnType<typeof deliveryPointsGetAllDeliveryPointsSuspenseQueryKey>
 
 /**
  * @description Возвращает полный список точек доставки с их адресами без фильтрации по типу. Фулфилменты, связанные с текущим кабинетом, будут приоритизированы в ответе.
@@ -28,26 +21,22 @@ export async function deliveryPointsGetAllDeliveryPointsSuspense(
   params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
-  const res = await request<
-    DeliveryPointsGetAllDeliveryPointsQueryResponseType,
-    ResponseErrorConfig<Error>,
-    unknown
-  >({
+  const res = await request<DeliveryPointsGetAllDeliveryPointsQueryResponseType, ResponseErrorConfig<Error>, unknown>({
     method: 'GET',
     url: `/services/delivery-points/all`,
     params,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function deliveryPointsGetAllDeliveryPointsSuspenseQueryOptions(
   params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType,
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const queryKey = deliveryPointsGetAllDeliveryPointsSuspenseQueryKey(params);
+  const queryKey = deliveryPointsGetAllDeliveryPointsSuspenseQueryKey(params)
   return queryOptions<
     DeliveryPointsGetAllDeliveryPointsQueryResponseType,
     ResponseErrorConfig<Error>,
@@ -56,10 +45,10 @@ export function deliveryPointsGetAllDeliveryPointsSuspenseQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return deliveryPointsGetAllDeliveryPointsSuspense(params, config);
+      config.signal = signal
+      return deliveryPointsGetAllDeliveryPointsSuspense(params, config)
     },
-  });
+  })
 }
 
 /**
@@ -74,31 +63,20 @@ export function useDeliveryPointsGetAllDeliveryPointsSuspense<
 >(
   params?: DeliveryPointsGetAllDeliveryPointsQueryParamsType,
   options: {
-    query?: Partial<
-      UseSuspenseQueryOptions<
-        DeliveryPointsGetAllDeliveryPointsQueryResponseType,
-        ResponseErrorConfig<Error>,
-        TData,
-        TQueryKey
-      >
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+    query?: Partial<UseSuspenseQueryOptions<DeliveryPointsGetAllDeliveryPointsQueryResponseType, ResponseErrorConfig<Error>, TData, TQueryKey>>
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey =
-    queryOptions?.queryKey ?? deliveryPointsGetAllDeliveryPointsSuspenseQueryKey(params);
+  const { query: queryOptions, client: config = {} } = options ?? {}
+  const queryKey = queryOptions?.queryKey ?? deliveryPointsGetAllDeliveryPointsSuspenseQueryKey(params)
 
   const query = useSuspenseQuery({
-    ...(deliveryPointsGetAllDeliveryPointsSuspenseQueryOptions(
-      params,
-      config,
-    ) as unknown as UseSuspenseQueryOptions),
+    ...(deliveryPointsGetAllDeliveryPointsSuspenseQueryOptions(params, config) as unknown as UseSuspenseQueryOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };
+  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

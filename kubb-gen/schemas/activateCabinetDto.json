@@ -1,18 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "comment": {
-      "type": "string",
-      "description": "Комментарий к активации",
-      "example": "Активация для работы с заказами",
-      "nullable": true
-    },
-    "metadata": {
-      "type": "object",
-      "description": "Дополнительные метаданные",
-      "example": { "reason": "Смена рабочего кабинета", "previousCabinet": "some-uuid" },
-      "nullable": true
-    }
-  },
-  "x-readme-ref-name": "ActivateCabinetDto"
-}
+{"type":"object","properties":{"comment":{"type":"string","description":"Комментарий к активации","example":"Активация для работы с заказами","nullable":true},"metadata":{"type":"object","description":"Дополнительные метаданные","example":{"reason":"Смена рабочего кабинета","previousCabinet":"some-uuid"},"nullable":true}},"x-readme-ref-name":"ActivateCabinetDto"}

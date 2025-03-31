@@ -1,5 +1,5 @@
-import { FFRouteInfoResponseDtoSchema } from './FFRouteInfoResponseDtoSchema';
-import { z } from 'zod';
+import { FFRouteInfoResponseDtoSchema } from './FFRouteInfoResponseDtoSchema'
+import { z } from 'zod'
 
 export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
   id: z.string().describe('ID поставки'),
@@ -16,4 +16,4 @@ export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
   totalPrice: z.number().describe('Общая сумма (товары + услуги + логистика)'),
   deliveryNumber: z.string().describe('Номер поставки для отображения (последние 5 символов ID)'),
   routes: z.array(z.lazy(() => FFRouteInfoResponseDtoSchema)).describe('Маршруты поставки'),
-});
+})

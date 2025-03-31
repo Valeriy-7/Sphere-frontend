@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const FFSupplierInfoResponseDtoSchema = z.object({
   id: z.string().describe('ID поставщика'),
@@ -14,12 +14,6 @@ export const FFSupplierInfoResponseDtoSchema = z.object({
   defects: z.number().describe('Количество дефектов у поставщика').optional(),
   productsPrice: z.number().describe('Стоимость товаров поставщика').optional(),
   ffServicesPrice: z.number().describe('Стоимость услуг фулфилмента для поставщика').optional(),
-  logisticsToFFPrice: z
-    .number()
-    .describe('Стоимость логистики до фулфилмента для поставщика')
-    .optional(),
-  totalPrice: z
-    .number()
-    .describe('Общая сумма для поставщика (товары + услуги + логистика)')
-    .optional(),
-});
+  logisticsToFFPrice: z.number().describe('Стоимость логистики до фулфилмента для поставщика').optional(),
+  totalPrice: z.number().describe('Общая сумма для поставщика (товары + услуги + логистика)').optional(),
+})

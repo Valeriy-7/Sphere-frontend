@@ -1,1 +1,1 @@
-{ "type": "string", "enum": ["wildberries", "fulfillment"], "x-readme-ref-name": "UserType" }
+{"type":"string","enum":["wildberries","fulfillment"],"x-readme-ref-name":"UserType"}

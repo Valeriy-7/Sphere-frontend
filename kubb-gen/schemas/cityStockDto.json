@@ -1,9 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "city": { "type": "string", "description": "Город", "example": "Тула" },
-    "quantity": { "type": "number", "description": "Количество на складе", "example": 133 }
-  },
-  "required": ["city", "quantity"],
-  "x-readme-ref-name": "CityStockDto"
-}
+{"type":"object","properties":{"city":{"type":"string","description":"Город","example":"Тула"},"quantity":{"type":"number","description":"Количество на складе","example":133}},"required":["city","quantity"],"x-readme-ref-name":"CityStockDto"}

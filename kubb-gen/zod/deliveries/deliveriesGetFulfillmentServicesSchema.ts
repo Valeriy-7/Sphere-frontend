@@ -1,16 +1,14 @@
-import { serviceSchema } from '../serviceSchema';
-import { z } from 'zod';
+import { serviceSchema } from '../serviceSchema'
+import { z } from 'zod'
 
 /**
  * @description Список услуг успешно получен
  */
-export const deliveriesGetFulfillmentServices200Schema = z.array(z.lazy(() => serviceSchema));
+export const deliveriesGetFulfillmentServices200Schema = z.array(z.lazy(() => serviceSchema))
 
 /**
  * @description Не авторизован
  */
-export const deliveriesGetFulfillmentServices401Schema = z.any();
+export const deliveriesGetFulfillmentServices401Schema = z.any()
 
-export const deliveriesGetFulfillmentServicesQueryResponseSchema = z.lazy(
-  () => deliveriesGetFulfillmentServices200Schema,
-);
+export const deliveriesGetFulfillmentServicesQueryResponseSchema = z.lazy(() => deliveriesGetFulfillmentServices200Schema)

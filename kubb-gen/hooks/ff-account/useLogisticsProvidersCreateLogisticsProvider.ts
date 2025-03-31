@@ -1,18 +1,15 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   LogisticsProvidersCreateLogisticsProviderMutationRequestType,
   LogisticsProvidersCreateLogisticsProviderMutationResponseType,
-} from '../../types/ff-account/LogisticsProvidersCreateLogisticsProviderType';
-import { useMutation } from '@tanstack/react-query';
+} from '../../types/ff-account/LogisticsProvidersCreateLogisticsProviderType'
+import { useMutation } from '@tanstack/react-query'
 
-export const logisticsProvidersCreateLogisticsProviderMutationKey = () =>
-  [{ url: '/ff-account/logistics-providers' }] as const;
+export const logisticsProvidersCreateLogisticsProviderMutationKey = () => [{ url: '/ff-account/logistics-providers' }] as const
 
-export type LogisticsProvidersCreateLogisticsProviderMutationKey = ReturnType<
-  typeof logisticsProvidersCreateLogisticsProviderMutationKey
->;
+export type LogisticsProvidersCreateLogisticsProviderMutationKey = ReturnType<typeof logisticsProvidersCreateLogisticsProviderMutationKey>
 
 /**
  * @description Создает нового логиста с указанными данными.
@@ -21,18 +18,16 @@ export type LogisticsProvidersCreateLogisticsProviderMutationKey = ReturnType<
  */
 export async function logisticsProvidersCreateLogisticsProvider(
   data: LogisticsProvidersCreateLogisticsProviderMutationRequestType,
-  config: Partial<RequestConfig<LogisticsProvidersCreateLogisticsProviderMutationRequestType>> & {
-    client?: typeof client;
-  } = {},
+  config: Partial<RequestConfig<LogisticsProvidersCreateLogisticsProviderMutationRequestType>> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
   const res = await request<
     LogisticsProvidersCreateLogisticsProviderMutationResponseType,
     ResponseErrorConfig<Error>,
     LogisticsProvidersCreateLogisticsProviderMutationRequestType
-  >({ method: 'POST', url: `/ff-account/logistics-providers`, data, ...requestConfig });
-  return res.data;
+  >({ method: 'POST', url: `/ff-account/logistics-providers`, data, ...requestConfig })
+  return res.data
 }
 
 /**
@@ -47,15 +42,12 @@ export function useLogisticsProvidersCreateLogisticsProvider<TContext>(
       ResponseErrorConfig<Error>,
       { data: LogisticsProvidersCreateLogisticsProviderMutationRequestType },
       TContext
-    >;
-    client?: Partial<
-      RequestConfig<LogisticsProvidersCreateLogisticsProviderMutationRequestType>
-    > & { client?: typeof client };
+    >
+    client?: Partial<RequestConfig<LogisticsProvidersCreateLogisticsProviderMutationRequestType>> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey =
-    mutationOptions?.mutationKey ?? logisticsProvidersCreateLogisticsProviderMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? logisticsProvidersCreateLogisticsProviderMutationKey()
 
   return useMutation<
     LogisticsProvidersCreateLogisticsProviderMutationResponseType,
@@ -64,9 +56,9 @@ export function useLogisticsProvidersCreateLogisticsProvider<TContext>(
     TContext
   >({
     mutationFn: async ({ data }) => {
-      return logisticsProvidersCreateLogisticsProvider(data, config);
+      return logisticsProvidersCreateLogisticsProvider(data, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

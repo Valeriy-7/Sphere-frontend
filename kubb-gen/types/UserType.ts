@@ -1,54 +1,54 @@
 export const userRoleEnum = {
   user: 'user',
   admin: 'admin',
-} as const;
+} as const
 
-export type UserRoleEnumType = (typeof userRoleEnum)[keyof typeof userRoleEnum];
+export type UserRoleEnumType = (typeof userRoleEnum)[keyof typeof userRoleEnum]
 
 export type UserType = {
   /**
    * @description ID пользователя
    * @type string
    */
-  id: string;
+  id: string
   /**
    * @description ФИО пользователя
    * @type string
    */
-  fullName: string;
+  fullName: string
   /**
    * @description Номер телефона
    * @type string
    */
-  phone: string;
+  phone: string
   /**
    * @description Дата создания
    * @type string, date-time
    */
-  createdAt: string;
+  createdAt: string
   /**
    * @description Дата обновления
    * @type string, date-time
    */
-  updatedAt: string;
+  updatedAt: string
   /**
    * @description Дата блокировки
    * @type string, date-time
    */
-  blockedAt: string;
+  blockedAt: string
   /**
    * @description Роль пользователя
    * @type string
    */
-  role: UserRoleEnumType;
+  role: UserRoleEnumType
   /**
    * @description Статус блокировки пользователя
    * @type boolean
    */
-  isBlocked: boolean;
+  isBlocked: boolean
   /**
    * @description Причина блокировки
    * @type string | undefined
    */
-  blockReason?: string;
-};
+  blockReason?: string
+}

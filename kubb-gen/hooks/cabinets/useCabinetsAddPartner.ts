@@ -1,18 +1,17 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   CabinetsAddPartnerMutationResponseType,
   CabinetsAddPartnerPathParamsType,
   CabinetsAddPartner400Type,
   CabinetsAddPartner404Type,
-} from '../../types/cabinets/CabinetsAddPartnerType';
-import { useMutation } from '@tanstack/react-query';
+} from '../../types/cabinets/CabinetsAddPartnerType'
+import { useMutation } from '@tanstack/react-query'
 
-export const cabinetsAddPartnerMutationKey = () =>
-  [{ url: '/cabinets/partners/{partnerId}' }] as const;
+export const cabinetsAddPartnerMutationKey = () => [{ url: '/cabinets/partners/{partnerId}' }] as const
 
-export type CabinetsAddPartnerMutationKey = ReturnType<typeof cabinetsAddPartnerMutationKey>;
+export type CabinetsAddPartnerMutationKey = ReturnType<typeof cabinetsAddPartnerMutationKey>
 
 /**
  * @description Добавляет партнера к активному кабинету пользователя
@@ -23,18 +22,14 @@ export async function cabinetsAddPartner(
   partnerId: CabinetsAddPartnerPathParamsType['partnerId'],
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
+  const { client: request = client, ...requestConfig } = config
 
-  const res = await request<
-    CabinetsAddPartnerMutationResponseType,
-    ResponseErrorConfig<CabinetsAddPartner400Type | CabinetsAddPartner404Type>,
-    unknown
-  >({
+  const res = await request<CabinetsAddPartnerMutationResponseType, ResponseErrorConfig<CabinetsAddPartner400Type | CabinetsAddPartner404Type>, unknown>({
     method: 'POST',
     url: `/cabinets/partners/${partnerId}`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 /**
@@ -49,12 +44,12 @@ export function useCabinetsAddPartner<TContext>(
       ResponseErrorConfig<CabinetsAddPartner400Type | CabinetsAddPartner404Type>,
       { partnerId: CabinetsAddPartnerPathParamsType['partnerId'] },
       TContext
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+    >
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey = mutationOptions?.mutationKey ?? cabinetsAddPartnerMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? cabinetsAddPartnerMutationKey()
 
   return useMutation<
     CabinetsAddPartnerMutationResponseType,
@@ -63,9 +58,9 @@ export function useCabinetsAddPartner<TContext>(
     TContext
   >({
     mutationFn: async ({ partnerId }) => {
-      return cabinetsAddPartner(partnerId, config);
+      return cabinetsAddPartner(partnerId, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const deliverySchema = z.object({
   id: z.string().describe('Уникальный идентификатор поставки'),
@@ -11,9 +11,7 @@ export const deliverySchema = z.object({
   cargoVolume: z.number().describe('Объем груза (м³)').optional(),
   responsiblePerson: z.string().describe('Ответственный сотрудник').optional(),
   logisticsProviderId: z.string().describe('ID логиста').optional(),
-  status: z
-    .enum(['CREATED', 'IN_PROGRESS', 'ACCEPTED', 'PREPARATION', 'COMPLETED'])
-    .describe('Статус поставки'),
+  status: z.enum(['CREATED', 'IN_PROGRESS', 'ACCEPTED', 'PREPARATION', 'COMPLETED']).describe('Статус поставки'),
   storeId: z.string().describe('ID магазина').optional(),
   storeName: z.string().describe('Название магазина').optional(),
   storeContactPerson: z.string().describe('Контактное лицо магазина').optional(),
@@ -26,4 +24,4 @@ export const deliverySchema = z.object({
   totalAmount: z.number().describe('Итоговая сумма'),
   createdAt: z.date().describe('Дата создания записи'),
   updatedAt: z.date().describe('Дата последнего обновления записи'),
-});
+})

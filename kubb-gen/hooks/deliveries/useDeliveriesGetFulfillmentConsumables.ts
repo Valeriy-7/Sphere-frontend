@@ -1,45 +1,34 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   DeliveriesGetFulfillmentConsumablesQueryResponseType,
   DeliveriesGetFulfillmentConsumables401Type,
-} from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType';
-import { queryOptions, useQuery } from '@tanstack/react-query';
+} from '../../types/deliveries/DeliveriesGetFulfillmentConsumablesType'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const deliveriesGetFulfillmentConsumablesQueryKey = () =>
-  [{ url: '/deliveries/consumables' }] as const;
+export const deliveriesGetFulfillmentConsumablesQueryKey = () => [{ url: '/deliveries/consumables' }] as const
 
-export type DeliveriesGetFulfillmentConsumablesQueryKey = ReturnType<
-  typeof deliveriesGetFulfillmentConsumablesQueryKey
->;
+export type DeliveriesGetFulfillmentConsumablesQueryKey = ReturnType<typeof deliveriesGetFulfillmentConsumablesQueryKey>
 
 /**
  * @description Возвращает список всех расходных материалов текущего фулфилмент-центра
  * @summary Получение списка расходных материалов
  * {@link /deliveries/consumables}
  */
-export async function deliveriesGetFulfillmentConsumables(
-  config: Partial<RequestConfig> & { client?: typeof client } = {},
-) {
-  const { client: request = client, ...requestConfig } = config;
+export async function deliveriesGetFulfillmentConsumables(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const { client: request = client, ...requestConfig } = config
 
-  const res = await request<
-    DeliveriesGetFulfillmentConsumablesQueryResponseType,
-    ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
-    unknown
-  >({
+  const res = await request<DeliveriesGetFulfillmentConsumablesQueryResponseType, ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>, unknown>({
     method: 'GET',
     url: `/deliveries/consumables`,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
-export function deliveriesGetFulfillmentConsumablesQueryOptions(
-  config: Partial<RequestConfig> & { client?: typeof client } = {},
-) {
-  const queryKey = deliveriesGetFulfillmentConsumablesQueryKey();
+export function deliveriesGetFulfillmentConsumablesQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const queryKey = deliveriesGetFulfillmentConsumablesQueryKey()
   return queryOptions<
     DeliveriesGetFulfillmentConsumablesQueryResponseType,
     ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>,
@@ -48,10 +37,10 @@ export function deliveriesGetFulfillmentConsumablesQueryOptions(
   >({
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return deliveriesGetFulfillmentConsumables(config);
+      config.signal = signal
+      return deliveriesGetFulfillmentConsumables(config)
     },
-  });
+  })
 }
 
 /**
@@ -73,22 +62,20 @@ export function useDeliveriesGetFulfillmentConsumables<
         TQueryData,
         TQueryKey
       >
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+    >
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey = queryOptions?.queryKey ?? deliveriesGetFulfillmentConsumablesQueryKey();
+  const { query: queryOptions, client: config = {} } = options ?? {}
+  const queryKey = queryOptions?.queryKey ?? deliveriesGetFulfillmentConsumablesQueryKey()
 
   const query = useQuery({
     ...(deliveriesGetFulfillmentConsumablesQueryOptions(config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<TData, ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>> & {
-    queryKey: TQueryKey;
-  };
+  }) as UseQueryResult<TData, ResponseErrorConfig<DeliveriesGetFulfillmentConsumables401Type>> & { queryKey: TQueryKey }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

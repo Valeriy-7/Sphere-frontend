@@ -3,30 +3,30 @@ export type UpdateLogisticsProviderDtoType = {
    * @description Название компании логиста
    * @type string | undefined
    */
-  name?: string;
+  name?: string
   /**
    * @description Имя контактного лица
    * @type string | undefined
    */
-  contactName?: string;
+  contactName?: string
   /**
    * @description Контактный телефон
    * @type string | undefined
    */
-  phone?: string;
+  phone?: string
   /**
    * @description Модель автомобиля
    * @type string | undefined
    */
-  carModel?: string;
+  carModel?: string
   /**
    * @description Номер автомобиля
    * @type string | undefined
    */
-  carNumber?: string;
+  carNumber?: string
   /**
    * @description Telegram аккаунт
    * @type string | undefined
    */
-  telegram?: string;
-};
+  telegram?: string
+}

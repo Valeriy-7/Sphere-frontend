@@ -1,43 +1,43 @@
-import type { ConsumableDtoType } from './ConsumableDtoType';
-import type { ServiceDtoType } from './ServiceDtoType';
+import type { ConsumableDtoType } from './ConsumableDtoType'
+import type { ServiceDtoType } from './ServiceDtoType'
 
 export type ProductDtoType = {
   /**
    * @description ID товара в WB
    * @type string
    */
-  wbProductId: string;
+  wbProductId: string
   /**
    * @description Количество товара
    * @minLength 1
    * @type number
    */
-  quantity: number;
+  quantity: number
   /**
    * @description Плановое количество товара
    * @minLength 1
    * @type number | undefined
    */
-  planQuantity?: number;
+  planQuantity?: number
   /**
    * @description Цена товара
    * @minLength 0.01
    * @type number
    */
-  price: number;
+  price: number
   /**
    * @description Выбранные услуги
    * @type array
    */
-  selectedServices: ServiceDtoType[];
+  selectedServices: ServiceDtoType[]
   /**
    * @description Выбранные расходники
    * @type array
    */
-  selectedConsumables: ConsumableDtoType[];
+  selectedConsumables: ConsumableDtoType[]
   /**
    * @description ID поставщика
    * @type string
    */
-  supplierId: string;
-};
+  supplierId: string
+}

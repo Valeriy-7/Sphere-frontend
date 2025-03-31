@@ -1,16 +1,16 @@
-import type { CreateMessageDtoType } from '../CreateMessageDtoType';
+import type { CreateMessageDtoType } from '../CreateMessageDtoType'
 
 /**
  * @description Сообщение успешно создано
  */
-export type MessagesCreate201Type = any;
+export type MessagesCreate201Type = any
 
-export type MessagesCreateMutationRequestType = CreateMessageDtoType;
+export type MessagesCreateMutationRequestType = CreateMessageDtoType
 
-export type MessagesCreateMutationResponseType = MessagesCreate201Type;
+export type MessagesCreateMutationResponseType = MessagesCreate201Type
 
 export type MessagesCreateTypeMutation = {
-  Response: MessagesCreate201Type;
-  Request: MessagesCreateMutationRequestType;
-  Errors: any;
-};
+  Response: MessagesCreate201Type
+  Request: MessagesCreateMutationRequestType
+  Errors: any
+}

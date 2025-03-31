@@ -1,18 +1,1 @@
-{
-  "type": "object",
-  "properties": {
-    "status": {
-      "description": "Новый статус поставки",
-      "example": "IN_PROGRESS",
-      "allOf": [
-        {
-          "type": "string",
-          "enum": ["CREATED", "IN_PROGRESS", "ACCEPTED", "PREPARATION", "COMPLETED"],
-          "x-readme-ref-name": "DeliveryStatus"
-        }
-      ]
-    }
-  },
-  "required": ["status"],
-  "x-readme-ref-name": "UpdateDeliveryStatusDto"
-}
+{"type":"object","properties":{"status":{"description":"Новый статус поставки","example":"IN_PROGRESS","allOf":[{"type":"string","enum":["CREATED","IN_PROGRESS","ACCEPTED","PREPARATION","COMPLETED"],"x-readme-ref-name":"DeliveryStatus"}]}},"required":["status"],"x-readme-ref-name":"UpdateDeliveryStatusDto"}

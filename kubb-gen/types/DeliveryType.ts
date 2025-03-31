@@ -4,124 +4,124 @@ export const deliveryStatusEnum = {
   ACCEPTED: 'ACCEPTED',
   PREPARATION: 'PREPARATION',
   COMPLETED: 'COMPLETED',
-} as const;
+} as const
 
-export type DeliveryStatusEnumType = (typeof deliveryStatusEnum)[keyof typeof deliveryStatusEnum];
+export type DeliveryStatusEnumType = (typeof deliveryStatusEnum)[keyof typeof deliveryStatusEnum]
 
 export type DeliveryType = {
   /**
    * @description Уникальный идентификатор поставки
    * @type string
    */
-  id: string;
+  id: string
   /**
    * @description ID кабинета
    * @type string
    */
-  cabinetId: string;
+  cabinetId: string
   /**
    * @description Дата поставки
    * @type string, date-time
    */
-  deliveryDate: string;
+  deliveryDate: string
   /**
    * @description Количество грузовых мест
    * @type number | undefined
    */
-  cargoPlaces?: number;
+  cargoPlaces?: number
   /**
    * @description Ширина груза (см)
    * @type number | undefined
    */
-  cargoWidth?: number;
+  cargoWidth?: number
   /**
    * @description Длина груза (см)
    * @type number | undefined
    */
-  cargoLength?: number;
+  cargoLength?: number
   /**
    * @description Высота груза (см)
    * @type number | undefined
    */
-  cargoHeight?: number;
+  cargoHeight?: number
   /**
    * @description Объем груза (м³)
    * @type number | undefined
    */
-  cargoVolume?: number;
+  cargoVolume?: number
   /**
    * @description Ответственный сотрудник
    * @type string | undefined
    */
-  responsiblePerson?: string;
+  responsiblePerson?: string
   /**
    * @description ID логиста
    * @type string | undefined
    */
-  logisticsProviderId?: string;
+  logisticsProviderId?: string
   /**
    * @description Статус поставки
    * @type string
    */
-  status: DeliveryStatusEnumType;
+  status: DeliveryStatusEnumType
   /**
    * @description ID магазина
    * @type string | undefined
    */
-  storeId?: string;
+  storeId?: string
   /**
    * @description Название магазина
    * @type string | undefined
    */
-  storeName?: string;
+  storeName?: string
   /**
    * @description Контактное лицо магазина
    * @type string | undefined
    */
-  storeContactPerson?: string;
+  storeContactPerson?: string
   /**
    * @description Контактный телефон магазина
    * @type string | undefined
    */
-  storeContactPhone?: string;
+  storeContactPhone?: string
   /**
    * @description Время работы магазина
    * @type string | undefined
    */
-  storeWorkingHours?: string;
+  storeWorkingHours?: string
   /**
    * @description Идентификатор магазина в системе
    * @type string | undefined
    */
-  storeExternalId?: string;
+  storeExternalId?: string
   /**
    * @description Общая стоимость товаров
    * @type number
    */
-  totalProductsPrice: number;
+  totalProductsPrice: number
   /**
    * @description Стоимость логистики до фулфилмента
    * @type number
    */
-  logisticsToFFPrice: number;
+  logisticsToFFPrice: number
   /**
    * @description Стоимость услуг фулфилмента
    * @type number
    */
-  ffServicesPrice: number;
+  ffServicesPrice: number
   /**
    * @description Итоговая сумма
    * @type number
    */
-  totalAmount: number;
+  totalAmount: number
   /**
    * @description Дата создания записи
    * @type string, date-time
    */
-  createdAt: string;
+  createdAt: string
   /**
    * @description Дата последнего обновления записи
    * @type string, date-time
    */
-  updatedAt: string;
-};
+  updatedAt: string
+}

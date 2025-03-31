@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const FFDeliveryStatsResponseDtoSchema = z.object({
   planQuantity: z.number().describe('Общее плановое количество товаров'),
@@ -8,4 +8,4 @@ export const FFDeliveryStatsResponseDtoSchema = z.object({
   ffServicesPrice: z.number().describe('Общая стоимость услуг фулфилмента'),
   logisticsToFFPrice: z.number().describe('Общая стоимость логистики до фулфилмента'),
   totalPrice: z.number().describe('Общая сумма (товары + услуги + логистика)'),
-});
+})
