@@ -5,6 +5,7 @@ import { axiosInstance } from '../axios-client';
 import Cookies from 'js-cookie';
 import { getPropByKeyPath } from './Helper';
 import { AuthUser, JWTAuthConfig } from './JWTAuthContext';
+import { STORAGE_KEY_FORM_DRAFT_DELIVERY_CREATE } from '@/lib/constants';
 
 export const cookiePaths = {
   AUTH_USER: 'auth.user',
@@ -200,6 +201,7 @@ export class JWTAuthController {
     Cookies.remove(cookiePaths.AUTH_USER);
     Cookies.remove(cookiePaths.ACCESS_TOKEN);
     Cookies.remove(cookiePaths.REFRESH_TOKEN);
+    localStorage.removeItem(STORAGE_KEY_FORM_DRAFT_DELIVERY_CREATE);
   }
 
   async fetchUserProfile<T extends AuthUser>() {

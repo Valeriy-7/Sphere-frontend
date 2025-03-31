@@ -37,7 +37,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
     }
   }, [user]);
 
-  const classNameTitle = 'text-[28px] font-semibold flex items-center uppercase';
+  const classNameTitle = 'text-[28px] font-semibold flex items-center uppercase justify-center';
   return (
     <div
       className={cn(

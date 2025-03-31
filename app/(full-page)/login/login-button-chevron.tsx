@@ -13,7 +13,7 @@ export function LoginButtonChevron({
       type="button"
       variant="ghost"
       className={cn(
-        'h-[70px] w-[54px] px-3 py-2 hover:bg-transparent hover:text-primary-foreground hover:outline-none hover:ring-1 hover:ring-white hover:ring-offset-1',
+        'h-[70px] w-[54px] px-3 py-2 hover:bg-transparent hover:text-primary-foreground hover:outline-none',
         className,
       )}
       iconSizeNotDefault

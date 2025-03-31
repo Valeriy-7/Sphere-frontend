@@ -27,9 +27,6 @@ export default function StorageFfPage() {
             },
           ]}
         />
-        <div className={'text-xs'}>
-          Цена логистики не пишется за каждый товар, только итог по каждому маршруту и их сумма
-        </div>
         <div>
           <Button asChild>
             <Link href={'ff/create'}>Создать поставку</Link>

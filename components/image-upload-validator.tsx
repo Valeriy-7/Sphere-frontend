@@ -50,12 +50,12 @@ export default function ImageUpload({
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const validationError = validateFile(file);
+      /*  const validationError = validateFile(file);
       if (validationError) {
         setError(validationError);
         setSelectedImage(null);
         return;
-      }
+      }*/
 
       const imageUrl = URL.createObjectURL(file);
       //setSelectedImage(imageUrl);

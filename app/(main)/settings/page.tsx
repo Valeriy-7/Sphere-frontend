@@ -14,7 +14,6 @@ import {
   cabinetsUpdateMutationRequestSchema,
   useCabinetsGetActiveSuspense,
   useCabinetsUpdate,
-  CabinetType,
   cabinetsGetActiveSuspenseQueryKey,
   useAvatarUploadAvatar,
 } from '@/kubb-gen';
@@ -69,11 +68,13 @@ export default function SettingsPage() {
     mutate(
       { data, id: cabinetActiveId },
       {
-        onSuccess: () => {
+        onSuccess: ({ registrationUrl: oldUrl, ...restData }) => {
+          console.log(data);
+          form.reset({ ...restData });
           toast.success('Успешно обновлено');
-          queryClient.invalidateQueries({
+          /*queryClient.invalidateQueries({
             queryKey: cabinetsGetActiveSuspenseQueryKey(),
-          });
+          });*/
           fetchUser();
         },
         onError: (error) => {

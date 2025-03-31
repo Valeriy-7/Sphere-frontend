@@ -35,7 +35,8 @@ import { useEffect, useState } from 'react';
 import { getTextCurrency } from '@/lib/constants/rub';
 import { useQueryClient } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
-import {toast} from "sonner";
+import { toast } from 'sonner';
+import { STORAGE_KEY_FORM_DRAFT_DELIVERY_CREATE } from '@/lib/constants';
 
 const getAmountReduce = (list: number[]) => list.reduce((p, c) => p + c, 0);
 
@@ -63,7 +64,7 @@ export default function NestedDynamicForm() {
     control: form.control,
     name: 'products',
   });
-  const { clearDraft } = useFormDraftV(form, 'form-draft');
+  const { clearDraft } = useFormDraftV(form, STORAGE_KEY_FORM_DRAFT_DELIVERY_CREATE);
   const queryClient = useQueryClient();
 
   const watchSuppliers = fields.map((field, index) => ({
@@ -324,7 +325,6 @@ export default function NestedDynamicForm() {
                 />
 
                 <DPSelect
-                  isSelect
                   title={'Расходники магазина'}
                   items={[]}
                   tForm={{ form, index, name: `` }}

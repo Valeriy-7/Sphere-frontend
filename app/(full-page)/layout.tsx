@@ -12,5 +12,5 @@ export default function FullPageLayout({ children }: PropsWithChildren) {
     router.push('/');
     return null;
   }
-  return <>{children}</>;
+  return <div className={'theme-login'}>{children}</div>;
 }

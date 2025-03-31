@@ -94,19 +94,13 @@ body {
 .theme-admin {
   --primary: 150 70% 10%;
 }
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+.theme-login {
+  --ring: 0 0% 0%;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
