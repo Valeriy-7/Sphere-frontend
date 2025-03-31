@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { inputVariants } from '@/components/ui/input';
 import type { VariantProps } from 'class-variance-authority';
 
-import TextareaAutosize from "react-textarea-autosize";
+import TextareaAutosize from 'react-textarea-autosize';
 type TeaxtareaProps = {
   onChange: (val: string) => void;
 } & Omit<React.ComponentProps<'textarea'>, 'onChange'> &

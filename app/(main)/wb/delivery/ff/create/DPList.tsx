@@ -65,13 +65,10 @@ export function DPSelect({
   const sum = items.map((i) => i.price).reduce((p, c) => p + c, 0);
 
   const error = tForm?.form.formState.errors.products?.[tForm?.index]?.[tForm?.name]?.message;
-  const product = tForm?.form
-      .watch('products')
-      [tForm?.index];
+  const product = tForm?.form.watch('products')[tForm?.index];
   const selectSum =
     !isSupplier &&
-      product?.[tForm?.name]?.map((i) => i.price)
-      .reduce((p, c) => p + c, 0) * product.quantity;
+    product?.[tForm?.name]?.map((i) => i.price).reduce((p, c) => p + c, 0) * product.quantity;
 
   return (
     <DPItem className={cn('w-[216px]', className)}>

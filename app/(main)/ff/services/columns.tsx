@@ -428,7 +428,7 @@ export const defaultColumn: Partial<ColumnDef<ServicesItemType>> = {
                 {isNumber ? (
                   <CurrencyInput {...props} />
                 ) : (
-                  <Textarea className={'block w-full h-auto max-w-none'} {...props}/>
+                  <Textarea className={'block h-auto w-full max-w-none'} {...props} />
                 )}
               </FormControl>
             </FormItem>
