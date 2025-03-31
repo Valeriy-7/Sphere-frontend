@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
+import {toast} from "sonner";
 
 export default function ServiceLogisticsPage() {
   const queryClient = useQueryClient();
@@ -40,9 +41,13 @@ export default function ServiceLogisticsPage() {
           const promises = [
             ...removeIds.map((id) => mutateDelete({ id })),
             ...newRows.map((data, index) => {
-              return mutateCreate({ data });
+              return mutateCreate({ data },{onError: (error) => {
+                      toast.error(error?.response?.data?.message);
+                  },});
             }),
-            ...updateRows.map(({ id, ...data }) => mutateUpdate({ id, data })),
+            ...updateRows.map(({ id, ...data }) => mutateUpdate({ id, data },{onError: (error) => {
+                    toast.error(error?.response?.data?.message);
+                },})),
           ];
           queryClient.setQueryData(logisticsCreateServiceMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
           Promise.allSettled(promises).then(() => {

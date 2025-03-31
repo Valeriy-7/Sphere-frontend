@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
+import {toast} from "sonner";
 
 export default function ServiceConsumablePage() {
   const queryClient = useQueryClient();
@@ -26,9 +27,15 @@ export default function ServiceConsumablePage() {
     defaultValues: { rows: data },
   });
 
-  const { mutateAsync: mutateCreate } = useLogisticsCreateConsumable();
-  const { mutateAsync: mutateUpdate } = useLogisticsUpdateConsumable();
-  const { mutateAsync: mutateDelete } = useLogisticsDeleteConsumable();
+  const { mutateAsync: mutateCreate } = useLogisticsCreateConsumable({mutation:{onError: (error) => {
+        toast.error(error?.response?.data?.message);
+    },}});
+  const { mutateAsync: mutateUpdate } = useLogisticsUpdateConsumable({mutation:{onError: (error) => {
+              toast.error(error?.response?.data?.message);
+          },}});
+  const { mutateAsync: mutateDelete } = useLogisticsDeleteConsumable({mutation:{onError: (error) => {
+              toast.error(error?.response?.data?.message);
+          },}});
 
   console.log(form.formState.errors.rows);
 
