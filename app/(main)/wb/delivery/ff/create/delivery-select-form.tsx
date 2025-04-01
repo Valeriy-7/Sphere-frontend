@@ -143,7 +143,7 @@ export default function NestedDynamicForm() {
         const { priceUpTo1m3, pricePer1m3 } = logisticsPrice.find(
           (item) => item.supplierId === i.supplierId,
         ) ?? { priceUpTo1m3: 0, pricePer1m3: 0 };
-        return i.quantity * i.volume > 1 ? priceUpTo1m3 : pricePer1m3;
+        return i.quantity * i.volume > 1 ? pricePer1m3 : priceUpTo1m3;
       }),
     ),
     getAmountReduce(

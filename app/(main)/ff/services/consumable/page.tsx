@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
-import {toast} from "sonner";
+import { toast } from 'sonner';
 
 export default function ServiceConsumablePage() {
   const queryClient = useQueryClient();
@@ -27,15 +27,27 @@ export default function ServiceConsumablePage() {
     defaultValues: { rows: data },
   });
 
-  const { mutateAsync: mutateCreate } = useLogisticsCreateConsumable({mutation:{onError: (error) => {
+  const { mutateAsync: mutateCreate } = useLogisticsCreateConsumable({
+    mutation: {
+      onError: (error) => {
         toast.error(error?.response?.data?.message);
-    },}});
-  const { mutateAsync: mutateUpdate } = useLogisticsUpdateConsumable({mutation:{onError: (error) => {
-              toast.error(error?.response?.data?.message);
-          },}});
-  const { mutateAsync: mutateDelete } = useLogisticsDeleteConsumable({mutation:{onError: (error) => {
-              toast.error(error?.response?.data?.message);
-          },}});
+      },
+    },
+  });
+  const { mutateAsync: mutateUpdate } = useLogisticsUpdateConsumable({
+    mutation: {
+      onError: (error) => {
+        toast.error(error?.response?.data?.message);
+      },
+    },
+  });
+  const { mutateAsync: mutateDelete } = useLogisticsDeleteConsumable({
+    mutation: {
+      onError: (error) => {
+        toast.error(error?.response?.data?.message);
+      },
+    },
+  });
 
   console.log(form.formState.errors.rows);
 
@@ -67,6 +79,7 @@ export default function ServiceConsumablePage() {
             ),
           ];
           queryClient.setQueryData(logisticsCreateConsumableMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
+          form.reset({ rows });
           Promise.allSettled(promises).then(() => {
             queryClient.invalidateQueries({
               queryKey: logisticsCreateConsumableMutationKey(),

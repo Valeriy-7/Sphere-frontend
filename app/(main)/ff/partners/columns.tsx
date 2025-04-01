@@ -12,7 +12,7 @@ export const columns: ColumnDef<PartnerCabinetDtoType>[] = [
     header: '№',
   },
   {
-    accessorFn: ({ companyName }) => `${companyName}`,
+    accessorFn: ({ companyName, legalCompanyName }) => `${companyName} ${legalCompanyName}`,
     id: 'companyName',
     header: 'Магазин',
     cell: ({ row: { original } }) => {
@@ -20,7 +20,7 @@ export const columns: ColumnDef<PartnerCabinetDtoType>[] = [
         <TableCardImgText
           image={{ src: original.avatarUrl }}
           title={original.companyName}
-          text={original.companyName}
+          text={original.legalCompanyName}
         />
       );
     },

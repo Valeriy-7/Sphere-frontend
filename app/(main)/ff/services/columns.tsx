@@ -206,7 +206,7 @@ export const columnsConsumable = [
 
   columnsService[2],
 
-  columnsService[3],
+  { ...columnsService[3], header: 'Расходники' },
 
   columnsService[4],
   {

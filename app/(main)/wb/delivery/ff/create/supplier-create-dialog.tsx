@@ -34,6 +34,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useJWTAuthUser } from '@/modules/auth';
+import { toast } from 'sonner';
 
 const textRequired = 'Обязательно для заполнения';
 
@@ -47,6 +48,9 @@ export function SupplierCreateDialog() {
 
   const { mutate } = useDeliveriesCreateSupplier({
     mutation: {
+      onError: (error) => {
+        toast.error(error?.response?.data?.message);
+      },
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: deliveriesGetSuppliersQueryKey(),
