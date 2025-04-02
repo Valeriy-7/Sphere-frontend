@@ -1,6 +1,5 @@
 'use client';
 
-import { Input } from '../ui/input';
 import { Search } from 'lucide-react';
 import ChatItem from './chat-item';
 import { useState } from 'react';
@@ -13,6 +12,7 @@ type Chat = {
   unread: number;
   avatar?: string;
   isOnline: boolean;
+  type?: 'user' | 'group' | 'service';
 };
 
 interface ChatListProps {
@@ -29,19 +29,8 @@ const ChatList = ({ chats, selectedChat, onSelectChat }: ChatListProps) => {
   );
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="border-b p-3">
-        <div className="relative">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Поиск чатов..."
-            className="pl-8"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-      </div>
-      <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 overflow-y-auto bg-white">
+      <div className="divide-y divide-muted/20">
         {filteredChats.length > 0 ? (
           filteredChats.map((chat) => (
             <ChatItem
