@@ -35,7 +35,7 @@ export function TeamSwitcher() {
   const { isMobile } = useSidebar();
 
   const { logout, fetchUser } = useJWTAuthContext();
-  const { cabinetActive, cabinets, role } = useJWTAuthUser();
+  const { cabinetActive, cabinets, role, phone } = useJWTAuthUser();
   const queryClient = useQueryClient();
   // @todo табы переключаются только по тексту
   const { mutate } = useCabinetsSetActive({
@@ -68,6 +68,7 @@ export function TeamSwitcher() {
                   <span className="truncate text-min">{cabinetActive.type}</span>
                 )}
                 {role === 'admin' && <span className="truncate text-min">{role}</span>}
+                <span className="truncate text-min">{phone}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
