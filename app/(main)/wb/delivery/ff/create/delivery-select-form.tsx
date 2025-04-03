@@ -265,12 +265,12 @@ export default function NestedDynamicForm() {
             return (
               <div
                 className={
-                  'relative flex flex-wrap gap-4 rounded-lg border bg-white p-2 pr-[40px] text-center text-min dark:bg-transparent'
+                  'relative flex gap-4 rounded-lg border bg-white p-2 pr-[40px] text-center text-min dark:bg-transparent'
                 }
                 key={field.id}
               >
                 <MarketImg src={product.imageUrl} alt={product.name} />
-                <DPItem>
+                <DPItem className={'shrink-0'}>
                   <DPTitle>Данные</DPTitle>
                   <DPBody className={'h-full'}>
                     <ul className={'space-y-0.5 text-left'}>
@@ -283,7 +283,7 @@ export default function NestedDynamicForm() {
                     </ul>
                   </DPBody>
                 </DPItem>
-                <DPItem>
+                <DPItem className={'shrink-0'}>
                   <DPTitle>Заказать (ед)</DPTitle>
                   <FormField
                     control={form.control}

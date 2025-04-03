@@ -47,7 +47,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
               <ModeToggle/>
             </div>
           </header>*/}
-          <div className="flex flex-1 flex-col gap-4 px-5 py-7">{children}</div>
+          <div className="flex flex-1 flex-col gap-4 px-5 py-5">{children}</div>
         </SidebarInset>
       </SidebarProvider>
     </ThemeProvider>

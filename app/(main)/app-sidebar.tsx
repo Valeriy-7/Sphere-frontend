@@ -196,7 +196,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className={'h-[48px]'}>
+      <SidebarHeader className={'h-[38px]'}>
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
@@ -216,7 +216,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {/* <SidebarTrigger />*/}
           <ModeToggle />
         </div>
+        03.04.2025 21:52
         <LogoText></LogoText>
+
         {/*<Image width={180} height={60} src={'./logo-text.svg'} alt={'logo-text'}></Image>*/}
       </SidebarFooter>
       <SidebarRail />

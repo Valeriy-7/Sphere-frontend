@@ -71,7 +71,7 @@ export function DPSelect({
     product?.[tForm?.name]?.map((i) => i.price).reduce((p, c) => p + c, 0) * product.quantity;
 
   return (
-    <DPItem className={cn('w-[216px]', className)}>
+    <DPItem className={cn('max-w-[216px]', className)}>
       <DPTitle>{title}</DPTitle>
       {!isSupplier && (
         <DPBody>

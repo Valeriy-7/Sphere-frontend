@@ -60,7 +60,7 @@ export function DPTitle({ children, className }: DPProps) {
 }
 
 export function DPItem({ children, className }: DPProps) {
-  return <div className={cn('flex w-[100px] flex-col space-y-1', className)}>{children}</div>;
+  return <div className={cn('flex w-full max-w-[100px] flex-col space-y-1', className)}>{children}</div>;
 }
 
 export function DPBody({ children, className }: DPProps) {

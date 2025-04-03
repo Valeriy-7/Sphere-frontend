@@ -105,7 +105,7 @@ export default function SettingsPage() {
       <TypographyH2 as={'h1'}>Данные организации</TypographyH2>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
           <div className={'gap-10 lg:flex'}>
             <SettingsAvatar>
               <ImageUpload
@@ -313,7 +313,7 @@ export default function SettingsPage() {
             </div>
           </div>
           {type === 'wildberries' && (
-            <div className={'space-y-4 pt-4'}>
+            <div className={'space-y-4 pt-2'}>
               <FormField
                 control={form.control}
                 name="apiKey"
