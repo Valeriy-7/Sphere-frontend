@@ -38,6 +38,7 @@ declare module '@tanstack/react-table' {
     deleteRow?: (rowIndex: number) => void;
     onSubmit: (props: OnSubmitProps) => void;
     resetData?: () => void;
+    setIsEditActive?: () => void;
     form: UseFormReturn<FormValues>;
   }
 }
@@ -82,7 +83,11 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
     setData(initialData);
   }, [initialData]);
 
-  const { append: formAppend, remove: formRemove } = useFieldArray({
+  const {
+    append: formAppend,
+    remove: formRemove,
+    replace,
+  } = useFieldArray({
     control: form.control,
     name: 'rows',
   });
@@ -91,11 +96,17 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
 
   const [isEdit, setIsEdit] = useState(false);
 
+  const setIsEditActive = () => {
+    setIsEdit(true);
+    replace(initialData);
+  };
+
   const [listRemoveRow, setIdsRemoveRow] = useState<TData[]>([]);
 
   const resetData = () => {
     setIsEdit(false);
     setData(initialData);
+    setIdsRemoveRow([]);
   };
 
   const addRow = () => {
@@ -159,6 +170,7 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
       resetData,
       isEdit,
       setIsEdit,
+      setIsEditActive,
       onSubmit: () => {
         form.handleSubmit(() => {
           setIsEdit(false);

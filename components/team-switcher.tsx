@@ -64,9 +64,6 @@ export function TeamSwitcher() {
               <div className="grid flex-1 text-left text-sm leading-normal">
                 <span className="truncate font-medium">{cabinetActive.companyName}</span>
                 <span className="truncate text-min">{cabinetActive.legalCompanyName}</span>
-                {cabinets.length > 1 && (
-                  <span className="truncate text-min">{cabinetActive.type}</span>
-                )}
                 {role === 'admin' && <span className="truncate text-min">{role}</span>}
                 <span className="truncate text-min">{phone}</span>
               </div>

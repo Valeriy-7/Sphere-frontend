@@ -169,7 +169,7 @@ export const columnsService: ColumnDef<ServicesItemType | ConsumableType>[] = [
       if (!meta?.isEdit) {
         return (
           <button
-            onClick={() => meta?.setIsEdit(true)}
+            onClick={() => meta?.setIsEditActive()}
             className={'rounded-lg p-1 transition-colors hover:bg-white/20'}
           >
             <Pencil />

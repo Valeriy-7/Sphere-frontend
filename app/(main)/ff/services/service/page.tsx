@@ -29,7 +29,7 @@ export default function ServicePage() {
   const { mutateAsync: mutateUpdate } = useLogisticsUpdateService();
   const { mutateAsync: mutateDelete } = useLogisticsDeleteService();
 
-  console.log(form.formState.errors.rows);
+  //console.log(form.formState.errors.rows);
   console.log(form.getValues());
 
   return (
@@ -61,11 +61,12 @@ export default function ServicePage() {
             ),
           ];
           queryClient.setQueryData(logisticsGetServicesSuspenseQueryKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
-          form.reset({ rows });
-          Promise.allSettled(promises).then(() => {
+
+          Promise.allSettled(promises).finally(() => {
             queryClient.invalidateQueries({
               queryKey: logisticsGetServicesSuspenseQueryKey(),
             });
+            //form.reset({ rows:data });
           });
         }}
         initialData={data}
