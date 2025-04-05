@@ -1,20 +1,10 @@
-import type { CabinetType } from '../CabinetType'
 import type { CompleteRegistrationDtoType } from '../CompleteRegistrationDtoType'
+import type { CompleteRegistrationResponseDtoType } from '../CompleteRegistrationResponseDtoType'
 
 /**
  * @description Регистрация успешно завершена
  */
-export type AuthCompleteRegistration201Type = {
-  /**
-   * @type object | undefined
-   */
-  cabinet?: CabinetType
-  /**
-   * @description Токен для регистрации контрагентов
-   * @type string | undefined
-   */
-  token?: string
-}
+export type AuthCompleteRegistration201Type = CompleteRegistrationResponseDtoType
 
 /**
  * @description Некорректные данные для регистрации

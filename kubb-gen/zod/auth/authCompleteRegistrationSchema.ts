@@ -1,14 +1,11 @@
-import { cabinetSchema } from '../cabinetSchema'
 import { completeRegistrationDtoSchema } from '../completeRegistrationDtoSchema'
+import { completeRegistrationResponseDtoSchema } from '../completeRegistrationResponseDtoSchema'
 import { z } from 'zod'
 
 /**
  * @description Регистрация успешно завершена
  */
-export const authCompleteRegistration201Schema = z.object({
-  cabinet: z.lazy(() => cabinetSchema).optional(),
-  token: z.string().describe('Токен для регистрации контрагентов').optional(),
-})
+export const authCompleteRegistration201Schema = z.lazy(() => completeRegistrationResponseDtoSchema)
 
 /**
  * @description Некорректные данные для регистрации

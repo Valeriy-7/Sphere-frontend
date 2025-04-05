@@ -11,6 +11,11 @@ export type WbGetProductsQueryParamsType = {
    * @type string | undefined
    */
   search?: string
+  /**
+   * @description Запросить свежие данные, игнорируя кэш
+   * @type string | undefined
+   */
+  forceFresh?: string
 }
 
 /**

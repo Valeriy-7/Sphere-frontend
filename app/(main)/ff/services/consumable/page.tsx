@@ -79,7 +79,6 @@ export default function ServiceConsumablePage() {
             ),
           ];
           queryClient.setQueryData(logisticsCreateConsumableMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
-          form.reset({ rows });
           Promise.allSettled(promises).then(() => {
             queryClient.invalidateQueries({
               queryKey: logisticsCreateConsumableMutationKey(),

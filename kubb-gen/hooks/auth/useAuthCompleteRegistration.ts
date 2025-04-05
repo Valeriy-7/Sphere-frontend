@@ -14,7 +14,7 @@ export const authCompleteRegistrationMutationKey = () => [{ url: '/auth/complete
 export type AuthCompleteRegistrationMutationKey = ReturnType<typeof authCompleteRegistrationMutationKey>
 
 /**
- * @description     Завершает регистрацию пользователя, создавая его первый кабинет.    ### Процесс:    1. Проверяется тип кабинета и необходимые данные    2. Для продавцов WB:       - Проверяется валидность API ключа       - Создается кабинет с типом WILDBERRIES    3. Для фулфилмента:       - Проверяется валидность ИНН через DaData       - Создается кабинет с типом FULFILLMENT    ### Требования к параметрам:    - type: обязательное поле, допустимые значения "wildberries" или "fulfillment"    - apiKey: обязательное поле для type="wildberries"    - inn: обязательное поле только для type="fulfillment"    - token: опциональное поле для связи с партнерским кабинетом
+ * @description     Создает кабинет пользователя после авторизации.    ### Требования к параметрам:    - type: обязательное поле, допустимые значения "wildberries" или "fulfillment"    - apiKey: обязательное поле для type="wildberries"    - inn: обязательное поле только для type="fulfillment"    - token: опциональное поле для связи с партнерским кабинетом
  * @summary Завершение регистрации
  * {@link /auth/complete}
  */
@@ -33,7 +33,7 @@ export async function authCompleteRegistration(
 }
 
 /**
- * @description     Завершает регистрацию пользователя, создавая его первый кабинет.    ### Процесс:    1. Проверяется тип кабинета и необходимые данные    2. Для продавцов WB:       - Проверяется валидность API ключа       - Создается кабинет с типом WILDBERRIES    3. Для фулфилмента:       - Проверяется валидность ИНН через DaData       - Создается кабинет с типом FULFILLMENT    ### Требования к параметрам:    - type: обязательное поле, допустимые значения "wildberries" или "fulfillment"    - apiKey: обязательное поле для type="wildberries"    - inn: обязательное поле только для type="fulfillment"    - token: опциональное поле для связи с партнерским кабинетом
+ * @description     Создает кабинет пользователя после авторизации.    ### Требования к параметрам:    - type: обязательное поле, допустимые значения "wildberries" или "fulfillment"    - apiKey: обязательное поле для type="wildberries"    - inn: обязательное поле только для type="fulfillment"    - token: опциональное поле для связи с партнерским кабинетом
  * @summary Завершение регистрации
  * {@link /auth/complete}
  */

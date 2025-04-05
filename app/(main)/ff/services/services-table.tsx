@@ -176,10 +176,8 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
           setIsEdit(false);
           console.log('handleSubmit');
           onSubmit({
-            newRows: data.filter((i) => i._isNew).map(({ number, ...i }) => ({ ...i })),
-            updateRows: data
-              .filter((i) => i._isUpdate && !i._isNew)
-              .map(({ number, ...i }) => ({ ...i })),
+            newRows: data.filter((i) => i._isNew).map(({ ...i }) => ({ ...i })),
+            updateRows: data.filter((i) => i._isUpdate && !i._isNew).map(({ ...i }) => ({ ...i })),
             removeIds: listRemoveRow.filter((i) => !i._isNew).map((i) => i.id),
             rows: data,
           });

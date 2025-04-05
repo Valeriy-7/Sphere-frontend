@@ -39,9 +39,15 @@ export default function ServicePage() {
         onSubmit={({ newRows, removeIds, updateRows, rows }) => {
           const promises = [
             ...removeIds.map((id) => mutateDelete({ id })),
-            ...newRows.map(({ price, ...data }, index) => {
+            ...newRows.map(({ price, number, ...data }) => {
               return mutateCreate(
-                { data: { ...data, price: String(price) as unknown as number } },
+                {
+                  data: {
+                    ...data,
+                    price: String(price) as unknown as number,
+                    number: String(number) as unknown as number,
+                  },
+                },
                 {
                   onError: (error) => {
                     toast.error(error?.response?.data?.message);
@@ -49,9 +55,16 @@ export default function ServicePage() {
                 },
               );
             }),
-            ...updateRows.map(({ id, price, ...data }) =>
+            ...updateRows.map(({ id, price, number, ...data }) =>
               mutateUpdate(
-                { id, data: { ...data, price: String(price) as unknown as number } },
+                {
+                  id,
+                  data: {
+                    ...data,
+                    price: String(price) as unknown as number,
+                    number: String(number) as unknown as number,
+                  },
+                },
                 {
                   onError: (error) => {
                     toast.error(error?.response?.data?.message);

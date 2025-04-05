@@ -270,7 +270,6 @@ export function TableRowSupplier<TData extends FFDeliveryWithRoutesResponseDtoTy
           <ul>
             <li>{supplierInfo.contactPerson}</li>
             <li>{supplierInfo.contactPhone}</li>
-            <li>{supplierInfo.address}</li>
             <li>{supplierInfo.location}</li>
           </ul>
         </TableCell>

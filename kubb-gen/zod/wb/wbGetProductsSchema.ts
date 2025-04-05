@@ -4,6 +4,7 @@ import { z } from 'zod'
 export const wbGetProductsQueryParamsSchema = z.object({
   cabinetId: z.string().describe('ID кабинета'),
   search: z.string().describe('Поисковый запрос для фильтрации по названию продукта').optional(),
+  forceFresh: z.string().describe('Запросить свежие данные, игнорируя кэш').optional(),
 })
 
 /**

@@ -10,14 +10,6 @@ export type AuthSendCode200Type = any
  */
 export type AuthSendCode400Type = any
 
-/**
- * @description Слишком частые запросы. Попробуйте позже
- */
-export type AuthSendCode429Type = any
-
-/**
- * @description Данные для отправки кода
- */
 export type AuthSendCodeMutationRequestType = SendCodeDtoType
 
 export type AuthSendCodeMutationResponseType = AuthSendCode200Type
@@ -25,5 +17,5 @@ export type AuthSendCodeMutationResponseType = AuthSendCode200Type
 export type AuthSendCodeTypeMutation = {
   Response: AuthSendCode200Type
   Request: AuthSendCodeMutationRequestType
-  Errors: AuthSendCode400Type | AuthSendCode429Type
+  Errors: AuthSendCode400Type
 }
