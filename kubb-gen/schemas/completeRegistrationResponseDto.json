@@ -1,0 +1,1 @@
+{"type":"object","properties":{"cabinet":{"description":"Данные кабинета","allOf":[{"$ref":"#/components/schemas/Cabinet"}]},"token":{"type":"string","description":"Токен для создания партнерского кабинета","example":"abc123def456"}},"required":["cabinet","token"],"x-readme-ref-name":"CompleteRegistrationResponseDto"}
