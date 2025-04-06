@@ -13,6 +13,7 @@ type Message = {
   };
   isOwn: boolean;
   isRead?: boolean;
+  isSystemEvent?: boolean;
 };
 
 interface MessageItemProps {
@@ -27,7 +28,7 @@ const MessageItem = ({ message }: MessageItemProps) => {
       className={cn(
         'mb-4 flex gap-3',
         message.isOwn ? 'ml-auto flex-row-reverse' : 'mr-auto',
-        isSystemMessage && 'ml-auto mr-auto w-full flex-col',
+        isSystemMessage && 'mx-auto w-full flex-col',
       )}
     >
       {!message.isOwn && !isSystemMessage && (
@@ -44,12 +45,13 @@ const MessageItem = ({ message }: MessageItemProps) => {
 
         <div
           className={cn(
-            'rounded-lg p-3',
+            'rounded-lg p-3 text-sm',
             message.isOwn
               ? 'rounded-tr-none bg-purple-600 text-white'
               : isSystemMessage
-                ? 'border border-muted/10 bg-secondary/50'
-                : 'rounded-tl-none bg-secondary/60',
+                ? 'border border-muted/10 bg-gray-100'
+                : 'rounded-tl-none border border-muted/20 bg-white',
+            message.isSystemEvent && 'border border-muted/20 bg-gray-100',
           )}
         >
           <p className="text-sm">{message.content}</p>
@@ -60,7 +62,7 @@ const MessageItem = ({ message }: MessageItemProps) => {
 
           {message.isOwn && (
             <span
-              className={cn('ml-1', message.isRead ? 'text-green-600' : 'text-muted-foreground')}
+              className={cn('ml-1', message.isRead ? 'text-purple-600' : 'text-muted-foreground')}
             >
               <CheckCheck size={14} />
             </span>
