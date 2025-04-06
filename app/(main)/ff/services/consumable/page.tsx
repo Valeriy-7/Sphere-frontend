@@ -24,7 +24,7 @@ export default function ServiceConsumablePage() {
   const { data } = useLogisticsGetConsumablesSuspense();
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { rows: data },
+    values: { rows: data },
   });
 
   const { mutateAsync: mutateCreate } = useLogisticsCreateConsumable({
@@ -58,27 +58,29 @@ export default function ServiceConsumablePage() {
         onSubmit={({ newRows, removeIds, updateRows, rows }) => {
           const promises = [
             ...removeIds.map((id) => mutateDelete({ id })),
-            ...newRows.map(({ price, quantity, ...data }, index) => {
+            ...newRows.map(({ price, quantity,number, ...data }, index) => {
               return mutateCreate({
                 data: {
                   ...data,
                   quantity: String(quantity) as unknown as number,
                   price: String(price) as unknown as number,
+                  number: String(number) as unknown as number,
                 },
               });
             }),
-            ...updateRows.map(({ id, price, quantity, ...data }) =>
+            ...updateRows.map(({ id, price, quantity,number, ...data }) =>
               mutateUpdate({
                 id,
                 data: {
                   ...data,
                   quantity: String(quantity) as unknown as number,
                   price: String(price) as unknown as number,
+                  number: String(number) as unknown as number,
                 },
               }),
             ),
           ];
-          queryClient.setQueryData(logisticsCreateConsumableMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
+          //queryClient.setQueryData(logisticsCreateConsumableMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
           Promise.allSettled(promises).then(() => {
             queryClient.invalidateQueries({
               queryKey: logisticsCreateConsumableMutationKey(),

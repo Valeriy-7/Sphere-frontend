@@ -22,14 +22,15 @@ export default function ServicePage() {
   const { data } = useLogisticsGetServicesSuspense();
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { rows: data },
+    //defaultValues: { rows: data },
+      values:{ rows: data },
   });
 
   const { mutateAsync: mutateCreate } = useLogisticsCreateService();
   const { mutateAsync: mutateUpdate } = useLogisticsUpdateService();
   const { mutateAsync: mutateDelete } = useLogisticsDeleteService();
 
-  //console.log(form.formState.errors.rows);
+  console.log(form.formState.errors.rows);
   console.log(form.getValues());
 
   return (
@@ -73,13 +74,14 @@ export default function ServicePage() {
               ),
             ),
           ];
-          queryClient.setQueryData(logisticsGetServicesSuspenseQueryKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
+
 
           Promise.allSettled(promises).finally(() => {
+            // queryClient.setQueryData(logisticsGetServicesSuspenseQueryKey(), () => []); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
             queryClient.invalidateQueries({
               queryKey: logisticsGetServicesSuspenseQueryKey(),
             });
-            //form.reset({ rows:data });
+            // form.reset({ rows:data });
           });
         }}
         initialData={data}

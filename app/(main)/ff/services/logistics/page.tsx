@@ -24,7 +24,7 @@ export default function ServiceLogisticsPage() {
   const { data } = useLogisticsGetLogisticsSuspense();
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { rows: data },
+    values: { rows: data },
   });
 
   const { mutateAsync: mutateCreate } = useLogisticsCreateLogistics();
@@ -61,7 +61,7 @@ export default function ServiceLogisticsPage() {
               ),
             ),
           ];
-          queryClient.setQueryData(logisticsCreateServiceMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
+          //queryClient.setQueryData(logisticsCreateServiceMutationKey(), () => rows); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента
           Promise.allSettled(promises).then(() => {
             queryClient.invalidateQueries({
               queryKey: logisticsCreateServiceMutationKey(),
