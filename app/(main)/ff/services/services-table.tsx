@@ -191,7 +191,7 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
         image: false,
         imageUrl: false,
       },
-      sorting,
+      // sorting,
     },
   });
   return (

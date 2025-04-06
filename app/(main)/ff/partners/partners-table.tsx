@@ -32,12 +32,13 @@ import {
   type TableProps,
 } from '@/lib/TableHelpers';
 
-import type { PartnerCabinetDtoType } from '@/kubb-gen';
+import { PartnerCabinetDtoType, PartnersResponseDtoType, PartnerStatsDtoType } from '@/kubb-gen';
 
 export function PartnersTable<TData extends PartnerCabinetDtoType, TValue>({
   columns,
   data,
-}: TableProps<TData, TValue>) {
+  stats,
+}: TableProps<TData, TValue> & { stats: PartnerStatsDtoType }) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
   const [globalFilter, setGlobalFilter] = React.useState('');
@@ -95,7 +96,7 @@ export function PartnersTable<TData extends PartnerCabinetDtoType, TValue>({
                 );
               })}
             </TableRow>
-            <TableRowTotal<TData> table={table} />
+            <TableRowTotal<TData> table={table} stats={stats} />
           </Fragment>
         ))}
       </TableHeader>
@@ -120,7 +121,10 @@ export function PartnersTable<TData extends PartnerCabinetDtoType, TValue>({
   );
 }
 
-function TableRowTotal<TData>({ table }: { table: TTable<TData> }) {
+function TableRowTotal<TData>({
+  table,
+  stats,
+}: { table: TTable<TData> } & { stats: PartnerStatsDtoType }) {
   return (
     <>
       <TableRow>
@@ -133,14 +137,14 @@ function TableRowTotal<TData>({ table }: { table: TTable<TData> }) {
           />
         </TableHead>
 
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number2' })}</TableHead>
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number1' })}</TableHead>
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number3' })}</TableHead>
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number4' })}</TableHead>
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
-        <TableHead isTotal>{getTotalColumn({ table, key: 'number5' })}</TableHead>
+        <TableHead isTotal>{stats.totalIncome}</TableHead>
+        <TableHead isTotal>{stats.totalFfDeliveries}</TableHead>
+        <TableHead isTotal>{stats.totalProductsCount}</TableHead>
+        <TableHead isTotal>{stats.totalDefectsCount}</TableHead>
+        <TableHead isTotal>{stats.totalConsumablesAmount}</TableHead>
+        <TableHead isTotal>{stats.totalPvzReturnsCount}</TableHead>
+        <TableHead isTotal>{stats.totalWbDeliveries}</TableHead>
+        <TableHead isTotal>{stats.totalProductAmount}</TableHead>
       </TableRow>
     </>
   );

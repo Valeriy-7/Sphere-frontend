@@ -260,7 +260,7 @@ export default function NestedDynamicForm() {
           </div>
 
           {fields.map((field, index) => {
-            const product = items?.[index] || {};
+            const product = items.find((i) => i.id === field.wbProductId) || {};
 
             return (
               <div

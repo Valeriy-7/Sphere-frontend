@@ -5,7 +5,9 @@ import { type PartnerCabinetDtoType, useCabinetsGetPartnersSuspense } from '@/ku
 
 export default function FFPartnersPage() {
   const {
-    data: { items },
+    data: { items, stats },
   } = useCabinetsGetPartnersSuspense();
-  return <PartnersTable<PartnerCabinetDtoType, unknown> data={items} columns={columns} />;
+  return (
+    <PartnersTable<PartnerCabinetDtoType, unknown> data={items} columns={columns} stats={stats} />
+  );
 }
