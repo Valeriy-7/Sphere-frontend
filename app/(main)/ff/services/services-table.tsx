@@ -80,7 +80,8 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
   ]);
 
   useEffect(() => {
-    setData(initialData);
+    setData(initialData.map((value, index)=>({...value,number:initialData.length - index})));
+    //setData(initialData);
   }, [initialData]);
 
   const {
@@ -191,7 +192,7 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
         image: false,
         imageUrl: false,
       },
-      // sorting,
+      sorting,
     },
   });
   return (
