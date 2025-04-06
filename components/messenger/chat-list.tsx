@@ -29,7 +29,7 @@ const ChatList = ({ chats, selectedChat, onSelectChat }: ChatListProps) => {
   );
 
   return (
-    <div className="flex-1 overflow-y-auto bg-white">
+    <div className="flex-1 overflow-y-auto bg-background">
       <div className="divide-y divide-muted/20">
         {filteredChats.length > 0 ? (
           filteredChats.map((chat) => (

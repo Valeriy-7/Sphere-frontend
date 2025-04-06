@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import { CheckCheck } from 'lucide-react';
+import { ReactNode } from 'react';
 
 type Message = {
   id: string;
@@ -18,9 +19,10 @@ type Message = {
 
 interface MessageItemProps {
   message: Message;
+  highlightText?: (text: string) => string | ReactNode[];
 }
 
-const MessageItem = ({ message }: MessageItemProps) => {
+const MessageItem = ({ message, highlightText }: MessageItemProps) => {
   const isSystemMessage = message.sender.id === 'system';
 
   return (
@@ -30,6 +32,7 @@ const MessageItem = ({ message }: MessageItemProps) => {
         message.isOwn ? 'ml-auto flex-row-reverse' : 'mr-auto',
         isSystemMessage && 'mx-auto w-full flex-col',
       )}
+      data-message-id={message.id}
     >
       {!message.isOwn && !isSystemMessage && (
         <Avatar className="h-8 w-8 border border-muted/20">
@@ -47,14 +50,16 @@ const MessageItem = ({ message }: MessageItemProps) => {
           className={cn(
             'rounded-lg p-3 text-sm',
             message.isOwn
-              ? 'rounded-tr-none bg-purple-600 text-white'
+              ? 'rounded-tr-none bg-purple-600 text-white dark:bg-purple-800'
               : isSystemMessage
-                ? 'border border-muted/10 bg-gray-100'
-                : 'rounded-tl-none border border-muted/20 bg-white',
-            message.isSystemEvent && 'border border-muted/20 bg-gray-100',
+                ? 'border border-muted/10 bg-muted/30 dark:bg-muted/50'
+                : 'rounded-tl-none border border-muted/20 bg-background',
+            message.isSystemEvent && 'border border-muted/20 bg-muted/30 dark:bg-muted/50',
           )}
         >
-          <p className="text-sm">{message.content}</p>
+          <p className="text-sm">
+            {highlightText ? highlightText(message.content) : message.content}
+          </p>
         </div>
 
         <div className="mt-1 flex items-center justify-between">
@@ -62,7 +67,10 @@ const MessageItem = ({ message }: MessageItemProps) => {
 
           {message.isOwn && (
             <span
-              className={cn('ml-1', message.isRead ? 'text-purple-600' : 'text-muted-foreground')}
+              className={cn(
+                'ml-1',
+                message.isRead ? 'text-purple-600 dark:text-purple-400' : 'text-muted-foreground',
+              )}
             >
               <CheckCheck size={14} />
             </span>
