@@ -23,7 +23,7 @@ export type FFRouteInfoResponseDtoType = {
   status: string
   /**
    * @description Дата доставки
-   * @type string
+   * @type string, date-time
    */
   deliveryDate: string
   /**

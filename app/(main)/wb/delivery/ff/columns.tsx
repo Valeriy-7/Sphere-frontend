@@ -27,7 +27,7 @@ export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
     cell: ({ getValue }) => {
       const value = getValue<Date>();
 
-      return formatDateOrm(value as string);
+      return formatDate(value as string);
     },
     sortingFn: 'datetime',
     enableSorting: false,

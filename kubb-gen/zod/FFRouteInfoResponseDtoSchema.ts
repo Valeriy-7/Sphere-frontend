@@ -6,7 +6,7 @@ export const FFRouteInfoResponseDtoSchema = z.object({
   number: z.number().describe('Порядковый номер маршрута'),
   name: z.string().describe('Название маршрута'),
   status: z.string().describe('Статус маршрута'),
-  deliveryDate: z.string().describe('Дата доставки'),
+  deliveryDate: z.date().describe('Дата доставки'),
   address: z.string().describe('Адрес доставки').optional(),
   deliveryNumber: z.string().describe('Номер поставки').optional(),
   suppliers: z.array(z.lazy(() => FFSupplierInfoResponseDtoSchema)).describe('Список поставщиков на маршруте'),

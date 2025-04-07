@@ -58,7 +58,7 @@ export default function ServiceConsumablePage() {
         onSubmit={({ newRows, removeIds, updateRows, rows }) => {
           const promises = [
             ...removeIds.map((id) => mutateDelete({ id })),
-            ...newRows.map(({ price, quantity,number, ...data }, index) => {
+            ...newRows.map(({ price, quantity, number, ...data }, index) => {
               return mutateCreate({
                 data: {
                   ...data,
@@ -68,7 +68,7 @@ export default function ServiceConsumablePage() {
                 },
               });
             }),
-            ...updateRows.map(({ id, price, quantity,number, ...data }) =>
+            ...updateRows.map(({ id, price, quantity, number, ...data }) =>
               mutateUpdate({
                 id,
                 data: {

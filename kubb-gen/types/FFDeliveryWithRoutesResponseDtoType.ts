@@ -18,7 +18,7 @@ export type FFDeliveryWithRoutesResponseDtoType = {
   status: string
   /**
    * @description Дата поставки
-   * @type string
+   * @type string, date-time
    */
   deliveryDate: string
   /**

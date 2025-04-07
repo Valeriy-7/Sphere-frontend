@@ -23,7 +23,7 @@ export default function ServicePage() {
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     //defaultValues: { rows: data },
-      values:{ rows: data },
+    values: { rows: data },
   });
 
   const { mutateAsync: mutateCreate } = useLogisticsCreateService();
@@ -74,7 +74,6 @@ export default function ServicePage() {
               ),
             ),
           ];
-
 
           Promise.allSettled(promises).finally(() => {
             // queryClient.setQueryData(logisticsGetServicesSuspenseQueryKey(), () => []); // иначе initialData не вызывала useEffect, потому что данные не менялись при ошибке нового элемента

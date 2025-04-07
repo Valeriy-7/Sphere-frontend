@@ -80,7 +80,7 @@ export function ServicesTable<TData extends ServicesItem, TValue>({
   ]);
 
   useEffect(() => {
-    setData(initialData.map((value, index)=>({...value,number:initialData.length - index})));
+    setData(initialData.map((value, index) => ({ ...value, number: initialData.length - index })));
     //setData(initialData);
   }, [initialData]);
 
