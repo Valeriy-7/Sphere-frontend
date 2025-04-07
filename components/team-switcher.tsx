@@ -79,20 +79,24 @@ export function TeamSwitcher() {
             <DropdownMenuLabel className="text-xs text-muted-foreground">
               Личные кабинеты
             </DropdownMenuLabel>
-            {cabinets.map(({ id, type, companyName, avatarUrl }) => (
-              <DropdownMenuItem
-                key={id}
-                onClick={() => mutate({ id })}
-                className="cursor-pointer gap-2 p-2"
-              >
-                <Avatar>
-                  <AvatarImage src={avatarUrl} />
-                  <AvatarFallback>{type}</AvatarFallback>
-                </Avatar>
-                {companyName}
-              </DropdownMenuItem>
+            {cabinets.map(({ id, type, companyName,legalCompanyName, avatarUrl }) => (
+                <DropdownMenuItem
+                    key={id}
+                    onClick={() => mutate({id})}
+                    className="cursor-pointer gap-2 p-2"
+                >
+                  <Avatar>
+                    <AvatarImage src={avatarUrl}/>
+                    <AvatarFallback>{type}</AvatarFallback>
+                  </Avatar>
+                  <div className={'flex flex-col min-w-0'}>
+                    <span className="truncate font-medium">{companyName}</span>
+                    <span className="truncate text-min">{legalCompanyName}</span>
+                  </div>
+
+                </DropdownMenuItem>
             ))}
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator/>
             {/*  <DropdownMenuItem className="gap-2 p-2">
               <div className="flex size-6 items-center justify-center">
                 <Plus className="size-4" />
