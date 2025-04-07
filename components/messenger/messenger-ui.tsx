@@ -98,7 +98,7 @@ const demoMessages: Message[] = [
   {
     id: '3',
     content: 'Событие № 3 Поставка на ВБ № 2 / 12.09.2024 / 2200 ед - Товар принят на Фулфилмент',
-    timestamp: '12.09.24 10:31',
+    timestamp: '12.09.2024 10:31',
     sender: {
       id: 'system',
       name: 'Система',
@@ -174,11 +174,11 @@ const ResizeHandle = ({ onResize, isVertical = true }: ResizeHandleProps) => {
         isVertical
           ? 'h-full w-4 cursor-col-resize flex-col'
           : 'h-4 w-full cursor-row-resize flex-row'
-      } items-center justify-center bg-gray-100 hover:bg-gray-200 active:bg-gray-300`}
+      } items-center justify-center bg-muted/50 hover:bg-muted/80 active:bg-muted`}
     >
       <div className="flex items-center justify-center py-3">
         <GripVertical
-          className={`h-6 w-6 text-gray-400 group-hover:text-gray-600 ${isVertical ? '' : 'rotate-90'}`}
+          className={`h-6 w-6 text-muted-foreground group-hover:text-foreground ${isVertical ? '' : 'rotate-90'}`}
         />
       </div>
     </div>
@@ -261,7 +261,7 @@ const MessengerUI = () => {
     <div ref={containerRef} className="flex h-full rounded-lg border">
       <div
         style={{ width: `${leftPanelWidth}px` }}
-        className="rounded-l-lg border-r bg-white shadow-md"
+        className="rounded-l-lg border-r bg-background shadow-md"
       >
         <div className="border-b p-3">
           <div className="mb-4 text-lg font-medium">Мессенджер</div>
@@ -295,26 +295,29 @@ const MessengerUI = () => {
 
       <ResizeHandle onResize={handleRightPanelResize} />
 
-      <div style={{ width: `${rightPanelWidth}px` }} className="border-l bg-white p-3 shadow-md">
+      <div
+        style={{ width: `${rightPanelWidth}px` }}
+        className="border-l bg-background p-3 shadow-md"
+      >
         <div className="mb-4 text-lg font-medium">Фильтр</div>
         <div className="mb-4 flex flex-col space-y-2">
           <Button
             variant={filterType === 'all' ? 'secondary' : 'ghost'}
-            className={`justify-start text-xs shadow-sm ${filterType === 'all' ? 'bg-gray-100' : 'bg-white'}`}
+            className={`justify-start text-xs shadow-sm ${filterType === 'all' ? 'bg-muted/80' : ''}`}
             onClick={() => setFilterType('all')}
           >
             Все поставки
           </Button>
           <Button
             variant={filterType === 'ff' ? 'secondary' : 'ghost'}
-            className={`justify-start text-xs shadow-sm ${filterType === 'ff' ? 'bg-gray-100' : 'bg-white'}`}
+            className={`justify-start text-xs shadow-sm ${filterType === 'ff' ? 'bg-muted/80' : ''}`}
             onClick={() => setFilterType('ff')}
           >
             Поставки на ФФ
           </Button>
           <Button
             variant={filterType === 'wb' ? 'secondary' : 'ghost'}
-            className={`justify-start text-xs shadow-sm ${filterType === 'wb' ? 'bg-gray-100' : 'bg-white'}`}
+            className={`justify-start text-xs shadow-sm ${filterType === 'wb' ? 'bg-muted/80' : ''}`}
             onClick={() => setFilterType('wb')}
           >
             Поставки на ВБ

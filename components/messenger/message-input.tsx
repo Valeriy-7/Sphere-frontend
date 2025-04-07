@@ -158,7 +158,7 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
           {attachedFiles.map((file, index) => (
             <div
               key={index}
-              className="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1 text-xs"
+              className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-1 text-xs"
             >
               {file.type === 'image' ? (
                 <ImageIcon className="h-3.5 w-3.5 text-blue-500" />
@@ -182,16 +182,20 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
 
       {/* Записанное голосовое сообщение */}
       {recordedVoice && (
-        <div className="flex items-center gap-2 rounded-lg bg-purple-50 p-2">
-          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-purple-100 p-0">
-            <Play className="h-4 w-4 text-purple-700" />
+        <div className="flex items-center gap-2 rounded-lg bg-purple-50 p-2 dark:bg-purple-950/30">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 rounded-full bg-purple-100 p-0 dark:bg-purple-900/50"
+          >
+            <Play className="h-4 w-4 text-purple-700 dark:text-purple-400" />
           </Button>
           <div className="flex-1">
             <div className="flex justify-between text-xs">
               <span>Голосовое сообщение</span>
               <span>{recordedVoice.duration}</span>
             </div>
-            <Progress value={100} className="h-1 w-full bg-purple-200" />
+            <Progress value={100} className="h-1 w-full bg-purple-200 dark:bg-purple-800/50" />
           </div>
           <Button
             variant="ghost"
@@ -206,7 +210,7 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
 
       {/* UI для записи голосового сообщения */}
       {isRecording && (
-        <div className="flex items-center gap-2 rounded-lg bg-rose-50 p-2">
+        <div className="flex items-center gap-2 rounded-lg bg-rose-50 p-2 dark:bg-rose-950/30">
           <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-rose-500">
             <span className="absolute h-8 w-8 animate-ping rounded-full bg-rose-400 opacity-75"></span>
             <Mic className="h-4 w-4 text-white" />
@@ -263,7 +267,7 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="rounded-lg border-muted/20 bg-white pr-10"
+            className="rounded-lg border-muted/20 bg-background pr-10"
           />
 
           {/* Эмодзи */}
@@ -303,7 +307,7 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
                       {emojis.map((emoji, index) => (
                         <button
                           key={index}
-                          className="flex h-8 w-8 items-center justify-center rounded-md text-lg hover:bg-gray-100"
+                          className="flex h-8 w-8 items-center justify-center rounded-md text-lg hover:bg-muted/50"
                           onClick={() => handleEmojiClick(emoji)}
                         >
                           {emoji}
@@ -321,7 +325,7 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
         {message.trim() || attachedFiles.length > 0 || recordedVoice ? (
           <Button
             size="icon"
-            className="rounded-full bg-purple-600 hover:bg-purple-700"
+            className="rounded-full bg-purple-600 hover:bg-purple-700 dark:bg-purple-800 dark:hover:bg-purple-900"
             onClick={handleSend}
             aria-label="Отправить сообщение"
           >
@@ -330,7 +334,7 @@ const MessageInput = ({ onSendMessage }: MessageInputProps) => {
         ) : (
           <Button
             size="icon"
-            className={`rounded-full ${isRecording ? 'bg-rose-700 hover:bg-rose-800' : 'bg-rose-500 hover:bg-rose-600'}`}
+            className={`rounded-full ${isRecording ? 'bg-rose-700 hover:bg-rose-800' : 'bg-rose-500 hover:bg-rose-600 dark:bg-rose-700 dark:hover:bg-rose-800'}`}
             onClick={handleVoiceRecord}
             aria-label="Голосовое сообщение"
           >

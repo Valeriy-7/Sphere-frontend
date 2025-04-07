@@ -29,7 +29,7 @@ const ChatItem = ({ chat, isSelected, onClick }: ChatItemProps) => {
   // Определяем цвет аватара для сервисных чатов
   const getAvatarColor = () => {
     if (chat.type === 'service') {
-      return 'bg-purple-100';
+      return 'bg-purple-100 dark:bg-purple-900/30';
     }
     return '';
   };
@@ -37,8 +37,8 @@ const ChatItem = ({ chat, isSelected, onClick }: ChatItemProps) => {
   return (
     <div
       className={cn(
-        'flex cursor-pointer items-center gap-3 border-b border-muted/20 p-3 transition-colors hover:bg-gray-100/50',
-        isSelected && 'bg-white shadow-sm',
+        'flex cursor-pointer items-center gap-3 border-b border-muted/20 p-3 transition-colors hover:bg-muted/30',
+        isSelected && 'bg-muted/20 shadow-sm',
       )}
       onClick={onClick}
       onKeyDown={handleKeyDown}
@@ -64,11 +64,11 @@ const ChatItem = ({ chat, isSelected, onClick }: ChatItemProps) => {
         </div>
         <div className="mt-1 flex items-center justify-end">
           {chat.unread > 0 ? (
-            <span className="flex h-5 min-w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-600 text-xs text-primary-foreground">
+            <span className="flex h-5 min-w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-600 text-xs text-primary-foreground dark:bg-purple-800">
               {chat.unread}
             </span>
           ) : (
-            <span className="text-purple-600">
+            <span className="text-purple-600 dark:text-purple-400">
               <CheckCheck size={14} />
             </span>
           )}
