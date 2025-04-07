@@ -216,7 +216,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {/* <SidebarTrigger />*/}
           <ModeToggle />
         </div>
-        06.04.2025 10:41
+        07.04.2025 19-38
         <LogoText></LogoText>
         {/*<Image width={180} height={60} src={'./logo-text.svg'} alt={'logo-text'}></Image>*/}
       </SidebarFooter>
