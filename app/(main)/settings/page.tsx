@@ -69,9 +69,12 @@ export default function SettingsPage() {
       const data = Object.entries(values).reduce(
           (acc, [key, value]) => {
               // @ts-ignore - We know these keys exist in defaultValues
-              if (value !== form.formState.defaultValues[key] && value !=='') {
+              if (value !== form.formState.defaultValues[key]) {
                   // @ts-ignore - We know these keys are valid
                   acc[key] = value
+              }
+              if(value === '') {
+                  acc[key] = null
               }
               return acc
           },
