@@ -21,18 +21,25 @@ export default function MainLayout({ children }: PropsWithChildren) {
 
   const cabinetActive = user?.cabinets?.find((i) => i.isActive) ?? ({} as CabinetShortDataDtoType);
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      return;
+    }
+
+    if (user.regStatus !== 'verified') {
+      router.push('/login');
+      return;
+    }
+
+    if (user.role === 'admin') {
+      setThemeClassName('admin');
+    } else {
+      setThemeClassName(cabinetActive.type as keyof typeof ServerToClientMapType);
+    }
+  }, [isLoggedIn, user, cabinetActive.type, router]);
+
   if (!isLoggedIn) {
     return null;
-  }
-
-  if (user.regStatus !== 'verified') {
-    return router.push('/login');
-  }
-
-  if (user.role === 'admin') {
-    setThemeClassName('admin');
-  } else {
-    setThemeClassName(cabinetActive.type as keyof typeof ServerToClientMapType);
   }
 
   return (
@@ -47,7 +54,12 @@ export default function MainLayout({ children }: PropsWithChildren) {
               <ModeToggle/>
             </div>
           </header>*/}
-          <div className="flex flex-1 flex-col gap-4 px-5 py-5">{children}</div>
+          <div
+            className="flex h-full max-h-[calc(100vh-10px)] flex-1 flex-col gap-4 overflow-hidden px-5 py-5"
+            style={{ overflowClipMargin: 'content-box' }}
+          >
+            {children}
+          </div>
         </SidebarInset>
       </SidebarProvider>
     </ThemeProvider>

@@ -3,29 +3,19 @@
 import { Search } from 'lucide-react';
 import ChatItem from './chat-item';
 import { useState } from 'react';
-
-type Chat = {
-  id: string;
-  name: string;
-  lastMessage: string;
-  time: string;
-  unread: number;
-  avatar?: string;
-  isOnline: boolean;
-  type?: 'user' | 'group' | 'service';
-};
+import { ChatsFindAllQueryResponseType } from '@/kubb-gen';
 
 interface ChatListProps {
-  chats: Chat[];
-  selectedChat: Chat | null;
-  onSelectChat: (chat: Chat) => void;
+  chats: ChatsFindAllQueryResponseType['items'];
+  selectedChat: string | null;
+  onSelectChat: (chatId: string) => void;
 }
 
 const ChatList = ({ chats, selectedChat, onSelectChat }: ChatListProps) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredChats = chats.filter((chat) =>
-    chat.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    chat.partner.companyName.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -36,8 +26,8 @@ const ChatList = ({ chats, selectedChat, onSelectChat }: ChatListProps) => {
             <ChatItem
               key={chat.id}
               chat={chat}
-              isSelected={selectedChat?.id === chat.id}
-              onClick={() => onSelectChat(chat)}
+              isSelected={selectedChat === chat.id}
+              onClick={() => onSelectChat(chat.id)}
             />
           ))
         ) : (
