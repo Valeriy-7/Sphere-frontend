@@ -11,14 +11,14 @@ export function TableRowTotal<TData>({
   table: TTable<TData>;
   isAcceptance?: boolean;
 }) {
-  console.log();
+
   return (
     <>
       <TableRow>
         <TableHead isTotal></TableHead>
         <TableHead isTotal></TableHead>
 
-       {/* <TableHead isTotal>{table.getColumn('groupPlace').getFacetedUniqueValues().size}</TableHead>*/}
+        <TableHead isTotal></TableHead>
         <TableHead isTotal></TableHead>
         <TableHead isTotal>{getTotalColumn({ table, key: 'number1to3' })}</TableHead>
         <TableHead isTotal>
@@ -35,7 +35,7 @@ export function TableRowTotal<TData>({
                 if (val) {
                   table.setGrouping(['deliveryDate']);
                 } else {
-                  table.setGrouping([]);
+                  table.setGrouping(['deliveryId']);
                 }
               }}
               variant={'outline'}
