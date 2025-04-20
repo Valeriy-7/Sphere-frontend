@@ -176,6 +176,11 @@ const pagesDev = [
       },
       ...getNavMain('admin'),
       {
+        name: 'ff-delivery-routes',
+        url: '/ff/delivery-routes',
+        icon: IconHome,
+      },
+      {
         name: 'wb',
         url: '/wb',
         icon: IconHome,

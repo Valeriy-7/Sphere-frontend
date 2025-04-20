@@ -15,8 +15,7 @@ import { DATE_FORMAT_SERVER_ORM } from '@/lib/constants/date';
 
 export const columns: ColumnDef<FFDeliveryWithRoutesResponseDtoType>[] = [
   // getColumnNumber<FFDeliveryWithRoutesResponseDtoType>(),
-  {accessorKey:'deliveryId',
-  },
+  { accessorKey: 'deliveryId' },
   {
     accessorKey: 'number',
     header: '№',

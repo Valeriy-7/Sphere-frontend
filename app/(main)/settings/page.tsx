@@ -65,23 +65,24 @@ export default function SettingsPage() {
   const registrationUrl = `${window.location.origin}/login?registrationUrl=${token}`;
 
   function onSubmit(values: z.infer<typeof cabinetsUpdateMutationRequestSchema>) {
-
-      const data = Object.entries(values).reduce(
-          (acc, [key, value]) => {
-              // @ts-ignore - We know these keys exist in defaultValues
-              if (value !== form.formState.defaultValues[key]) {
-                  // @ts-ignore - We know these keys are valid
-                  acc[key] = value
-              }
-              if(value === '') {
-                  acc[key] = null
-              }
-              return acc
-          },
-          {} as Partial<z.infer<typeof cabinetsUpdateMutationRequestSchema>>,
-      )
-      if(!Object.keys(data).length){ return }
-      mutate(
+    const data = Object.entries(values).reduce(
+      (acc, [key, value]) => {
+        // @ts-ignore - We know these keys exist in defaultValues
+        if (value !== form.formState.defaultValues[key]) {
+          // @ts-ignore - We know these keys are valid
+          acc[key] = value;
+        }
+        if (value === '') {
+          acc[key] = null;
+        }
+        return acc;
+      },
+      {} as Partial<z.infer<typeof cabinetsUpdateMutationRequestSchema>>,
+    );
+    if (!Object.keys(data).length) {
+      return;
+    }
+    mutate(
       { data, id: cabinetActiveId },
       {
         onSuccess: ({ registrationUrl: oldUrl, ...restData }) => {

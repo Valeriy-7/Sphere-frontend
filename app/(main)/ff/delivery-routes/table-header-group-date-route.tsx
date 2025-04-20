@@ -6,7 +6,7 @@ import { formatDate } from '@/lib/utils/formatDate';
 import { getTotalColumn } from '@/lib/TableHelpers';
 import { TableCellControlsGroup } from './TableCellControlsGroup';
 import React from 'react';
-import {TableCardImgText} from "@/components/date-table/table-img-text";
+import { TableCardImgText } from '@/components/date-table/table-img-text';
 
 export function TableHeaderGroupDateRoute<TData>({
   table,
@@ -17,10 +17,7 @@ export function TableHeaderGroupDateRoute<TData>({
   row: Row<TData>;
   isAcceptance?: boolean;
 }) {
-
   const { rowSelection } = table.getState();
-
-
 
   const sum = row
     .getLeafRows()
@@ -48,12 +45,15 @@ export function TableHeaderGroupDateRoute<TData>({
         <TableCell className={'text-primary'}>{formatDate(row.original.deliveryDate)}</TableCell>
 
         <TableCell>
-          {!table.getState().hasGroupingRoute ?
-              <TableCardImgText image={{ src: undefined }} title={row.original.cabinetInfo.name} text={row.original.cabinetInfo.legalCompanyName} />
-              :
-              <div className={'text-primary'}>{row.original.name}</div>
-          }
-
+          {!table.getState().hasGroupingRoute ? (
+            <TableCardImgText
+              image={{ src: undefined }}
+              title={row.original.cabinetInfo.name}
+              text={row.original.cabinetInfo.legalCompanyName}
+            />
+          ) : (
+            <div className={'text-primary'}>{row.original.name}</div>
+          )}
         </TableCell>
         <TableCell></TableCell>
         <TableCell>{sum}</TableCell>

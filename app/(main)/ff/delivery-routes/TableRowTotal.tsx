@@ -11,7 +11,6 @@ export function TableRowTotal<TData>({
   table: TTable<TData>;
   isAcceptance?: boolean;
 }) {
-
   return (
     <>
       <TableRow>

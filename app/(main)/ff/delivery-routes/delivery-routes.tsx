@@ -1,6 +1,7 @@
 'use client';
 import React, { Fragment, useState } from 'react';
-import { Input } from '@/components/ui/input';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -21,7 +22,9 @@ import {
   getSortedRowModel,
   useReactTable,
   SortingState,
-  Row, getGroupedRowModel, GroupingState,
+  Row,
+  getGroupedRowModel,
+  GroupingState,
 } from '@tanstack/react-table';
 
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
@@ -44,9 +47,9 @@ import {
   useFFDeliveriesGetFFRouteSupplierProducts,
 } from '@/kubb-gen';
 import { formatCurrency } from '@/lib/formatCurrency';
-import {TableRowGroupHeader} from "./TableRowGroupHeader";
-import {TableHeaderGroupDateRoute} from "./table-header-group-date-route";
-import {TableRowTotal} from "./TableRowTotal";
+import { TableRowGroupHeader } from './TableRowGroupHeader';
+import { TableHeaderGroupDateRoute } from './table-header-group-date-route';
+import { TableRowTotal } from './TableRowTotal';
 
 export function DeliveryRoutes<TData extends FFDeliveryWithRoutesResponseDtoType, TValue>({
   columns,
@@ -59,7 +62,7 @@ export function DeliveryRoutes<TData extends FFDeliveryWithRoutesResponseDtoType
 
   const [grouping, setGrouping] = React.useState<GroupingState>(['deliveryId']);
 
-  const hasGroupingRoute = grouping[0] !== 'deliveryId'
+  const hasGroupingRoute = grouping[0] !== 'deliveryId';
 
   const [sorting, setSorting] = useState<SortingState>([
     {
@@ -128,24 +131,24 @@ export function DeliveryRoutes<TData extends FFDeliveryWithRoutesResponseDtoType
         {table.getRowModel().rows.map((row) => {
           return (
             <Fragment key={row.id}>
-              <TableHeaderGroupDateRoute
-                  table={table}
-                  row={row}
-              />
-              {row.subRows.map((row) => (<>
-                    <TableRowRoute
-                        key={row.id}
-                        row={row} data={row.original}
-                        colSizeList={colSizeList}
-                        {...{
-                          onClick: row.getToggleExpandedHandler(),
-                          className: 'cursor-pointer',
-                        }}
-                    >
-                    </TableRowRoute>
-              </>))}
+              <TableHeaderGroupDateRoute table={table} row={row} />
+              {row.subRows.map((row) => (
+                <>
+                  <TableRowRoute
+                    table={table}
+                    key={row.id}
+                    row={row}
+                    data={row.original}
+                    colSizeList={colSizeList}
+                    {...{
+                      onClick: row.getToggleExpandedHandler(),
+                      className: 'cursor-pointer',
+                    }}
+                  ></TableRowRoute>
+                </>
+              ))}
 
-           {/*   {row.getIsExpanded() &&
+              {/*   {row.getIsExpanded() &&
                 row.original.routes.map((val, index) => (
                   <>
                     <TableRowRoute colSizeList={colSizeList} row={row} data={val} />
@@ -160,6 +163,7 @@ export function DeliveryRoutes<TData extends FFDeliveryWithRoutesResponseDtoType
 }
 
 import { HelpCircle } from 'lucide-react';
+
 export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>({
   row,
   colSizeList,
@@ -170,8 +174,6 @@ export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>
   table: TTable<TData>;
   data: FFRouteInfoResponseDtoType;
 } & ColSizeList) {
-
-
   return (
     <>
       <TableRowExpand colSpan={row.getVisibleCells().length}>
@@ -179,16 +181,37 @@ export function TableRowRoute<TData extends FFDeliveryWithRoutesResponseDtoType>
           <TableBody>
             <TableRow rowSpace={false}>
               <TableCell colSpan={2} level={1}>
-                Номер поставки {data.deliveryNumber}  <HelpCircle /> <br/>
-                {data.cabinetInfo.levName} <br/>
+                <div className={'inline-flex gap-1'}>
+                  <span className={'text-red-500'}>{data.deliveryNumber}</span>
+
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className={'cursor-pointer'} size={14} />
+                      </TooltipTrigger>
+                      <TooltipContent>Номер поставки</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                {data.cabinetInfo.levName} <br />
                 {data.cabinetInfo.levPhone}
               </TableCell>
 
               <TableCell level={1}>
-                {data.name} <br />
-                {data.address}
+                {!table.getState().hasGroupingRoute ? (
+                  <>
+                    {data.name} <br />
+                    {data.address}
+                  </>
+                ) : (
+                  <TableCardImgText
+                    image={{ src: undefined }}
+                    title={row.original.cabinetInfo.name}
+                    text={row.original.cabinetInfo.legalCompanyName}
+                  />
+                )}
               </TableCell>
-            {/*  <TableCell level={1}>{formatCurrency(data.planQuantity)}</TableCell>
+              {/*  <TableCell level={1}>{formatCurrency(data.planQuantity)}</TableCell>
               <TableCell level={1}>{formatCurrency(data.factQuantity)}</TableCell>
               <TableCell level={1}>{formatCurrency(data.defects)}</TableCell>
               <TableCell level={1}>{formatCurrency(data.productsPrice)}</TableCell>
@@ -235,7 +258,7 @@ export function TableRowSupplier<TData extends FFDeliveryWithRoutesResponseDtoTy
           <TableCardImgText image={{ src: undefined }} title={supplierInfo.name} />
         </TableCell>
         <TableCell level={1}>{subRows.length}</TableCell>
- {/*       <TableCell level={1}>{formatCurrency(supplierInfo.planQuantity)}</TableCell>
+        {/*       <TableCell level={1}>{formatCurrency(supplierInfo.planQuantity)}</TableCell>
         <TableCell level={1}>{formatCurrency(supplierInfo.factQuantity)}</TableCell>
         <TableCell level={1}>{formatCurrency(supplierInfo.defects)}</TableCell>
         <TableCell level={1}>{formatCurrency(supplierInfo.productsPrice)}</TableCell>
@@ -292,7 +315,7 @@ function TableRowSize({
             text={`Aрт: ${row.article}`}
           />
         </TableCell>
-  {/*      <TableCell level={1}>{formatCurrency(row.planQuantity)}</TableCell>
+        {/*      <TableCell level={1}>{formatCurrency(row.planQuantity)}</TableCell>
         <TableCell level={1}>{formatCurrency(row.factQuantity)}</TableCell>
         <TableCell level={1}>{formatCurrency(row.defects)}</TableCell>
         <TableCell level={1}>{formatCurrency(row.price)}</TableCell>

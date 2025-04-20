@@ -18,7 +18,7 @@ export function TableRowTotal<TData>({
         <TableHead isTotal></TableHead>
         <TableHead isTotal></TableHead>
 
-       {/* <TableHead isTotal>{table.getColumn('groupPlace').getFacetedUniqueValues().size}</TableHead>*/}
+        {/* <TableHead isTotal>{table.getColumn('groupPlace').getFacetedUniqueValues().size}</TableHead>*/}
         <TableHead isTotal></TableHead>
         <TableHead isTotal>{getTotalColumn({ table, key: 'number1to3' })}</TableHead>
         <TableHead isTotal>
