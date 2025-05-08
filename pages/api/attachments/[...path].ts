@@ -155,7 +155,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Определяем API URL с учётом окружения
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const apiUrl = process.env.NEXT_PUBLIC_API || 'http://localhost:3001';
     console.log(`[API Прокси ${requestId}] Целевой URL: ${apiUrl}`);
 
     // Устанавливаем таймаут для запроса - увеличиваем для голосовых сообщений
