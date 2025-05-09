@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { userTypeEnum, useAuthCompleteRegistration } from '@/kubb-gen';
+import { userTypeEnum, useAuthCompleteRegistration, useCabinetsCreate } from '@/kubb-gen';
 import { AppSpinner } from '@/components/app-spinner';
 import { useJWTAuthContext } from '@/modules/auth';
 import { useState } from 'react';
@@ -40,9 +40,13 @@ const FormSchema = z.discriminatedUnion('type', [
 export function LoginBusinessForm({
   classNameTitle,
   onLogoutFF,
+  formTitle = 'Вид деятельности',
+  isNewCabinet = false,
 }: {
   classNameTitle: string;
   onLogoutFF: () => void;
+  formTitle?: string;
+  isNewCabinet?: boolean;
 }) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -55,47 +59,102 @@ export function LoginBusinessForm({
   });
   const { user, fetchUser, controller } = useJWTAuthContext();
   const router = useRouter();
-  const { mutate, isPending } = useAuthCompleteRegistration();
+  const { mutate: completeRegistration, isPending: isRegistrationPending } =
+    useAuthCompleteRegistration();
+  const { mutate: createCabinet, isPending: isCabinetPending } = useCabinetsCreate();
 
+  const isPending = isRegistrationPending || isCabinetPending;
   const [isMutateSuccess, setIsMutateSuccess] = useState(false);
   const isShowApiKeyField = form.watch('type') === userTypeEnum.wildberries;
   const isBusinessNotEmpty = form.watch('type') !== undefined;
 
-  const isHideForm = user?.regStatus === 'complete' || isMutateSuccess;
+  // Для обычной регистрации проверяем статус и наличие активации кабинета
+  const isHideForm = (!isNewCabinet && user?.regStatus === 'complete') || isMutateSuccess;
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    mutate(
-      { data },
-      {
-        onError: (e) => {
-          if (isShowApiKeyField) {
-            form.setError('apiKey', { message: e?.response?.data.message });
-          } else {
-            form.setError('inn', { message: e?.response?.data.message });
-          }
+    if (isNewCabinet) {
+      // Создаём новый кабинет
+      createCabinet(
+        {
+          data: {
+            type: data.type,
+            inn: data.type === userTypeEnum.fulfillment ? data.inn : '',
+            apiKey: data.type === userTypeEnum.wildberries ? data.apiKey : undefined,
+            // Не передаем token для создания кабинета
+          },
         },
-        onSuccess: () => {
-          if (data.token) {
-            localStorage.removeItem('registrationUrl');
-          }
-          if (data.type === 'wildberries') {
+        {
+          onError: (e) => {
+            if (isShowApiKeyField) {
+              form.setError('apiKey', { message: e?.response?.data.message });
+            } else {
+              form.setError('inn', { message: e?.response?.data.message });
+            }
+          },
+          onSuccess: () => {
+            setIsMutateSuccess(true);
+            if (data.token) {
+              localStorage.removeItem('registrationUrl');
+            }
+
             fetchUser().then(() => {
-              router.push('/');
+              toast('Кабинет создан', {
+                closeButton: true,
+                description:
+                  data.type === userTypeEnum.fulfillment
+                    ? 'Ожидайте верификации кабинета'
+                    : 'Кабинет Wildberries успешно создан',
+              });
+
+              setTimeout(() => {
+                onLogoutFF();
+              }, 3000);
             });
-          }
-          if (data.type === 'fulfillment') {
-            onLogoutFF();
-          }
+          },
         },
-      },
-    );
+      );
+    } else {
+      // Стандартная логика регистрации
+      completeRegistration(
+        {
+          data: {
+            type: data.type,
+            apiKey: data.type === userTypeEnum.wildberries ? data.apiKey : undefined,
+            inn: data.type === userTypeEnum.fulfillment ? data.inn : undefined,
+            token: data.token || undefined,
+          },
+        },
+        {
+          onError: (e) => {
+            if (isShowApiKeyField) {
+              form.setError('apiKey', { message: e?.response?.data.message });
+            } else {
+              form.setError('inn', { message: e?.response?.data.message });
+            }
+          },
+          onSuccess: () => {
+            if (data.token) {
+              localStorage.removeItem('registrationUrl');
+            }
+            if (data.type === userTypeEnum.wildberries) {
+              fetchUser().then(() => {
+                router.push('/');
+              });
+            }
+            if (data.type === userTypeEnum.fulfillment) {
+              onLogoutFF();
+            }
+          },
+        },
+      );
+    }
   }
 
   return (
     <Form {...form}>
       {!isHideForm ? (
         <form className={'mt-6 w-full space-y-5'} onSubmit={form.handleSubmit(onSubmit)}>
-          <div className={classNameTitle}>Вид деятельности</div>
+          <div className={classNameTitle}>{formTitle}</div>
           <FormField
             control={form.control}
             name="type"
@@ -139,7 +198,7 @@ export function LoginBusinessForm({
                     <FormItem>
                       <FormControl>
                         <LoginInput
-                          isloading={isPending}
+                          isLoading={isPending}
                           onButtonClick={form.handleSubmit(onSubmit)}
                           placeholder="Ключ API"
                           {...field}
@@ -158,7 +217,7 @@ export function LoginBusinessForm({
                     <FormItem>
                       <FormControl>
                         <LoginInput
-                          isloading={isPending}
+                          isLoading={isPending}
                           inputMode="numeric"
                           maxLength={12}
                           onButtonClick={form.handleSubmit(onSubmit)}
@@ -185,7 +244,13 @@ export function LoginBusinessForm({
       ) : (
         <>
           <div className={classNameTitle}>Данные отправлены</div>
-          <p className={'text-white'}>Ожидайте верификации кабинета</p>
+          <p className={'text-white'}>
+            {isNewCabinet &&
+            user?.regStatus === 'complete' &&
+            form.watch('type') === userTypeEnum.wildberries
+              ? 'Кабинет Wildberries успешно создан'
+              : 'Ожидайте верификации кабинета'}
+          </p>
         </>
       )}
     </Form>

@@ -30,6 +30,7 @@ import { useJWTAuthContext, useJWTAuthUser } from '@/modules/auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cabinetsGetActiveSuspenseQueryKey, useCabinetsSetActive } from '@/kubb-gen';
 import { useQueryClient, QueryCache } from '@tanstack/react-query';
+import { CreateCabinetModal } from './create-cabinet-modal';
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar();
@@ -57,7 +58,7 @@ export function TeamSwitcher() {
             <SidebarMenuButton size="lg" className="">
               <div className="flex aspect-square size-11 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground group-data-[collapsible=icon]:size-8">
                 <Avatar>
-                  <AvatarImage src={cabinetActive.avatarUrl} />
+                  <AvatarImage src={cabinetActive.avatarUrl || ''} />
                   <AvatarFallback>{cabinetActive.type}</AvatarFallback>
                 </Avatar>
               </div>
@@ -86,7 +87,7 @@ export function TeamSwitcher() {
                 className="cursor-pointer gap-2 p-2"
               >
                 <Avatar>
-                  <AvatarImage src={avatarUrl} />
+                  <AvatarImage src={avatarUrl || ''} />
                   <AvatarFallback>{type}</AvatarFallback>
                 </Avatar>
                 <div className={'flex min-w-0 flex-col'}>
@@ -96,12 +97,7 @@ export function TeamSwitcher() {
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            {/*  <DropdownMenuItem className="gap-2 p-2">
-              <div className="flex size-6 items-center justify-center">
-                <Plus className="size-4" />
-              </div>
-              <div className="font-medium text-muted-foreground">Создать кабинет</div>
-            </DropdownMenuItem>*/}
+            <CreateCabinetModal />
             <DropdownMenuItem
               className="gap-2 p-2"
               onClick={() => {

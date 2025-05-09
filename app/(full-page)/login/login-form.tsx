@@ -10,14 +10,27 @@ import { LoginButtonChevron } from '@/app/(full-page)/login/login-button-chevron
 import { LoginBusinessForm } from '@/app/(full-page)/login/login-business-form';
 import { useJWTAuthContext } from '@/modules/auth';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
-export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+interface LoginFormProps extends React.ComponentPropsWithoutRef<'div'> {
+  mode?: string | null;
+  pageTitle?: string;
+}
+
+export function LoginForm({ className, mode, pageTitle, ...props }: LoginFormProps) {
   const [phone, setPhone] = useState<string>('');
   const [isShowOtp, setIsShowOtp] = useState<boolean>(false);
-  const { user, controller } = useJWTAuthContext();
+  const { user, controller, isLoggedIn } = useJWTAuthContext();
+  const router = useRouter();
   //const [isShowCompany, setIsShowCompany] = useState<boolean>(false);
 
-  const isShowCompany = user?.regStatus === 'incomplete';
+  // Определяем тип формы, которую нужно показать
+  let isShowCompany = user?.regStatus === 'incomplete';
+
+  // Если это создание нового кабинета для авторизованного пользователя
+  if (mode === 'new-cabinet' && isLoggedIn) {
+    isShowCompany = true;
+  }
 
   function logoutFF() {
     controller.onLogoutRequestComplete();
@@ -28,14 +41,24 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
     setIsShowOtp(false);
   }
 
+  function onBusinessFormSuccess() {
+    // После успешного создания кабинета возвращаем пользователя на главную
+    if (mode === 'new-cabinet') {
+      router.push('/');
+    } else {
+      logoutFF();
+    }
+  }
+
   useEffect(() => {
     if (
       user?.regStatus === 'complete' &&
-      user?.cabinets?.find((i) => i.isActive)?.type === 'fulfillment'
+      user?.cabinets?.find((i) => i.isActive)?.type === 'fulfillment' &&
+      mode !== 'new-cabinet'
     ) {
       logoutFF();
     }
-  }, [user]);
+  }, [user, mode]);
 
   const classNameTitle = 'text-[28px] font-semibold flex items-center uppercase justify-center';
   return (
@@ -47,7 +70,12 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
       {...props}
     >
       {isShowCompany ? (
-        <LoginBusinessForm classNameTitle={classNameTitle} onLogoutFF={logoutFF} />
+        <LoginBusinessForm
+          classNameTitle={classNameTitle}
+          onLogoutFF={onBusinessFormSuccess}
+          formTitle={pageTitle || 'Вид деятельности'}
+          isNewCabinet={mode === 'new-cabinet'}
+        />
       ) : (
         <>
           <div className={classNameTitle}>
@@ -62,7 +90,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                 <ChevronLeft strokeWidth={1} size={40} />
               </LoginButtonChevron>
             )}
-            {`Войти\u00A0в\u00A0систему`}
+            {pageTitle || `Войти\u00A0в\u00A0систему`}
           </div>
 
           {isShowOtp ? (

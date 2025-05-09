@@ -4,12 +4,49 @@ import Image from 'next/image';
 import bgForm from '@/app/(full-page)/login/login-bg.svg';
 
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useJWTAuthContext } from '@/modules/auth';
+
 const LoginPage = () => {
   const searchParams = useSearchParams();
-  const registrationUrl = searchParams.get('registrationUrl');
-  if (registrationUrl) {
-    localStorage.setItem('registrationUrl', registrationUrl);
+  const router = useRouter();
+  const { user, isLoggedIn } = useJWTAuthContext();
+  const registrationUrl = searchParams?.get('registrationUrl');
+  const mode = searchParams?.get('mode');
+  const [title, setTitle] = useState('Войти в систему');
+  const [pageLoaded, setPageLoaded] = useState(false);
+
+  useEffect(() => {
+    if (registrationUrl) {
+      localStorage.setItem('registrationUrl', registrationUrl);
+    }
+
+    // Устанавливаем флаг, что страница загружена, чтобы предотвратить мигание
+    setPageLoaded(true);
+
+    // Если пользователь авторизован и хочет создать новый кабинет
+    if (mode === 'new-cabinet' && isLoggedIn) {
+      setTitle('Создать кабинет');
+      return; // Не выполняем редирект, если это режим создания кабинета
+    }
+
+    // Если пользователь авторизован, редиректим на главную
+    if (isLoggedIn) {
+      router.push('/');
+    }
+  }, [isLoggedIn, mode, registrationUrl, router]);
+
+  // Не отображаем страницу, пока не проверим режим работы
+  if (!pageLoaded) {
+    return null;
   }
+
+  // Если пользователь авторизован и не в режиме создания кабинета - не рендерим страницу вообще
+  if (isLoggedIn && mode !== 'new-cabinet') {
+    return null;
+  }
+
   return (
     <div
       className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10"
@@ -27,7 +64,7 @@ const LoginPage = () => {
           alt=""
         />
         <div className={'relative z-10 mt-[40px] min-h-[274px]'}>
-          <LoginForm />
+          <LoginForm mode={mode} pageTitle={title} />
         </div>
       </div>
     </div>
