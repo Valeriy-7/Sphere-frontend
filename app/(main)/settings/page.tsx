@@ -346,8 +346,17 @@ export default function SettingsPage() {
             </div>
           )}
           {type === 'fulfillment' && (
-            <div className={'space-y-4'}>
-              <Input disabled label="Ссылка для регистрации контрагентов" value={registrationUrl} />
+            <div className="flex items-center space-x-2">
+              <span className="text-sm font-medium">Ссылка для регистрации контрагентов</span>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  navigator.clipboard.writeText(registrationUrl);
+                  toast.success('Ссылка скопирована');
+                }}
+              >
+                Скопировать
+              </Button>
             </div>
           )}
 

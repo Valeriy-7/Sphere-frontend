@@ -60,7 +60,7 @@ export function LoginForm({ className, mode, pageTitle, ...props }: LoginFormPro
     }
   }, [user, mode]);
 
-  const classNameTitle = 'text-[28px] font-semibold flex items-center uppercase justify-center';
+  const classNameTitle = 'text-[28px] font-semibold flex items-center justify-center';
   return (
     <div
       className={cn(

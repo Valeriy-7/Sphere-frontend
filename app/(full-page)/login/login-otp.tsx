@@ -89,7 +89,7 @@ export function LoginOtp({ phone }: LoginOtpProps) {
               <FormItem>
                 <div className={'flex flex-row gap-4'}>
                   <FormControl>
-                    <InputOTP pattern={REGEXP_ONLY_DIGITS} maxLength={4} {...field}>
+                    <InputOTP autoFocus pattern={REGEXP_ONLY_DIGITS} maxLength={4} {...field}>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />

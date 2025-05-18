@@ -47,7 +47,7 @@ export type TokenData = {
 export type JWTAuthContextValue<UserProps extends AuthUser = AuthUser> = {
   controller: JWTAuthController;
   isLoggedIn: boolean | null;
-  user: UserProps;
+  user: UserProps | null;
   apiClient: () => AxiosInstance;
   loginWithCredentials: (data: Record<string, any>) => Promise<UserProps>;
   loginWithResponse: (data: Record<string, any>) => Promise<boolean>;

@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { AuthUser, JWTAuthConfig, createJWTAuthContext } from './JWTAuthContext';
 import { JWTAuthController } from './JWTAuthController';
@@ -14,6 +14,7 @@ export function createJWTAuthProvider<UserProps extends AuthUser = AuthUser>() {
 
   const JWTAuthProvider: React.FC<JWTAuthProviderType> = (props: JWTAuthProviderType) => {
     const router = useRouter();
+    const pathname = usePathname();
     const controller = new JWTAuthController(props.config);
 
     const [isLoggedIn, setLoggedIn] = useState<boolean | null>(null);
@@ -105,8 +106,12 @@ export function createJWTAuthProvider<UserProps extends AuthUser = AuthUser>() {
     };
 
     useEffect(() => {
+      // Skip fetching user on login page to preserve query params (e.g. mode=new-cabinet)
+      if (!pathname || pathname === props.config.pages.login.url) {
+        return;
+      }
       fetchUser();
-    }, []);
+    }, [pathname]);
 
     useEffect(() => {
       const interval = setInterval(() => {

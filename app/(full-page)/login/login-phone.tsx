@@ -10,10 +10,6 @@ import { LoginInput } from '@/app/(full-page)/login/login-input';
 import { sendCodeDtoSchema, useAuthSendCode } from '@/kubb-gen';
 import { AppSpinner } from '@/components/app-spinner';
 
-import { useMaskito } from '@maskito/react';
-
-import { digitsOnlyMask } from '@/lib/mask';
-
 import { useImperativeHandle } from 'react';
 
 /*
@@ -41,18 +37,10 @@ type LoginPhoneProps = {
 };
 
 export function LoginPhone(props: LoginPhoneProps) {
-  /*const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      phone: "",
-    },
-  });*/
-  const maskedInputRef = useMaskito({ options: digitsOnlyMask });
   const form = useForm<z.infer<typeof sendCodeDtoSchema>>({
     resolver: zodResolver(sendCodeDtoSchema),
+    defaultValues: { phone: '+7' },
   });
-  /*    const {ref} = form.register('phone')
-        useImperativeHandle(ref, () => maskedInputRef(e=>e))*/
   const { mutate, isPending } = useAuthSendCode();
 
   function onSubmit(data: z.infer<typeof sendCodeDtoSchema>) {
@@ -83,14 +71,18 @@ export function LoginPhone(props: LoginPhoneProps) {
                   isLoading={isPending}
                   onButtonClick={form.handleSubmit(onSubmit)}
                   placeholder="Номер телефона"
-                  {...field}
-                  onInput={(event) => {
-                    field.onChange(event.currentTarget.value);
+                  value={field.value || '+7'}
+                  onChange={(e) => {
+                    let raw = e.currentTarget.value;
+                    let digits = raw.replace(/\D/g, '');
+                    if (digits.startsWith('7')) digits = digits.slice(1);
+                    let formatted = '+7' + digits;
+                    if (formatted.length > 12) formatted = formatted.slice(0, 12);
+                    field.onChange(formatted);
                   }}
-                  ref={(e) => {
-                    maskedInputRef(e);
-                    field.ref(e);
-                  }}
+                  onBlur={field.onBlur}
+                  name={field.name}
+                  ref={field.ref}
                 />
               </FormControl>
               <FormMessage className={'text-black'} />

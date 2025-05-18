@@ -80,7 +80,7 @@ export function LoginBusinessForm({
             type: data.type,
             inn: data.type === userTypeEnum.fulfillment ? data.inn : '',
             apiKey: data.type === userTypeEnum.wildberries ? data.apiKey : undefined,
-            // Не передаем token для создания кабинета
+            partnerToken: data.token || undefined,
           },
         },
         {
@@ -106,9 +106,11 @@ export function LoginBusinessForm({
                     : 'Кабинет Wildberries успешно создан',
               });
 
-              setTimeout(() => {
+              // Если это Wildberries, сразу уходим с экрана ожидания
+              if (data.type === userTypeEnum.wildberries) {
                 onLogoutFF();
-              }, 3000);
+              }
+              // автоматический редирект отключен, ожидаем верификации
             });
           },
         },

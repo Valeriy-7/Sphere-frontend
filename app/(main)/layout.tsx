@@ -13,9 +13,10 @@ import * as React from 'react';
 import { setThemeClassName } from '@/app/themeStore';
 import { CabinetShortDataDtoType } from '@/kubb-gen';
 import { ThemeProvider } from '@/providers/ThemeProvider';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 export default function MainLayout({ children }: PropsWithChildren) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const { isLoggedIn, user } = useJWTAuthContext();
 
@@ -26,17 +27,24 @@ export default function MainLayout({ children }: PropsWithChildren) {
       return;
     }
 
-    if (user.regStatus !== 'verified') {
-      router.push('/login');
+    if (user && user.regStatus !== 'verified') {
+      let registrationUrl = searchParams?.get('registrationUrl');
+      if (!registrationUrl && typeof window !== 'undefined') {
+        registrationUrl = localStorage.getItem('registrationUrl') || undefined;
+      }
+      const redirectPath = registrationUrl
+        ? `/login?mode=new-cabinet&registrationUrl=${registrationUrl}`
+        : '/login?mode=new-cabinet';
+      router.push(redirectPath);
       return;
     }
 
-    if (user.role === 'admin') {
+    if (user && user.role === 'admin') {
       setThemeClassName('admin');
-    } else {
+    } else if (user) {
       setThemeClassName(cabinetActive.type as keyof typeof ServerToClientMapType);
     }
-  }, [isLoggedIn, user, cabinetActive.type, router]);
+  }, [isLoggedIn, user, cabinetActive.type, router, searchParams]);
 
   if (!isLoggedIn) {
     return null;
