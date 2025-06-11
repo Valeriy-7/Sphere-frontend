@@ -1,12 +1,12 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   CabinetsSetActiveMutationRequestType,
   CabinetsSetActiveMutationResponseType,
   CabinetsSetActivePathParamsType,
   CabinetsSetActive404Type,
 } from '../../types/cabinets/CabinetsSetActiveType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 export const cabinetsSetActiveMutationKey = () => [{ url: '/cabinets/{id}/activate' }] as const

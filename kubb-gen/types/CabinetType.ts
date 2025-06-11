@@ -62,6 +62,11 @@ export type CabinetType = {
    */
   verifiedAt: string | null
   /**
+   * @description Дата последнего посещения
+   * @type string, date-time
+   */
+  lastSeenAt: string | null
+  /**
    * @description URL аватарки кабинета
    * @type string
    */

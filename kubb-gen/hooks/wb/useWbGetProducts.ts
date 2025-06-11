@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { WbGetProductsQueryResponseType, WbGetProductsQueryParamsType } from '../../types/wb/WbGetProductsType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { WbGetProductsQueryResponseType, WbGetProductsQueryParamsType } from '../../types/wb/WbGetProductsType'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const wbGetProductsQueryKey = (params: WbGetProductsQueryParamsType) => [{ url: '/wb/products' }, ...(params ? [params] : [])] as const

@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { LogisticsGetServicesQueryResponseType } from '../../types/services/LogisticsGetServicesType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { LogisticsGetServicesQueryResponseType } from '../../types/services/LogisticsGetServicesType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const logisticsGetServicesSuspenseQueryKey = () => [{ url: '/services/service' }] as const

@@ -13,9 +13,9 @@ export type CreateCabinetDtoType = {
   type?: CreateCabinetDtoTypeEnumType | null
   /**
    * @description ИНН компании
-   * @type string
+   * @type string | undefined
    */
-  inn: string
+  inn?: string
   /**
    * @description API ключ (обязателен для Wildberries)
    * @type string | undefined

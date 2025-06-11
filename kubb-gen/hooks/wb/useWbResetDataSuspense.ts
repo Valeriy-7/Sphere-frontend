@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { WbResetDataQueryResponseType, WbResetDataQueryParamsType } from '../../types/wb/WbResetDataType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { WbResetDataQueryResponseType, WbResetDataQueryParamsType } from '../../types/wb/WbResetDataType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const wbResetDataSuspenseQueryKey = (params: WbResetDataQueryParamsType) => [{ url: '/wb/reset-data' }, ...(params ? [params] : [])] as const

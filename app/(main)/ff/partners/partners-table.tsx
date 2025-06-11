@@ -33,6 +33,7 @@ import {
 } from '@/lib/TableHelpers';
 
 import { PartnerCabinetDtoType, PartnersResponseDtoType, PartnerStatsDtoType } from '@/kubb-gen';
+import { formatCurrency } from '@/lib/formatCurrency';
 
 export function PartnersTable<TData extends PartnerCabinetDtoType, TValue>({
   columns,
@@ -137,14 +138,14 @@ function TableRowTotal<TData>({
           />
         </TableHead>
 
-        <TableHead isTotal>{stats.totalIncome}</TableHead>
-        <TableHead isTotal>{stats.totalFfDeliveries}</TableHead>
-        <TableHead isTotal>{stats.totalProductsCount}</TableHead>
-        <TableHead isTotal>{stats.totalDefectsCount}</TableHead>
-        <TableHead isTotal>{stats.totalConsumablesAmount}</TableHead>
-        <TableHead isTotal>{stats.totalPvzReturnsCount}</TableHead>
-        <TableHead isTotal>{stats.totalWbDeliveries}</TableHead>
-        <TableHead isTotal>{stats.totalProductAmount}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalIncome, 'number')}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalFfDeliveries, 'number')}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalProductsCount, 'number')}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalDefectsCount, 'number')}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalConsumablesAmount, 'number')}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalPvzReturnsCount, 'number')}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalWbDeliveries, 'number')}</TableHead>
+        <TableHead isTotal>{formatCurrency(stats.totalProductAmount, 'number')}</TableHead>
       </TableRow>
     </>
   );

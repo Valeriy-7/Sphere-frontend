@@ -24,11 +24,13 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  PaginationState,
 } from '@tanstack/react-table';
 import { Fragment } from 'react';
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
 import { TableFilter } from '@/components/date-table/table-filter';
 import { ProductsTable } from '@/app/(main)/ff/storage/new/products-table/products-table';
+import { DataTablePagination } from '@/components/date-table/data-table-pagination';
 
 const columnIcon = 'w-[35px]';
 const columnPlace = 'w-[55px]';
@@ -52,13 +54,20 @@ const { colSizeList } = getColSizeList([
 
 export function StorageTableNew<TData, TValue>({ columns, data }: TableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
   const table = useReactTable({
     data,
     columns,
     filterFns: {},
     state: {
       columnFilters,
+      pagination,
     },
+    onPaginationChange: setPagination,
     getRowCanExpand: () => true,
     getExpandedRowModel: getExpandedRowModel(),
     onColumnFiltersChange: setColumnFilters,
@@ -104,71 +113,76 @@ export function StorageTableNew<TData, TValue>({ columns, data }: TableProps<TDa
   ];
 
   return (
-    <Table colSizeList={colSizeList} className={'relative w-full table-fixed text-center'}>
-      <TableHeader>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <Fragment key={headerGroup.id + 'Fragment'}>
-            <TableRow rowSpace={false} key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id} colSpan={header.column.columnDef.meta?.colSpan}>
-                    {header.isPlaceholder ? null : <TableHeaderSort header={header} />}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-            <TableRow key={headerGroup.id + 'total'}>
-              {headerGroup.headers.map((header) => {
-                const totalComponent = header.column.columnDef.meta?.totalComponent;
-                return (
-                  <TableHead
-                    isTotal
-                    key={header.id + 'total'}
-                    colSpan={header.column.columnDef.meta?.colSpan}
-                  >
-                    {header.column.getCanFilter() ? (
-                      <TableFilter column={table.getColumn(header.id)}></TableFilter>
-                    ) : null}
-                    {flexRender(totalComponent, table)}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          </Fragment>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {table.getRowModel().rows.map((row) => {
-          return (
-            <Fragment key={row.id}>
-              <TableRow
-                {...{
-                  onClick: row.getToggleExpandedHandler(),
-                  style: { cursor: 'pointer' },
-                }}
-              >
-                {/* first row is a normal row */}
-                {row.getVisibleCells().map((cell) => {
+    <div>
+      <Table colSizeList={colSizeList} className={'relative w-full table-fixed text-center'}>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <Fragment key={headerGroup.id + 'Fragment'}>
+              <TableRow rowSpace={false} key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
                   return (
-                    <TableCell key={cell.id} colSpan={cell.column.columnDef.meta?.colSpan}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                    <TableHead key={header.id} colSpan={header.column.columnDef.meta?.colSpan}>
+                      {header.isPlaceholder ? null : <TableHeaderSort header={header} />}
+                    </TableHead>
                   );
                 })}
               </TableRow>
-              {row.getIsExpanded() && (
-                <TableRowExpand colSpan={row.getVisibleCells().length + 1}>
-                  <ScrollArea className={'flex max-h-[500px] flex-col overflow-y-auto'}>
-                    <ProductsTable colSizeList={colSizeList} initialData={productsTableData} />
-                  </ScrollArea>
-                </TableRowExpand>
-              )}
+              <TableRow key={headerGroup.id + 'total'}>
+                {headerGroup.headers.map((header) => {
+                  const totalComponent = header.column.columnDef.meta?.totalComponent;
+                  return (
+                    <TableHead
+                      isTotal
+                      key={header.id + 'total'}
+                      colSpan={header.column.columnDef.meta?.colSpan}
+                    >
+                      {header.column.getCanFilter() ? (
+                        <TableFilter column={table.getColumn(header.id)}></TableFilter>
+                      ) : null}
+                      {flexRender(totalComponent, table)}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
             </Fragment>
-          );
-        })}
-        <TableRowStore />
-      </TableBody>
-    </Table>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.map((row) => {
+            return (
+              <Fragment key={row.id}>
+                <TableRow
+                  {...{
+                    onClick: row.getToggleExpandedHandler(),
+                    style: { cursor: 'pointer' },
+                  }}
+                >
+                  {/* first row is a normal row */}
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <TableCell key={cell.id} colSpan={cell.column.columnDef.meta?.colSpan}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+                {row.getIsExpanded() && (
+                  <TableRowExpand colSpan={row.getVisibleCells().length + 1}>
+                    <ScrollArea className={'flex max-h-[500px] flex-col overflow-y-auto'}>
+                      <ProductsTable colSizeList={colSizeList} initialData={productsTableData} />
+                    </ScrollArea>
+                  </TableRowExpand>
+                )}
+              </Fragment>
+            );
+          })}
+          <TableRowStore />
+        </TableBody>
+      </Table>
+      <div className="mt-4">
+        <DataTablePagination table={table} />
+      </div>
+    </div>
   );
 }
 
@@ -250,7 +264,7 @@ const TableRowStore = () => (
             src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UE1dYBdrFfV1Dz09dGWXy7R8TasGsOk7zQ&s',
           }}
           title={'Logistik Company'}
-          text={'ООО “Логистик”'}
+          text={'ООО "Логистик"'}
         />
       </TableCell>
       <TableCell></TableCell>

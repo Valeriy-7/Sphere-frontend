@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { CabinetsCreateMutationRequestType, CabinetsCreateMutationResponseType, CabinetsCreate400Type } from '../../types/cabinets/CabinetsCreateType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import type { CabinetsCreateMutationRequestType, CabinetsCreateMutationResponseType, CabinetsCreate400Type } from '../../types/cabinets/CabinetsCreateType'
 import { useMutation } from '@tanstack/react-query'
 
 export const cabinetsCreateMutationKey = () => [{ url: '/cabinets' }] as const
@@ -14,7 +14,7 @@ export type CabinetsCreateMutationKey = ReturnType<typeof cabinetsCreateMutation
  * {@link /cabinets}
  */
 export async function cabinetsCreate(
-  data: CabinetsCreateMutationRequestType,
+  data?: CabinetsCreateMutationRequestType,
   config: Partial<RequestConfig<CabinetsCreateMutationRequestType>> & { client?: typeof client } = {},
 ) {
   const { client: request = client, ...requestConfig } = config
@@ -38,7 +38,7 @@ export function useCabinetsCreate<TContext>(
     mutation?: UseMutationOptions<
       CabinetsCreateMutationResponseType,
       ResponseErrorConfig<CabinetsCreate400Type>,
-      { data: CabinetsCreateMutationRequestType },
+      { data?: CabinetsCreateMutationRequestType },
       TContext
     >
     client?: Partial<RequestConfig<CabinetsCreateMutationRequestType>> & { client?: typeof client }
@@ -47,7 +47,7 @@ export function useCabinetsCreate<TContext>(
   const { mutation: mutationOptions, client: config = {} } = options ?? {}
   const mutationKey = mutationOptions?.mutationKey ?? cabinetsCreateMutationKey()
 
-  return useMutation<CabinetsCreateMutationResponseType, ResponseErrorConfig<CabinetsCreate400Type>, { data: CabinetsCreateMutationRequestType }, TContext>({
+  return useMutation<CabinetsCreateMutationResponseType, ResponseErrorConfig<CabinetsCreate400Type>, { data?: CabinetsCreateMutationRequestType }, TContext>({
     mutationFn: async ({ data }) => {
       return cabinetsCreate(data, config)
     },

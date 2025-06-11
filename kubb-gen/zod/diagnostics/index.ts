@@ -1,0 +1,1 @@
+export { diagnosticsTestDnsResolver200Schema, diagnosticsTestDnsResolverQueryResponseSchema } from './diagnosticsTestDnsResolverSchema'

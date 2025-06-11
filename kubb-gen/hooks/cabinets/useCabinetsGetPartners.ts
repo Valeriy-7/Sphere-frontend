@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { CabinetsGetPartnersQueryResponseType, CabinetsGetPartnersQueryParamsType } from '../../types/cabinets/CabinetsGetPartnersType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { CabinetsGetPartnersQueryResponseType, CabinetsGetPartnersQueryParamsType } from '../../types/cabinets/CabinetsGetPartnersType'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const cabinetsGetPartnersQueryKey = (params?: CabinetsGetPartnersQueryParamsType) =>

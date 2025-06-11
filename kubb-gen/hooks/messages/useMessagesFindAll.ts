@@ -1,90 +1,65 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query';
-import type {
-  MessagesFindAllQueryResponseType,
-  MessagesFindAllQueryParamsType,
-} from '../../types/messages/MessagesFindAllType';
-import { queryOptions, useQuery } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { MessagesFindAllQueryResponseType, MessagesFindAllPathParamsType } from '../../types/messages/MessagesFindAllType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const messagesFindAllQueryKey = (params: MessagesFindAllQueryParamsType) =>
-  [{ url: '/messages' }, ...(params ? [params] : [])] as const;
+export const messagesFindAllQueryKey = (chatId: MessagesFindAllPathParamsType['chatId']) => [{ url: '/messages/:chatId', params: { chatId: chatId } }] as const
 
-export type MessagesFindAllQueryKey = ReturnType<typeof messagesFindAllQueryKey>;
+export type MessagesFindAllQueryKey = ReturnType<typeof messagesFindAllQueryKey>
 
 /**
  * @summary Получить список сообщений в чате
- * {@link /messages}
+ * {@link /messages/:chatId}
  */
-export async function messagesFindAll(
-  params: MessagesFindAllQueryParamsType,
-  config: Partial<RequestConfig> & { client?: typeof client } = {},
-) {
-  const { client: request = client, ...requestConfig } = config;
-  const { chatId, ...queryParams } = params;
+export async function messagesFindAll(chatId: MessagesFindAllPathParamsType['chatId'], config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const { client: request = client, ...requestConfig } = config
 
-  const res = await request<MessagesFindAllQueryResponseType, ResponseErrorConfig<any>, unknown>({
+  const res = await request<MessagesFindAllQueryResponseType, ResponseErrorConfig<Error>, unknown>({
     method: 'GET',
     url: `/messages/${chatId}`,
-    params: queryParams,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
-export function messagesFindAllQueryOptions(
-  params: MessagesFindAllQueryParamsType,
-  config: Partial<RequestConfig> & { client?: typeof client } = {},
-) {
-  const queryKey = messagesFindAllQueryKey(params);
-  return queryOptions<
-    MessagesFindAllQueryResponseType,
-    ResponseErrorConfig<Error>,
-    MessagesFindAllQueryResponseType,
-    typeof queryKey
-  >({
-    enabled: !!params,
+export function messagesFindAllQueryOptions(chatId: MessagesFindAllPathParamsType['chatId'], config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const queryKey = messagesFindAllQueryKey(chatId)
+  return queryOptions<MessagesFindAllQueryResponseType, ResponseErrorConfig<Error>, MessagesFindAllQueryResponseType, typeof queryKey>({
+    enabled: !!chatId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return messagesFindAll(params, config);
+      config.signal = signal
+      return messagesFindAll(chatId, config)
     },
-  });
+  })
 }
 
 /**
  * @summary Получить список сообщений в чате
- * {@link /messages}
+ * {@link /messages/:chatId}
  */
 export function useMessagesFindAll<
   TData = MessagesFindAllQueryResponseType,
   TQueryData = MessagesFindAllQueryResponseType,
   TQueryKey extends QueryKey = MessagesFindAllQueryKey,
 >(
-  params: MessagesFindAllQueryParamsType,
+  chatId: MessagesFindAllPathParamsType['chatId'],
   options: {
-    query?: Partial<
-      QueryObserverOptions<
-        MessagesFindAllQueryResponseType,
-        ResponseErrorConfig<Error>,
-        TData,
-        TQueryData,
-        TQueryKey
-      >
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+    query?: Partial<QueryObserverOptions<MessagesFindAllQueryResponseType, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>>
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey = queryOptions?.queryKey ?? messagesFindAllQueryKey(params);
+  const { query: queryOptions, client: config = {} } = options ?? {}
+  const queryKey = queryOptions?.queryKey ?? messagesFindAllQueryKey(chatId)
 
   const query = useQuery({
-    ...(messagesFindAllQueryOptions(params, config) as unknown as QueryObserverOptions),
+    ...(messagesFindAllQueryOptions(chatId, config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };
+  }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

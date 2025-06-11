@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { AuthSendCodeMutationRequestType, AuthSendCodeMutationResponseType, AuthSendCode400Type } from '../../types/auth/AuthSendCodeType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import type { AuthSendCodeMutationRequestType, AuthSendCodeMutationResponseType, AuthSendCode400Type } from '../../types/auth/AuthSendCodeType'
 import { useMutation } from '@tanstack/react-query'
 
 export const authSendCodeMutationKey = () => [{ url: '/auth/send-code' }] as const

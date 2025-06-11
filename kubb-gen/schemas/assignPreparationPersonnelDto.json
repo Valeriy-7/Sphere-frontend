@@ -1,0 +1,1 @@
+{"type":"object","properties":{"responsibleId":{"type":"string","description":"ID ответственного сотрудника за подготовку","format":"uuid"},"performerIds":{"description":"Массив ID сотрудников-исполнителей подготовки","type":"array","items":{"type":"string","format":"uuid"}}},"required":["responsibleId","performerIds"],"x-readme-ref-name":"AssignPreparationPersonnelDto"}

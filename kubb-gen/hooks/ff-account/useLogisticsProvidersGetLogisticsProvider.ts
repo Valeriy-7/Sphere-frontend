@@ -1,11 +1,11 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   LogisticsProvidersGetLogisticsProviderQueryResponseType,
   LogisticsProvidersGetLogisticsProviderPathParamsType,
   LogisticsProvidersGetLogisticsProvider404Type,
 } from '../../types/ff-account/LogisticsProvidersGetLogisticsProviderType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const logisticsProvidersGetLogisticsProviderQueryKey = (id: LogisticsProvidersGetLogisticsProviderPathParamsType['id']) =>

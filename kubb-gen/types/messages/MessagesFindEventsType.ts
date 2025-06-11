@@ -1,3 +1,10 @@
+export type MessagesFindEventsPathParamsType = {
+  /**
+   * @type string
+   */
+  chatId: string
+}
+
 export const messagesControllerFindEventsQueryParamsFilterEnum = {
   ALL: 'ALL',
   FF: 'FF',
@@ -47,6 +54,7 @@ export type MessagesFindEventsQueryResponseType = MessagesFindEvents200Type
 
 export type MessagesFindEventsTypeQuery = {
   Response: MessagesFindEvents200Type
+  PathParams: MessagesFindEventsPathParamsType
   QueryParams: MessagesFindEventsQueryParamsType
   Errors: any
 }

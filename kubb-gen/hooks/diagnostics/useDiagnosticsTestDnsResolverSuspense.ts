@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { DiagnosticsTestDnsResolverQueryResponseType } from '../../types/diagnostics/DiagnosticsTestDnsResolverType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { DiagnosticsTestDnsResolverQueryResponseType } from '../../types/diagnostics/DiagnosticsTestDnsResolverType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const diagnosticsTestDnsResolverSuspenseQueryKey = () => [{ url: '/diagnostics/dns-test' }] as const

@@ -12,6 +12,7 @@ export const cabinetSchema = z.object({
   createdAt: z.date().describe('Дата создания').nullable(),
   updatedAt: z.date().describe('Дата обновления').nullable(),
   verifiedAt: z.date().describe('Дата верификации').nullable(),
+  lastSeenAt: z.date().describe('Дата последнего посещения').nullable(),
   avatarUrl: z.string().describe('URL аватарки кабинета').nullable(),
   apiKey: z.string().describe('API ключ Wildberries').nullable().nullish(),
   isVerified: z.boolean().describe('Статус верификации кабинета').nullable(),

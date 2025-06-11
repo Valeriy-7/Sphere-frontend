@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { DeliveriesGetDeliveriesQueryResponseType, DeliveriesGetDeliveriesQueryParamsType } from '../../types/deliveries/DeliveriesGetDeliveriesType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { DeliveriesGetDeliveriesQueryResponseType, DeliveriesGetDeliveriesQueryParamsType } from '../../types/deliveries/DeliveriesGetDeliveriesType'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const deliveriesGetDeliveriesQueryKey = (params?: DeliveriesGetDeliveriesQueryParamsType) =>

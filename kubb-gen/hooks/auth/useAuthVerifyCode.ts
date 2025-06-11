@@ -1,12 +1,12 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   AuthVerifyCodeMutationRequestType,
   AuthVerifyCodeMutationResponseType,
   AuthVerifyCode400Type,
   AuthVerifyCode404Type,
 } from '../../types/auth/AuthVerifyCodeType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 export const authVerifyCodeMutationKey = () => [{ url: '/auth/verify-code' }] as const

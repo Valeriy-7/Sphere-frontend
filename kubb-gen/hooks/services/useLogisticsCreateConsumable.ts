@@ -1,10 +1,10 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   LogisticsCreateConsumableMutationRequestType,
   LogisticsCreateConsumableMutationResponseType,
 } from '../../types/services/LogisticsCreateConsumableType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 export const logisticsCreateConsumableMutationKey = () => [{ url: '/services/consumables' }] as const

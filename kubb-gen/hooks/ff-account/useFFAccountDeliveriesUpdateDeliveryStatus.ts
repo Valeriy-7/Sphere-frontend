@@ -1,6 +1,4 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   FFAccountDeliveriesUpdateDeliveryStatusMutationRequestType,
   FFAccountDeliveriesUpdateDeliveryStatusMutationResponseType,
@@ -8,6 +6,8 @@ import type {
   FFAccountDeliveriesUpdateDeliveryStatus400Type,
   FFAccountDeliveriesUpdateDeliveryStatus404Type,
 } from '../../types/ff-account/FFAccountDeliveriesUpdateDeliveryStatusType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 export const FFAccountDeliveriesUpdateDeliveryStatusMutationKey = () => [{ url: '/ff-account/deliveries/{id}/status' }] as const

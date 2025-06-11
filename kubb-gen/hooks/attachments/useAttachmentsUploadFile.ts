@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { AttachmentsUploadFileMutationRequestType, AttachmentsUploadFileMutationResponseType } from '../../types/attachments/AttachmentsUploadFileType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import type { AttachmentsUploadFileMutationRequestType, AttachmentsUploadFileMutationResponseType } from '../../types/attachments/AttachmentsUploadFileType'
 import { useMutation } from '@tanstack/react-query'
 
 export const attachmentsUploadFileMutationKey = () => [{ url: '/attachments/upload' }] as const

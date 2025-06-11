@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { CabinetsFindOneQueryResponseType, CabinetsFindOnePathParamsType, CabinetsFindOne404Type } from '../../types/cabinets/CabinetsFindOneType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { CabinetsFindOneQueryResponseType, CabinetsFindOnePathParamsType, CabinetsFindOne404Type } from '../../types/cabinets/CabinetsFindOneType'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const cabinetsFindOneQueryKey = (id: CabinetsFindOnePathParamsType['id']) => [{ url: '/cabinets/:id', params: { id: id } }] as const

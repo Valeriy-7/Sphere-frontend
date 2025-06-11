@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { WbSyncDataQueryResponseType, WbSyncDataQueryParamsType } from '../../types/wb/WbSyncDataType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { WbSyncDataQueryResponseType, WbSyncDataQueryParamsType } from '../../types/wb/WbSyncDataType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const wbSyncDataSuspenseQueryKey = (params: WbSyncDataQueryParamsType) => [{ url: '/wb/sync-data' }, ...(params ? [params] : [])] as const

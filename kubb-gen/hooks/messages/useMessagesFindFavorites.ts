@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { MessagesFindFavoritesQueryResponseType, MessagesFindFavoritesQueryParamsType } from '../../types/messages/MessagesFindFavoritesType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { MessagesFindFavoritesQueryResponseType, MessagesFindFavoritesQueryParamsType } from '../../types/messages/MessagesFindFavoritesType'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const messagesFindFavoritesQueryKey = (params: MessagesFindFavoritesQueryParamsType) =>

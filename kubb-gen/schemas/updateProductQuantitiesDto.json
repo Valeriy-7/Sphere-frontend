@@ -1,0 +1,1 @@
+{"type":"object","properties":{"factQuantity":{"type":"number","description":"Фактическое количество принятого товара (Факт)","example":1980,"minimum":0},"defects":{"type":"number","description":"Количество бракованного товара (Брак)","example":15,"minimum":0}},"required":["factQuantity","defects"],"x-readme-ref-name":"UpdateProductQuantitiesDto"}

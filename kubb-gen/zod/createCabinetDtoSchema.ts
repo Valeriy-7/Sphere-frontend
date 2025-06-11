@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const createCabinetDtoSchema = z.object({
   type: z.enum(['wildberries', 'fulfillment']).describe('Тип организации').nullable().nullish(),
-  inn: z.string().describe('ИНН компании'),
+  inn: z.string().describe('ИНН компании').optional(),
   apiKey: z.string().describe('API ключ (обязателен для Wildberries)').optional(),
   isManualFilling: z.boolean().describe('Флаг ручного заполнения данных').optional(),
   companyName: z.string().describe('Название компании для отображения').optional(),

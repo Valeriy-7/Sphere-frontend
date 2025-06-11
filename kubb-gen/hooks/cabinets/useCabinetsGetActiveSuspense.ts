@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { CabinetsGetActiveQueryResponseType, CabinetsGetActive404Type } from '../../types/cabinets/CabinetsGetActiveType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { CabinetsGetActiveQueryResponseType, CabinetsGetActive404Type } from '../../types/cabinets/CabinetsGetActiveType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const cabinetsGetActiveSuspenseQueryKey = () => [{ url: '/cabinets/active' }] as const

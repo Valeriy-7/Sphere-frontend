@@ -1,12 +1,12 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   FFAccountDeliveriesGetDeliveryProductsQueryResponseType,
   FFAccountDeliveriesGetDeliveryProductsPathParamsType,
   FFAccountDeliveriesGetDeliveryProductsQueryParamsType,
   FFAccountDeliveriesGetDeliveryProducts404Type,
 } from '../../types/ff-account/FFAccountDeliveriesGetDeliveryProductsType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const FFAccountDeliveriesGetDeliveryProductsQueryKey = (
@@ -17,8 +17,8 @@ export const FFAccountDeliveriesGetDeliveryProductsQueryKey = (
 export type FFAccountDeliveriesGetDeliveryProductsQueryKey = ReturnType<typeof FFAccountDeliveriesGetDeliveryProductsQueryKey>
 
 /**
- * @description Возвращает список товаров для конкретной поставки с возможностью фильтрации по поставщику.
- * @summary Получить товары поставки
+ * @description Возвращает список продуктов для конкретной поставки
+ * @summary Получить список продуктов в поставке
  * {@link /ff-account/deliveries/:id/products}
  */
 export async function FFAccountDeliveriesGetDeliveryProducts(
@@ -58,8 +58,8 @@ export function FFAccountDeliveriesGetDeliveryProductsQueryOptions(
 }
 
 /**
- * @description Возвращает список товаров для конкретной поставки с возможностью фильтрации по поставщику.
- * @summary Получить товары поставки
+ * @description Возвращает список продуктов для конкретной поставки
+ * @summary Получить список продуктов в поставке
  * {@link /ff-account/deliveries/:id/products}
  */
 export function useFFAccountDeliveriesGetDeliveryProducts<

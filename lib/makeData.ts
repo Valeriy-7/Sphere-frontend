@@ -31,8 +31,19 @@ export type DataRow = {
   city: string;
   streetAddress: string;
   phone: string;
+  contactPerson: string;
   status: string;
+  acceptedAt?: Date | string | null;
   subRows?: DataRow[];
+  // Additional delivery fields
+  deliveryDate?: string;
+  deliveryNumber?: string;
+  totalPrice?: number;
+  cargoVolume?: number;
+  routes?: any[];
+  responsiblePersons?: { id: string; name: string }[];
+  responsiblePerson?: string;
+  warehouseLocation?: string;
 };
 
 const range = (len: number) => {
@@ -50,6 +61,8 @@ const newDataRow = (): DataRow => {
     groupDate1: faker.date.between({ from: '2015-01-01', to: '2015-01-05' }),
     groupStoreName: faker.helpers.shuffle(['Игрушки', 'Помидоры', 'Меха и шубы'])[0]!,
     groupPlace: faker.helpers.shuffle(['Тяк москва', '14-й км МКАД 4', 'Ул. Тихорецкий б-р 1'])[0]!,
+    group1: faker.number.int({ min: 1, max: 5 }),
+    group2: faker.number.int({ min: 1, max: 10 }),
 
     uuid: faker.string.uuid(),
     number1to3: faker.number.int({ min: 1, max: 3 }),
@@ -74,7 +87,9 @@ const newDataRow = (): DataRow => {
     city: faker.location.city(),
     streetAddress: faker.location.streetAddress({ useFullAddress: true }),
     phone: faker.phone.number(),
+    contactPerson: faker.person.fullName(),
     status: faker.helpers.shuffle(['new', 'acceptance', 'accepted'])[0]!,
+    acceptedAt: faker.date.recent(),
   };
 };
 
@@ -95,6 +110,8 @@ export function generateData(...lens: number[]) {
 
   return makeDataLevel();
 }
+
+const data = makeData();
 
 export async function fetchData(options: { pageIndex: number; pageSize: number }) {
   // Simulate some network latency

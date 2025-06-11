@@ -1,11 +1,11 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   AvatarUploadAvatarByInnMutationRequestType,
   AvatarUploadAvatarByInnMutationResponseType,
   AvatarUploadAvatarByInnPathParamsType,
 } from '../../types/avatar/AvatarUploadAvatarByInnType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 export const avatarUploadAvatarByInnMutationKey = () => [{ url: '/avatar/{inn}/upload' }] as const

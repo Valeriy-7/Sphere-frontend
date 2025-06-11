@@ -1,93 +1,72 @@
-import client from '@/modules/auth/axios-client';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type {
-  QueryKey,
-  UseSuspenseQueryOptions,
-  UseSuspenseQueryResult,
-} from '@tanstack/react-query';
-import type {
-  MessagesFindAllQueryResponseType,
-  MessagesFindAllQueryParamsType,
-} from '../../types/messages/MessagesFindAllType';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { MessagesFindAllQueryResponseType, MessagesFindAllPathParamsType } from '../../types/messages/MessagesFindAllType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-export const messagesFindAllSuspenseQueryKey = (params: MessagesFindAllQueryParamsType) =>
-  [{ url: `/messages/${params.chatId}` }, ...(params ? [params] : [])] as const;
+export const messagesFindAllSuspenseQueryKey = (chatId: MessagesFindAllPathParamsType['chatId']) =>
+  [{ url: '/messages/:chatId', params: { chatId: chatId } }] as const
 
-export type MessagesFindAllSuspenseQueryKey = ReturnType<typeof messagesFindAllSuspenseQueryKey>;
+export type MessagesFindAllSuspenseQueryKey = ReturnType<typeof messagesFindAllSuspenseQueryKey>
 
 /**
  * @summary Получить список сообщений в чате
- * {@link /messages}
+ * {@link /messages/:chatId}
  */
 export async function messagesFindAllSuspense(
-  params: MessagesFindAllQueryParamsType,
+  chatId: MessagesFindAllPathParamsType['chatId'],
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const { client: request = client, ...requestConfig } = config;
-  const { chatId, ...queryParams } = params;
+  const { client: request = client, ...requestConfig } = config
 
   const res = await request<MessagesFindAllQueryResponseType, ResponseErrorConfig<Error>, unknown>({
     method: 'GET',
     url: `/messages/${chatId}`,
-    params: queryParams,
     ...requestConfig,
-  });
-  return res.data;
+  })
+  return res.data
 }
 
 export function messagesFindAllSuspenseQueryOptions(
-  params: MessagesFindAllQueryParamsType,
+  chatId: MessagesFindAllPathParamsType['chatId'],
   config: Partial<RequestConfig> & { client?: typeof client } = {},
 ) {
-  const queryKey = messagesFindAllSuspenseQueryKey(params);
-  return queryOptions<
-    MessagesFindAllQueryResponseType,
-    ResponseErrorConfig<Error>,
-    MessagesFindAllQueryResponseType,
-    typeof queryKey
-  >({
-    enabled: !!params,
+  const queryKey = messagesFindAllSuspenseQueryKey(chatId)
+  return queryOptions<MessagesFindAllQueryResponseType, ResponseErrorConfig<Error>, MessagesFindAllQueryResponseType, typeof queryKey>({
+    enabled: !!chatId,
     queryKey,
     queryFn: async ({ signal }) => {
-      config.signal = signal;
-      return messagesFindAllSuspense(params, config);
+      config.signal = signal
+      return messagesFindAllSuspense(chatId, config)
     },
-  });
+  })
 }
 
 /**
  * @summary Получить список сообщений в чате
- * {@link /messages}
+ * {@link /messages/:chatId}
  */
 export function useMessagesFindAllSuspense<
   TData = MessagesFindAllQueryResponseType,
   TQueryData = MessagesFindAllQueryResponseType,
   TQueryKey extends QueryKey = MessagesFindAllSuspenseQueryKey,
 >(
-  params: MessagesFindAllQueryParamsType,
+  chatId: MessagesFindAllPathParamsType['chatId'],
   options: {
-    query?: Partial<
-      UseSuspenseQueryOptions<
-        MessagesFindAllQueryResponseType,
-        ResponseErrorConfig<Error>,
-        TData,
-        TQueryKey
-      >
-    >;
-    client?: Partial<RequestConfig> & { client?: typeof client };
+    query?: Partial<UseSuspenseQueryOptions<MessagesFindAllQueryResponseType, ResponseErrorConfig<Error>, TData, TQueryKey>>
+    client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
-  const { query: queryOptions, client: config = {} } = options ?? {};
-  const queryKey = queryOptions?.queryKey ?? messagesFindAllSuspenseQueryKey(params);
+  const { query: queryOptions, client: config = {} } = options ?? {}
+  const queryKey = queryOptions?.queryKey ?? messagesFindAllSuspenseQueryKey(chatId)
 
   const query = useSuspenseQuery({
-    ...(messagesFindAllSuspenseQueryOptions(params, config) as unknown as UseSuspenseQueryOptions),
+    ...(messagesFindAllSuspenseQueryOptions(chatId, config) as unknown as UseSuspenseQueryOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<UseSuspenseQueryOptions, 'queryKey'>),
-  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey };
+  }) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
 
-  query.queryKey = queryKey as TQueryKey;
+  query.queryKey = queryKey as TQueryKey
 
-  return query;
+  return query
 }

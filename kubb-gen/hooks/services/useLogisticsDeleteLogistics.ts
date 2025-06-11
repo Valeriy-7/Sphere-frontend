@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { LogisticsDeleteLogisticsMutationResponseType, LogisticsDeleteLogisticsPathParamsType } from '../../types/services/LogisticsDeleteLogisticsType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import type { LogisticsDeleteLogisticsMutationResponseType, LogisticsDeleteLogisticsPathParamsType } from '../../types/services/LogisticsDeleteLogisticsType'
 import { useMutation } from '@tanstack/react-query'
 
 export const logisticsDeleteLogisticsMutationKey = () => [{ url: '/services/logistics/{id}' }] as const

@@ -1,0 +1,1 @@
+{"type":"object","properties":{"storageLocation":{"type":"string","description":"Новое место хранения продукта","example":"A-12-3"}},"required":["storageLocation"],"x-readme-ref-name":"UpdateProductLocationDto"}

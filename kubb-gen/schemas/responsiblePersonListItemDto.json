@@ -1,0 +1,1 @@
+{"type":"object","properties":{"id":{"type":"string","description":"ID пользователя","format":"uuid"},"name":{"type":"string","description":"Полное имя пользователя"}},"required":["id","name"],"x-readme-ref-name":"ResponsiblePersonListItemDto"}

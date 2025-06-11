@@ -70,10 +70,8 @@ export default function SettingsPage() {
         // @ts-ignore - We know these keys exist in defaultValues
         if (value !== form.formState.defaultValues[key]) {
           // @ts-ignore - We know these keys are valid
-          acc[key] = value;
-        }
-        if (value === '') {
-          acc[key] = null;
+          // Only set to null if the field has changed AND is empty
+          acc[key] = value === '' ? null : value;
         }
         return acc;
       },
@@ -234,7 +232,7 @@ export default function SettingsPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input disabled label="Название" {...field} />
+                      <Input disabled={type === 'fulfillment'} label="Название" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -258,7 +256,7 @@ export default function SettingsPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input disabled label="ОГРН" {...field} />
+                      <Input disabled={type === 'fulfillment'} label="ОГРН" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -270,7 +268,7 @@ export default function SettingsPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input disabled label="Место регистрации" {...field} />
+                      <Input disabled={type === 'fulfillment'} label="Место регистрации" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

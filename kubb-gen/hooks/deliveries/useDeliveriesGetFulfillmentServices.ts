@@ -1,10 +1,10 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import type {
   DeliveriesGetFulfillmentServicesQueryResponseType,
   DeliveriesGetFulfillmentServices401Type,
 } from '../../types/deliveries/DeliveriesGetFulfillmentServicesType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const deliveriesGetFulfillmentServicesQueryKey = () => [{ url: '/deliveries/services' }] as const

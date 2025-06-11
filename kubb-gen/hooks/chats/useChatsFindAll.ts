@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { ChatsFindAllQueryResponseType, ChatsFindAllQueryParamsType } from '../../types/chats/ChatsFindAllType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import type { ChatsFindAllQueryResponseType, ChatsFindAllQueryParamsType } from '../../types/chats/ChatsFindAllType'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const chatsFindAllQueryKey = (params: ChatsFindAllQueryParamsType) => [{ url: '/chats' }, ...(params ? [params] : [])] as const

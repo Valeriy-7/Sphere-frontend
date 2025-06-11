@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { WbGetSyncStatusQueryResponseType, WbGetSyncStatusQueryParamsType } from '../../types/wb/WbGetSyncStatusType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { WbGetSyncStatusQueryResponseType, WbGetSyncStatusQueryParamsType } from '../../types/wb/WbGetSyncStatusType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const wbGetSyncStatusSuspenseQueryKey = (params: WbGetSyncStatusQueryParamsType) => [{ url: '/wb/sync-status' }, ...(params ? [params] : [])] as const

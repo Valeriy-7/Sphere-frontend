@@ -1,9 +1,10 @@
 import type { CreateMessageDtoType } from '../CreateMessageDtoType'
+import type { MessageType } from '../MessageType'
 
 /**
  * @description Сообщение успешно создано
  */
-export type MessagesCreate201Type = any
+export type MessagesCreate201Type = MessageType
 
 export type MessagesCreateMutationRequestType = CreateMessageDtoType
 

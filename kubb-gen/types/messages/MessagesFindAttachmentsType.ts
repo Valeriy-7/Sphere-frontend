@@ -1,3 +1,10 @@
+export type MessagesFindAttachmentsPathParamsType = {
+  /**
+   * @type string
+   */
+  chatId: string
+}
+
 export type MessagesFindAttachmentsQueryParamsType = {
   /**
    * @description ID чата
@@ -32,6 +39,7 @@ export type MessagesFindAttachmentsQueryResponseType = MessagesFindAttachments20
 
 export type MessagesFindAttachmentsTypeQuery = {
   Response: MessagesFindAttachments200Type
+  PathParams: MessagesFindAttachmentsPathParamsType
   QueryParams: MessagesFindAttachmentsQueryParamsType
   Errors: any
 }

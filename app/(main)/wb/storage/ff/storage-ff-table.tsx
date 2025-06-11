@@ -21,6 +21,8 @@ import {
   getSortedRowModel,
   useReactTable,
   SortingState,
+  getPaginationRowModel,
+  PaginationState,
 } from '@tanstack/react-table';
 
 import { TableHeaderSort } from '@/components/date-table/table-header-sort';
@@ -34,6 +36,7 @@ import {
   getTotalColumn,
   type TableProps,
 } from '@/lib/TableHelpers';
+import { DataTablePagination } from '@/components/date-table/data-table-pagination';
 
 export function StorageFfTable<TData, TValue>({ columns, data }: TableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -46,6 +49,11 @@ export function StorageFfTable<TData, TValue>({ columns, data }: TableProps<TDat
     },
   ]);
 
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
   const table = useReactTable({
     data,
     columns,
@@ -57,7 +65,9 @@ export function StorageFfTable<TData, TValue>({ columns, data }: TableProps<TDat
       sorting,
       columnFilters,
       globalFilter,
+      pagination,
     },
+    onPaginationChange: setPagination,
     getRowCanExpand: () => true,
     getExpandedRowModel: getExpandedRowModel(),
     onColumnFiltersChange: setColumnFilters,
@@ -66,6 +76,7 @@ export function StorageFfTable<TData, TValue>({ columns, data }: TableProps<TDat
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     debugTable: true,
     debugHeaders: true,
@@ -75,62 +86,67 @@ export function StorageFfTable<TData, TValue>({ columns, data }: TableProps<TDat
   const { colSizeList } = getColSizeList(['w-[60px]', 'w-[20%]']);
 
   return (
-    <Table colSizeList={colSizeList}>
-      <TableHeader>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <Fragment key={headerGroup.id + 'Fragment'}>
-            <TableRow rowSpace={false} key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead
-                    key={header.id}
-                    colSpan={header.colSpan}
-                    className={header.column.columnDef.meta?.className}
-                  >
-                    {header.isPlaceholder ? null : <TableHeaderSort header={header} />}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-            <TableRowTotal<TData> table={table} />
-            <TableRowAllTotal />
-          </Fragment>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {table.getRowModel().rows.map((row) => {
-          return (
-            <Fragment key={row.id}>
-              <TableRow
-                {...{
-                  onClick: row.getToggleExpandedHandler(),
-                  className: 'cursor-pointer',
-                }}
-              >
-                {row.getVisibleCells().map((cell) => {
+    <>
+      <Table colSizeList={colSizeList}>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <Fragment key={headerGroup.id + 'Fragment'}>
+              <TableRow rowSpace={false} key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
                   return (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                    <TableHead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className={header.column.columnDef.meta?.className}
+                    >
+                      {header.isPlaceholder ? null : <TableHeaderSort header={header} />}
+                    </TableHead>
                   );
                 })}
               </TableRow>
-              {row.getIsExpanded() && (
-                <TableRowExpand colSpan={row.getVisibleCells().length}>
-                  <Table colSizeList={colSizeList}>
-                    <TableBody>
-                      {row.original.subRows.map((subRow) => (
-                        <TableRowSize key={subRow.uuid} row={subRow} />
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableRowExpand>
-              )}
+              <TableRowTotal<TData> table={table} />
+              <TableRowAllTotal />
             </Fragment>
-          );
-        })}
-      </TableBody>
-    </Table>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.map((row) => {
+            return (
+              <Fragment key={row.id}>
+                <TableRow
+                  {...{
+                    onClick: row.getToggleExpandedHandler(),
+                    className: 'cursor-pointer',
+                  }}
+                >
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+                {row.getIsExpanded() && (
+                  <TableRowExpand colSpan={row.getVisibleCells().length}>
+                    <Table colSizeList={colSizeList}>
+                      <TableBody>
+                        {row.original.subRows.map((subRow: DataRow) => (
+                          <TableRowSize key={subRow.uuid} row={subRow} />
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableRowExpand>
+                )}
+              </Fragment>
+            );
+          })}
+        </TableBody>
+      </Table>
+      <div className="mt-4">
+        <DataTablePagination table={table} />
+      </div>
+    </>
   );
 }
 
@@ -149,19 +165,19 @@ function TableRowTotal<TData>({ table }: { table: TTable<TData> }) {
         </TableHead>
 
         <TableHead className={'border-y-primary'} isTotal>
-          {getTotalColumn({ table, key: 'number2' })}
-        </TableHead>
-        <TableHead className={'border-y-primary'} isTotal>
-          {getTotalColumn({ table, key: 'number1' })}
-        </TableHead>
-        <TableHead className={'border-y-primary'} isTotal>
-          {getTotalColumn({ table, key: 'number3' })}
-        </TableHead>
-        <TableHead className={'border-y-primary'} isTotal>
           {getTotalColumn({ table, key: 'number4' })}
         </TableHead>
-        <TableHead className={'border-y-primary last:rounded-br-none'} isTotal>
+        <TableHead className={'border-y-primary'} isTotal>
           {getTotalColumn({ table, key: 'number5' })}
+        </TableHead>
+        <TableHead className={'border-y-primary'} isTotal>
+          {getTotalColumn({ table, key: 'number6' })}
+        </TableHead>
+        <TableHead className={'border-y-primary'} isTotal>
+          {getTotalColumn({ table, key: 'number7' })}
+        </TableHead>
+        <TableHead className={'border-y-primary last:rounded-br-none'} isTotal>
+          {getTotalColumn({ table, key: 'number8' })}
         </TableHead>
       </TableRow>
     </>
@@ -176,17 +192,17 @@ function TableRowSize({ row }: { row: DataRow }) {
         <TableCell className={''} level={1}>
           <div className={'flexflex'}>{row.size}</div>
         </TableCell>
-        <TableCell level={1}>{row.number1}</TableCell>
-        <TableCell level={1}>{row.number2}</TableCell>
-        <TableCell level={1}>{row.number3}</TableCell>
         <TableCell level={1}>{row.number4}</TableCell>
+        <TableCell level={1}>{row.number5}</TableCell>
         <TableCell level={1}>{row.number6}</TableCell>
+        <TableCell level={1}>{row.number7}</TableCell>
+        <TableCell level={1}>{row.number8}</TableCell>
       </TableRow>
     </>
   );
 }
 
-function TableRowAllTotal({ row }: { row: DataRow }) {
+function TableRowAllTotal() {
   return (
     <>
       <TableRow>
@@ -194,11 +210,11 @@ function TableRowAllTotal({ row }: { row: DataRow }) {
         <TableHead isTotal colSpan={1}>
           За все время
         </TableHead>
-        <TableHead isTotal>3000</TableHead>
-        <TableHead isTotal>3000</TableHead>
-        <TableHead isTotal>3000</TableHead>
-        <TableHead isTotal>3000</TableHead>
-        <TableHead isTotal>3000</TableHead>
+        <TableHead isTotal>-</TableHead>
+        <TableHead isTotal>-</TableHead>
+        <TableHead isTotal>-</TableHead>
+        <TableHead isTotal>-</TableHead>
+        <TableHead isTotal>-</TableHead>
       </TableRow>
     </>
   );

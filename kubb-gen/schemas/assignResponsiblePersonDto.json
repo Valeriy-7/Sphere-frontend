@@ -1,1 +1,0 @@
-{"type":"object","properties":{"responsiblePerson":{"type":"string","description":"ФИО ответственного сотрудника","example":"Иванов Иван Иванович"}},"required":["responsiblePerson"],"x-readme-ref-name":"AssignResponsiblePersonDto"}

@@ -1,0 +1,1 @@
+{"type":"object","properties":{"name":{"type":"string","description":"Имя сотрудника","example":"Иван Иванов"},"position":{"type":"string","description":"Должность сотрудника","example":"Менеджер по логистике"}},"x-readme-ref-name":"UpdateWorkerDto"}

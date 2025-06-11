@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { AdminBlockUserMutationRequestType, AdminBlockUserMutationResponseType, AdminBlockUserPathParamsType } from '../../types/admin/AdminBlockUserType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import type { AdminBlockUserMutationRequestType, AdminBlockUserMutationResponseType, AdminBlockUserPathParamsType } from '../../types/admin/AdminBlockUserType'
 import { useMutation } from '@tanstack/react-query'
 
 export const adminBlockUserMutationKey = () => [{ url: '/admin/users/{id}/block' }] as const

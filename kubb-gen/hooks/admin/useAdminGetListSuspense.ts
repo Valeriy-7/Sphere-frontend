@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { AdminGetListQueryResponseType, AdminGetListQueryParamsType } from '../../types/admin/AdminGetListType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { AdminGetListQueryResponseType, AdminGetListQueryParamsType } from '../../types/admin/AdminGetListType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const adminGetListSuspenseQueryKey = (params?: AdminGetListQueryParamsType) => [{ url: '/admin/list' }, ...(params ? [params] : [])] as const

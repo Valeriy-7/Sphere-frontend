@@ -1,4 +1,5 @@
 import type { FFRouteInfoResponseDtoType } from './FFRouteInfoResponseDtoType'
+import type { ResponsiblePersonListItemDtoType } from './ResponsiblePersonListItemDtoType'
 
 export type FFDeliveryWithRoutesResponseDtoType = {
   /**
@@ -26,6 +27,11 @@ export type FFDeliveryWithRoutesResponseDtoType = {
    * @type number
    */
   cargoPlaces: number
+  /**
+   * @description Объем груза (м³)
+   * @type number
+   */
+  cargoVolume: number
   /**
    * @description Плановое количество товаров
    * @type number
@@ -66,6 +72,26 @@ export type FFDeliveryWithRoutesResponseDtoType = {
    * @type string
    */
   deliveryNumber: string
+  /**
+   * @description Ответственный сотрудник
+   * @type string | undefined
+   */
+  responsiblePerson?: string
+  /**
+   * @description ID логиста
+   * @type string | undefined
+   */
+  logisticsProviderId?: string
+  /**
+   * @description Дата принятия поставки
+   * @type string | undefined, date-time
+   */
+  acceptedAt?: string | null
+  /**
+   * @description Список ответственных сотрудников
+   * @type array | undefined
+   */
+  responsiblePersons?: ResponsiblePersonListItemDtoType[]
   /**
    * @description Маршруты поставки
    * @type array

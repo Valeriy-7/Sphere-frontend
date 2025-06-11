@@ -1,4 +1,5 @@
 import { FFRouteInfoResponseDtoSchema } from './FFRouteInfoResponseDtoSchema'
+import { responsiblePersonListItemDtoSchema } from './responsiblePersonListItemDtoSchema'
 import { z } from 'zod'
 
 export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
@@ -7,6 +8,7 @@ export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
   status: z.string().describe('Статус поставки'),
   deliveryDate: z.date().describe('Дата поставки'),
   cargoPlaces: z.number().describe('Количество грузовых мест'),
+  cargoVolume: z.number().describe('Объем груза (м³)'),
   planQuantity: z.number().describe('Плановое количество товаров'),
   factQuantity: z.number().describe('Фактическое количество товаров').nullable(),
   defects: z.number().describe('Количество дефектов').nullable(),
@@ -15,5 +17,11 @@ export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
   logisticsToFFPrice: z.number().describe('Стоимость логистики до фулфилмента'),
   totalPrice: z.number().describe('Общая сумма (товары + услуги + логистика)'),
   deliveryNumber: z.string().describe('Номер поставки для отображения (последние 5 символов ID)'),
+  responsiblePerson: z.string().describe('Ответственный сотрудник').optional(),
+  logisticsProviderId: z.string().describe('ID логиста').optional(),
+  responsiblePersons: z
+    .array(z.lazy(() => responsiblePersonListItemDtoSchema))
+    .describe('Список ответственных сотрудников')
+    .optional(),
   routes: z.array(z.lazy(() => FFRouteInfoResponseDtoSchema)).describe('Маршруты поставки'),
 })

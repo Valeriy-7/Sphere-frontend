@@ -1,0 +1,1 @@
+export { FFAccountConfigGetLinkedWbCabinets200Schema, FFAccountConfigGetLinkedWbCabinetsQueryResponseSchema } from './FFAccountConfigGetLinkedWbCabinetsSchema'

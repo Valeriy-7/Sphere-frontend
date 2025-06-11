@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { DeliveriesGetSuppliersQueryResponseType, DeliveriesGetSuppliers401Type } from '../../types/deliveries/DeliveriesGetSuppliersType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { DeliveriesGetSuppliersQueryResponseType, DeliveriesGetSuppliers401Type } from '../../types/deliveries/DeliveriesGetSuppliersType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const deliveriesGetSuppliersSuspenseQueryKey = () => [{ url: '/deliveries/suppliers' }] as const

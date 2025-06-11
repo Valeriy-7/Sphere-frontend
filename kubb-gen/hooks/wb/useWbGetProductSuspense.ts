@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { WbGetProductQueryResponseType, WbGetProductPathParamsType, WbGetProductQueryParamsType } from '../../types/wb/WbGetProductType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { WbGetProductQueryResponseType, WbGetProductPathParamsType, WbGetProductQueryParamsType } from '../../types/wb/WbGetProductType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const wbGetProductSuspenseQueryKey = (id: WbGetProductPathParamsType['id'], params: WbGetProductQueryParamsType) =>

@@ -1,11 +1,11 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   AdminVerifyCabinetMutationRequestType,
   AdminVerifyCabinetMutationResponseType,
   AdminVerifyCabinetPathParamsType,
 } from '../../types/admin/AdminVerifyCabinetType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 export const adminVerifyCabinetMutationKey = () => [{ url: '/admin/cabinets/{id}/verify' }] as const

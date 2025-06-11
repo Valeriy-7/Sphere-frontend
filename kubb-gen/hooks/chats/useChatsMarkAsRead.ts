@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { ChatsMarkAsReadMutationRequestType, ChatsMarkAsReadMutationResponseType } from '../../types/chats/ChatsMarkAsReadType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import type { ChatsMarkAsReadMutationRequestType, ChatsMarkAsReadMutationResponseType } from '../../types/chats/ChatsMarkAsReadType'
 import { useMutation } from '@tanstack/react-query'
 
 export const chatsMarkAsReadMutationKey = () => [{ url: '/chats/mark-as-read' }] as const

@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { CabinetsFindAllQueryResponseType } from '../../types/cabinets/CabinetsFindAllType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { CabinetsFindAllQueryResponseType } from '../../types/cabinets/CabinetsFindAllType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const cabinetsFindAllSuspenseQueryKey = () => [{ url: '/cabinets' }] as const

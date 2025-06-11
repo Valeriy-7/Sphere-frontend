@@ -1,5 +1,9 @@
 import { z } from 'zod'
 
+export const messagesFindEventsPathParamsSchema = z.object({
+  chatId: z.string(),
+})
+
 export const messagesFindEventsQueryParamsSchema = z.object({
   chatId: z.string().describe('ID чата'),
   filter: z.enum(['ALL', 'FF', 'WB']).default('ALL').describe('Фильтр поставок'),

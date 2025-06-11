@@ -1,30 +1,31 @@
-import { axiosInstance } from '@/modules/auth/axios-client';
-import type { AxiosRequestConfig } from 'axios';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
-import { useMutation } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { ChatsCreateMutationRequestType, ChatsCreateMutationResponseType } from '../../types/chats/ChatsCreateType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
-export const chatsCreateMutationKey = () => [{ url: '/chats/create' }] as const;
+export const chatsCreateMutationKey = () => [{ url: '/chats/create' }] as const
 
-export type ChatsCreateMutationKey = ReturnType<typeof chatsCreateMutationKey>;
-
-export type ChatsCreateRequestType = {
-  partnerId: string;
-};
-
-export type ChatsCreateResponseType = {
-  id: string;
-  cabinetId1: string;
-  cabinetId2: string;
-};
+export type ChatsCreateMutationKey = ReturnType<typeof chatsCreateMutationKey>
 
 /**
  * @summary Создать новый чат с партнером
  * {@link /chats/create}
  */
-export const chatsCreate = (data: ChatsCreateRequestType, options?: AxiosRequestConfig) => {
-  return axiosInstance.post<ChatsCreateResponseType>('/chats/create', data, options);
-};
+export async function chatsCreate(
+  data: ChatsCreateMutationRequestType,
+  config: Partial<RequestConfig<ChatsCreateMutationRequestType>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<ChatsCreateMutationResponseType, ResponseErrorConfig<Error>, ChatsCreateMutationRequestType>({
+    method: 'POST',
+    url: `/chats/create`,
+    data,
+    ...requestConfig,
+  })
+  return res.data
+}
 
 /**
  * @summary Создать новый чат с партнером
@@ -32,31 +33,18 @@ export const chatsCreate = (data: ChatsCreateRequestType, options?: AxiosRequest
  */
 export function useChatsCreate<TContext>(
   options: {
-    mutation?: UseMutationOptions<
-      ChatsCreateResponseType,
-      ResponseErrorConfig<any>,
-      { data: ChatsCreateRequestType },
-      TContext
-    >;
-    client?: Partial<RequestConfig<ChatsCreateRequestType>> & {
-      client?: typeof axiosInstance;
-    };
+    mutation?: UseMutationOptions<ChatsCreateMutationResponseType, ResponseErrorConfig<Error>, { data: ChatsCreateMutationRequestType }, TContext>
+    client?: Partial<RequestConfig<ChatsCreateMutationRequestType>> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey = mutationOptions?.mutationKey ?? chatsCreateMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? chatsCreateMutationKey()
 
-  return useMutation<
-    ChatsCreateResponseType,
-    ResponseErrorConfig<any>,
-    { data: ChatsCreateRequestType },
-    TContext
-  >({
+  return useMutation<ChatsCreateMutationResponseType, ResponseErrorConfig<Error>, { data: ChatsCreateMutationRequestType }, TContext>({
     mutationFn: async ({ data }) => {
-      const response = await chatsCreate(data, config);
-      return response.data;
+      return chatsCreate(data, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

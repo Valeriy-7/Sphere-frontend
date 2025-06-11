@@ -5,35 +5,39 @@ import { formatDate } from '@/lib/utils/formatDate';
 import { TableCardImgText } from '@/components/date-table/table-img-text';
 import { TableCellControlsGroup } from './TableCellControlsGroup';
 import React from 'react';
+import { useWbCabinetInfo } from '@/app/(main)/ff/delivery/hooks/useWbCabinetInfo';
 
 export function TableRowNoGroup<TData>({
   table,
   row,
   onClick,
   className,
+  context = 'new',
 }: {
   table: TTable<TData>;
   row: Row<TData>;
   onClick: () => void;
   className?: string;
+  context?: 'new' | 'inprogress' | 'completed';
 }) {
-  console.log();
+  const rowData = row.original as any; // Type assertion for DataRow properties
+  const { wbCabinetInfo } = useWbCabinetInfo();
 
   return (
     <TableRow className={className} onClick={onClick}>
       <TableCell>1</TableCell>
-      <TableCell>{formatDate(row.original.groupDate1)}</TableCell>
+      <TableCell>{formatDate(rowData.groupDate1)}</TableCell>
 
       <TableCell>
         <TableCardImgText
-          image={{ src: row.original.image }}
-          title={row.original.groupStoreName}
-          text={row.original.groupPlace}
+          image={{ src: rowData.image }}
+          title={rowData.groupStoreName}
+          text={wbCabinetInfo?.legalCompanyName}
         />
       </TableCell>
-      <TableCell>{row.original.number1to3}</TableCell>
+      <TableCell>{rowData.number1to3}</TableCell>
 
-      <TableCellControlsGroup<TData> row={row} />
+      <TableCellControlsGroup<TData> table={table} row={row} context={context} />
     </TableRow>
   );
 }

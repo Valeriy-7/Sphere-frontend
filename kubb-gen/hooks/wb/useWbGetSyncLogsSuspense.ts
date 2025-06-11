@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { WbGetSyncLogsQueryResponseType, WbGetSyncLogsQueryParamsType } from '../../types/wb/WbGetSyncLogsType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { WbGetSyncLogsQueryResponseType, WbGetSyncLogsQueryParamsType } from '../../types/wb/WbGetSyncLogsType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const wbGetSyncLogsSuspenseQueryKey = (params: WbGetSyncLogsQueryParamsType) => [{ url: '/wb/sync-logs' }, ...(params ? [params] : [])] as const

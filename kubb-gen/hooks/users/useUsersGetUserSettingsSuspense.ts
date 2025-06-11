@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { UsersGetUserSettingsQueryResponseType } from '../../types/users/UsersGetUserSettingsType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { UsersGetUserSettingsQueryResponseType } from '../../types/users/UsersGetUserSettingsType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const usersGetUserSettingsSuspenseQueryKey = () => [{ url: '/users/settings' }] as const

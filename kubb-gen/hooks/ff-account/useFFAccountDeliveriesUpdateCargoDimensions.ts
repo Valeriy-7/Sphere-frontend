@@ -1,12 +1,12 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   FFAccountDeliveriesUpdateCargoDimensionsMutationRequestType,
   FFAccountDeliveriesUpdateCargoDimensionsMutationResponseType,
   FFAccountDeliveriesUpdateCargoDimensionsPathParamsType,
   FFAccountDeliveriesUpdateCargoDimensions404Type,
 } from '../../types/ff-account/FFAccountDeliveriesUpdateCargoDimensionsType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 export const FFAccountDeliveriesUpdateCargoDimensionsMutationKey = () => [{ url: '/ff-account/deliveries/{id}/cargo-dimensions' }] as const

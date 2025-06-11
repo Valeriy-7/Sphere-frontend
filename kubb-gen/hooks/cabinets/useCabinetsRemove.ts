@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { CabinetsRemoveMutationResponseType, CabinetsRemovePathParamsType, CabinetsRemove404Type } from '../../types/cabinets/CabinetsRemoveType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import type { CabinetsRemoveMutationResponseType, CabinetsRemovePathParamsType, CabinetsRemove404Type } from '../../types/cabinets/CabinetsRemoveType'
 import { useMutation } from '@tanstack/react-query'
 
 export const cabinetsRemoveMutationKey = () => [{ url: '/cabinets/{id}' }] as const

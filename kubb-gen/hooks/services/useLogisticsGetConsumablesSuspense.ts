@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { LogisticsGetConsumablesQueryResponseType } from '../../types/services/LogisticsGetConsumablesType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { LogisticsGetConsumablesQueryResponseType } from '../../types/services/LogisticsGetConsumablesType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const logisticsGetConsumablesSuspenseQueryKey = () => [{ url: '/services/consumables' }] as const

@@ -1,12 +1,12 @@
 import client from '@/modules/auth/axios-client'
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
-import type { UseMutationOptions } from '@tanstack/react-query'
 import type {
   AuthCompleteRegistrationMutationRequestType,
   AuthCompleteRegistrationMutationResponseType,
   AuthCompleteRegistration400Type,
   AuthCompleteRegistration401Type,
 } from '../../types/auth/AuthCompleteRegistrationType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 export const authCompleteRegistrationMutationKey = () => [{ url: '/auth/complete' }] as const

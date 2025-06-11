@@ -192,6 +192,11 @@ const pagesDev = [
         icon: IconHome,
       },
       ...getNavMain('ff'),
+      {
+        name: 'FF Cabinet Settings (Page)',
+        url: '/ff/settings',
+        icon: IconSettings,
+      },
     ],
   },
 ];

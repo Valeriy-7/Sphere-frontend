@@ -1,1 +1,1 @@
-{"type":"object","properties":{"messageId":{"type":"string","description":"ID сообщения","example":"123e4567-e89b-12d3-a456-426614174000"}},"required":["messageId"],"x-readme-ref-name":"ToggleFavoriteDto"}
+{"type":"object","properties":{"messageId":{"type":"string","description":"ID сообщения","example":"123e4567-e89b-12d3-a456-426614174000"},"isFavorite":{"type":"boolean","description":"Флаг добавления в избранное (true) или удаления из избранного (false)","example":true}},"required":["messageId","isFavorite"],"x-readme-ref-name":"ToggleFavoriteDto"}

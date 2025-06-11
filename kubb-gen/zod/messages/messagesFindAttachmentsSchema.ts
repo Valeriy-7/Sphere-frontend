@@ -1,5 +1,9 @@
 import { z } from 'zod'
 
+export const messagesFindAttachmentsPathParamsSchema = z.object({
+  chatId: z.string(),
+})
+
 export const messagesFindAttachmentsQueryParamsSchema = z.object({
   chatId: z.string().describe('ID чата'),
   limit: z.number().default(20).describe('Количество вложений на странице'),

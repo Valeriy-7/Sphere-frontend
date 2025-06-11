@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { WbLoadDemoDataQueryResponseType, WbLoadDemoDataQueryParamsType } from '../../types/wb/WbLoadDemoDataType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { WbLoadDemoDataQueryResponseType, WbLoadDemoDataQueryParamsType } from '../../types/wb/WbLoadDemoDataType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const wbLoadDemoDataSuspenseQueryKey = (params: WbLoadDemoDataQueryParamsType) => [{ url: '/wb/load-demo-data' }, ...(params ? [params] : [])] as const

@@ -1,27 +1,31 @@
-import { axiosInstance } from '@/modules/auth/axios-client';
-import type {
-  MessagesCreateMutationRequestType,
-  MessagesCreate201Type,
-} from '../../types/messages/MessagesCreateType';
-import type { AxiosRequestConfig } from 'axios';
-import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client';
-import type { UseMutationOptions } from '@tanstack/react-query';
-import { useMutation } from '@tanstack/react-query';
+import client from '@/modules/auth/axios-client'
+import type { MessagesCreateMutationRequestType, MessagesCreateMutationResponseType } from '../../types/messages/MessagesCreateType'
+import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
+import type { UseMutationOptions } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
-export const messagesCreateMutationKey = () => [{ url: '/messages' }] as const;
+export const messagesCreateMutationKey = () => [{ url: '/messages' }] as const
 
-export type MessagesCreateMutationKey = ReturnType<typeof messagesCreateMutationKey>;
+export type MessagesCreateMutationKey = ReturnType<typeof messagesCreateMutationKey>
 
 /**
  * @summary Создать новое сообщение
  * {@link /messages}
  */
-export const messagesCreate = (
+export async function messagesCreate(
   data: MessagesCreateMutationRequestType,
-  options?: AxiosRequestConfig,
-) => {
-  return axiosInstance.post<MessagesCreate201Type>('/messages', data, options);
-};
+  config: Partial<RequestConfig<MessagesCreateMutationRequestType>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<MessagesCreateMutationResponseType, ResponseErrorConfig<Error>, MessagesCreateMutationRequestType>({
+    method: 'POST',
+    url: `/messages`,
+    data,
+    ...requestConfig,
+  })
+  return res.data
+}
 
 /**
  * @summary Создать новое сообщение
@@ -29,30 +33,18 @@ export const messagesCreate = (
  */
 export function useMessagesCreate<TContext>(
   options: {
-    mutation?: UseMutationOptions<
-      MessagesCreate201Type,
-      ResponseErrorConfig<any>,
-      { data: MessagesCreateMutationRequestType },
-      TContext
-    >;
-    client?: Partial<RequestConfig<MessagesCreateMutationRequestType>> & {
-      client?: typeof axiosInstance;
-    };
+    mutation?: UseMutationOptions<MessagesCreateMutationResponseType, ResponseErrorConfig<Error>, { data: MessagesCreateMutationRequestType }, TContext>
+    client?: Partial<RequestConfig<MessagesCreateMutationRequestType>> & { client?: typeof client }
   } = {},
 ) {
-  const { mutation: mutationOptions, client: config = {} } = options ?? {};
-  const mutationKey = mutationOptions?.mutationKey ?? messagesCreateMutationKey();
+  const { mutation: mutationOptions, client: config = {} } = options ?? {}
+  const mutationKey = mutationOptions?.mutationKey ?? messagesCreateMutationKey()
 
-  return useMutation<
-    MessagesCreate201Type,
-    ResponseErrorConfig<any>,
-    { data: MessagesCreateMutationRequestType },
-    TContext
-  >({
+  return useMutation<MessagesCreateMutationResponseType, ResponseErrorConfig<Error>, { data: MessagesCreateMutationRequestType }, TContext>({
     mutationFn: async ({ data }) => {
-      return messagesCreate(data, config);
+      return messagesCreate(data, config)
     },
     mutationKey,
     ...mutationOptions,
-  });
+  })
 }

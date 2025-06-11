@@ -1,7 +1,7 @@
 import client from '@/modules/auth/axios-client'
+import type { CabinetsGetPartnersQueryResponseType, CabinetsGetPartnersQueryParamsType } from '../../types/cabinets/CabinetsGetPartnersType'
 import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-client'
 import type { QueryKey, UseSuspenseQueryOptions, UseSuspenseQueryResult } from '@tanstack/react-query'
-import type { CabinetsGetPartnersQueryResponseType, CabinetsGetPartnersQueryParamsType } from '../../types/cabinets/CabinetsGetPartnersType'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
 export const cabinetsGetPartnersSuspenseQueryKey = (params?: CabinetsGetPartnersQueryParamsType) =>
