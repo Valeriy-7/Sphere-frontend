@@ -1,7 +1,7 @@
 services:
   sphere-frontend:
     env_file:
-      - .env
+      - stack.env
     build:
       context: .
       dockerfile: Dockerfile
