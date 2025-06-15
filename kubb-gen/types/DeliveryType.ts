@@ -3,6 +3,7 @@ export const deliveryStatusEnum = {
   IN_PROGRESS: 'IN_PROGRESS',
   ACCEPTED: 'ACCEPTED',
   PREPARATION: 'PREPARATION',
+  TO_WORK: 'TO_WORK',
   COMPLETED: 'COMPLETED',
 } as const
 
@@ -114,6 +115,11 @@ export type DeliveryType = {
    * @type number
    */
   totalAmount: number
+  /**
+   * @description Дата и время принятия поставки
+   * @type string | undefined, date-time
+   */
+  acceptedAt?: string
   /**
    * @description Дата создания записи
    * @type string, date-time

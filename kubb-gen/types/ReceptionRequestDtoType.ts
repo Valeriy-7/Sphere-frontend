@@ -3,6 +3,7 @@ export const receptionRequestDtoStatusEnum = {
   reception: 'reception',
   accepted: 'accepted',
   preparation: 'preparation',
+  to_work: 'to_work',
   completed: 'completed',
 } as const
 

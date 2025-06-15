@@ -10,6 +10,10 @@ export type { WbLoadDemoDataQueryKey } from './useWbLoadDemoData'
 export type { WbLoadDemoDataSuspenseQueryKey } from './useWbLoadDemoDataSuspense'
 export type { WbResetDataQueryKey } from './useWbResetData'
 export type { WbResetDataSuspenseQueryKey } from './useWbResetDataSuspense'
+export type { WbStorageGetWbStorageDataQueryKey } from './useWbStorageGetWbStorageData'
+export type { WbStorageGetWbStorageDataSuspenseQueryKey } from './useWbStorageGetWbStorageDataSuspense'
+export type { WbStorageSearchWbStorageDataQueryKey } from './useWbStorageSearchWbStorageData'
+export type { WbStorageSearchWbStorageDataSuspenseQueryKey } from './useWbStorageSearchWbStorageDataSuspense'
 export type { WbSyncDataQueryKey } from './useWbSyncData'
 export type { WbSyncDataSuspenseQueryKey } from './useWbSyncDataSuspense'
 export { wbGetProductQueryKey, wbGetProduct, wbGetProductQueryOptions, useWbGetProduct } from './useWbGetProduct'
@@ -34,5 +38,29 @@ export {
 } from './useWbLoadDemoDataSuspense'
 export { wbResetDataQueryKey, wbResetData, wbResetDataQueryOptions, useWbResetData } from './useWbResetData'
 export { wbResetDataSuspenseQueryKey, wbResetDataSuspense, wbResetDataSuspenseQueryOptions, useWbResetDataSuspense } from './useWbResetDataSuspense'
+export {
+  wbStorageGetWbStorageDataQueryKey,
+  wbStorageGetWbStorageData,
+  wbStorageGetWbStorageDataQueryOptions,
+  useWbStorageGetWbStorageData,
+} from './useWbStorageGetWbStorageData'
+export {
+  wbStorageGetWbStorageDataSuspenseQueryKey,
+  wbStorageGetWbStorageDataSuspense,
+  wbStorageGetWbStorageDataSuspenseQueryOptions,
+  useWbStorageGetWbStorageDataSuspense,
+} from './useWbStorageGetWbStorageDataSuspense'
+export {
+  wbStorageSearchWbStorageDataQueryKey,
+  wbStorageSearchWbStorageData,
+  wbStorageSearchWbStorageDataQueryOptions,
+  useWbStorageSearchWbStorageData,
+} from './useWbStorageSearchWbStorageData'
+export {
+  wbStorageSearchWbStorageDataSuspenseQueryKey,
+  wbStorageSearchWbStorageDataSuspense,
+  wbStorageSearchWbStorageDataSuspenseQueryOptions,
+  useWbStorageSearchWbStorageDataSuspense,
+} from './useWbStorageSearchWbStorageDataSuspense'
 export { wbSyncDataQueryKey, wbSyncData, wbSyncDataQueryOptions, useWbSyncData } from './useWbSyncData'
 export { wbSyncDataSuspenseQueryKey, wbSyncDataSuspense, wbSyncDataSuspenseQueryOptions, useWbSyncDataSuspense } from './useWbSyncDataSuspense'

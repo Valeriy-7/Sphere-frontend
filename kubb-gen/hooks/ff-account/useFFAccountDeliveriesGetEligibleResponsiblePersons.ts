@@ -4,20 +4,20 @@ import type { RequestConfig, ResponseErrorConfig } from '@/modules/auth/axios-cl
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
-export const FFAccountDeliveriesGetEligibleResponsiblePersonsQueryKey = () => [{ url: '/ff-account/deliveries/eligible-responsible-persons' }] as const
+export const FFAccountDeliveriesGetEligibleResponsiblePersonsQueryKey = () => [{ url: '/ff-account/deliveries/responsible-persons' }] as const
 
 export type FFAccountDeliveriesGetEligibleResponsiblePersonsQueryKey = ReturnType<typeof FFAccountDeliveriesGetEligibleResponsiblePersonsQueryKey>
 
 /**
  * @summary Получить список сотрудников для назначения ответственными
- * {@link /ff-account/deliveries/eligible-responsible-persons}
+ * {@link /ff-account/deliveries/responsible-persons}
  */
 export async function FFAccountDeliveriesGetEligibleResponsiblePersons(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
   const res = await request<FFAccountDeliveriesGetEligibleResponsiblePersonsQueryResponseType, ResponseErrorConfig<Error>, unknown>({
     method: 'GET',
-    url: `/ff-account/deliveries/eligible-responsible-persons`,
+    url: `/ff-account/deliveries/responsible-persons`,
     ...requestConfig,
   })
   return res.data
@@ -41,7 +41,7 @@ export function FFAccountDeliveriesGetEligibleResponsiblePersonsQueryOptions(con
 
 /**
  * @summary Получить список сотрудников для назначения ответственными
- * {@link /ff-account/deliveries/eligible-responsible-persons}
+ * {@link /ff-account/deliveries/responsible-persons}
  */
 export function useFFAccountDeliveriesGetEligibleResponsiblePersons<
   TData = FFAccountDeliveriesGetEligibleResponsiblePersonsQueryResponseType,

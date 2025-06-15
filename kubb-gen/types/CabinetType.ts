@@ -97,6 +97,11 @@ export type CabinetType = {
    */
   managerFullName: string | null
   /**
+   * @description ФИО владельца
+   * @type string
+   */
+  ownerFullName: string | null
+  /**
    * @description Юридический адрес
    * @type string
    */

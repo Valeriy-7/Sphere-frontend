@@ -3,6 +3,7 @@ export const deliveryStatusEnum2 = {
   IN_PROGRESS: 'IN_PROGRESS',
   ACCEPTED: 'ACCEPTED',
   PREPARATION: 'PREPARATION',
+  TO_WORK: 'TO_WORK',
   COMPLETED: 'COMPLETED',
 } as const
 

@@ -17,8 +17,8 @@ export const FFAccountDeliveriesGetDeliveryProductsSuspenseQueryKey = (
 export type FFAccountDeliveriesGetDeliveryProductsSuspenseQueryKey = ReturnType<typeof FFAccountDeliveriesGetDeliveryProductsSuspenseQueryKey>
 
 /**
- * @description Возвращает список продуктов для конкретной поставки
- * @summary Получить список продуктов в поставке
+ * @description Возвращает список товаров для конкретной поставки с возможностью фильтрации по поставщику.
+ * @summary Получить товары поставки
  * {@link /ff-account/deliveries/:id/products}
  */
 export async function FFAccountDeliveriesGetDeliveryProductsSuspense(
@@ -58,8 +58,8 @@ export function FFAccountDeliveriesGetDeliveryProductsSuspenseQueryOptions(
 }
 
 /**
- * @description Возвращает список продуктов для конкретной поставки
- * @summary Получить список продуктов в поставке
+ * @description Возвращает список товаров для конкретной поставки с возможностью фильтрации по поставщику.
+ * @summary Получить товары поставки
  * {@link /ff-account/deliveries/:id/products}
  */
 export function useFFAccountDeliveriesGetDeliveryProductsSuspense<

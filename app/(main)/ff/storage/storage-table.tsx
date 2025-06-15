@@ -21,7 +21,7 @@ import { StorageSupplier, StorageProduct, StorageProductSize } from '@/types/sto
 import { useUpdateStorageLocation } from '@/hooks/useStorageData';
 import { useToast } from '@/components/ui/use-toast';
 import { useState } from 'react';
-import { useUpdateProductStorageLocation } from '@/kubb-gen/hooks/useUpdateProductStorageLocation';
+import { useFFStorageUpdateProductStorageLocation } from '@/kubb-gen/hooks/ff-account/useFFStorageUpdateProductStorageLocation';
 import client from '@/modules/auth/axios-client';
 
 // Number formatting function - adds spaces every 3 digits
@@ -626,7 +626,7 @@ const TableRowProduct = ({
   onToggleEdit: () => void;
   onQuantityChange: (sizeId: string, oldQuantity: number, newQuantity: number, oldDefects: number, newDefects: number) => void;
 }) => {
-  const updateProductStorageLocationMutation = useUpdateProductStorageLocation();
+  const updateProductStorageLocationMutation = useFFStorageUpdateProductStorageLocation();
   const [newStorageLocation, setNewStorageLocation] = useState(product.storageLocation || '');
 
   const handleSave = async () => {
@@ -637,7 +637,7 @@ const TableRowProduct = ({
     try {
       await updateProductStorageLocationMutation.mutateAsync({
         productId: product.id || product.productId,
-        storageLocation: newStorageLocation.trim()
+        data: { storageLocation: newStorageLocation.trim() }
       });
       
       // Update local data optimistically - no need to refetch

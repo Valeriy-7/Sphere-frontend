@@ -1,0 +1,1 @@
+{"type":"object","properties":{"storageLocation":{"type":"string","description":"Storage location identifier","example":"П-13-А-5"}},"required":["storageLocation"],"x-readme-ref-name":"UpdateStorageLocationDto"}

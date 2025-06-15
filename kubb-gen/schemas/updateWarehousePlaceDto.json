@@ -1,0 +1,1 @@
+{"type":"object","properties":{"warehousePlace":{"type":"string","description":"Новое место хранения для поставки","example":"A-12-3"}},"required":["warehousePlace"],"x-readme-ref-name":"UpdateWarehousePlaceDto"}

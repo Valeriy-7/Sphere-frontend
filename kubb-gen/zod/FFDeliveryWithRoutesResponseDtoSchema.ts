@@ -1,5 +1,4 @@
 import { FFRouteInfoResponseDtoSchema } from './FFRouteInfoResponseDtoSchema'
-import { responsiblePersonListItemDtoSchema } from './responsiblePersonListItemDtoSchema'
 import { z } from 'zod'
 
 export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
@@ -7,6 +6,7 @@ export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
   number: z.number().describe('Номер поставки'),
   status: z.string().describe('Статус поставки'),
   deliveryDate: z.date().describe('Дата поставки'),
+  acceptedAt: z.date().describe('Дата и время принятия поставки').optional(),
   cargoPlaces: z.number().describe('Количество грузовых мест'),
   cargoVolume: z.number().describe('Объем груза (м³)'),
   planQuantity: z.number().describe('Плановое количество товаров'),
@@ -19,9 +19,5 @@ export const FFDeliveryWithRoutesResponseDtoSchema = z.object({
   deliveryNumber: z.string().describe('Номер поставки для отображения (последние 5 символов ID)'),
   responsiblePerson: z.string().describe('Ответственный сотрудник').optional(),
   logisticsProviderId: z.string().describe('ID логиста').optional(),
-  responsiblePersons: z
-    .array(z.lazy(() => responsiblePersonListItemDtoSchema))
-    .describe('Список ответственных сотрудников')
-    .optional(),
   routes: z.array(z.lazy(() => FFRouteInfoResponseDtoSchema)).describe('Маршруты поставки'),
 })

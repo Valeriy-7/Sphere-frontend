@@ -11,7 +11,7 @@ export const deliverySchema = z.object({
   cargoVolume: z.number().describe('Объем груза (м³)').optional(),
   responsiblePerson: z.string().describe('Ответственный сотрудник').optional(),
   logisticsProviderId: z.string().describe('ID логиста').optional(),
-  status: z.enum(['CREATED', 'IN_PROGRESS', 'ACCEPTED', 'PREPARATION', 'COMPLETED']).describe('Статус поставки'),
+  status: z.enum(['CREATED', 'IN_PROGRESS', 'ACCEPTED', 'PREPARATION', 'TO_WORK', 'COMPLETED']).describe('Статус поставки'),
   storeId: z.string().describe('ID магазина').optional(),
   storeName: z.string().describe('Название магазина').optional(),
   storeContactPerson: z.string().describe('Контактное лицо магазина').optional(),
@@ -22,6 +22,7 @@ export const deliverySchema = z.object({
   logisticsToFFPrice: z.number().describe('Стоимость логистики до фулфилмента'),
   ffServicesPrice: z.number().describe('Стоимость услуг фулфилмента'),
   totalAmount: z.number().describe('Итоговая сумма'),
+  acceptedAt: z.date().describe('Дата и время принятия поставки').optional(),
   createdAt: z.date().describe('Дата создания записи'),
   updatedAt: z.date().describe('Дата последнего обновления записи'),
 })

@@ -1,0 +1,1 @@
+{"type":"object","properties":{"groupName":{"type":"string","description":"Название группы поставок","example":"Группа поставок от 15.01.2024"},"deliveryIds":{"description":"Массив ID поставок для группировки","example":["uuid1","uuid2","uuid3"],"type":"array","items":{"type":"string"}}},"required":["deliveryIds"],"x-readme-ref-name":"CreateDeliveryGroupDto"}

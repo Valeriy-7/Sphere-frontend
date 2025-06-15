@@ -1,0 +1,62 @@
+# Зависимости
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js
+.next/
+out/
+
+# Сборка
+build
+dist
+
+# Логи
+*.log
+logs
+
+# Временные файлы
+*.tmp
+*.temp
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Тесты
+coverage
+*.test.js
+*.test.ts
+*.test.tsx
+
+# Переменные окружения
+.env
+.env.local
+.env.development
+.env.production
+
+# Документация
+README.md
+docs
+
+# Husky
+.husky
+
+# Прочее
+.DS_Store
+Thumbs.db
+
+# Kubb генерация (закомментировано, так как нужна для сборки)
+# kubb-gen 

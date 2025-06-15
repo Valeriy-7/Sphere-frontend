@@ -1,1 +1,1 @@
-{"type":"string","enum":["CREATED","IN_PROGRESS","ACCEPTED","PREPARATION","COMPLETED"],"x-readme-ref-name":"DeliveryStatus"}
+{"type":"string","enum":["CREATED","IN_PROGRESS","ACCEPTED","PREPARATION","TO_WORK","COMPLETED"],"x-readme-ref-name":"DeliveryStatus"}

@@ -2,7 +2,7 @@ import type { FFDeliveryProductDtoType } from '../FFDeliveryProductDtoType'
 
 export type FFAccountDeliveriesGetDeliveryProductsPathParamsType = {
   /**
-   * @description ID поставки
+   * @description Идентификатор поставки
    * @type string, uuid
    */
   id: string
@@ -10,14 +10,14 @@ export type FFAccountDeliveriesGetDeliveryProductsPathParamsType = {
 
 export type FFAccountDeliveriesGetDeliveryProductsQueryParamsType = {
   /**
-   * @description ID поставщика для фильтрации (необязательно)
-   * @type string | undefined
+   * @description Фильтр по идентификатору поставщика
+   * @type string | undefined, uuid
    */
   supplierId?: string
 }
 
 /**
- * @description Список продуктов
+ * @description Список товаров поставки
  */
 export type FFAccountDeliveriesGetDeliveryProducts200Type = FFDeliveryProductDtoType[]
 

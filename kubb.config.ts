@@ -25,7 +25,7 @@ const clientOperationGenerator = createReactGenerator({
 
 export default defineConfig({
   input: {
-    path: 'http://176.114.86.65:3006/api-json',
+    path: 'http://localhost:3013/api-json',
   },
   output: {
     path: './kubb-gen',

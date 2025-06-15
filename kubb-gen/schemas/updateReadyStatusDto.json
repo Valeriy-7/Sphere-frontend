@@ -1,0 +1,1 @@
+{"type":"object","properties":{"readyStatus":{"type":"string","description":"Статус готовности для подготовки","enum":["new","ready","in_work"],"example":"ready"}},"required":["readyStatus"],"x-readme-ref-name":"UpdateReadyStatusDto"}

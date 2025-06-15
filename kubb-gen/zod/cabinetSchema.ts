@@ -19,6 +19,7 @@ export const cabinetSchema = z.object({
   isActive: z.boolean().describe('Статус активности кабинета').nullable(),
   ogrn: z.string().describe('ОГРН организации').nullable(),
   managerFullName: z.string().describe('ФИО управляющего').nullable(),
+  ownerFullName: z.string().describe('ФИО владельца').nullable(),
   legalAddress: z.string().describe('Юридический адрес').nullable(),
   actualAddress: z.string().describe('Фактический адрес').nullable(),
   companyPhone: z.string().describe('Телефон организации').nullable(),

@@ -6,7 +6,7 @@ export const FFDeliveryDetailWithRoutesDtoSchema = z.object({
   deliveryNumber: z.string().describe('Номер поставки (уникальный от ВБ)'),
   storeManagerName: z.string().describe('Имя управляющего магазином').optional(),
   deliveryDate: z.date().describe('Дата поставки'),
-  status: z.enum(['new', 'reception', 'accepted', 'preparation', 'completed']),
+  status: z.enum(['new', 'reception', 'accepted', 'preparation', 'to_work', 'completed']),
   cabinet: z.object({}).describe('Информация о кабинете'),
   responsiblePersons: z
     .array(

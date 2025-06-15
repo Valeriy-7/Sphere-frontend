@@ -26,54 +26,54 @@ export type FFDeliveryProductDtoType = {
   imageUrl: string
   /**
    * @description Цвет товара
-   * @type string
+   * @type string | undefined
    */
   color?: string
   /**
    * @description Категория товара
-   * @type string
+   * @type string | undefined
    */
   category?: string
   /**
    * @description Бренд товара
-   * @type string
+   * @type string | undefined
    */
   brand?: string
   /**
    * @description Размер товара
-   * @type string
+   * @type string | undefined
    */
   size?: string
   /**
    * @description Числовой размер товара
-   * @type string
+   * @type string | undefined
    */
   numericSize?: string
   /**
    * @description Объем товара
-   * @type number
+   * @type number | undefined
    */
   volume?: number
   /**
    * @description Единица измерения объема
-   * @type string
+   * @type string | undefined
    */
   volumeUnit?: string
   /**
    * @description Доступные размеры товара
-   * @type string[]
+   * @type array | undefined
    */
   sizes?: string[]
   /**
    * @description Доступные цвета товара
-   * @type string[]
+   * @type array | undefined
    */
   colors?: string[]
   /**
    * @description Характеристики товара
-   * @type Record<string, any>
+   * @type object | undefined
    */
-  characteristics?: Record<string, any>
+  characteristics?: object
   /**
    * @description Плановое количество
    * @type number
@@ -116,55 +116,53 @@ export type FFDeliveryProductDtoType = {
   supplierName: string
   /**
    * @description Место на складе
-   * @type string
+   * @type string | undefined
    */
-  warehousePlace?: string | null
+  warehousePlace?: string
   /**
    * @description Индивидуальные количества по размерам
-   * @type DeliveryProductSizeDto[]
+   * @type array | undefined
    */
-  sizeQuantities?: DeliveryProductSizeDto[]
-}
-
-export type DeliveryProductSizeDto = {
-  /**
-   * @description Уникальный ID размера
-   * @type string
-   */
-  id: string
-  /**
-   * @description Ключ размера
-   * @type string
-   */
-  sizeKey: string
-  /**
-   * @description Отображаемое название размера
-   * @type string
-   */
-  sizeDisplay: string
-  /**
-   * @description Размер WB
-   * @type string
-   */
-  wbSize?: string
-  /**
-   * @description Технический размер
-   * @type string
-   */
-  techSize?: string
-  /**
-   * @description Место хранения
-   * @type string
-   */
-  storageLocation?: string
-  /**
-   * @description Фактическое количество
-   * @type number
-   */
-  factQuantity: number
-  /**
-   * @description Количество брака
-   * @type number
-   */
-  defects: number
+  sizeQuantities?: {
+    /**
+     * @description ID размера
+     * @type string
+     */
+    id: string
+    /**
+     * @description Ключ размера
+     * @type string
+     */
+    sizeKey: string
+    /**
+     * @description Отображаемый размер
+     * @type string
+     */
+    sizeDisplay: string
+    /**
+     * @description Размер WB
+     * @type string | undefined
+     */
+    wbSize?: string
+    /**
+     * @description Технический размер
+     * @type string | undefined
+     */
+    techSize?: string
+    /**
+     * @description Место хранения
+     * @type string | undefined
+     */
+    storageLocation?: string
+    /**
+     * @description Фактическое количество
+     * @type number
+     */
+    factQuantity: number
+    /**
+     * @description Количество дефектов
+     * @type number
+     */
+    defects: number
+  }[]
 }

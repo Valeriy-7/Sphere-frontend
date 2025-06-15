@@ -1,0 +1,1 @@
+{"type":"object","properties":{"groupName":{"type":"string","description":"Название группы поставок","example":"Обновленная группа поставок"},"deliveryIds":{"description":"Массив ID поставок в группе","example":["uuid1","uuid2"],"type":"array","items":{"type":"string"}}},"x-readme-ref-name":"UpdateDeliveryGroupDto"}
