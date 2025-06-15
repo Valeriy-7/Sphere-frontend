@@ -1,17 +1,15 @@
 services:
   sphere-frontend:
-    env_file:
-      - stack.env
     build:
       context: .
       dockerfile: Dockerfile
       target: runner
       args:
-        - NEXT_PUBLIC_API=${NEXT_PUBLIC_API}
-        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-        - NEXT_PUBLIC_API_KEY=${NEXT_PUBLIC_API_KEY}
-        - NEXTAUTH_URL=${NEXTAUTH_URL}
-        - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+        - NEXT_PUBLIC_API=https://api.sferav.ru
+        - NEXT_PUBLIC_API_URL=https://api.sferav.ru
+        - NEXT_PUBLIC_API_KEY=8fda9283-6ed8-45fa-a9e6-75d84a7b90f1
+        - NEXTAUTH_URL=https://sferav.ru
+        - NEXTAUTH_SECRET=secret
     image: sphere-frontend:${TAG:-latest}
     container_name: sphere-frontend
     restart: unless-stopped
@@ -24,17 +22,18 @@ services:
       - PORT=3000
       - HOSTNAME=0.0.0.0
       
-      # API конфигурация
-      - NEXT_PUBLIC_API=${NEXT_PUBLIC_API}
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-      - NEXT_PUBLIC_API_KEY=${NEXT_PUBLIC_API_KEY}
+      # API конфигурация (жестко заданные значения)
+      - NEXT_PUBLIC_API=https://api.sferav.ru
+      - NEXT_PUBLIC_API_URL=https://api.sferav.ru
+      - NEXT_PUBLIC_API_KEY=8fda9283-6ed8-45fa-a9e6-75d84a7b90f1
       
       # NextAuth конфигурация
-      - NEXTAUTH_URL=${NEXTAUTH_URL}
-      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=https://sferav.ru
+      - NEXTAUTH_SECRET=secret
       
       # Дополнительные переменные
-      - FRONTEND_URL=${FRONTEND_URL}
+      - FRONTEND_URL=https://sferav.ru
+      - KUBB_API_URL=https://api.sferav.ru/api-json
     
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
