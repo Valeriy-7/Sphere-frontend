@@ -12,12 +12,14 @@ interface SimpleDatePickerProps {
   value?: string | Date | null;
   onChange?: (date: Date | undefined) => void;
   placeholder?: string;
+  disablePastDates?: boolean;
 }
 
 export function SimpleDatePicker({ 
   value, 
   onChange, 
-  placeholder = "Выбрать дату" 
+  placeholder = "Выбрать дату",
+  disablePastDates = false
 }: SimpleDatePickerProps) {
   // Convert the input value to a Date object
   const getDateValue = (): Date | undefined => {
@@ -66,6 +68,7 @@ export function SimpleDatePicker({
           mode="single"
           selected={displayDate}
           onSelect={handleSelect}
+          disabled={disablePastDates ? (date) => date < new Date(new Date().setHours(0, 0, 0, 0)) : undefined}
           initialFocus
         />
       </PopoverContent>

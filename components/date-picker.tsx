@@ -2,7 +2,7 @@
 
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { FieldValues, UseFormReturn, Path } from 'react-hook-form';
 
 import { cn } from '@/lib/utils';
 
@@ -18,7 +18,7 @@ export function DatePicker<FormValues extends FieldValues>({
   name,
 }: {
   form: UseFormReturn<FormValues>;
-  name: string;
+  name: Path<FormValues>;
 }) {
   return (
     <FormField
@@ -44,7 +44,7 @@ export function DatePicker<FormValues extends FieldValues>({
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
-                /*  disabled={(date) => date > new Date() || date < new Date('1900-01-01')}*/
+                disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
                 initialFocus
               />
             </PopoverContent>
